@@ -1,4 +1,4 @@
-package com.fiction.detail.m;
+package com.fiction.detail.model;
 
 import com.framework.base.BaseModel;
 

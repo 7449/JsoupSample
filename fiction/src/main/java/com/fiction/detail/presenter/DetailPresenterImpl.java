@@ -1,7 +1,7 @@
-package com.fiction.detail.p;
+package com.fiction.detail.presenter;
 
-import com.fiction.detail.m.DetailModel;
-import com.fiction.detail.v.DetailView;
+import com.fiction.detail.model.DetailModel;
+import com.fiction.detail.view.DetailView;
 import com.fiction.manager.Jsoup81Manager;
 import com.framework.base.PresenterImplCompat;
 import com.rxjsoupnetwork.manager.RxJsoupNetWork;

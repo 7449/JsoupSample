@@ -1,4 +1,4 @@
-package com.fiction.contents.w;
+package com.fiction.contents.widget;
 
 import android.os.Bundle;
 import android.support.v4.widget.ContentLoadingProgressBar;
@@ -10,10 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.fiction.R;
-import com.fiction.contents.m.ContentsModel;
-import com.fiction.contents.p.ContentsPresenterImpl;
-import com.fiction.contents.v.ContentsView;
-import com.fiction.detail.w.DetailActivity;
+import com.fiction.contents.model.ContentsModel;
+import com.fiction.contents.presenter.ContentsPresenterImpl;
+import com.fiction.contents.view.ContentsView;
+import com.fiction.detail.widget.DetailActivity;
 import com.framework.base.BaseActivity;
 import com.framework.base.BaseRecyclerAdapter;
 import com.framework.utils.UIUtils;

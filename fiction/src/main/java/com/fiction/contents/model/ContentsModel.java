@@ -1,4 +1,4 @@
-package com.fiction.contents.m;
+package com.fiction.contents.model;
 
 import com.framework.base.BaseModel;
 

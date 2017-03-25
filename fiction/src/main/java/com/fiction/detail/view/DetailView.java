@@ -1,6 +1,6 @@
-package com.fiction.detail.v;
+package com.fiction.detail.view;
 
-import com.fiction.detail.m.DetailModel;
+import com.fiction.detail.model.DetailModel;
 import com.framework.base.BaseView;
 
 /**

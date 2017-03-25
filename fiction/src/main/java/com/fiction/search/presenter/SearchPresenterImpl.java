@@ -1,12 +1,12 @@
-package com.fiction.search.p;
+package com.fiction.search.presenter;
 
 import android.text.TextUtils;
 
 import com.fiction.db.SearchDb;
 import com.fiction.manager.ApiConfig;
 import com.fiction.manager.Jsoup81Manager;
-import com.fiction.search.m.SearchModel;
-import com.fiction.search.v.SearchView;
+import com.fiction.search.model.SearchModel;
+import com.fiction.search.view.SearchView;
 import com.framework.base.PresenterImplCompat;
 import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 

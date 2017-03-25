@@ -1,6 +1,6 @@
-package com.fiction.contents.v;
+package com.fiction.contents.view;
 
-import com.fiction.contents.m.ContentsModel;
+import com.fiction.contents.model.ContentsModel;
 import com.framework.base.BaseView;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.fiction.detail.w;
+package com.fiction.detail.widget;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import android.webkit.WebView;
 import android.widget.FrameLayout;
 
 import com.fiction.R;
-import com.fiction.detail.m.DetailModel;
-import com.fiction.detail.p.DetailPresenter;
-import com.fiction.detail.p.DetailPresenterImpl;
-import com.fiction.detail.v.DetailView;
+import com.fiction.detail.model.DetailModel;
+import com.fiction.detail.presenter.DetailPresenter;
+import com.fiction.detail.presenter.DetailPresenterImpl;
+import com.fiction.detail.view.DetailView;
 import com.framework.base.BaseActivity;
 import com.framework.utils.HtmlUtils;
 import com.framework.utils.UIUtils;

@@ -16,10 +16,10 @@ import java.util.List;
  * by y on 2017/3/23
  */
 
-public class JsoupManager {
+public class JsoupMZiTuManager {
 
 
-    private JsoupManager() {
+    private JsoupMZiTuManager() {
     }
 
     public static List<ImageListModel> getImageList(@NonNull String type, @NonNull Document document) {

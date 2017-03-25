@@ -1,6 +1,6 @@
-package com.fiction.search.v;
+package com.fiction.search.view;
 
-import com.fiction.search.m.SearchModel;
+import com.fiction.search.model.SearchModel;
 import com.framework.base.BaseView;
 
 import java.util.List;

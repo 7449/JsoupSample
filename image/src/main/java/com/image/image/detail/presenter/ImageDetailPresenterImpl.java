@@ -5,7 +5,7 @@ import com.framework.base.PresenterImplCompat;
 import com.image.image.detail.model.ImageDetailModel;
 import com.image.image.detail.view.ImageDetailView;
 import com.image.manager.CorrectUtils;
-import com.image.manager.JsoupManager;
+import com.image.manager.JsoupMZiTuManager;
 import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
@@ -34,6 +34,6 @@ public class ImageDetailPresenterImpl extends PresenterImplCompat<List<ImageDeta
 
     @Override
     public List<ImageDetailModel> getT(Document document) {
-        return JsoupManager.getImageDetail(view.getType(), document);
+        return JsoupMZiTuManager.getImageDetail(view.getType(), document);
     }
 }

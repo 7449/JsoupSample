@@ -1,4 +1,4 @@
-package com.fiction.search.w;
+package com.fiction.search.widget;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -11,13 +11,13 @@ import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.fiction.R;
-import com.fiction.contents.w.ContentsActivity;
+import com.fiction.contents.widget.ContentsActivity;
 import com.fiction.db.GreenDaoDbUtils;
 import com.fiction.db.SqlBean;
-import com.fiction.search.m.SearchModel;
-import com.fiction.search.p.SearchPresenter;
-import com.fiction.search.p.SearchPresenterImpl;
-import com.fiction.search.v.SearchView;
+import com.fiction.search.model.SearchModel;
+import com.fiction.search.presenter.SearchPresenter;
+import com.fiction.search.presenter.SearchPresenterImpl;
+import com.fiction.search.view.SearchView;
 import com.framework.base.BaseActivity;
 import com.framework.base.BaseRecyclerAdapter;
 import com.framework.utils.UIUtils;

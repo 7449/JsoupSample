@@ -5,7 +5,7 @@ import com.framework.base.PresenterImplCompat;
 import com.image.image.list.model.ImageListModel;
 import com.image.image.list.view.ImageView;
 import com.image.manager.CorrectUtils;
-import com.image.manager.JsoupManager;
+import com.image.manager.JsoupMZiTuManager;
 import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
@@ -33,6 +33,6 @@ public class ImagePresenterImpl extends PresenterImplCompat<List<ImageListModel>
 
     @Override
     public List<ImageListModel> getT(Document document) {
-        return JsoupManager.getImageList(view.getType(), document);
+        return JsoupMZiTuManager.getImageList(view.getType(), document);
     }
 }

@@ -1,9 +1,9 @@
-package com.fiction.contents.w;
+package com.fiction.contents.widget;
 
 import android.support.v4.content.ContextCompat;
 
 import com.fiction.R;
-import com.fiction.contents.m.ContentsModel;
+import com.fiction.contents.model.ContentsModel;
 import com.framework.base.BaseRecyclerAdapter;
 import com.framework.base.SuperViewHolder;
 

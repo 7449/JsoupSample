@@ -1,4 +1,4 @@
-package com.fiction.search.m;
+package com.fiction.search.model;
 
 import com.framework.base.BaseModel;
 

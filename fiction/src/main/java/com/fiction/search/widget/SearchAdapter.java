@@ -1,7 +1,7 @@
-package com.fiction.search.w;
+package com.fiction.search.widget;
 
 import com.fiction.R;
-import com.fiction.search.m.SearchModel;
+import com.fiction.search.model.SearchModel;
 import com.framework.base.BaseRecyclerAdapter;
 import com.framework.base.SuperViewHolder;
 import com.framework.utils.ImageLoaderUtils;

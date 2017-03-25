@@ -1,4 +1,4 @@
-package com.fiction.detail.p;
+package com.fiction.detail.presenter;
 
 /**
  * by y on 2017/1/8.

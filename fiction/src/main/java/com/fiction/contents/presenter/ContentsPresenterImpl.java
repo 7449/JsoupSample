@@ -1,7 +1,7 @@
-package com.fiction.contents.p;
+package com.fiction.contents.presenter;
 
-import com.fiction.contents.m.ContentsModel;
-import com.fiction.contents.v.ContentsView;
+import com.fiction.contents.model.ContentsModel;
+import com.fiction.contents.view.ContentsView;
 import com.fiction.manager.Jsoup81Manager;
 import com.framework.base.PresenterImplCompat;
 import com.rxjsoupnetwork.manager.RxJsoupNetWork;
