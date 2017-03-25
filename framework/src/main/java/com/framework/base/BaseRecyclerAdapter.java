@@ -65,20 +65,12 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         onBind((SuperViewHolder) holder, position, mDatas.get(position));
         final T data = mDatas.get(position);
         if (null != mOnItemClickListener) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnItemClickListener.onItemClick(v, position, data);
-                }
-            });
+            holder.itemView.setOnClickListener(v -> mOnItemClickListener.onItemClick(v, position, data));
         }
         if (null != mOnLongClickListener) {
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    mOnLongClickListener.onLongClick(v, position, data);
-                    return true;
-                }
+            holder.itemView.setOnLongClickListener(v -> {
+                mOnLongClickListener.onLongClick(v, position, data);
+                return true;
             });
         }
     }

@@ -16,10 +16,6 @@ android {
     }
 }
 dependencies {
-    compile("com.zzhoujay.richtext:richtext:$richtextVserion", {
-        exclude group: 'com.android.support'
-        exclude group: 'com.zzhoujay.markdown'
-    })
     compile "com.android.support:appcompat-v7:$supportVersion"
     compile "com.android.support:cardview-v7:$supportVersion"
     compile "com.android.support:design:$supportVersion"

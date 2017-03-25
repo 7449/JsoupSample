@@ -9,9 +9,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.framework.base.BaseActivity;
+import com.framework.utils.HtmlUtils;
 import com.framework.utils.UIUtils;
 import com.movie.R;
-import com.movie.manager.HtmlUtils;
 import com.movie.movie.xiaopian.detail.model.XiaoPianDetailModel;
 import com.movie.movie.xiaopian.detail.presenter.XiaoPianDetailPresenterImpl;
 import com.movie.movie.xiaopian.detail.view.XiaoPianDetailView;

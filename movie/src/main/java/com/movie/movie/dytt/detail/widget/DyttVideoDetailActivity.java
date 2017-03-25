@@ -9,9 +9,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.framework.base.BaseActivity;
+import com.framework.utils.HtmlUtils;
 import com.framework.utils.UIUtils;
 import com.movie.R;
-import com.movie.manager.HtmlUtils;
 import com.movie.movie.dytt.detail.model.DyttVideoDetailModel;
 import com.movie.movie.dytt.detail.presenter.DyttVideoDetailPresenterImpl;
 import com.movie.movie.dytt.detail.view.DyttVideoDetailView;

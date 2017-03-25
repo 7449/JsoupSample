@@ -1,6 +1,5 @@
 package com.framework.widget;
 
-import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 
 import com.framework.R;
@@ -25,12 +24,9 @@ public class FtpDialogFragment extends BaseDialogFragment {
                 .Builder(getActivity())
                 .setMessage(getString(R.string.dialog_download_tips))
                 .setNegativeButton(getString(R.string.dialog_exit_cancel), null)
-                .setPositiveButton(getString(R.string.dialog_exit_positive), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (listener != null) {
-                            listener.onFtpNext();
-                        }
+                .setPositiveButton(getString(R.string.dialog_exit_positive), (dialog, which) -> {
+                    if (listener != null) {
+                        listener.onFtpNext();
                     }
                 })
                 .create();

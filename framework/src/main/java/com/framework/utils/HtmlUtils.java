@@ -1,4 +1,4 @@
-package com.movie.manager;
+package com.framework.utils;
 
 /**
  * by y on 2016/8/7.

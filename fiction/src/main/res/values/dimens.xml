@@ -3,5 +3,5 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="card_view_margin">6dp</dimen>
     <dimen name="padding">5dp</dimen>
-    <dimen name="margin">10dp</dimen>
+    <dimen name="margin">5dp</dimen>
 </resources>
