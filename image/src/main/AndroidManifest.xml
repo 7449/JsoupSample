@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".image.detail.widget.ImageDetailActivity" />
+        <activity android:name=".image.douban.detail.widget.DouBanDetailActivity" />
+        <activity android:name=".image.meizitu.detail.widget.MZiTuDetailActivity" />
     </application>
 
 </manifest>
