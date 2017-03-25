@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="dbmz_array">
+        <item>大胸妹</item>
+        <item>美腿控</item>
+        <item>有颜值</item>
+        <item>大杂烩</item>
+        <item>小翘臀</item>
+        <item>黑丝袜</item>
+    </string-array>
+
+    <string-array name="mzitu_array">
+        <item>性感妹子</item>
+        <item>日本妹子</item>
+        <item>台湾妹子</item>
+        <item>清纯妹子</item>
+    </string-array>
+
+    <string-array name="mzitu_array_suffix">
+        <item>xinggan</item>
+        <item>japan</item>
+        <item>taiwan</item>
+        <item>mm</item>
+    </string-array>
+
+</resources>
