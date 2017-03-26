@@ -1,10 +1,10 @@
 package com.image.image.mm.detail.widget;
 
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.framework.base.BasePagerAdapter;
 import com.framework.utils.ImageLoaderUtils;
+import com.framework.widget.TouchImageView;
 import com.image.image.mm.detail.model.MMDetailModel;
 
 import java.util.List;
@@ -23,7 +23,7 @@ class MMDetailAdapter extends BasePagerAdapter<MMDetailModel> {
 
     @Override
     protected Object instantiate(ViewGroup container, int position, MMDetailModel data) {
-        ImageView imageView = new ImageView(container.getContext());
+        TouchImageView imageView = new TouchImageView(container.getContext());
         ImageLoaderUtils.display(imageView, data.url);
         container.addView(imageView);
         return imageView;

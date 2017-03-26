@@ -1,12 +1,12 @@
 package com.image.image.douban.detail.widget;
 
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.Toolbar;
 
 import com.framework.base.BaseActivity;
 import com.framework.utils.UIUtils;
+import com.framework.widget.ExtendedViewPager;
 import com.image.R;
 import com.image.image.douban.detail.model.DouBanDetailModel;
 import com.image.image.douban.detail.presenter.DouBanDetailPresenter;
@@ -25,7 +25,7 @@ public class DouBanDetailActivity extends BaseActivity implements DouBanDetailVi
     private static final String URL = "URL";
     private String url;
     private Toolbar toolbar;
-    private ViewPager viewPager;
+    private ExtendedViewPager viewPager;
     private ContentLoadingProgressBar loadingProgressBar;
     private DouBanDetailAdapter adapter;
 

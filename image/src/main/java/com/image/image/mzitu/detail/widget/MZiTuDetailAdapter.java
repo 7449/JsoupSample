@@ -1,10 +1,10 @@
 package com.image.image.mzitu.detail.widget;
 
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.framework.base.BasePagerAdapter;
 import com.framework.utils.ImageLoaderUtils;
+import com.framework.widget.TouchImageView;
 import com.image.image.mzitu.detail.model.MZiTuDetailModel;
 
 import java.util.List;
@@ -23,7 +23,7 @@ class MZiTuDetailAdapter extends BasePagerAdapter<MZiTuDetailModel> {
 
     @Override
     protected Object instantiate(ViewGroup container, int position, MZiTuDetailModel data) {
-        ImageView imageView = new ImageView(container.getContext());
+        TouchImageView imageView = new TouchImageView(container.getContext());
         ImageLoaderUtils.display(imageView, data.url);
         container.addView(imageView);
         return imageView;

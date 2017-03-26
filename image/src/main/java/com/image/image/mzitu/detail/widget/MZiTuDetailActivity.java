@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.framework.base.BaseActivity;
 import com.framework.utils.UIUtils;
+import com.framework.widget.ExtendedViewPager;
 import com.image.R;
 import com.image.image.mzitu.detail.model.MZiTuDetailModel;
 import com.image.image.mzitu.detail.presenter.MZiTuDetailPresenterImpl;
@@ -24,7 +25,7 @@ public class MZiTuDetailActivity extends BaseActivity implements MZiTuDetailView
     private static final String URL = "URL";
     private String url;
     private Toolbar toolbar;
-    private ViewPager viewPager;
+    private ExtendedViewPager viewPager;
     private ContentLoadingProgressBar loadingProgressBar;
     private MZiTuDetailAdapter adapter;
 

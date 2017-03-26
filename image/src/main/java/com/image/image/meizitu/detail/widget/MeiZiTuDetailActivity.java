@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.framework.base.BaseActivity;
 import com.framework.utils.UIUtils;
+import com.framework.widget.ExtendedViewPager;
 import com.image.R;
 import com.image.image.meizitu.detail.model.MeiZiTuDetailModel;
 import com.image.image.meizitu.detail.presenter.MeiZiTuDetailPresenterImpl;
@@ -24,7 +25,7 @@ public class MeiZiTuDetailActivity extends BaseActivity implements MeiZiTuDetail
     private static final String URL = "URL";
     private String url;
     private Toolbar toolbar;
-    private ViewPager viewPager;
+    private ExtendedViewPager viewPager;
     private ContentLoadingProgressBar loadingProgressBar;
     private MeiZiTuDetailAdapter adapter;
 
@@ -66,7 +67,7 @@ public class MeiZiTuDetailActivity extends BaseActivity implements MeiZiTuDetail
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_mzitu_detail;
+        return R.layout.activity_meizitu_detail;
     }
 
     @Override

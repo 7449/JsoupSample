@@ -16,6 +16,7 @@ jsoupSample
 	[豆瓣美女](http://www.dbmeinv.com/)<br>
 	[妹子图](http://www.mzitu.com/)<br>
 	[MM](http://www.mmjpg.com/)</br>
+	[MEIZITU](http://www.meizitu.com/)</br>
 	
 * movie
 
@@ -68,6 +69,10 @@ jsoupSample
 > [flowlayout](https://github.com/ApmeM/android-flowlayout)
 
 	flowlayout
+	
+> [TouchImageView](https://github.com/MikeOrtiz/TouchImageView)
+
+	可双击或者触摸放大缩小的ImageView
 
 
 	
