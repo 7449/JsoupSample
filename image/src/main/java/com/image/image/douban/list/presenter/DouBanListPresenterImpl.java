@@ -26,7 +26,7 @@ public class DouBanListPresenterImpl extends PresenterImplCompat<List<DouBanList
         RxJsoupNetWork
                 .getInstance()
                 .getApi(
-                        RxJsoupNetWork.onSubscribe(ApiConfig.DBMZ_API + (id + 2) + ApiConfig.dou_ban_link + page, this),
+                        RxJsoupNetWork.onSubscribe(ApiConfig.DBMZ_URL + (id + 2) + ApiConfig.dou_ban_link + page, this),
                         this);
     }
 

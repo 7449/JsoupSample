@@ -133,4 +133,9 @@ public class Dy2018ListFragment extends BaseFragment
             UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
         }
     }
+
+    @Override
+    public void noMore() {
+        UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.data_empty));
+    }
 }

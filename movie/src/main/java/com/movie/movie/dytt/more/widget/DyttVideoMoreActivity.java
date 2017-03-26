@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.framework.base.BaseActivity;
@@ -139,10 +138,7 @@ public class DyttVideoMoreActivity extends BaseActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
+    public void noMore() {
+        UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.data_empty));
     }
 }

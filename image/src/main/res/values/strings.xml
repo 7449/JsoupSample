@@ -3,4 +3,6 @@
     <string name="network_error">网络异常</string>
     <string name="dbmz_title">豆瓣美女</string>
     <string name="mzitu_title">妹子图</string>
+    <string name="mm_title">MM</string>
+
 </resources>

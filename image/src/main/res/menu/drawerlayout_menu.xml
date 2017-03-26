@@ -10,5 +10,9 @@
             android:id="@+id/mzitu"
             android:icon="@mipmap/ic_launcher"
             android:title="@string/mzitu_title" />
+        <item
+            android:id="@+id/mm"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/mm_title" />
     </group>
 </menu>

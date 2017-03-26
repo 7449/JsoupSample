@@ -3,6 +3,8 @@ package com.framework.base;
 import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 import com.rxjsoupnetwork.manager.RxJsoupNetWorkListener;
 
+import java.util.List;
+
 /**
  * by y on 2017/3/23
  */
@@ -34,6 +36,10 @@ public abstract class PresenterImplCompat<M, V extends BaseView<M>>
 
     @Override
     public void onNetWorkSuccess(M data) {
-        view.netWorkSuccess(data);
+        if (data instanceof List && view instanceof BaseListView && ((List) data).isEmpty()) {
+            ((BaseListView) view).noMore();
+        } else {
+            view.netWorkSuccess(data);
+        }
     }
 }

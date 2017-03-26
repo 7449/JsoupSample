@@ -29,7 +29,7 @@ public class MZiTuListPresenterImpl extends PresenterImplCompat<List<MZiTuListMo
         RxJsoupNetWork
                 .getInstance()
                 .getApi(
-                        RxJsoupNetWork.onSubscribe(ApiConfig.M_ZI_TU_API +
+                        RxJsoupNetWork.onSubscribe(ApiConfig.M_ZI_TU_URL +
                                 UIUtils.getStringArray(R.array.mzitu_array_suffix)[id] +
                                 ApiConfig.SLASH +
                                 ApiConfig.PAGE +

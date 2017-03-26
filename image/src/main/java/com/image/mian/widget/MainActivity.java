@@ -72,4 +72,9 @@ public class MainActivity extends BaseActivity
         replaceFragment(R.id.fragment, TabFragment.newInstance(ApiConfig.Type.M_ZI_TU));
     }
 
+    @Override
+    public void switchMM() {
+        replaceFragment(R.id.fragment, TabFragment.newInstance(ApiConfig.Type.MM));
+    }
+
 }

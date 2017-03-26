@@ -23,4 +23,42 @@
         <item>mm</item>
     </string-array>
 
+    <string-array name="mm_array">
+        <item>所有</item>
+        <item>性感</item>
+        <item>小清新</item>
+        <item>刘飞儿</item>
+        <item>可儿</item>
+        <item>美胸</item>
+        <item>美臀</item>
+        <item>萌妹</item>
+        <item>ROSI</item>
+        <item>推女神</item>
+        <item>内衣</item>
+        <item>美腿</item>
+        <item>秀人网</item>
+        <item>尤果网</item>
+        <item>DISI</item>
+        <item>绮里嘉</item>
+        <item>第四印象</item>
+    </string-array>
+    <string-array name="mm_array_suffix">
+        <item>home/%s</item>
+        <item>tag/xinggan/%s</item>
+        <item>tag/xiaoqingxin/%s</item>
+        <item>tag/liufeier/%s</item>
+        <item>tag/barbie/%s</item>
+        <item>tag/meixiong/%s</item>
+        <item>tag/meitun/%s</item>
+        <item>tag/mengmei/%s</item>
+        <item>tag/rosi/%s</item>
+        <item>tag/tgod/%s</item>
+        <item>tag/neiyi/%s</item>
+        <item>tag/meitui/%s</item>
+        <item>tag/xiuren/%s</item>
+        <item>tag/ugirls/%s</item>
+        <item>tag/disi/%s</item>
+        <item>tag/qilijia/%s</item>
+        <item>tag/disi/%s</item>
+    </string-array>
 </resources>

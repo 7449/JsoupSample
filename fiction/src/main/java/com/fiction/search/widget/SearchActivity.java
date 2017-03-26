@@ -182,4 +182,9 @@ public class SearchActivity extends BaseActivity
         }
         editText.setOnFocusChangeListener(this);
     }
+
+    @Override
+    public void noMore() {
+        UIUtils.snackBar(getView(R.id.fa_btn), getString(R.string.data_empty));
+    }
 }

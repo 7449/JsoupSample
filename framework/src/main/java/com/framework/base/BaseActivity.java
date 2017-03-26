@@ -3,6 +3,7 @@ package com.framework.base;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.rxjsoupnetwork.manager.RxJsoupSubscriptionManager;
@@ -34,6 +35,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void initById();
 
     protected abstract int getLayoutId();
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onDestroy() {

@@ -1,4 +1,4 @@
-package com.image.image.douban.list.widget;
+package com.image.image.mm.list.widget;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -8,11 +8,11 @@ import com.framework.base.BaseFragment;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
 import com.image.R;
-import com.image.image.douban.detail.widget.DouBanDetailActivity;
-import com.image.image.douban.list.model.DouBanListModel;
-import com.image.image.douban.list.presenter.DouBanListPresenter;
-import com.image.image.douban.list.presenter.DouBanListPresenterImpl;
-import com.image.image.douban.list.view.DouBanListView;
+import com.image.image.mm.detail.widget.MMDetailActivity;
+import com.image.image.mm.list.model.MMListModel;
+import com.image.image.mm.list.presenter.MMListPresenter;
+import com.image.image.mm.list.presenter.MMListPresenterImpl;
+import com.image.image.mm.list.view.MMListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,23 +21,23 @@ import java.util.List;
 /**
  * by y on 2016/7/28.
  */
-public class DouBanListFragment extends BaseFragment
-        implements SwipeRefreshLayout.OnRefreshListener, DouBanListView {
+public class MMListFragment extends BaseFragment
+        implements SwipeRefreshLayout.OnRefreshListener, MMListView {
 
     protected int page = 1;
 
     private LoadMoreRecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    private DouBanListAdapter adapter;
-    private DouBanListPresenter imageListPresenter;
+    private MMListAdapter adapter;
+    private MMListPresenter imageListPresenter;
 
-    public static DouBanListFragment newInstance(int position) {
-        DouBanListFragment douBanListFragment = new DouBanListFragment();
+    public static MMListFragment newInstance(int position) {
+        MMListFragment mmListFragment = new MMListFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(FRAGMENT_INDEX, position);
-        douBanListFragment.setArguments(bundle);
-        return douBanListFragment;
+        mmListFragment.setArguments(bundle);
+        return mmListFragment;
     }
 
     @Override
@@ -58,14 +58,14 @@ public class DouBanListFragment extends BaseFragment
             return;
         }
         initRecyclerView();
-        imageListPresenter = new DouBanListPresenterImpl(this);
+        imageListPresenter = new MMListPresenterImpl(this);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(this::onRefresh);
         setLoad();
     }
 
     private void initRecyclerView() {
-        adapter = new DouBanListAdapter(new ArrayList<>());
+        adapter = new MMListAdapter(new ArrayList<>());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setLoadingMore(() -> {
@@ -73,14 +73,14 @@ public class DouBanListFragment extends BaseFragment
             imageListPresenter.netWorkRequest(tabPosition, page);
         });
         adapter.setOnItemClickListener((view, position, info) ->
-                DouBanDetailActivity.startIntent(info.detailUrl)
+                MMDetailActivity.startIntent(info.detailUrl)
         );
         recyclerView.setAdapter(adapter);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_douban_list;
+        return R.layout.fragment_mm_list;
     }
 
     @Override
@@ -91,7 +91,7 @@ public class DouBanListFragment extends BaseFragment
 
 
     @Override
-    public void netWorkSuccess(List<DouBanListModel> data) {
+    public void netWorkSuccess(List<MMListModel> data) {
         if (page == 1) {
             adapter.removeAll();
         }
@@ -123,4 +123,6 @@ public class DouBanListFragment extends BaseFragment
             UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.data_empty));
         }
     }
+
+
 }

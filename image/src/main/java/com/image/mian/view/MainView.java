@@ -10,4 +10,6 @@ public interface MainView {
 
     void switchMZitu();
 
+    void switchMM();
+
 }

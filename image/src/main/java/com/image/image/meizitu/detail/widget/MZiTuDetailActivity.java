@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 
 import com.framework.base.BaseActivity;
 import com.framework.utils.UIUtils;
@@ -71,14 +70,6 @@ public class MZiTuDetailActivity extends BaseActivity implements MZiTuDetailView
         toolbar = getView(R.id.toolbar);
         viewPager = getView(R.id.viewPager);
         loadingProgressBar = getView(R.id.progress_bar);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

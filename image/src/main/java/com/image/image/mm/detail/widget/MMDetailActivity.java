@@ -1,4 +1,4 @@
-package com.image.image.douban.detail.widget;
+package com.image.image.mm.detail.widget;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -8,10 +8,9 @@ import android.support.v7.widget.Toolbar;
 import com.framework.base.BaseActivity;
 import com.framework.utils.UIUtils;
 import com.image.R;
-import com.image.image.douban.detail.model.DouBanDetailModel;
-import com.image.image.douban.detail.presenter.DouBanDetailPresenter;
-import com.image.image.douban.detail.presenter.DouBanDetailPresenterImpl;
-import com.image.image.douban.detail.view.DouBanDetailView;
+import com.image.image.mm.detail.model.MMDetailModel;
+import com.image.image.mm.detail.presenter.MMDetailPresenterImpl;
+import com.image.image.mm.detail.view.MMDetailView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,18 +20,18 @@ import java.util.List;
  * by y on 2017/3/23
  */
 
-public class DouBanDetailActivity extends BaseActivity implements DouBanDetailView {
+public class MMDetailActivity extends BaseActivity implements MMDetailView {
     private static final String URL = "URL";
     private String url;
     private Toolbar toolbar;
     private ViewPager viewPager;
     private ContentLoadingProgressBar loadingProgressBar;
-    private DouBanDetailAdapter adapter;
+    private MMDetailAdapter adapter;
 
     public static void startIntent(String url) {
         Bundle bundle = new Bundle();
         bundle.putString(URL, url);
-        UIUtils.startActivity(DouBanDetailActivity.class, bundle);
+        UIUtils.startActivity(MMDetailActivity.class, bundle);
     }
 
     @Override
@@ -41,17 +40,23 @@ public class DouBanDetailActivity extends BaseActivity implements DouBanDetailVi
         if (extras != null) {
             url = extras.getString(URL);
         }
-
-        DouBanDetailPresenter presenter = new DouBanDetailPresenterImpl(this);
-        adapter = new DouBanDetailAdapter(new ArrayList<>());
+        adapter = new MMDetailAdapter(new ArrayList<>());
         viewPager.setAdapter(adapter);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        toolbar.setTitle(getString(R.string.dbmz_title));
-        presenter.netWorkRequest(url);
+        setTitles(1, adapter.getCount());
+        new MMDetailPresenterImpl(this).netWorkRequest(url);
+        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                setTitles(position + 1, adapter.getCount());
+            }
+        });
     }
+
 
     @Override
     protected void initById() {
@@ -63,13 +68,13 @@ public class DouBanDetailActivity extends BaseActivity implements DouBanDetailVi
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_douban_detail;
+        return R.layout.activity_mm_detail;
     }
 
-
     @Override
-    public void netWorkSuccess(List<DouBanDetailModel> data) {
+    public void netWorkSuccess(List<MMDetailModel> data) {
         adapter.addAll(data);
+        setTitles(1, adapter.getCount());
     }
 
     @Override
@@ -87,4 +92,7 @@ public class DouBanDetailActivity extends BaseActivity implements DouBanDetailVi
         loadingProgressBar.hide();
     }
 
+    private void setTitles(int page, int imageSize) {
+        toolbar.setTitle(getString(R.string.mm_title) + "(" + page + "/" + imageSize + ")");
+    }
 }

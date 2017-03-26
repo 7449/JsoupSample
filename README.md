@@ -15,6 +15,7 @@ jsoupSample
 	
 	[豆瓣美女](http://www.dbmeinv.com/)<br>
 	[妹子图](http://www.mzitu.com/)<br>
+	[MM](http://www.mmjpg.com/)</br>
 	
 * movie
 

@@ -9,6 +9,7 @@ import com.framework.utils.UIUtils;
 import com.image.R;
 import com.image.image.douban.list.widget.DouBanListFragment;
 import com.image.image.meizitu.list.widget.MZiTuListFragment;
+import com.image.image.mm.list.widget.MMListFragment;
 import com.image.manager.ApiConfig;
 
 /**
@@ -29,6 +30,9 @@ class TabAdapter extends FragmentPagerAdapter {
                 break;
             case ApiConfig.Type.M_ZI_TU:
                 name = UIUtils.getStringArray(R.array.mzitu_array);
+                break;
+            case ApiConfig.Type.MM:
+                name = UIUtils.getStringArray(R.array.mm_array);
                 break;
         }
 
@@ -53,8 +57,12 @@ class TabAdapter extends FragmentPagerAdapter {
         switch (type) {
             case ApiConfig.Type.DOU_BAN_MEI_ZI:
                 return DouBanListFragment.newInstance(position);
-            default:
+            case ApiConfig.Type.M_ZI_TU:
                 return MZiTuListFragment.newInstance(position);
+            case ApiConfig.Type.MM:
+                return MMListFragment.newInstance(position);
+            default:
+                return null;
         }
     }
 

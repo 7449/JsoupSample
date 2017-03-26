@@ -26,6 +26,9 @@ public class MainPresenterImpl implements MainPresenter {
             case R.id.dbmz:
                 mainView.switchDouban();
                 break;
+            case R.id.mm:
+                mainView.switchMM();
+                break;
         }
     }
 }

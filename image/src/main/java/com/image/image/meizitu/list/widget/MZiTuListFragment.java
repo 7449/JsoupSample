@@ -80,7 +80,7 @@ public class MZiTuListFragment extends BaseFragment
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_image_list;
+        return R.layout.fragment_mzitu_list;
     }
 
     @Override
@@ -118,4 +118,10 @@ public class MZiTuListFragment extends BaseFragment
     }
 
 
+    @Override
+    public void noMore() {
+        if (getActivity() != null) {
+            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.data_empty));
+        }
+    }
 }

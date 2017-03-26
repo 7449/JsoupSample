@@ -5,7 +5,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 
 import com.framework.base.BaseActivity;
 import com.framework.utils.UIUtils;
@@ -99,11 +98,4 @@ public class DyttXLMoreActivity extends BaseActivity
             swipeRefreshLayout.setRefreshing(false);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
