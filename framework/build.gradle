@@ -23,4 +23,5 @@ dependencies {
     compile "com.ydevelop:rxJsoupNetWork:$jsoupNetWorkVersion"
     compile "com.github.zhaokaiqiang.klog:library:$klogVersion"
     compile "org.apmem.tools:layouts:$flowVersion"
+    compile "org.greenrobot:greendao:$greenDaoVersion"
 }

@@ -36,4 +36,5 @@ ext {
     jsoupNetWorkVersion = '0.0.1'
     klogVersion = '1.6.0'
     flowVersion = '1.10@aar'
+    greenDaoVersion = '3.2.0'
 }
