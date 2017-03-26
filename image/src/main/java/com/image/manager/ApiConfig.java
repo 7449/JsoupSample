@@ -14,9 +14,12 @@ public interface ApiConfig {
 
     String MM_URL = "http://www.mmjpg.com/";
 
+    String MEIZITU_URL = "http://www.meizitu.com/";
+
     interface Type {
         String DOU_BAN_MEI_ZI = "doubanmeizi";
         String M_ZI_TU = "mzitu";
         String MM = "mm";
+        String MEIZITU = "meizitu";
     }
 }

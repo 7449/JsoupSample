@@ -1,9 +1,9 @@
-package com.image.image.meizitu.detail.presenter;
+package com.image.image.mzitu.detail.presenter;
 
 
 import com.framework.base.PresenterImplCompat;
-import com.image.image.meizitu.detail.model.MZiTuDetailModel;
-import com.image.image.meizitu.detail.view.MZiTuDetailView;
+import com.image.image.mzitu.detail.model.MZiTuDetailModel;
+import com.image.image.mzitu.detail.view.MZiTuDetailView;
 import com.image.manager.JsoupMZiTuManager;
 import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
@@ -26,7 +26,7 @@ public class MZiTuDetailPresenterImpl extends PresenterImplCompat<List<MZiTuDeta
         RxJsoupNetWork
                 .getInstance()
                 .getApi(
-                        RxJsoupNetWork.onSubscribe(String.format("%s/1", url), this),
+                        RxJsoupNetWork.onSubscribe(url, this),
                         this);
     }
 

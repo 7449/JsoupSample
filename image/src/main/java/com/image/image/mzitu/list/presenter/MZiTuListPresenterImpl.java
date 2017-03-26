@@ -1,11 +1,11 @@
-package com.image.image.meizitu.list.presenter;
+package com.image.image.mzitu.list.presenter;
 
 
 import com.framework.base.PresenterImplCompat;
 import com.framework.utils.UIUtils;
 import com.image.R;
-import com.image.image.meizitu.list.model.MZiTuListModel;
-import com.image.image.meizitu.list.view.MZiTuListView;
+import com.image.image.mzitu.list.model.MZiTuListModel;
+import com.image.image.mzitu.list.view.MZiTuListView;
 import com.image.manager.ApiConfig;
 import com.image.manager.JsoupMZiTuManager;
 import com.rxjsoupnetwork.manager.RxJsoupNetWork;

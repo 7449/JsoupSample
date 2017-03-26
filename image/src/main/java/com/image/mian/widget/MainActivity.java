@@ -77,4 +77,9 @@ public class MainActivity extends BaseActivity
         replaceFragment(R.id.fragment, TabFragment.newInstance(ApiConfig.Type.MM));
     }
 
+    @Override
+    public void switchMeiZiTu() {
+        replaceFragment(R.id.fragment, TabFragment.newInstance(ApiConfig.Type.MEIZITU));
+    }
+
 }

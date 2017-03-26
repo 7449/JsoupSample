@@ -1,4 +1,4 @@
-package com.image.image.meizitu.detail.model;
+package com.image.image.mzitu.detail.model;
 
 
 import com.framework.base.BaseModel;

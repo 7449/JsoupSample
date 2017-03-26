@@ -29,6 +29,9 @@ public class MainPresenterImpl implements MainPresenter {
             case R.id.mm:
                 mainView.switchMM();
                 break;
+            case R.id.meizitu:
+                mainView.switchMeiZiTu();
+                break;
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.image.image.meizitu.detail.widget;
+package com.image.image.mzitu.detail.widget;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -8,10 +8,9 @@ import android.support.v7.widget.Toolbar;
 import com.framework.base.BaseActivity;
 import com.framework.utils.UIUtils;
 import com.image.R;
-import com.image.image.meizitu.detail.model.MZiTuDetailModel;
-import com.image.image.meizitu.detail.presenter.MZiTuDetailPresenter;
-import com.image.image.meizitu.detail.presenter.MZiTuDetailPresenterImpl;
-import com.image.image.meizitu.detail.view.MZiTuDetailView;
+import com.image.image.mzitu.detail.model.MZiTuDetailModel;
+import com.image.image.mzitu.detail.presenter.MZiTuDetailPresenterImpl;
+import com.image.image.mzitu.detail.view.MZiTuDetailView;
 
 import java.util.ArrayList;
 import java.util.List;

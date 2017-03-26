@@ -1,4 +1,4 @@
-package com.image.image.meizitu.list.widget;
+package com.image.image.mzitu.list.widget;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -8,11 +8,11 @@ import com.framework.base.BaseFragment;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
 import com.image.R;
-import com.image.image.meizitu.detail.widget.MZiTuDetailActivity;
-import com.image.image.meizitu.list.model.MZiTuListModel;
-import com.image.image.meizitu.list.presenter.MZiTuListPresenter;
-import com.image.image.meizitu.list.presenter.MZiTuListPresenterImpl;
-import com.image.image.meizitu.list.view.MZiTuListView;
+import com.image.image.mzitu.detail.widget.MZiTuDetailActivity;
+import com.image.image.mzitu.list.model.MZiTuListModel;
+import com.image.image.mzitu.list.presenter.MZiTuListPresenter;
+import com.image.image.mzitu.list.presenter.MZiTuListPresenterImpl;
+import com.image.image.mzitu.list.view.MZiTuListView;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -14,5 +14,9 @@
             android:id="@+id/mm"
             android:icon="@mipmap/ic_launcher"
             android:title="@string/mm_title" />
+        <item
+            android:id="@+id/meizitu"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/meizitu_title" />
     </group>
 </menu>

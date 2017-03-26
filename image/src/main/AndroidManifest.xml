@@ -19,8 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".image.douban.detail.widget.DouBanDetailActivity" />
-        <activity android:name=".image.meizitu.detail.widget.MZiTuDetailActivity" />
+        <activity android:name=".image.mzitu.detail.widget.MZiTuDetailActivity" />
         <activity android:name=".image.mm.detail.widget.MMDetailActivity" />
+        <activity android:name=".image.meizitu.detail.widget.MeiZiTuDetailActivity" />
     </application>
 
 </manifest>

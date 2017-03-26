@@ -1,11 +1,11 @@
-package com.image.image.meizitu.detail.widget;
+package com.image.image.mzitu.detail.widget;
 
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.framework.base.BasePagerAdapter;
 import com.framework.utils.ImageLoaderUtils;
-import com.image.image.meizitu.detail.model.MZiTuDetailModel;
+import com.image.image.mzitu.detail.model.MZiTuDetailModel;
 
 import java.util.List;
 

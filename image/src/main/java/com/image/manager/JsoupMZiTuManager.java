@@ -2,8 +2,8 @@ package com.image.manager;
 
 import android.support.annotation.NonNull;
 
-import com.image.image.meizitu.detail.model.MZiTuDetailModel;
-import com.image.image.meizitu.list.model.MZiTuListModel;
+import com.image.image.mzitu.detail.model.MZiTuDetailModel;
+import com.image.image.mzitu.list.model.MZiTuListModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

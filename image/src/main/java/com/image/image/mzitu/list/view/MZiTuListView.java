@@ -1,7 +1,7 @@
-package com.image.image.meizitu.list.view;
+package com.image.image.mzitu.list.view;
 
 import com.framework.base.BaseListView;
-import com.image.image.meizitu.list.model.MZiTuListModel;
+import com.image.image.mzitu.list.model.MZiTuListModel;
 
 import java.util.List;
 

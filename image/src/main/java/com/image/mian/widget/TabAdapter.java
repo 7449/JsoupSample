@@ -8,8 +8,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.framework.utils.UIUtils;
 import com.image.R;
 import com.image.image.douban.list.widget.DouBanListFragment;
-import com.image.image.meizitu.list.widget.MZiTuListFragment;
+import com.image.image.meizitu.list.widget.MeiZiTuListFragment;
 import com.image.image.mm.list.widget.MMListFragment;
+import com.image.image.mzitu.list.widget.MZiTuListFragment;
 import com.image.manager.ApiConfig;
 
 /**
@@ -33,6 +34,9 @@ class TabAdapter extends FragmentPagerAdapter {
                 break;
             case ApiConfig.Type.MM:
                 name = UIUtils.getStringArray(R.array.mm_array);
+                break;
+            case ApiConfig.Type.MEIZITU:
+                name = UIUtils.getStringArray(R.array.meizitu_array);
                 break;
         }
 
@@ -61,6 +65,8 @@ class TabAdapter extends FragmentPagerAdapter {
                 return MZiTuListFragment.newInstance(position);
             case ApiConfig.Type.MM:
                 return MMListFragment.newInstance(position);
+            case ApiConfig.Type.MEIZITU:
+                return MeiZiTuListFragment.newInstance(position);
             default:
                 return null;
         }

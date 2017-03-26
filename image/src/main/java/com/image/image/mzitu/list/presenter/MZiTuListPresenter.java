@@ -1,4 +1,4 @@
-package com.image.image.meizitu.list.presenter;
+package com.image.image.mzitu.list.presenter;
 
 /**
  * by y on 2016/7/28.
