@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 
 import com.image.image.mm.detail.model.MMDetailModel;
 import com.image.image.mm.list.model.MMListModel;
-import com.socks.library.KLog;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -55,7 +54,6 @@ public class JsoupMMManager {
         for (Integer i = 1; i <= integer; i++) {
             imageDetailModel = new MMDetailModel();
             imageDetailModel.url = mmImageTitle + split[0] + "/" + split[1] + "/" + i + ".jpg";
-            KLog.i(i);
             list.add(imageDetailModel);
         }
 

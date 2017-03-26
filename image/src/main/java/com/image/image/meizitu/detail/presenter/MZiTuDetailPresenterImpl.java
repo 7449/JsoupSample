@@ -22,11 +22,11 @@ public class MZiTuDetailPresenterImpl extends PresenterImplCompat<List<MZiTuDeta
     }
 
     @Override
-    public void netWorkRequest(String url, int page) {
+    public void netWorkRequest(String url) {
         RxJsoupNetWork
                 .getInstance()
                 .getApi(
-                        RxJsoupNetWork.onSubscribe(String.format("%s/%s", url, page), this),
+                        RxJsoupNetWork.onSubscribe(String.format("%s/1", url), this),
                         this);
     }
 

@@ -27,9 +27,7 @@ public class MZiTuDetailActivity extends BaseActivity implements MZiTuDetailView
     private Toolbar toolbar;
     private ViewPager viewPager;
     private ContentLoadingProgressBar loadingProgressBar;
-    private MZiTuDetailPresenter presenter;
     private MZiTuDetailAdapter adapter;
-    private int page = 1;
 
     public static void startIntent(String url) {
         Bundle bundle = new Bundle();
@@ -43,26 +41,21 @@ public class MZiTuDetailActivity extends BaseActivity implements MZiTuDetailView
         if (extras != null) {
             url = extras.getString(URL);
         }
-
-        presenter = new MZiTuDetailPresenterImpl(this);
         adapter = new MZiTuDetailAdapter(new ArrayList<>());
         viewPager.setAdapter(adapter);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        toolbar.setTitle(getString(R.string.mzitu_title));
+        setTitles(1, adapter.getCount());
+        new MZiTuDetailPresenterImpl(this).netWorkRequest(url);
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                if (position == adapter.getCount() - 1) {
-                    ++page;
-                    presenter.netWorkRequest(url, page);
-                }
+                setTitles(position + 1, adapter.getCount());
             }
         });
-        presenter.netWorkRequest(url, page);
     }
 
     @Override
@@ -80,10 +73,7 @@ public class MZiTuDetailActivity extends BaseActivity implements MZiTuDetailView
     @Override
     public void netWorkSuccess(List<MZiTuDetailModel> data) {
         adapter.addAll(data);
-        if (page == 1 && adapter.getCount() == 1) {
-            ++page;
-            presenter.netWorkRequest(url, page);
-        }
+        setTitles(1, adapter.getCount());
     }
 
     @Override
@@ -101,4 +91,7 @@ public class MZiTuDetailActivity extends BaseActivity implements MZiTuDetailView
         loadingProgressBar.hide();
     }
 
+    private void setTitles(int page, int imageSize) {
+        toolbar.setTitle(getString(R.string.mzitu_title) + "(" + page + "/" + imageSize + ")");
+    }
 }

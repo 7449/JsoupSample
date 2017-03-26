@@ -5,6 +5,6 @@ package com.image.image.meizitu.detail.presenter;
  */
 public interface MZiTuDetailPresenter {
 
-    void netWorkRequest(String url, int page);
+    void netWorkRequest(String url);
 
 }
