@@ -8,12 +8,19 @@ import android.view.View;
 
 public class ExtendedViewPager extends ViewPager {
 
+
     public ExtendedViewPager(Context context) {
         super(context);
+        init();
     }
 
     public ExtendedViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
+    }
+
+    private void init() {
+        setPageTransformer(true, new ZoomOutPageTransformer());
     }
 
     @Override

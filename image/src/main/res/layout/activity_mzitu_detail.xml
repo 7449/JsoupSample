@@ -24,7 +24,6 @@
             android:background="@color/black" />
     </LinearLayout>
 
-
     <include layout="@layout/loading_layout" />
 
 </android.support.design.widget.CoordinatorLayout>

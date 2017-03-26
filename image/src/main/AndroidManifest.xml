@@ -22,6 +22,7 @@
         <activity android:name=".image.mzitu.detail.widget.MZiTuDetailActivity" />
         <activity android:name=".image.mm.detail.widget.MMDetailActivity" />
         <activity android:name=".image.meizitu.detail.widget.MeiZiTuDetailActivity" />
+        <activity android:name=".collection.detail.CollectionDetailActivity" />
     </application>
 
 </manifest>

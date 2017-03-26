@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * by y on 2016/7/26.
  */
-public abstract class BasePagerAdapter<T> extends PagerAdapter {
+public abstract class BasePagerAdapter<T extends BaseModel> extends PagerAdapter {
 
     private List<T> data = new ArrayList<>();
 
@@ -39,6 +39,13 @@ public abstract class BasePagerAdapter<T> extends PagerAdapter {
         container.removeView((View) object);
     }
 
+    public T getData(int position) {
+        return data.isEmpty() ? null : data.get(position);
+    }
+
+    public String getUrl(int position) {
+        return getData(position) == null ? null : getData(position).url;
+    }
 
     @Override
     public int getCount() {

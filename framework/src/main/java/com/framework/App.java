@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 
+import com.framework.utils.SPUtils;
+
 /**
  * by y on 2016/7/26.
  */
@@ -20,5 +22,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        SPUtils.init(context);
     }
 }

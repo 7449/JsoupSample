@@ -18,5 +18,9 @@
             android:id="@+id/meizitu"
             android:icon="@mipmap/ic_launcher"
             android:title="@string/meizitu_title" />
+        <item
+            android:id="@+id/collection"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/collection_title" />
     </group>
 </menu>

@@ -60,7 +60,6 @@ public class DouBanDetailActivity extends BaseActivity implements DouBanDetailVi
         loadingProgressBar = getView(R.id.progress_bar);
     }
 
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_douban_detail;

@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -10,6 +11,9 @@ android {
         targetSdkVersion rootProject.targetSdkVersion
         versionCode rootProject.versionCode
         versionName rootProject.versionName
+    }
+    greendao {
+        targetGenDir 'src/main/java/'
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

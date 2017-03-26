@@ -5,5 +5,9 @@
     <string name="mzitu_title">妹子图</string>
     <string name="mm_title">MM</string>
     <string name="meizitu_title">MeiZiTu</string>
+    <string name="collection_title">收藏</string>
+    <string name="collection_loading">请数据加载成功再收藏</string>
+    <string name="collection_ok">收藏成功</string>
+    <string name="collection_deleted">取消收藏</string>
 
 </resources>
