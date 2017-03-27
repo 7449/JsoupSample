@@ -19,6 +19,9 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 ext {
+    proguardFile = "proguard-android.txt"
+    proguardSuffixFile = "proguard-rules.pro"
+
     compileSdkVersion = 25
     buildToolsVersion = '25.0.2'
     minSdkVersion = 15
@@ -42,4 +45,12 @@ ext {
     imageStorePath = 'image.jks'
     imagePassword = '123456'
     imageKeyAlias = 'image'
+
+    fictionStorePath = 'fiction.jks'
+    fictionPassword = '123456'
+    fictionKeyAlias = 'fiction'
+
+    movieStorePath = 'movie.jks'
+    moviePassword = '123456'
+    movieKeyAlias = 'movie'
 }

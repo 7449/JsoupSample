@@ -12,6 +12,28 @@ android {
         versionName rootProject.versionName
         resConfigs rootProject.resConfigs
     }
+    signingConfigs {
+        release {
+            storeFile file(rootProject.movieStorePath)
+            storePassword rootProject.moviePassword
+            keyAlias rootProject.movieKeyAlias
+            keyPassword rootProject.moviePassword
+        }
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile(rootProject.proguardFile), rootProject.proguardSuffixFile
+        }
+        release {
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile(rootProject.proguardFile), rootProject.proguardSuffixFile
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

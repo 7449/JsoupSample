@@ -2,9 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'org.greenrobot.greendao'
 
-def proguardFile = "proguard-android.txt"
-def proguardSuffixFile = "proguard-rules.pro"
-
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
@@ -28,14 +25,14 @@ android {
         debug {
             minifyEnabled false
             signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile(proguardFile), proguardSuffixFile
+            proguardFiles getDefaultProguardFile(rootProject.proguardFile), rootProject.proguardSuffixFile
         }
         release {
             minifyEnabled true
             zipAlignEnabled true
             shrinkResources true
             signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile(proguardFile), proguardSuffixFile
+            proguardFiles getDefaultProguardFile(rootProject.proguardFile), rootProject.proguardSuffixFile
         }
     }
     greendao {

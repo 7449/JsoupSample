@@ -13,6 +13,28 @@ android {
         versionName rootProject.versionName
         resConfigs rootProject.resConfigs
     }
+    signingConfigs {
+        release {
+            storeFile file(rootProject.fictionStorePath)
+            storePassword rootProject.fictionPassword
+            keyAlias rootProject.fictionKeyAlias
+            keyPassword rootProject.fictionPassword
+        }
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile(rootProject.proguardFile), rootProject.proguardSuffixFile
+        }
+        release {
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile(rootProject.proguardFile), rootProject.proguardSuffixFile
+        }
+    }
     greendao {
         targetGenDir 'src/main/java/'
     }
