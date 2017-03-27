@@ -23,7 +23,7 @@ import com.framework.base.BaseRecyclerAdapter;
 import com.framework.utils.UIUtils;
 import com.framework.widget.FlowText;
 import com.framework.widget.LoadMoreRecyclerView;
-import com.rxjsoupnetwork.manager.RxJsoupSubscriptionManager;
+import com.rxjsoupnetwork.manager.RxJsoupDisposeManager;
 
 import org.apmem.tools.layouts.FlowLayout;
 
@@ -85,7 +85,7 @@ public class SearchActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-        RxJsoupSubscriptionManager.getInstance().clearSubscription();
+        RxJsoupDisposeManager.getInstance().clearDispose();
         super.onBackPressed();
     }
 

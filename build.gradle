@@ -25,6 +25,7 @@ ext {
     targetSdkVersion = 25
     versionCode = 1
     versionName = '1.0'
+    resConfigs = 'zh'
 
     appApplicationId = 'com.jsoup.sample'
     movieApplicationId = 'com.movie'
@@ -37,4 +38,8 @@ ext {
     klogVersion = '1.6.0'
     flowVersion = '1.10@aar'
     greenDaoVersion = '3.2.0'
+
+    imageStorePath = 'image.jks'
+    imagePassword = '123456'
+    imageKeyAlias = 'image'
 }

@@ -30,7 +30,7 @@ public abstract class PresenterImplCompat<M, V extends BaseView<M>>
     }
 
     @Override
-    public void onNetWorkCompleted() {
+    public void onNetWorkComplete() {
         view.hideProgress();
     }
 

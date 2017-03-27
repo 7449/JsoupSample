@@ -52,7 +52,7 @@ public class CollectionDetailDialog extends BaseDialogFragment {
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(position, false);
 
-        setTitles(position, adapter.getCount());
+        setTitles(position + 1, adapter.getCount());
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {

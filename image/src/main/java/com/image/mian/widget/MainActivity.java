@@ -16,7 +16,7 @@ import com.image.manager.ApiConfig;
 import com.image.mian.presenter.MainPresenter;
 import com.image.mian.presenter.MainPresenterImpl;
 import com.image.mian.view.MainView;
-import com.rxjsoupnetwork.manager.RxJsoupSubscriptionManager;
+import com.rxjsoupnetwork.manager.RxJsoupDisposeManager;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainView {
@@ -50,7 +50,7 @@ public class MainActivity extends BaseActivity
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            RxJsoupSubscriptionManager.getInstance().clearSubscription();
+            RxJsoupDisposeManager.getInstance().clearDispose();
             super.onBackPressed();
         }
     }

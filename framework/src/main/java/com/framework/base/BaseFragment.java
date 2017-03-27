@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.rxjsoupnetwork.manager.RxJsoupSubscriptionManager;
+import com.rxjsoupnetwork.manager.RxJsoupDisposeManager;
 
 /**
  * by y on 2016/7/26.
@@ -85,7 +85,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        RxJsoupSubscriptionManager.getInstance().unSubscription();
+        RxJsoupDisposeManager.getInstance().unDispose();
     }
 }
 
