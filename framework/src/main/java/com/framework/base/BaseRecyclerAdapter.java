@@ -36,21 +36,30 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
 
     public void addAll(List<T> datas) {
         mDatas.addAll(datas);
-        this.notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     public void remove(int position) {
         mDatas.remove(position);
-        this.notifyDataSetChanged();
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, getItemCount());
+    }
+
+    public T getData(int position) {
+        return mDatas.get(position);
     }
 
     public void removeAll() {
         mDatas.clear();
-        this.notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     public int getDataCount() {
         return mDatas.size();
+    }
+
+    public List<T> getDatas() {
+        return mDatas;
     }
 
     @Override
