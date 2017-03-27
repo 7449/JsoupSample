@@ -11,7 +11,7 @@ jsoupSample
 	
 * image
 
-	>抓取一些图片
+	>抓取一些图片,收藏功能
 	
 	[豆瓣美女](http://www.dbmeinv.com/)<br>
 	[妹子图](http://www.mzitu.com/)<br>
@@ -64,19 +64,19 @@ jsoupSample
 	
 > [klog](https://github.com/ZhaoKaiQiang/KLog)
 
-	打印Log
+    打印Log
 	
 > [flowlayout](https://github.com/ApmeM/android-flowlayout)
 
-	flowlayout
+    flowlayout
 	
 > [TouchImageView](https://github.com/MikeOrtiz/TouchImageView)
 
-	可双击或者触摸放大缩小的ImageView
+    可双击或者触摸放大缩小的ImageView
 
 > [GreenDao](https://github.com/greenrobot/greenDAO)
 
-	数据库操作
-
-	
-	
+    数据库操作
+    
+> [RxJava](https://github.com/ReactiveX/RxJava)
+> [RxAndroid](https://github.com/ReactiveX/RxAndroid)

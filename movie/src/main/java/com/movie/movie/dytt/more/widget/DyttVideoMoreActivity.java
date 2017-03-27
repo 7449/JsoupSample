@@ -31,13 +31,12 @@ public class DyttVideoMoreActivity extends BaseActivity
         implements DyttVideoMoreView,
         BaseRecyclerAdapter.OnItemClickListener<DyttVideoMoreModel>,
         SwipeRefreshLayout.OnRefreshListener, LoadMoreRecyclerView.LoadMoreListener {
-    private int page = 1;
-    private int placeType = ApiConfig.Type.DYTT_CHOSEN_TYPE;
-    private int type = DyttJsoupManager.TYPE_2016;
     private static final String TYPE = "type";
     private static final String TITLE = "title";
     private static final String PLACE = "place";
-
+    private int page = 1;
+    private int placeType = ApiConfig.Type.DYTT_CHOSEN_TYPE;
+    private int type = DyttJsoupManager.TYPE_2016;
     private LoadMoreRecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Toolbar toolbar;

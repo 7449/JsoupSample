@@ -9,7 +9,7 @@ import android.util.AttributeSet;
  * by y on 2017/3/23
  */
 
-public class AdaptiveImageView  extends AppCompatImageView {
+public class AdaptiveImageView extends AppCompatImageView {
 
     public AdaptiveImageView(Context context) {
         super(context);

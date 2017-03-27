@@ -10,15 +10,11 @@ import com.framework.utils.UIUtils;
  */
 
 public class GreenDaoUtils {
+    private static final String SQL_NAME = "fiction";
     @SuppressLint("StaticFieldLeak")
     private static DaoMaster.DevOpenHelper devOpenHelper;
     private static SQLiteDatabase sqLiteDatabase;
     private static DaoMaster daoMaster;
-    private static final String SQL_NAME = "fiction";
-
-    private static class SessionHolder {
-        static final DaoSession daoSession = getDaoMaster().newSession();
-    }
 
     public static DaoSession getInstance() {
         return SessionHolder.daoSession;
@@ -43,6 +39,10 @@ public class GreenDaoUtils {
             devOpenHelper = new DaoMaster.DevOpenHelper(UIUtils.getContext(), SQL_NAME, null);
         }
         return devOpenHelper;
+    }
+
+    private static class SessionHolder {
+        static final DaoSession daoSession = getDaoMaster().newSession();
     }
 
 }
