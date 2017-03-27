@@ -107,8 +107,11 @@ public class MZiTuDetailActivity extends BaseActivity implements MZiTuDetailView
         String url = adapter.getUrl(viewPager.getCurrentItem());
         if (!TextUtils.isEmpty(url)) {
             item.setIcon(CollectionUtils.isEmpty(adapter.getUrl(viewPager.getCurrentItem())) ? R.drawable.ic_favorite_border_24dp : R.drawable.ic_favorite_24dp);
-            //这里记录下，开始Menu设置了状态选择器，但是一直不起作用，最后 stackoverflow 上发现问题根本原因
+            //这里记录下，开始Menu设置了状态选择器，但是一直不起作用，
+            // 最后 stackoverflow 上发现问题根本原因
             //http://stackoverflow.com/questions/6683186/menuitems-checked-state-is-not-shown-correctly-by-its-icon
+            //setChecked 的状态选择器没用，但是如果是 setEnabled() 会起作用，
+            // 不过这样 为false的时候 menuItem 就不能被点击，这个显然是不太友好的解决办法
             //item.setChecked(CollectionUtils.isEmpty(adapter.getUrl(viewPager.getCurrentItem())));
         }
         return super.onCreateOptionsMenu(menu);

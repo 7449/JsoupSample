@@ -11,14 +11,14 @@ import com.image.R;
  * by y on 2017/3/27
  */
 
-public class CollectionDialog extends BaseDialogFragment {
+public class CollectionListDialog extends BaseDialogFragment {
 
     private CollectionListener listener;
 
-    public static CollectionDialog newInstance(int position, FragmentManager fragmentManager, String tag) {
-        CollectionDialog collectionDialog = (CollectionDialog) fragmentManager.findFragmentByTag(tag);
+    public static CollectionListDialog newInstance(int position, FragmentManager fragmentManager, String tag) {
+        CollectionListDialog collectionDialog = (CollectionListDialog) fragmentManager.findFragmentByTag(tag);
         if (collectionDialog == null) {
-            collectionDialog = new CollectionDialog();
+            collectionDialog = new CollectionListDialog();
         }
         Bundle bundle = new Bundle();
         bundle.putInt("position", position);

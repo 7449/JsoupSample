@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.framework.base.BaseFragment;
 import com.framework.base.BaseRecyclerAdapter;
 import com.image.R;
+import com.image.collection.detail.CollectionDetailDialog;
 import com.image.collection.sql.CollectionModel;
 import com.image.collection.sql.CollectionUtils;
 import com.image.collection.sql.GreenDaoDbUtils;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class CollectionListFragment extends BaseFragment
         implements BaseRecyclerAdapter.OnItemClickListener<CollectionModel>,
-        BaseRecyclerAdapter.OnItemLongClickListener<CollectionModel>, CollectionDialog.CollectionListener {
+        BaseRecyclerAdapter.OnItemLongClickListener<CollectionModel>, CollectionListDialog.CollectionListener {
 
     private RecyclerView recyclerView;
     private TextView textView;
@@ -57,12 +58,12 @@ public class CollectionListFragment extends BaseFragment
 
     @Override
     public void onItemClick(View view, int position, CollectionModel info) {
-
+        CollectionDetailDialog.startFragment(position, getChildFragmentManager());
     }
 
     @Override
     public void onLongClick(View view, int position, CollectionModel info) {
-        CollectionDialog.newInstance(position, getChildFragmentManager(), "collection");
+        CollectionListDialog.newInstance(position, getChildFragmentManager(), "collection");
     }
 
     @Override
