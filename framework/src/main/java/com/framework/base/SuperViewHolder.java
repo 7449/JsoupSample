@@ -28,6 +28,7 @@ public class SuperViewHolder extends RecyclerView.ViewHolder {
             childView = itemView.findViewById(id);
             viewSparseArray.put(id, childView);
         }
+        //noinspection unchecked
         return (T) childView;
     }
 

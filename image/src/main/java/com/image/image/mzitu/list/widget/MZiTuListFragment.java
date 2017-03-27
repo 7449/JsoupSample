@@ -99,7 +99,7 @@ public class MZiTuListFragment extends BaseFragment
     }
 
     @Override
-    public void netWorkError(Throwable e) {
+    public void netWorkError() {
         if (getActivity() != null) {
             UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
         }

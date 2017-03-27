@@ -104,7 +104,7 @@ public class SearchActivity extends BaseActivity
     }
 
     @Override
-    public void netWorkError(Throwable e) {
+    public void netWorkError() {
         UIUtils.snackBar(getView(R.id.fa_btn), getString(R.string.network_error));
     }
 
@@ -140,7 +140,7 @@ public class SearchActivity extends BaseActivity
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        if (hasFocus) {
+        if (hasFocus && alertDialog.getWindow() != null) {
             alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }

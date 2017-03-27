@@ -81,7 +81,7 @@ public class ContentsActivity extends BaseActivity
     }
 
     @Override
-    public void netWorkError(Throwable e) {
+    public void netWorkError() {
         UIUtils.snackBar(getView(R.id.rootView), getString(R.string.network_error));
     }
 

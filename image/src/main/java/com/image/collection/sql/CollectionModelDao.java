@@ -66,20 +66,19 @@ public class CollectionModelDao extends AbstractDao<CollectionModel, String> {
 
     @Override
     public String readKey(Cursor cursor, int offset) {
-        return cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0);
+        return cursor.isNull(offset) ? null : cursor.getString(offset);
     }
 
     @Override
     public CollectionModel readEntity(Cursor cursor, int offset) {
-        CollectionModel entity = new CollectionModel( //
-                cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0) // url
+        return new CollectionModel( //
+                cursor.isNull(offset) ? null : cursor.getString(offset) // url
         );
-        return entity;
     }
 
     @Override
     public void readEntity(Cursor cursor, CollectionModel entity, int offset) {
-        entity.setUrl(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
+        entity.setUrl(cursor.isNull(offset) ? null : cursor.getString(offset));
     }
 
     @Override

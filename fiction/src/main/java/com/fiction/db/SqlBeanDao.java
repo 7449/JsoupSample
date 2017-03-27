@@ -77,21 +77,20 @@ public class SqlBeanDao extends AbstractDao<SqlBean, Long> {
 
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
+        return cursor.isNull(offset) ? null : cursor.getLong(offset);
     }
 
     @Override
     public SqlBean readEntity(Cursor cursor, int offset) {
-        SqlBean entity = new SqlBean( //
-                cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
+        return new SqlBean( //
+                cursor.isNull(offset) ? null : cursor.getLong(offset), // id
                 cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1) // title
         );
-        return entity;
     }
 
     @Override
     public void readEntity(Cursor cursor, SqlBean entity, int offset) {
-        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
+        entity.setId(cursor.isNull(offset) ? null : cursor.getLong(offset));
         entity.setTitle(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
     }
 

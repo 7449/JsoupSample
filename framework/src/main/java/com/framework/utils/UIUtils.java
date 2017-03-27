@@ -62,6 +62,7 @@ public class UIUtils {
 
     public static void copy(String content) {
         ClipboardManager cm = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        //noinspection deprecation
         cm.setText(content);
     }
 }

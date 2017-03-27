@@ -27,6 +27,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     protected <T extends View> T getView(int id) {
+        //noinspection unchecked
         return (T) findViewById(id);
     }
 

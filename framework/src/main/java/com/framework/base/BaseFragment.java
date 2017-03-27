@@ -61,6 +61,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected <T extends View> T getView(int id) {
+        //noinspection unchecked
         return (T) view.findViewById(id);
     }
 

@@ -72,7 +72,7 @@ public class DouBanDetailActivity extends BaseActivity implements DouBanDetailVi
     }
 
     @Override
-    public void netWorkError(Throwable e) {
+    public void netWorkError() {
         UIUtils.snackBar(getView(R.id.ll_layout), getString(R.string.network_error));
     }
 

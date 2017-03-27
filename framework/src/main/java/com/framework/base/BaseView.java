@@ -8,7 +8,7 @@ public interface BaseView<T> {
 
     void netWorkSuccess(T data);
 
-    void netWorkError(Throwable e);
+    void netWorkError();
 
     void showProgress();
 

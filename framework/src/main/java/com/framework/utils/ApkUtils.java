@@ -3,7 +3,6 @@ package com.framework.utils;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
 
 import com.framework.App;
 
@@ -22,7 +21,7 @@ public class ApkUtils {
     private ApkUtils() {
     }
 
-    public static Intent getIntent(@NonNull String packageName) {
+    public static Intent getXLIntent() {
         return UIUtils.getContext().getPackageManager().getLaunchIntentForPackage(ApkUtils.XL);
     }
 

@@ -109,7 +109,7 @@ public class Dy2018ListFragment extends BaseFragment
     }
 
     @Override
-    public void netWorkError(Throwable e) {
+    public void netWorkError() {
         UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
     }
 
@@ -127,7 +127,7 @@ public class Dy2018ListFragment extends BaseFragment
 
     @Override
     public void onItemClick(View view, int position, Dy2018ListModel info) {
-        if (ApkUtils.getIntent(ApkUtils.XL) != null) {
+        if (ApkUtils.getXLIntent() != null) {
             Dy2018DetailActivity.startIntent(info.detailUrl);
         } else {
             UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));

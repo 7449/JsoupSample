@@ -26,7 +26,7 @@ public abstract class PresenterImplCompat<M, V extends BaseView<M>>
     @Override
     public void onNetWorkError(Throwable e) {
         view.hideProgress();
-        view.netWorkError(e);
+        view.netWorkError();
     }
 
     @Override

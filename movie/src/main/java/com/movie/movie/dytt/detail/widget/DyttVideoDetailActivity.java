@@ -76,7 +76,7 @@ public class DyttVideoDetailActivity extends BaseActivity implements
 
 
     @Override
-    public void netWorkError(Throwable e) {
+    public void netWorkError() {
         UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
     }
 

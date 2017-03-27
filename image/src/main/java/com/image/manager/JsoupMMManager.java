@@ -19,7 +19,7 @@ import java.util.List;
 public class JsoupMMManager {
 
 
-    private String mmImageTitle = "http://img.mmjpg.com/";
+    private static final String mmImageTitle = "http://img.mmjpg.com/";
 
     private Document document;
 

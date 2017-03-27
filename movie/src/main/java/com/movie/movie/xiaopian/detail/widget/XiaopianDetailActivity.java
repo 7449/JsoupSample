@@ -71,7 +71,7 @@ public class XiaopianDetailActivity extends BaseActivity implements XiaoPianDeta
     }
 
     @Override
-    public void netWorkError(Throwable e) {
+    public void netWorkError() {
         UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
     }
 

@@ -79,7 +79,7 @@ public class MMDetailActivity extends BaseActivity implements MMDetailView {
     }
 
     @Override
-    public void netWorkError(Throwable e) {
+    public void netWorkError() {
         UIUtils.snackBar(getView(R.id.ll_layout), getString(R.string.network_error));
     }
 

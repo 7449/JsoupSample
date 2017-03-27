@@ -87,6 +87,7 @@ public class TouchImageView extends AppCompatImageView {
     private GestureDetector.OnDoubleTapListener doubleTapListener = null;
     private OnTouchListener userTouchListener = null;
     private OnTouchImageViewListener touchImageViewListener = null;
+
     public TouchImageView(Context context) {
         super(context);
         sharedConstructing(context);
@@ -341,8 +342,6 @@ public class TouchImageView extends AppCompatImageView {
 
     /**
      * Set zoom to the specified scale. Image will be centered by default.
-     *
-     * @param scale
      */
     public void setZoom(float scale) {
         setZoom(scale, 0.5f, 0.5f);
@@ -353,10 +352,6 @@ public class TouchImageView extends AppCompatImageView {
      * (focusX, focusY). These floats range from 0 to 1 and denote the focus point
      * as a fraction from the left and top of the view. For example, the top left
      * corner of the image would be (0, 0). And the bottom right corner would be (1, 1).
-     *
-     * @param scale
-     * @param focusX
-     * @param focusY
      */
     public void setZoom(float scale, float focusX, float focusY) {
         setZoom(scale, focusX, focusY, mScaleType);
@@ -367,11 +362,6 @@ public class TouchImageView extends AppCompatImageView {
      * (focusX, focusY). These floats range from 0 to 1 and denote the focus point
      * as a fraction from the left and top of the view. For example, the top left
      * corner of the image would be (0, 0). And the bottom right corner would be (1, 1).
-     *
-     * @param scale
-     * @param focusX
-     * @param focusY
-     * @param scaleType
      */
     public void setZoom(float scale, float focusX, float focusY, ScaleType scaleType) {
         //
@@ -430,10 +420,6 @@ public class TouchImageView extends AppCompatImageView {
 
     /**
      * Set the focus point of the zoomed image. The focus points are denoted as a fraction from the
-     * left and top of the view. The focus points can range in value between 0 and 1.
-     *
-     * @param focusX
-     * @param focusY
      */
     public void setScrollPosition(float focusX, float focusY) {
         setZoom(normalizedScale, focusX, focusY);
@@ -525,6 +511,7 @@ public class TouchImageView extends AppCompatImageView {
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         viewWidth = setViewSize(widthMode, widthSize, drawableWidth);
+        //noinspection SuspiciousNameCombination
         viewHeight = setViewSize(heightMode, heightSize, drawableHeight);
 
         //
@@ -652,11 +639,6 @@ public class TouchImageView extends AppCompatImageView {
 
     /**
      * Set view dimensions based on layout params
-     *
-     * @param mode
-     * @param size
-     * @param drawableWidth
-     * @return
      */
     private int setViewSize(int mode, int size, int drawableWidth) {
         int viewSize;
@@ -833,7 +815,7 @@ public class TouchImageView extends AppCompatImageView {
     private enum State {NONE, DRAG, ZOOM, FLING, ANIMATE_ZOOM}
 
     public interface OnTouchImageViewListener {
-        public void onMove();
+        void onMove();
     }
 
     /**
@@ -1078,8 +1060,6 @@ public class TouchImageView extends AppCompatImageView {
          * Interpolate between where the image should start and end in order to translate
          * the image so that the point that is touched is what ends up centered at the end
          * of the zoom.
-         *
-         * @param t
          */
         private void translateImageToCenterTouchPosition(float t) {
             float targetX = startTouch.x + t * (endTouch.x - startTouch.x);
@@ -1090,8 +1070,6 @@ public class TouchImageView extends AppCompatImageView {
 
         /**
          * Use interpolator to get t
-         *
-         * @return
          */
         private float interpolate() {
             long currTime = System.currentTimeMillis();
@@ -1103,9 +1081,6 @@ public class TouchImageView extends AppCompatImageView {
         /**
          * Interpolate the current targeted zoom and get the delta
          * from the current zoom.
-         *
-         * @param t
-         * @return
          */
         private double calculateDeltaScale(float t) {
             double zoom = startZoom + t * (targetZoom - startZoom);
@@ -1117,8 +1092,6 @@ public class TouchImageView extends AppCompatImageView {
      * Fling launches sequential runnables which apply
      * the fling graphic to the image. The values for the translation
      * are interpolated by the Scroller.
-     *
-     * @author Ortiz
      */
     private class Fling implements Runnable {
 
@@ -1150,7 +1123,7 @@ public class TouchImageView extends AppCompatImageView {
                 minY = maxY = startY;
             }
 
-            scroller.fling(startX, startY, (int) velocityX, (int) velocityY, minX,
+            scroller.fling(startX, startY, velocityX, velocityY, minX,
                     maxX, minY, maxY);
             currX = startX;
             currY = startY;

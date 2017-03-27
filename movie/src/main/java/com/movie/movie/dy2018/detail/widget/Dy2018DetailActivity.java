@@ -71,7 +71,7 @@ public class Dy2018DetailActivity extends BaseActivity implements Dy2018DetailVi
     }
 
     @Override
-    public void netWorkError(Throwable e) {
+    public void netWorkError() {
         UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
     }
 

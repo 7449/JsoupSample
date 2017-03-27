@@ -50,7 +50,7 @@ class DyttXLMoreAdapter extends RecyclerView.Adapter<SuperViewHolder> {
             default:
                 holder.setTextView(R.id.dytt_item_content, list.get(position).title);
                 holder.itemView.setOnClickListener(v -> {
-                    if (ApkUtils.getIntent(ApkUtils.XL) != null) {
+                    if (ApkUtils.getXLIntent() != null) {
                         DyttVideoDetailActivity.startIntent(list.get(position).url);
                     } else {
                         UIUtils.toast(UIUtils.getString(R.string.xl));

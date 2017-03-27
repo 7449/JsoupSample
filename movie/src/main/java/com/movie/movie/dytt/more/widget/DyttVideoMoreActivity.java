@@ -111,7 +111,7 @@ public class DyttVideoMoreActivity extends BaseActivity
     }
 
     @Override
-    public void netWorkError(Throwable e) {
+    public void netWorkError() {
         UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
     }
 
@@ -129,7 +129,7 @@ public class DyttVideoMoreActivity extends BaseActivity
 
     @Override
     public void onItemClick(View view, int position, DyttVideoMoreModel info) {
-        if (ApkUtils.getIntent(ApkUtils.XL) != null) {
+        if (ApkUtils.getXLIntent() != null) {
             DyttVideoDetailActivity.startIntent(info.url);
         } else {
             UIUtils.snackBar(getView(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
