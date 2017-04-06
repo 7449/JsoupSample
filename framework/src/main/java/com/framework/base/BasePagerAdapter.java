@@ -29,6 +29,10 @@ public abstract class BasePagerAdapter<T extends BaseModel> extends PagerAdapter
         notifyDataSetChanged();
     }
 
+    public List<T> getListData() {
+        return data;
+    }
+
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == object;

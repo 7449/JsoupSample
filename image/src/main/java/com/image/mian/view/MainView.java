@@ -14,6 +14,8 @@ public interface MainView {
 
     void switchMeiZiTu();
 
+    void switch7KK();
+
     void switchCollection();
 
 }

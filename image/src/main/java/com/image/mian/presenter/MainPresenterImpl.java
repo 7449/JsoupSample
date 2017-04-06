@@ -32,6 +32,9 @@ public class MainPresenterImpl implements MainPresenter {
             case R.id.meizitu:
                 mainView.switchMeiZiTu();
                 break;
+            case R.id.kk:
+                mainView.switch7KK();
+                break;
             case R.id.collection:
                 mainView.switchCollection();
                 break;

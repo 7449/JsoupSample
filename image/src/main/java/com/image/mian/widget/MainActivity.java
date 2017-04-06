@@ -95,6 +95,11 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
+    public void switch7KK() {
+        replaceFragment(R.id.fragment, TabFragment.newInstance(ApiConfig.Type.KK));
+    }
+
+    @Override
     public void switchCollection() {
         replaceFragment(R.id.fragment, CollectionListFragment.newInstance());
     }

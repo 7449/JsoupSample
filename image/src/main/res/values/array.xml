@@ -92,4 +92,27 @@
         <item>a/wangluo_13_%s.html</item>
         <item>a/rihan_14_%s.html</item>
     </string-array>
+
+    <string-array name="kk_array">
+        <item>全部</item>
+        <item>性感</item>
+        <item>清纯</item>
+        <item>丝袜</item>
+        <item>制服</item>
+        <item>校妹</item>
+        <item>运动</item>
+        <item>模特</item>
+        <item>微博</item>
+    </string-array>
+    <string-array name="kk_array_suffix">
+        <item>"?page=%s"</item>
+        <item>meinv/xinggan/new----%s.html</item>
+        <item>meinv/qingchun/new----%s.html</item>
+        <item>meinv/siwameitui/new----%s.html</item>
+        <item>meinv/zhifu/new----%s.html</item>
+        <item>meinv/xiaomei/new----%s.html</item>
+        <item>meinv/yundong/new----%s.html</item>
+        <item>meinv/yiren/new----%s.html</item>
+        <item>meinv/weibo/new----%s.html</item>
+    </string-array>
 </resources>

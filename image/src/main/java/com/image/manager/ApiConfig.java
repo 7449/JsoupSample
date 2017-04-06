@@ -16,10 +16,13 @@ public interface ApiConfig {
 
     String MEIZITU_URL = "http://www.meizitu.com/";
 
+    String KK_URL = "http://m.7kk.com/";
+
     interface Type {
         String DOU_BAN_MEI_ZI = "doubanmeizi";
         String M_ZI_TU = "mzitu";
         String MM = "mm";
         String MEIZITU = "meizitu";
+        String KK = "7kk";
     }
 }
