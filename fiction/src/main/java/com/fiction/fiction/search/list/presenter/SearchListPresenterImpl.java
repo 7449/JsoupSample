@@ -3,10 +3,10 @@ package com.fiction.fiction.search.list.presenter;
 import android.text.TextUtils;
 
 import com.fiction.db.SearchDb;
+import com.fiction.fiction.search.list.model.SearchListModel;
+import com.fiction.fiction.search.list.view.SearchListView;
 import com.fiction.manager.ApiConfig;
 import com.fiction.manager.Jsoup81Manager;
-import com.fiction.fiction.search.list.model.SearchModel;
-import com.fiction.fiction.search.list.view.SearchView;
 import com.framework.base.PresenterImplCompat;
 import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
@@ -18,11 +18,11 @@ import java.util.List;
  * by y on 2017/1/8.
  */
 
-public class SearchPresenterImpl extends PresenterImplCompat<List<SearchModel>, SearchView> implements SearchPresenter {
+public class SearchListPresenterImpl extends PresenterImplCompat<List<SearchListModel>, SearchListView> implements SearchListPresenter {
 
     private String fictionName;
 
-    public SearchPresenterImpl(SearchView view) {
+    public SearchListPresenterImpl(SearchListView view) {
         super(view);
     }
 
@@ -41,7 +41,7 @@ public class SearchPresenterImpl extends PresenterImplCompat<List<SearchModel>, 
     }
 
     @Override
-    public void onNetWorkSuccess(List<SearchModel> data) {
+    public void onNetWorkSuccess(List<SearchListModel> data) {
         super.onNetWorkSuccess(data);
         if (!TextUtils.isEmpty(fictionName)) {
             SearchDb.insert(fictionName);
@@ -49,7 +49,7 @@ public class SearchPresenterImpl extends PresenterImplCompat<List<SearchModel>, 
     }
 
     @Override
-    public List<SearchModel> getT(Document document) {
+    public List<SearchListModel> getT(Document document) {
         return Jsoup81Manager.get(document).get81List();
     }
 }

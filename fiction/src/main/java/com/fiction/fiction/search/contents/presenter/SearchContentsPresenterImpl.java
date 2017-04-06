@@ -1,7 +1,7 @@
 package com.fiction.fiction.search.contents.presenter;
 
-import com.fiction.fiction.search.contents.model.ContentsModel;
-import com.fiction.fiction.search.contents.view.ContentsView;
+import com.fiction.fiction.search.contents.model.SearchContentsModel;
+import com.fiction.fiction.search.contents.view.SearchContentsView;
 import com.fiction.manager.Jsoup81Manager;
 import com.framework.base.PresenterImplCompat;
 import com.rxjsoupnetwork.manager.RxJsoupNetWork;
@@ -14,9 +14,9 @@ import java.util.List;
  * by y on 2017/1/8.
  */
 
-public class ContentsPresenterImpl extends PresenterImplCompat<List<ContentsModel>, ContentsView> implements ContentsPresenter {
+public class SearchContentsPresenterImpl extends PresenterImplCompat<List<SearchContentsModel>, SearchContentsView> implements SearchContentsPresenter {
 
-    public ContentsPresenterImpl(ContentsView view) {
+    public SearchContentsPresenterImpl(SearchContentsView view) {
         super(view);
     }
 
@@ -30,7 +30,7 @@ public class ContentsPresenterImpl extends PresenterImplCompat<List<ContentsMode
     }
 
     @Override
-    public List<ContentsModel> getT(Document document) {
+    public List<SearchContentsModel> getT(Document document) {
         return Jsoup81Manager.get(document).get81Contents();
     }
 }

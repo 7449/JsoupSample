@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="tab_zw">
+        <item>test</item>
+        <item>test</item>
+        <item>test</item>
+        <item>test</item>
+        <item>test</item>
+        <item>test</item>
+    </string-array>
+
+</resources>

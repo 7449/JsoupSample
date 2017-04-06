@@ -2,8 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/fiction_81"
             android:checked="true"
             android:icon="@mipmap/ic_launcher"
-            android:title="@string/app_name" />
+            android:title="@string/title_81" />
+        <item
+            android:id="@+id/search"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/search_title" />
     </group>
 </menu>

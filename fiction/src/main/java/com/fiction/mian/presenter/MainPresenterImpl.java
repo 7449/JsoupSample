@@ -2,6 +2,7 @@ package com.fiction.mian.presenter;
 
 import android.support.annotation.MenuRes;
 
+import com.fiction.R;
 import com.fiction.mian.view.MainView;
 
 
@@ -20,6 +21,12 @@ public class MainPresenterImpl implements MainPresenter {
     @Override
     public void switchId(@MenuRes int id) {
         switch (id) {
+            case R.id.search:
+                mainView.switchSearch();
+                break;
+            case R.id.fiction_81:
+                mainView.switch81();
+                break;
         }
     }
 }

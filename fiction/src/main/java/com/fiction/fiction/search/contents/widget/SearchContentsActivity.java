@@ -10,10 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.fiction.R;
-import com.fiction.fiction.search.contents.model.ContentsModel;
-import com.fiction.fiction.search.contents.presenter.ContentsPresenterImpl;
-import com.fiction.fiction.search.contents.view.ContentsView;
-import com.fiction.fiction.search.detail.widget.DetailActivity;
+import com.fiction.fiction.search.contents.model.SearchContentsModel;
+import com.fiction.fiction.search.contents.presenter.SearchContentsPresenterImpl;
+import com.fiction.fiction.search.contents.view.SearchContentsView;
+import com.fiction.fiction.search.detail.widget.SearchDetailActivity;
 import com.framework.base.BaseActivity;
 import com.framework.base.BaseRecyclerAdapter;
 import com.framework.utils.UIUtils;
@@ -27,8 +27,8 @@ import java.util.List;
  * by y on 2017/1/8.
  */
 
-public class ContentsActivity extends BaseActivity
-        implements ContentsView, BaseRecyclerAdapter.OnItemClickListener<ContentsModel> {
+public class SearchContentsActivity extends BaseActivity
+        implements SearchContentsView, BaseRecyclerAdapter.OnItemClickListener<SearchContentsModel> {
 
     private static final String URL = "url";
     private static final String TITLE = "title";
@@ -36,15 +36,15 @@ public class ContentsActivity extends BaseActivity
     private Toolbar toolbar;
     private ContentLoadingProgressBar progressBar;
     private RecyclerView recyclerView;
-    private ContentAdapter adapter;
+    private SearchContentAdapter adapter;
 
-    private List<ContentsModel> list;
+    private List<SearchContentsModel> list;
 
     public static void getInstance(String url, String title) {
         Bundle bundle = new Bundle();
         bundle.putString(URL, url);
         bundle.putString(TITLE, title);
-        UIUtils.startActivity(ContentsActivity.class, bundle);
+        UIUtils.startActivity(SearchContentsActivity.class, bundle);
     }
 
 
@@ -54,11 +54,11 @@ public class ContentsActivity extends BaseActivity
         toolbar.setTitle(extras.getString(TITLE));
         setSupportActionBar(toolbar);
         list = new ArrayList<>();
-        adapter = new ContentAdapter(list);
+        adapter = new SearchContentAdapter(list);
         adapter.setOnItemClickListener(this);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setAdapter(adapter);
-        new ContentsPresenterImpl(this).startContents(extras.getString(URL));
+        new SearchContentsPresenterImpl(this).startContents(extras.getString(URL));
     }
 
     @Override
@@ -75,7 +75,7 @@ public class ContentsActivity extends BaseActivity
 
 
     @Override
-    public void netWorkSuccess(List<ContentsModel> data) {
+    public void netWorkSuccess(List<SearchContentsModel> data) {
         Collections.reverse(data);
         adapter.addAll(data);
     }
@@ -96,8 +96,8 @@ public class ContentsActivity extends BaseActivity
     }
 
     @Override
-    public void onItemClick(View view, int position, ContentsModel info) {
-        DetailActivity.getInstance(info.detailUrl);
+    public void onItemClick(View view, int position, SearchContentsModel info) {
+        SearchDetailActivity.getInstance(info.detailUrl);
     }
 
     @Override

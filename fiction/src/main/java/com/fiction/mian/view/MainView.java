@@ -5,4 +5,7 @@ package com.fiction.mian.view;
  */
 
 public interface MainView {
+    void switchSearch();
+
+    void switch81();
 }

@@ -1,7 +1,7 @@
 package com.fiction.fiction.search.detail.presenter;
 
-import com.fiction.fiction.search.detail.model.DetailModel;
-import com.fiction.fiction.search.detail.view.DetailView;
+import com.fiction.fiction.search.detail.model.SearchDetailModel;
+import com.fiction.fiction.search.detail.view.SearchDetailView;
 import com.fiction.manager.Jsoup81Manager;
 import com.framework.base.PresenterImplCompat;
 import com.rxjsoupnetwork.manager.RxJsoupNetWork;
@@ -12,9 +12,9 @@ import org.jsoup.nodes.Document;
  * by y on 2017/1/8.
  */
 
-public class DetailPresenterImpl extends PresenterImplCompat<DetailModel, DetailView> implements DetailPresenter {
+public class SearchDetailPresenterImpl extends PresenterImplCompat<SearchDetailModel, SearchDetailView> implements SearchDetailPresenter {
 
-    public DetailPresenterImpl(DetailView view) {
+    public SearchDetailPresenterImpl(SearchDetailView view) {
         super(view);
     }
 
@@ -28,7 +28,7 @@ public class DetailPresenterImpl extends PresenterImplCompat<DetailModel, Detail
     }
 
     @Override
-    public DetailModel getT(Document document) {
+    public SearchDetailModel getT(Document document) {
         return Jsoup81Manager.get(document).get81Detail();
     }
 }

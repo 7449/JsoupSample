@@ -2,9 +2,9 @@ package com.fiction.manager;
 
 import android.support.annotation.NonNull;
 
-import com.fiction.fiction.search.contents.model.ContentsModel;
-import com.fiction.fiction.search.detail.model.DetailModel;
-import com.fiction.fiction.search.list.model.SearchModel;
+import com.fiction.fiction.search.contents.model.SearchContentsModel;
+import com.fiction.fiction.search.detail.model.SearchDetailModel;
+import com.fiction.fiction.search.list.model.SearchListModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -28,11 +28,11 @@ public class Jsoup81Manager {
         return new Jsoup81Manager(document);
     }
 
-    public List<SearchModel> get81List() {
-        List<SearchModel> list = new ArrayList<>();
-        SearchModel fictionNameModel;
+    public List<SearchListModel> get81List() {
+        List<SearchListModel> list = new ArrayList<>();
+        SearchListModel fictionNameModel;
         for (Element element : document.select("div.result-game-item")) {
-            fictionNameModel = new SearchModel();
+            fictionNameModel = new SearchListModel();
             fictionNameModel.url = element.select("img.result-game-item-pic-link-img").attr("src");
             fictionNameModel.title = element.select("a.result-game-item-title-link").attr("title");
             fictionNameModel.detailUrl = element.select("a.result-game-item-title-link").attr("href");
@@ -42,11 +42,11 @@ public class Jsoup81Manager {
         return list;
     }
 
-    public List<ContentsModel> get81Contents() {
-        List<ContentsModel> list = new ArrayList<>();
-        ContentsModel contentsModel;
+    public List<SearchContentsModel> get81Contents() {
+        List<SearchContentsModel> list = new ArrayList<>();
+        SearchContentsModel contentsModel;
         for (Element element : document.select("#list").select("a")) {
-            contentsModel = new ContentsModel();
+            contentsModel = new SearchContentsModel();
             contentsModel.title = element.text();
             contentsModel.detailUrl = element.attr("abs:href");
             list.add(contentsModel);
@@ -54,8 +54,8 @@ public class Jsoup81Manager {
         return list;
     }
 
-    public DetailModel get81Detail() {
-        DetailModel detailModel = new DetailModel();
+    public SearchDetailModel get81Detail() {
+        SearchDetailModel detailModel = new SearchDetailModel();
         Elements select = document.select("div.bottem2").select("a[href$=.html]");
         for (int i = 0; i < select.size(); i++) {
             switch (i) {

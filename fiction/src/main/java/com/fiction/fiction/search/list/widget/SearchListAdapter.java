@@ -1,7 +1,7 @@
 package com.fiction.fiction.search.list.widget;
 
 import com.fiction.R;
-import com.fiction.fiction.search.list.model.SearchModel;
+import com.fiction.fiction.search.list.model.SearchListModel;
 import com.framework.base.BaseRecyclerAdapter;
 import com.framework.base.SuperViewHolder;
 import com.framework.utils.ImageLoaderUtils;
@@ -12,9 +12,9 @@ import java.util.List;
  * by y on 2017/3/25.
  */
 
-class SearchAdapter extends BaseRecyclerAdapter<SearchModel> {
+class SearchListAdapter extends BaseRecyclerAdapter<SearchListModel> {
 
-    SearchAdapter(List<SearchModel> mDatas) {
+    SearchListAdapter(List<SearchListModel> mDatas) {
         super(mDatas);
     }
 
@@ -24,7 +24,7 @@ class SearchAdapter extends BaseRecyclerAdapter<SearchModel> {
     }
 
     @Override
-    protected void onBind(SuperViewHolder viewHolder, int position, SearchModel mDatas) {
+    protected void onBind(SuperViewHolder viewHolder, int position, SearchListModel mDatas) {
         ImageLoaderUtils.display(viewHolder.getImageView(R.id.search_iv_img), mDatas.url);
         viewHolder.setTextView(R.id.search_tv_title, mDatas.title);
         viewHolder.setTextView(R.id.search_tv_content, mDatas.message);

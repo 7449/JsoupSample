@@ -1,46 +1,42 @@
 package com.fiction.fiction.search.list.widget;
 
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.fiction.R;
-import com.fiction.fiction.search.contents.widget.ContentsActivity;
 import com.fiction.db.GreenDaoDbUtils;
 import com.fiction.db.SqlBean;
-import com.fiction.fiction.search.list.model.SearchModel;
-import com.fiction.fiction.search.list.presenter.SearchPresenter;
-import com.fiction.fiction.search.list.presenter.SearchPresenterImpl;
-import com.fiction.fiction.search.list.view.SearchView;
-import com.framework.base.BaseActivity;
+import com.fiction.fiction.search.contents.widget.SearchContentsActivity;
+import com.fiction.fiction.search.list.model.SearchListModel;
+import com.fiction.fiction.search.list.presenter.SearchListPresenter;
+import com.fiction.fiction.search.list.presenter.SearchListPresenterImpl;
+import com.fiction.fiction.search.list.view.SearchListView;
+import com.framework.base.BaseFragment;
 import com.framework.base.BaseRecyclerAdapter;
 import com.framework.utils.UIUtils;
 import com.framework.widget.FlowText;
 import com.framework.widget.LoadMoreRecyclerView;
 import com.google.android.flexbox.FlexboxLayout;
-import com.rxjsoupnetwork.manager.RxJsoupDisposeManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchActivity extends BaseActivity
-        implements View.OnClickListener, SearchView,
-        BaseRecyclerAdapter.OnItemClickListener<SearchModel>,
+public class SearchListFragment extends BaseFragment
+        implements View.OnClickListener, SearchListView,
+        BaseRecyclerAdapter.OnItemClickListener<SearchListModel>,
         LoadMoreRecyclerView.LoadMoreListener,
         View.OnFocusChangeListener,
         DialogInterface.OnClickListener {
 
-    private Toolbar mToolbar;
-    private SearchPresenter presenter;
+    private SearchListPresenter presenter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private LoadMoreRecyclerView recyclerView;
-    private SearchAdapter adapter;
+    private SearchListAdapter adapter;
     private EditText editText;
     private int page = 0;
     private String fictionName;
@@ -48,28 +44,21 @@ public class SearchActivity extends BaseActivity
 
 
     @Override
-    protected void initCreate(Bundle savedInstanceState) {
-        swipeRefreshLayout.setEnabled(false);
-        mToolbar.setTitle(getString(R.string.toolbar_title));
-        presenter = new SearchPresenterImpl(this);
-        adapter = new SearchAdapter(new ArrayList<>());
-        adapter.setOnItemClickListener(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setLoadingMore(this);
-        recyclerView.setAdapter(adapter);
-        mToolbar.setOnLongClickListener(v -> {
-            GreenDaoDbUtils.clear();
-            UIUtils.snackBar(getView(R.id.fa_btn), getString(R.string.db_clear));
-            return true;
-        });
-    }
-
-    @Override
     protected void initById() {
-        mToolbar = getView(R.id.toolbar);
         recyclerView = getView(R.id.recyclerView);
         swipeRefreshLayout = getView(R.id.refresh_layout);
         getView(R.id.fa_btn).setOnClickListener(this);
+    }
+
+    @Override
+    protected void initActivityCreated() {
+        swipeRefreshLayout.setEnabled(false);
+        presenter = new SearchListPresenterImpl(this);
+        adapter = new SearchListAdapter(new ArrayList<>());
+        adapter.setOnItemClickListener(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLoadingMore(this);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -83,19 +72,13 @@ public class SearchActivity extends BaseActivity
 
 
     @Override
-    public void onBackPressed() {
-        RxJsoupDisposeManager.getInstance().clearDispose();
-        super.onBackPressed();
-    }
-
-    @Override
     protected int getLayoutId() {
-        return R.layout.activity_search;
+        return R.layout.fragment_search;
     }
 
 
     @Override
-    public void netWorkSuccess(List<SearchModel> data) {
+    public void netWorkSuccess(List<SearchListModel> data) {
         if (page == 0) {
             adapter.removeAll();
         }
@@ -125,8 +108,8 @@ public class SearchActivity extends BaseActivity
 
 
     @Override
-    public void onItemClick(View view, int position, SearchModel info) {
-        ContentsActivity.getInstance(info.detailUrl, info.title);
+    public void onItemClick(View view, int position, SearchListModel info) {
+        SearchContentsActivity.getInstance(info.detailUrl, info.title);
     }
 
     @Override
@@ -157,12 +140,12 @@ public class SearchActivity extends BaseActivity
 
     private void startDialog() {
         List<SqlBean> fictionNameAll = GreenDaoDbUtils.getFictionNameAll();
-        View view = View.inflate(getApplicationContext(), R.layout.dialog_search, null);
+        View view = View.inflate(getActivity(), R.layout.dialog_search, null);
         editText = (EditText) view.findViewById(R.id.search_et);
 
         FlexboxLayout flowLayout = (FlexboxLayout) view.findViewById(R.id.flow);
         flowLayout.removeAllViews();
-        alertDialog = new AlertDialog.Builder(this)
+        alertDialog = new AlertDialog.Builder(getActivity())
                 .setTitle(getString(R.string.fiction_name))
                 .setView(view)
                 .setNegativeButton(getString(R.string.dialog_unok), null)

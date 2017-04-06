@@ -12,10 +12,10 @@ import android.webkit.WebView;
 import android.widget.FrameLayout;
 
 import com.fiction.R;
-import com.fiction.fiction.search.detail.model.DetailModel;
-import com.fiction.fiction.search.detail.presenter.DetailPresenter;
-import com.fiction.fiction.search.detail.presenter.DetailPresenterImpl;
-import com.fiction.fiction.search.detail.view.DetailView;
+import com.fiction.fiction.search.detail.model.SearchDetailModel;
+import com.fiction.fiction.search.detail.presenter.SearchDetailPresenter;
+import com.fiction.fiction.search.detail.presenter.SearchDetailPresenterImpl;
+import com.fiction.fiction.search.detail.view.SearchDetailView;
 import com.framework.base.BaseActivity;
 import com.framework.utils.HtmlUtils;
 import com.framework.utils.UIUtils;
@@ -24,12 +24,12 @@ import com.framework.utils.UIUtils;
  * by y on 2017/1/8.
  */
 
-public class DetailActivity extends BaseActivity implements DetailView, OnClickListener {
+public class SearchDetailActivity extends BaseActivity implements SearchDetailView, OnClickListener {
     private static final String URL = "url";
 
     private Toolbar toolbar;
     private ContentLoadingProgressBar progressBar;
-    private DetailPresenter presenter;
+    private SearchDetailPresenter presenter;
     private String onUrl = null;
     private String nextUrl = null;
     private WebView webView;
@@ -38,12 +38,12 @@ public class DetailActivity extends BaseActivity implements DetailView, OnClickL
     public static void getInstance(String url) {
         Bundle bundle = new Bundle();
         bundle.putString(URL, url);
-        UIUtils.startActivity(DetailActivity.class, bundle);
+        UIUtils.startActivity(SearchDetailActivity.class, bundle);
     }
 
     @Override
     protected void initCreate(Bundle savedInstanceState) {
-        presenter = new DetailPresenterImpl(this);
+        presenter = new SearchDetailPresenterImpl(this);
         Bundle extras = getIntent().getExtras();
         toolbar.setTitle(getString(R.string.app_name));
         setSupportActionBar(toolbar);
@@ -77,7 +77,7 @@ public class DetailActivity extends BaseActivity implements DetailView, OnClickL
     }
 
     @Override
-    public void netWorkSuccess(DetailModel data) {
+    public void netWorkSuccess(SearchDetailModel data) {
         onUrl = data.onPage;
         nextUrl = data.nextPage;
         toolbar.setTitle(data.title);
