@@ -66,9 +66,9 @@ jsoupSample
 
     打印Log
 	
-> [flowlayout](https://github.com/ApmeM/android-flowlayout)
+> [flexbox](https://github.com/google/flexbox-layout)
 
-    flowlayout
+    flexbox-layout
 	
 > [TouchImageView](https://github.com/MikeOrtiz/TouchImageView)
 
