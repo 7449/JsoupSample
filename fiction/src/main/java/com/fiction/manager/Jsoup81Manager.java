@@ -2,9 +2,9 @@ package com.fiction.manager;
 
 import android.support.annotation.NonNull;
 
-import com.fiction.contents.model.ContentsModel;
-import com.fiction.detail.model.DetailModel;
-import com.fiction.search.model.SearchModel;
+import com.fiction.fiction.search.contents.model.ContentsModel;
+import com.fiction.fiction.search.detail.model.DetailModel;
+import com.fiction.fiction.search.list.model.SearchModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

@@ -12,15 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".search.widget.SearchActivity">
+        <activity android:name=".mian.widget.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".contents.widget.ContentsActivity" />
-        <activity android:name=".detail.widget.DetailActivity" />
+        <activity android:name=".fiction.search.contents.widget.ContentsActivity" />
+        <activity android:name=".fiction.search.detail.widget.DetailActivity" />
+        <activity android:name=".fiction.search.list.widget.SearchActivity" />
     </application>
 
 </manifest>
