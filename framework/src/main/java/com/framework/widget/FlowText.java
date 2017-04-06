@@ -7,8 +7,7 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 
 import com.framework.R;
-
-import org.apmem.tools.layouts.FlowLayout;
+import com.google.android.flexbox.FlexboxLayout;
 
 /**
  * by y on 2017/1/9.
@@ -32,7 +31,7 @@ public class FlowText extends AppCompatTextView {
 
     private void init() {
         setPadding(18, 10, 18, 10);
-        FlowLayout.LayoutParams params = new FlowLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        FlexboxLayout.LayoutParams params = new FlexboxLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.leftMargin = 10;
         params.bottomMargin = 10;
         setTextColor(ContextCompat.getColor(getContext(), R.color.white));

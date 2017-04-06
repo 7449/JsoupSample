@@ -23,9 +23,8 @@ import com.framework.base.BaseRecyclerAdapter;
 import com.framework.utils.UIUtils;
 import com.framework.widget.FlowText;
 import com.framework.widget.LoadMoreRecyclerView;
+import com.google.android.flexbox.FlexboxLayout;
 import com.rxjsoupnetwork.manager.RxJsoupDisposeManager;
-
-import org.apmem.tools.layouts.FlowLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -161,7 +160,7 @@ public class SearchActivity extends BaseActivity
         View view = View.inflate(getApplicationContext(), R.layout.dialog_search, null);
         editText = (EditText) view.findViewById(R.id.search_et);
 
-        final FlowLayout flowLayout = (FlowLayout) view.findViewById(R.id.flow);
+        FlexboxLayout flowLayout = (FlexboxLayout) view.findViewById(R.id.flow);
         flowLayout.removeAllViews();
         alertDialog = new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.fiction_name))

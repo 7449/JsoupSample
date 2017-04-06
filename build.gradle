@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'com.android.tools.build:gradle:2.3.1'
         classpath 'me.tatarka:gradle-retrolambda:3.5.0'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.1'
     }
@@ -41,6 +41,7 @@ ext {
     klogVersion = '1.6.0'
     flowVersion = '1.10@aar'
     greenDaoVersion = '3.2.0'
+    flexboxVersion = '0.2.6'
 
     imageStorePath = 'image.jks'
     imagePassword = '123456'

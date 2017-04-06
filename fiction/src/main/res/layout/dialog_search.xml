@@ -15,7 +15,7 @@
         android:textCursorDrawable="@drawable/shape_edit" />
 
 
-    <org.apmem.tools.layouts.FlowLayout
+    <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/flow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
