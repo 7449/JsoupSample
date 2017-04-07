@@ -57,6 +57,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        RxJsoupDisposeManager.getInstance().clearDispose();
         toolbar.setTitle(item.getTitle());
         presenter.switchId(item.getItemId());
         drawerLayout.closeDrawers();

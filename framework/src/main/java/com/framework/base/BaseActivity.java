@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.rxjsoupnetwork.manager.RxJsoupDisposeManager;
-
 /**
  * by y on 2016/7/26.
  */
@@ -43,12 +41,5 @@ public abstract class BaseActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RxJsoupDisposeManager.getInstance().unDispose();
     }
 }

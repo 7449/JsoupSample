@@ -63,6 +63,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        RxJsoupDisposeManager.getInstance().clearDispose();
         toolbar.setTitle(item.getTitle());
         if (item.getItemId() == R.id.collection) {
             layoutParams.setScrollFlags(0);
