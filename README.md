@@ -17,6 +17,7 @@ jsoupSample
 	[妹子图](http://www.mzitu.com/)<br>
 	[MM](http://www.mmjpg.com/)</br>
 	[MEIZITU](http://www.meizitu.com/)</br>
+	[7kk](http://m.7kk.com/)<br>
 	
 * movie
 
@@ -25,6 +26,8 @@ jsoupSample
 	[dytt8](http://www.dytt8.net/index.htm)<br>
 	[dy2018](http://www.dy2018.com/)<br>
 	[xiaopian](http://www.xiaopian.com/html/)<br>
+	[飘花](http://www.piaohua.com)<br>
+	
 	
 	
 整个框架围绕着`framework`这个`modules`展开。

@@ -1,7 +1,7 @@
 package com.fiction.fiction.search.detail.view;
 
 import com.fiction.fiction.search.detail.model.SearchDetailModel;
-import com.framework.base.BaseView;
+import com.framework.base.mvp.BaseView;
 
 /**
  * by y on 2017/1/8.

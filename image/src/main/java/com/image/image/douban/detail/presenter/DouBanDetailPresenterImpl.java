@@ -1,7 +1,7 @@
 package com.image.image.douban.detail.presenter;
 
 
-import com.framework.base.PresenterImplCompat;
+import com.framework.base.mvp.PresenterImplCompat;
 import com.image.image.douban.detail.model.DouBanDetailModel;
 import com.image.image.douban.detail.view.DouBanDetailView;
 import com.image.manager.JsoupDoubanManager;

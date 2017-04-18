@@ -1,7 +1,7 @@
 package com.image.image.mzitu.list.presenter;
 
 
-import com.framework.base.PresenterImplCompat;
+import com.framework.base.mvp.PresenterImplCompat;
 import com.framework.utils.UIUtils;
 import com.image.R;
 import com.image.image.mzitu.list.model.MZiTuListModel;

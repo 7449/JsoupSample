@@ -45,6 +45,7 @@ public class TabFragment extends BaseFragment {
                 break;
             case ApiConfig.Type.DY_2018:
             case ApiConfig.Type.XIAO_PIAN:
+            case ApiConfig.Type.PIAO_HUA:
                 tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
                 break;
         }

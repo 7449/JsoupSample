@@ -1,4 +1,4 @@
-package com.framework.base;
+package com.framework.base.mvp;
 
 /**
  * by y on 2016/10/30.

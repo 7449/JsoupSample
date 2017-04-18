@@ -1,7 +1,7 @@
 package com.fiction.fiction.search.contents.view;
 
 import com.fiction.fiction.search.contents.model.SearchContentsModel;
-import com.framework.base.BaseView;
+import com.framework.base.mvp.BaseView;
 
 import java.util.List;
 

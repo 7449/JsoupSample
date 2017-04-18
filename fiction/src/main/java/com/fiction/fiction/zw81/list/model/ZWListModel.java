@@ -1,6 +1,6 @@
 package com.fiction.fiction.zw81.list.model;
 
-import com.framework.base.BaseModel;
+import com.framework.base.mvp.BaseModel;
 
 /**
  * by y on 2017/4/6.

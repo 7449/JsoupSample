@@ -1,6 +1,6 @@
 package com.movie.movie.xiaopian.list.presenter;
 
-import com.framework.base.PresenterImplCompat;
+import com.framework.base.mvp.PresenterImplCompat;
 import com.framework.utils.UIUtils;
 import com.movie.R;
 import com.movie.manager.ApiConfig;

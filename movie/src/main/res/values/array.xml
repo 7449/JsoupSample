@@ -67,4 +67,34 @@
         <item>zongyi2013/index%s.html</item>
         <item>zongyijiemu2009/index%s.html</item>
     </string-array>
+
+
+    <string-array name="piao_hua_tab">
+        <item>动作</item>
+        <item>喜剧</item>
+        <item>爱情</item>
+        <item>科幻</item>
+        <item>剧情</item>
+        <item>悬疑</item>
+        <item>文艺</item>
+        <item>战争</item>
+        <item>恐怖</item>
+        <item>灾难</item>
+        <item>电视</item>
+        <item>动漫</item>
+    </string-array>
+    <string-array name="piao_hua_suffix">
+        <item>dongzuo/list_%s.html</item>
+        <item>xiju/list_%s.html</item>
+        <item>aiqing/list_%s.html</item>
+        <item>kehuan/list_%s.html</item>
+        <item>juqing/list_%s.html</item>
+        <item>xuannian/list_%s.html</item>
+        <item>wenyi/list_%s.html</item>
+        <item>zhanzheng/list_%s.html</item>
+        <item>kongbu/list_%s.html</item>
+        <item>zainan/list_%s.html</item>
+        <item>lianxuju/list_%s.html</item>
+        <item>dongman/list_%s.html</item>
+    </string-array>
 </resources>

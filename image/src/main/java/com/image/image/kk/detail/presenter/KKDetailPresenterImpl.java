@@ -1,6 +1,6 @@
 package com.image.image.kk.detail.presenter;
 
-import com.framework.base.PresenterImplCompat;
+import com.framework.base.mvp.PresenterImplCompat;
 import com.image.image.kk.detail.model.KKDetailModel;
 import com.image.image.kk.detail.view.KKDetailView;
 import com.image.manager.JsoupKKManager;

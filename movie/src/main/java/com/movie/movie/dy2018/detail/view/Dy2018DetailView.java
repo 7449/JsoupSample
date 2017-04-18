@@ -1,6 +1,6 @@
 package com.movie.movie.dy2018.detail.view;
 
-import com.framework.base.BaseView;
+import com.framework.base.mvp.BaseView;
 import com.movie.movie.dy2018.detail.model.Dy2018DetailModel;
 
 /**

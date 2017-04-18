@@ -1,6 +1,6 @@
 package com.image.image.kk.list.view;
 
-import com.framework.base.BaseListView;
+import com.framework.base.mvp.BaseListView;
 import com.image.image.kk.list.model.KKListModel;
 
 import java.util.List;

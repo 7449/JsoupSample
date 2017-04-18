@@ -1,6 +1,6 @@
 package com.image.image.mm.detail.presenter;
 
-import com.framework.base.PresenterImplCompat;
+import com.framework.base.mvp.PresenterImplCompat;
 import com.image.image.mm.detail.model.MMDetailModel;
 import com.image.image.mm.detail.view.MMDetailView;
 import com.image.manager.JsoupMMManager;

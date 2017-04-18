@@ -1,6 +1,6 @@
 package com.movie.movie.dy2018.detail.presenter;
 
-import com.framework.base.PresenterImplCompat;
+import com.framework.base.mvp.PresenterImplCompat;
 import com.movie.manager.Dytt2018JsoupManager;
 import com.movie.movie.dy2018.detail.model.Dy2018DetailModel;
 import com.movie.movie.dy2018.detail.view.Dy2018DetailView;

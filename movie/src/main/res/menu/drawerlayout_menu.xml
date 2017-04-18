@@ -14,5 +14,9 @@
             android:id="@+id/xiaopian"
             android:icon="@mipmap/ic_launcher"
             android:title="@string/xiappian" />
+        <item
+            android:id="@+id/piaohua"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/piaohua" />
     </group>
 </menu>

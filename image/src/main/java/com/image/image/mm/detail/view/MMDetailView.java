@@ -1,6 +1,6 @@
 package com.image.image.mm.detail.view;
 
-import com.framework.base.BaseView;
+import com.framework.base.mvp.BaseView;
 import com.image.image.mm.detail.model.MMDetailModel;
 
 import java.util.List;

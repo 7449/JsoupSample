@@ -7,7 +7,7 @@ import com.fiction.fiction.search.list.model.SearchListModel;
 import com.fiction.fiction.search.list.view.SearchListView;
 import com.fiction.manager.ApiConfig;
 import com.fiction.manager.Jsoup81Manager;
-import com.framework.base.PresenterImplCompat;
+import com.framework.base.mvp.PresenterImplCompat;
 import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;

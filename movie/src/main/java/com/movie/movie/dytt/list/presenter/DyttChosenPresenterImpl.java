@@ -1,6 +1,6 @@
 package com.movie.movie.dytt.list.presenter;
 
-import com.framework.base.PresenterImplCompat;
+import com.framework.base.mvp.PresenterImplCompat;
 import com.movie.manager.ApiConfig;
 import com.movie.manager.DyttJsoupManager;
 import com.movie.movie.dytt.list.model.DyttChosenModel;

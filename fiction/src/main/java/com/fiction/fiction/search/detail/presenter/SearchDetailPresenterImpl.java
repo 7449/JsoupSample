@@ -3,7 +3,7 @@ package com.fiction.fiction.search.detail.presenter;
 import com.fiction.fiction.search.detail.model.SearchDetailModel;
 import com.fiction.fiction.search.detail.view.SearchDetailView;
 import com.fiction.manager.Jsoup81Manager;
-import com.framework.base.PresenterImplCompat;
+import com.framework.base.mvp.PresenterImplCompat;
 import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;

@@ -1,7 +1,7 @@
 package com.fiction.fiction.search.list.view;
 
 import com.fiction.fiction.search.list.model.SearchListModel;
-import com.framework.base.BaseListView;
+import com.framework.base.mvp.BaseListView;
 
 import java.util.List;
 

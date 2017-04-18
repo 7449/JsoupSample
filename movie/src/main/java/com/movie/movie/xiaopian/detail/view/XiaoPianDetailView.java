@@ -1,6 +1,6 @@
 package com.movie.movie.xiaopian.detail.view;
 
-import com.framework.base.BaseView;
+import com.framework.base.mvp.BaseView;
 import com.movie.movie.xiaopian.detail.model.XiaoPianDetailModel;
 
 /**

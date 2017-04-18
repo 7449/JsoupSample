@@ -1,4 +1,4 @@
-package com.framework.base;
+package com.framework.base.mvp;
 
 import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 import com.rxjsoupnetwork.manager.RxJsoupNetWorkListener;

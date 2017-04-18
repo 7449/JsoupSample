@@ -1,7 +1,7 @@
 package com.fiction.fiction.zw81.list.view;
 
 import com.fiction.fiction.zw81.list.model.ZWListModel;
-import com.framework.base.BaseView;
+import com.framework.base.mvp.BaseView;
 
 /**
  * by y on 2017/1/8.

@@ -1,6 +1,6 @@
 package com.movie.movie.dy2018.list.view;
 
-import com.framework.base.BaseListView;
+import com.framework.base.mvp.BaseListView;
 import com.movie.movie.dy2018.list.model.Dy2018ListModel;
 
 import java.util.List;

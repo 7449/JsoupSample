@@ -11,6 +11,7 @@ import com.movie.manager.ApiConfig;
 import com.movie.movie.dy2018.list.widget.Dy2018ListFragment;
 import com.movie.movie.dytt.list.widget.DyttChosenFragment;
 import com.movie.movie.dytt.list.widget.DyttNewFragment;
+import com.movie.movie.piaohua.list.widget.PiaoHuaListFragment;
 import com.movie.movie.xiaopian.list.widget.XiaoPianListFragment;
 
 /**
@@ -34,6 +35,9 @@ class TabAdapter extends FragmentPagerAdapter {
                 break;
             case ApiConfig.Type.XIAO_PIAN:
                 name = UIUtils.getStringArray(R.array.xiao_pian_tab);
+                break;
+            case ApiConfig.Type.PIAO_HUA:
+                name = UIUtils.getStringArray(R.array.piao_hua_tab);
                 break;
         }
     }
@@ -66,6 +70,8 @@ class TabAdapter extends FragmentPagerAdapter {
                 return Dy2018ListFragment.newInstance(position);
             case ApiConfig.Type.XIAO_PIAN:
                 return XiaoPianListFragment.newInstance(position);
+            case ApiConfig.Type.PIAO_HUA:
+                return PiaoHuaListFragment.newInstance(position);
         }
         return null;
     }

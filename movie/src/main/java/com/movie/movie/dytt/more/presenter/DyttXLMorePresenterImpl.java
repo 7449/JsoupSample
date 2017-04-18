@@ -1,6 +1,6 @@
 package com.movie.movie.dytt.more.presenter;
 
-import com.framework.base.PresenterImplCompat;
+import com.framework.base.mvp.PresenterImplCompat;
 import com.movie.manager.DyttJsoupManager;
 import com.movie.movie.dytt.more.model.DyttXLMoreModel;
 import com.movie.movie.dytt.more.view.DyttXLMoreView;

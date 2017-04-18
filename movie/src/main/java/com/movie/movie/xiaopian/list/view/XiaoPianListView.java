@@ -1,6 +1,6 @@
 package com.movie.movie.xiaopian.list.view;
 
-import com.framework.base.BaseListView;
+import com.framework.base.mvp.BaseListView;
 import com.movie.movie.xiaopian.list.model.XiaoPianListModel;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.movie.movie.dytt.more.view;
 
-import com.framework.base.BaseListView;
+import com.framework.base.mvp.BaseListView;
 import com.movie.movie.dytt.more.model.DyttVideoMoreModel;
 
 import java.util.List;

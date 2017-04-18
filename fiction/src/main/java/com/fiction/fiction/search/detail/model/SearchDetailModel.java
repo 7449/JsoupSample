@@ -1,6 +1,6 @@
 package com.fiction.fiction.search.detail.model;
 
-import com.framework.base.BaseModel;
+import com.framework.base.mvp.BaseModel;
 
 /**
  * by y on 2017/1/8.

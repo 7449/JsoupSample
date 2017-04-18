@@ -1,6 +1,6 @@
 package com.image.image.douban.list.view;
 
-import com.framework.base.BaseListView;
+import com.framework.base.mvp.BaseListView;
 import com.image.image.douban.list.model.DouBanListModel;
 
 import java.util.List;

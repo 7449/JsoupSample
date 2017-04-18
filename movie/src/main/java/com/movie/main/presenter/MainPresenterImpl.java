@@ -30,6 +30,9 @@ public class MainPresenterImpl implements MainPresenter {
             case R.id.xiaopian:
                 mainView.switchXiaoPian();
                 break;
+            case R.id.piaohua:
+                mainView.switchPiaoHua();
+                break;
         }
     }
 }

@@ -17,11 +17,12 @@
             <include layout="@layout/toolbar" />
         </android.support.design.widget.AppBarLayout>
 
-        <WebView
+        <com.framework.widget.EasyWebView
             android:id="@+id/webView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
 
     <include layout="@layout/loading_layout" />
+
 </android.support.design.widget.CoordinatorLayout>

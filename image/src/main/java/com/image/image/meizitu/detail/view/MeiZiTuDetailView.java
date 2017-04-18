@@ -1,6 +1,6 @@
 package com.image.image.meizitu.detail.view;
 
-import com.framework.base.BaseView;
+import com.framework.base.mvp.BaseView;
 import com.image.image.meizitu.detail.model.MeiZiTuDetailModel;
 
 import java.util.List;

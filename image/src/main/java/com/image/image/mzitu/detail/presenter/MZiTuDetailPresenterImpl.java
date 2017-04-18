@@ -1,7 +1,7 @@
 package com.image.image.mzitu.detail.presenter;
 
 
-import com.framework.base.PresenterImplCompat;
+import com.framework.base.mvp.PresenterImplCompat;
 import com.image.image.mzitu.detail.model.MZiTuDetailModel;
 import com.image.image.mzitu.detail.view.MZiTuDetailView;
 import com.image.manager.JsoupMZiTuManager;

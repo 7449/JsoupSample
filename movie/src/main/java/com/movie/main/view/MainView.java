@@ -10,4 +10,6 @@ public interface MainView {
     void swichDy2018();
 
     void switchXiaoPian();
+
+    void switchPiaoHua();
 }

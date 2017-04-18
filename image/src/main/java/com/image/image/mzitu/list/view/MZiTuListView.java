@@ -1,6 +1,6 @@
 package com.image.image.mzitu.list.view;
 
-import com.framework.base.BaseListView;
+import com.framework.base.mvp.BaseListView;
 import com.image.image.mzitu.list.model.MZiTuListModel;
 
 import java.util.List;

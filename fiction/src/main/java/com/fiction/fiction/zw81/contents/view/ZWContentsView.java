@@ -1,7 +1,7 @@
 package com.fiction.fiction.zw81.contents.view;
 
 import com.fiction.fiction.zw81.contents.model.ZWContentsModel;
-import com.framework.base.BaseView;
+import com.framework.base.mvp.BaseView;
 
 import java.util.List;
 

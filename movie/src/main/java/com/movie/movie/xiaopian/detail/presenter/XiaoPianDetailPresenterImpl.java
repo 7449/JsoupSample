@@ -1,6 +1,6 @@
 package com.movie.movie.xiaopian.detail.presenter;
 
-import com.framework.base.PresenterImplCompat;
+import com.framework.base.mvp.PresenterImplCompat;
 import com.movie.manager.XiaoPianJsoupManager;
 import com.movie.movie.xiaopian.detail.model.XiaoPianDetailModel;
 import com.movie.movie.xiaopian.detail.view.XiaoPianDetailView;

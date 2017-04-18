@@ -22,6 +22,7 @@
         <activity android:name=".movie.dytt.more.widget.DyttXLMoreActivity" />
         <activity android:name=".movie.dy2018.detail.widget.Dy2018DetailActivity" />
         <activity android:name=".movie.xiaopian.detail.widget.XiaopianDetailActivity" />
+        <activity android:name=".movie.piaohua.detail.widget.PiaoHuaDetailActivity" />
     </application>
 
 </manifest>

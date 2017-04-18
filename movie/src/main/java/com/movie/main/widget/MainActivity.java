@@ -78,4 +78,9 @@ public class MainActivity extends BaseActivity
     public void switchXiaoPian() {
         replaceFragment(R.id.fragment, TabFragment.newInstance(ApiConfig.Type.XIAO_PIAN));
     }
+
+    @Override
+    public void switchPiaoHua() {
+        replaceFragment(R.id.fragment, TabFragment.newInstance(ApiConfig.Type.PIAO_HUA));
+    }
 }

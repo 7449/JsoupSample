@@ -1,6 +1,6 @@
 package com.image.image.douban.list.presenter;
 
-import com.framework.base.PresenterImplCompat;
+import com.framework.base.mvp.PresenterImplCompat;
 import com.image.image.douban.list.model.DouBanListModel;
 import com.image.image.douban.list.view.DouBanListView;
 import com.image.manager.ApiConfig;

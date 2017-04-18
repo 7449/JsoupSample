@@ -1,6 +1,6 @@
 package com.movie.movie.dy2018.list.presenter;
 
-import com.framework.base.PresenterImplCompat;
+import com.framework.base.mvp.PresenterImplCompat;
 import com.movie.manager.ApiConfig;
 import com.movie.manager.Dytt2018JsoupManager;
 import com.movie.movie.dy2018.list.model.Dy2018ListModel;
