@@ -7,7 +7,6 @@ import com.movie.manager.ApiConfig;
 import com.movie.manager.XiaoPianJsoupManager;
 import com.movie.movie.xiaopian.list.model.XiaoPianListModel;
 import com.movie.movie.xiaopian.list.view.XiaoPianListView;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
 
@@ -25,11 +24,7 @@ public class XiaoPianListPresenterImpl extends PresenterImplCompat<List<XiaoPian
 
     @Override
     public void netWorkRequest(int type, int page) {
-        RxJsoupNetWork
-                .getInstance()
-                .getApi(
-                        RxJsoupNetWork.onSubscribe(getXiaoPianUrl(type, page), this),
-                        this);
+        netWork(getXiaoPianUrl(type, page));
     }
 
 

@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.framework.R;
+
 /**
  * by y on 2016/7/26.
  */
@@ -19,8 +21,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         initCreate(savedInstanceState);
     }
 
-    public void replaceFragment(int frameLayoutId, Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(frameLayoutId, fragment).commit();
+    public void replaceFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragment).commit();
     }
 
 

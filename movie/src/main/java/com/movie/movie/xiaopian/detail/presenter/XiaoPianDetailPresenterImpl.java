@@ -4,7 +4,6 @@ import com.framework.base.mvp.PresenterImplCompat;
 import com.movie.manager.XiaoPianJsoupManager;
 import com.movie.movie.xiaopian.detail.model.XiaoPianDetailModel;
 import com.movie.movie.xiaopian.detail.view.XiaoPianDetailView;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
 
@@ -20,11 +19,7 @@ public class XiaoPianDetailPresenterImpl extends PresenterImplCompat<XiaoPianDet
 
     @Override
     public void netWorkRequest(String url) {
-        RxJsoupNetWork
-                .getInstance()
-                .getApi(
-                        RxJsoupNetWork.onSubscribe(url, this),
-                        this);
+        netWork(url);
     }
 
     @Override

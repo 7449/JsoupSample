@@ -4,7 +4,6 @@ import com.fiction.fiction.search.contents.model.SearchContentsModel;
 import com.fiction.fiction.search.contents.view.SearchContentsView;
 import com.fiction.manager.Jsoup81Manager;
 import com.framework.base.mvp.PresenterImplCompat;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
 
@@ -21,12 +20,8 @@ public class SearchContentsPresenterImpl extends PresenterImplCompat<List<Search
     }
 
     @Override
-    public void startContents(final String url) {
-        RxJsoupNetWork
-                .getInstance()
-                .getApi(
-                        RxJsoupNetWork.onSubscribe(url, this),
-                        this);
+    public void startContents(String url) {
+        netWork(url);
     }
 
     @Override

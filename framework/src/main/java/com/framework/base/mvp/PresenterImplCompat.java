@@ -1,9 +1,12 @@
 package com.framework.base.mvp;
 
+import com.rxjsoupnetwork.manager.RxJsoupDisposeManager;
 import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 import com.rxjsoupnetwork.manager.RxJsoupNetWorkListener;
 
 import java.util.List;
+
+import io.reactivex.observers.DisposableObserver;
 
 /**
  * by y on 2017/3/23
@@ -13,6 +16,7 @@ public abstract class PresenterImplCompat<M, V extends BaseView<M>>
         implements RxJsoupNetWorkListener<M>, RxJsoupNetWork.DocumentCallback<M> {
 
     protected final V view;
+    private DisposableObserver<M> api;
 
     public PresenterImplCompat(V view) {
         this.view = view;
@@ -27,11 +31,17 @@ public abstract class PresenterImplCompat<M, V extends BaseView<M>>
     public void onNetWorkError(Throwable e) {
         view.hideProgress();
         view.netWorkError();
+        if (api != null) {
+            RxJsoupDisposeManager.getInstance().unDispose(api);
+        }
     }
 
     @Override
     public void onNetWorkComplete() {
         view.hideProgress();
+        if (api != null) {
+            RxJsoupDisposeManager.getInstance().unDispose(api);
+        }
     }
 
     @Override
@@ -41,5 +51,13 @@ public abstract class PresenterImplCompat<M, V extends BaseView<M>>
         } else {
             view.netWorkSuccess(data);
         }
+    }
+
+    protected void netWork(String url) {
+        api = RxJsoupNetWork
+                .getInstance()
+                .getApi(
+                        RxJsoupNetWork.onSubscribe(url, this),
+                        this);
     }
 }

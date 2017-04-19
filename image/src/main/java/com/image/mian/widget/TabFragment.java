@@ -47,5 +47,4 @@ public class TabFragment extends BaseFragment {
     protected int getLayoutId() {
         return R.layout.fragment_tab;
     }
-
 }

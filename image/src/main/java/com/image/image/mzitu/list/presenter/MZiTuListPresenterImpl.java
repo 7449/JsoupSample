@@ -8,7 +8,6 @@ import com.image.image.mzitu.list.model.MZiTuListModel;
 import com.image.image.mzitu.list.view.MZiTuListView;
 import com.image.manager.ApiConfig;
 import com.image.manager.JsoupMZiTuManager;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
 
@@ -26,15 +25,11 @@ public class MZiTuListPresenterImpl extends PresenterImplCompat<List<MZiTuListMo
 
     @Override
     public void netWorkRequest(int id, final int page) {
-        RxJsoupNetWork
-                .getInstance()
-                .getApi(
-                        RxJsoupNetWork.onSubscribe(ApiConfig.M_ZI_TU_URL +
-                                UIUtils.getStringArray(R.array.mzitu_array_suffix)[id] +
-                                ApiConfig.SLASH +
-                                ApiConfig.PAGE +
-                                ApiConfig.SLASH + page, this),
-                        this);
+        netWork(ApiConfig.M_ZI_TU_URL +
+                UIUtils.getStringArray(R.array.mzitu_array_suffix)[id] +
+                ApiConfig.SLASH +
+                ApiConfig.PAGE +
+                ApiConfig.SLASH + page);
     }
 
     @Override

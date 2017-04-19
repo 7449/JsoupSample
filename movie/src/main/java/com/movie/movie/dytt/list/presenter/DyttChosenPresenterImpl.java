@@ -5,7 +5,6 @@ import com.movie.manager.ApiConfig;
 import com.movie.manager.DyttJsoupManager;
 import com.movie.movie.dytt.list.model.DyttChosenModel;
 import com.movie.movie.dytt.list.view.DyttChosenView;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
 
@@ -25,11 +24,7 @@ public class DyttChosenPresenterImpl extends PresenterImplCompat<List<DyttChosen
 
     @Override
     public void netWorkRequest() {
-        RxJsoupNetWork
-                .getInstance()
-                .getApi(
-                        RxJsoupNetWork.onSubscribe(ApiConfig.DYTT_URL, this),
-                        this);
+        netWork(ApiConfig.DYTT_URL);
     }
 
     @Override

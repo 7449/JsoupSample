@@ -57,7 +57,6 @@ public class MainActivity extends BaseActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        RxJsoupDisposeManager.getInstance().clearDispose();
         toolbar.setTitle(item.getTitle());
         presenter.switchId(item.getItemId());
         drawerLayout.closeDrawers();
@@ -66,21 +65,21 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void switchDytt() {
-        replaceFragment(R.id.fragment, TabFragment.newInstance(ApiConfig.Type.DYTT));
+        replaceFragment(TabFragment.newInstance(ApiConfig.Type.DYTT));
     }
 
     @Override
     public void swichDy2018() {
-        replaceFragment(R.id.fragment, TabFragment.newInstance(ApiConfig.Type.DY_2018));
+        replaceFragment(TabFragment.newInstance(ApiConfig.Type.DY_2018));
     }
 
     @Override
     public void switchXiaoPian() {
-        replaceFragment(R.id.fragment, TabFragment.newInstance(ApiConfig.Type.XIAO_PIAN));
+        replaceFragment(TabFragment.newInstance(ApiConfig.Type.XIAO_PIAN));
     }
 
     @Override
     public void switchPiaoHua() {
-        replaceFragment(R.id.fragment, TabFragment.newInstance(ApiConfig.Type.PIAO_HUA));
+        replaceFragment(TabFragment.newInstance(ApiConfig.Type.PIAO_HUA));
     }
 }

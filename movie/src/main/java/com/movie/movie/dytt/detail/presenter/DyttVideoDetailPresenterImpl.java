@@ -4,7 +4,6 @@ import com.framework.base.mvp.PresenterImplCompat;
 import com.movie.manager.DyttJsoupManager;
 import com.movie.movie.dytt.detail.model.DyttVideoDetailModel;
 import com.movie.movie.dytt.detail.view.DyttVideoDetailView;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
 
@@ -22,11 +21,7 @@ public class DyttVideoDetailPresenterImpl
 
     @Override
     public void netWorkRequest(String url) {
-        RxJsoupNetWork
-                .getInstance()
-                .getApi(
-                        RxJsoupNetWork.onSubscribe(url, this),
-                        this);
+        netWork(url);
     }
 
     @Override

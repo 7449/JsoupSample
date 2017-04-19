@@ -19,10 +19,10 @@ public interface ApiConfig {
     String KK_URL = "http://m.7kk.com/";
 
     interface Type {
-        String DOU_BAN_MEI_ZI = "doubanmeizi";
-        String M_ZI_TU = "mzitu";
-        String MM = "mm";
-        String MEIZITU = "meizitu";
+        String DOU_BAN_MEI_ZI = "豆瓣妹子";
+        String M_ZI_TU = "妹子图";
+        String MM = "MM";
+        String MEIZITU = "MeiZiTu";
         String KK = "7kk";
     }
 }

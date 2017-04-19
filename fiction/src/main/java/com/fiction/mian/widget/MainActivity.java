@@ -62,7 +62,6 @@ public class MainActivity extends BaseActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        RxJsoupDisposeManager.getInstance().clearDispose();
         toolbar.setTitle(item.getTitle());
         if (item.getItemId() == R.id.search) {
             layoutParams.setScrollFlags(0);
@@ -76,11 +75,11 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void switchSearch() {
-        replaceFragment(R.id.fragment, new SearchListFragment());
+        replaceFragment(new SearchListFragment());
     }
 
     @Override
     public void switch81() {
-        replaceFragment(R.id.fragment, TabFragment.newInstance(ApiConfig.Type.FICTION_81));
+        replaceFragment(TabFragment.newInstance(ApiConfig.Type.FICTION_81));
     }
 }

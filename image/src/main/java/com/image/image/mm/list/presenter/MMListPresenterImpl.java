@@ -7,7 +7,6 @@ import com.image.image.mm.list.model.MMListModel;
 import com.image.image.mm.list.view.MMListView;
 import com.image.manager.ApiConfig;
 import com.image.manager.JsoupMMManager;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
 
@@ -24,11 +23,7 @@ public class MMListPresenterImpl extends PresenterImplCompat<List<MMListModel>, 
 
     @Override
     public void netWorkRequest(int type, int page) {
-        RxJsoupNetWork
-                .getInstance()
-                .getApi(
-                        RxJsoupNetWork.onSubscribe(String.format(ApiConfig.MM_URL + UIUtils.getStringArray(R.array.mm_array_suffix)[type], page), this),
-                        this);
+        netWork(String.format(ApiConfig.MM_URL + UIUtils.getStringArray(R.array.mm_array_suffix)[type], page));
     }
 
     @Override

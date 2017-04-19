@@ -7,7 +7,6 @@ import com.movie.manager.ApiConfig;
 import com.movie.manager.DyttJsoupManager;
 import com.movie.movie.dytt.more.model.DyttVideoMoreModel;
 import com.movie.movie.dytt.more.view.DyttVideoMoreView;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
 
@@ -27,11 +26,7 @@ public class DyttVideoMorePresenterImpl extends PresenterImplCompat<List<DyttVid
 
     @Override
     public void netWorkRequest(int type, int placeType, int page) {
-        RxJsoupNetWork
-                .getInstance()
-                .getApi(
-                        RxJsoupNetWork.onSubscribe(getMoreUrl(type, placeType, page), this),
-                        this);
+        netWork(getMoreUrl(type, placeType, page));
     }
 
     @Override

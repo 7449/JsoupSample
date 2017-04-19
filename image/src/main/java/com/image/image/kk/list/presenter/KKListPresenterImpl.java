@@ -7,7 +7,6 @@ import com.image.image.kk.list.model.KKListModel;
 import com.image.image.kk.list.view.KKListView;
 import com.image.manager.ApiConfig;
 import com.image.manager.JsoupKKManager;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
 
@@ -25,12 +24,8 @@ public class KKListPresenterImpl extends PresenterImplCompat<List<KKListModel>, 
     }
 
     @Override
-    public void netWorkRequest(int id, final int page) {
-        RxJsoupNetWork
-                .getInstance()
-                .getApi(
-                        RxJsoupNetWork.onSubscribe(String.format(ApiConfig.KK_URL + UIUtils.getStringArray(R.array.kk_array_suffix)[id], page), this),
-                        this);
+    public void netWorkRequest(int id, int page) {
+        netWork(String.format(ApiConfig.KK_URL + UIUtils.getStringArray(R.array.kk_array_suffix)[id], page));
     }
 
     @Override

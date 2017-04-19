@@ -5,7 +5,6 @@ import com.movie.manager.ApiConfig;
 import com.movie.manager.DyttJsoupManager;
 import com.movie.movie.dytt.list.model.DyttNewModel;
 import com.movie.movie.dytt.list.view.DyttNewView;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
 
@@ -24,11 +23,7 @@ public class DyttNewPresenterImpl extends PresenterImplCompat<List<DyttNewModel>
 
     @Override
     public void netWorkRequest() {
-        RxJsoupNetWork
-                .getInstance()
-                .getApi(
-                        RxJsoupNetWork.onSubscribe(ApiConfig.DYTT_URL, this),
-                        this);
+        netWork(ApiConfig.DYTT_URL);
     }
 
     @Override

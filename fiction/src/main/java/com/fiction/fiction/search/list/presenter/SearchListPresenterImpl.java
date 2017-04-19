@@ -8,7 +8,6 @@ import com.fiction.fiction.search.list.view.SearchListView;
 import com.fiction.manager.ApiConfig;
 import com.fiction.manager.Jsoup81Manager;
 import com.framework.base.mvp.PresenterImplCompat;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
 
@@ -27,14 +26,10 @@ public class SearchListPresenterImpl extends PresenterImplCompat<List<SearchList
     }
 
     @Override
-    public void startSearch(final String fictionName, final int page) {
+    public void startSearch(String fictionName, int page) {
         this.fictionName = fictionName;
         if (!TextUtils.isEmpty(fictionName)) {
-            RxJsoupNetWork
-                    .getInstance()
-                    .getApi(
-                            RxJsoupNetWork.onSubscribe(ApiConfig.BASE_81 + fictionName + "&p=" + page + ApiConfig.SUFFIX_81, this),
-                            this);
+            netWork(ApiConfig.BASE_81 + fictionName + "&p=" + page + ApiConfig.SUFFIX_81);
         } else {
             view.fictionNameEmpty();
         }

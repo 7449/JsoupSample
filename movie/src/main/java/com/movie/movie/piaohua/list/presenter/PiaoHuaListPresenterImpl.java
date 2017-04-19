@@ -7,7 +7,6 @@ import com.movie.manager.ApiConfig;
 import com.movie.manager.PiaoHuaJsoupManager;
 import com.movie.movie.piaohua.list.model.PiaoHuaListModel;
 import com.movie.movie.piaohua.list.view.PiaoHuaListView;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
 
@@ -26,11 +25,7 @@ public class PiaoHuaListPresenterImpl extends PresenterImplCompat<List<PiaoHuaLi
 
     @Override
     public void netWorkRequest(int position, int page) {
-        RxJsoupNetWork
-                .getInstance()
-                .getApi(
-                        RxJsoupNetWork.onSubscribe(getPiaoHuaUrl(position, page), this),
-                        this);
+        netWork(getPiaoHuaUrl(position, page));
     }
 
     @Override

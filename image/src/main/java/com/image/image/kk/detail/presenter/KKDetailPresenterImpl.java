@@ -43,11 +43,7 @@ public class KKDetailPresenterImpl extends PresenterImplCompat<List<KKDetailMode
                     @Override
                     public void onNetWorkSuccess(List<String> data) {
                         for (long i = 0; i < data.size(); i++) {
-                            RxJsoupNetWork
-                                    .getInstance()
-                                    .getApi(
-                                            RxJsoupNetWork.onSubscribe(data.get((int) i), KKDetailPresenterImpl.this),
-                                            KKDetailPresenterImpl.this);
+                            netWork(data.get((int) i));
                             if (i == data.size() - 1) {
                                 view.reverse();
                             }

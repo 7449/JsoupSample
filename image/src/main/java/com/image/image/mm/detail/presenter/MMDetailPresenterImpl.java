@@ -4,7 +4,6 @@ import com.framework.base.mvp.PresenterImplCompat;
 import com.image.image.mm.detail.model.MMDetailModel;
 import com.image.image.mm.detail.view.MMDetailView;
 import com.image.manager.JsoupMMManager;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
 
@@ -21,11 +20,7 @@ public class MMDetailPresenterImpl extends PresenterImplCompat<List<MMDetailMode
 
     @Override
     public void netWorkRequest(String url) {
-        RxJsoupNetWork
-                .getInstance()
-                .getApi(
-                        RxJsoupNetWork.onSubscribe(url + "/1", this),
-                        this);
+        netWork(url + "/1");
     }
 
     @Override

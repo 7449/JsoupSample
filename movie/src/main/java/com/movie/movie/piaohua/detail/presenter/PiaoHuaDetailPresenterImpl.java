@@ -4,7 +4,6 @@ import com.framework.base.mvp.PresenterImplCompat;
 import com.movie.manager.PiaoHuaJsoupManager;
 import com.movie.movie.piaohua.detail.model.PiaoHuaDetailModel;
 import com.movie.movie.piaohua.detail.view.PiaoHuaDetailView;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
 
@@ -20,11 +19,7 @@ public class PiaoHuaDetailPresenterImpl extends PresenterImplCompat<PiaoHuaDetai
 
     @Override
     public void netWorkRequest(String url) {
-        RxJsoupNetWork
-                .getInstance()
-                .getApi(
-                        RxJsoupNetWork.onSubscribe(url, this),
-                        this);
+        netWork(url);
     }
 
     @Override

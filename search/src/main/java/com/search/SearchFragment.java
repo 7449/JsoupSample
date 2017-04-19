@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -62,19 +61,14 @@ public class SearchFragment extends Fragment
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.rootView || i == R.id.iv_finish) {
-
-            if (getActivity() != null) {
-                FragmentManager supportFragmentManager = getActivity().getSupportFragmentManager();
-
-
-            }
-
             onBack();
         } else if (i == R.id.iv_search && searchInterface != null) {
             String trim = etSearch.getText().toString().trim();
             if (TextUtils.isEmpty(trim)) {
                 searchInterface.emptySearch();
             } else {
+                onBack();
+
                 searchInterface.onSearchStart(trim);
             }
         }

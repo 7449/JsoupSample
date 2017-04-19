@@ -39,7 +39,7 @@ public class Utils {
                 Animation.RELATIVE_TO_SELF, 0.0f,
                 Animation.RELATIVE_TO_SELF, -1.0f,
                 Animation.RELATIVE_TO_SELF, 0.0f);
-        mStartAnimation.setDuration(600);
+        mStartAnimation.setDuration(400);
         mStartAnimation.setAnimationListener(animationListener);
         view.startAnimation(mStartAnimation);
     }
@@ -50,7 +50,7 @@ public class Utils {
                 Animation.RELATIVE_TO_SELF, 0.0f,
                 Animation.RELATIVE_TO_SELF, 0.0f,
                 Animation.RELATIVE_TO_SELF, -1.0f);
-        mEndAnimation.setDuration(600);
+        mEndAnimation.setDuration(400);
         mEndAnimation.setAnimationListener(animationListener);
         view.startAnimation(mEndAnimation);
     }

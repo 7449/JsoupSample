@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -19,6 +20,7 @@ import com.image.manager.ApiConfig;
 import com.image.mian.presenter.MainPresenter;
 import com.image.mian.presenter.MainPresenterImpl;
 import com.image.mian.view.MainView;
+import com.image.search.widget.SearchActivity;
 import com.rxjsoupnetwork.manager.RxJsoupDisposeManager;
 import com.search.SearchFragment;
 import com.search.SearchToActivityInterface;
@@ -31,6 +33,7 @@ public class MainActivity extends BaseActivity
     private MainPresenter presenter;
     private AppBarLayout appBarLayout;
     private AppBarLayout.LayoutParams layoutParams;
+    private String searchType = null;
 
 
     @Override
@@ -40,7 +43,7 @@ public class MainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
         toolbar.setTitle(getString(R.string.dbmz_title));
         setSupportActionBar(toolbar);
-        switchDouban();
+        replaceFragment(TabFragment.newInstance(searchType = ApiConfig.Type.DOU_BAN_MEI_ZI));
     }
 
     @Override
@@ -75,7 +78,6 @@ public class MainActivity extends BaseActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        RxJsoupDisposeManager.getInstance().clearDispose();
         toolbar.setTitle(item.getTitle());
         if (item.getItemId() == R.id.collection) {
             layoutParams.setScrollFlags(0);
@@ -83,6 +85,8 @@ public class MainActivity extends BaseActivity
             layoutParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
         }
         presenter.switchId(item.getItemId());
+        replaceFragment(TabFragment.newInstance(searchType));
+        invalidateOptionsMenu();
         drawerLayout.closeDrawers();
         return true;
     }
@@ -90,6 +94,8 @@ public class MainActivity extends BaseActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        item.setVisible(!TextUtils.equals(searchType, ApiConfig.Type.DOU_BAN_MEI_ZI));
         return true;
     }
 
@@ -105,37 +111,37 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void switchDouban() {
-        replaceFragment(R.id.fragment, TabFragment.newInstance(ApiConfig.Type.DOU_BAN_MEI_ZI));
+        searchType = ApiConfig.Type.DOU_BAN_MEI_ZI;
     }
 
     @Override
     public void switchMZitu() {
-        replaceFragment(R.id.fragment, TabFragment.newInstance(ApiConfig.Type.M_ZI_TU));
+        searchType = ApiConfig.Type.M_ZI_TU;
     }
 
     @Override
     public void switchMM() {
-        replaceFragment(R.id.fragment, TabFragment.newInstance(ApiConfig.Type.MM));
+        searchType = ApiConfig.Type.MM;
     }
 
     @Override
     public void switchMeiZiTu() {
-        replaceFragment(R.id.fragment, TabFragment.newInstance(ApiConfig.Type.MEIZITU));
+        searchType = ApiConfig.Type.MEIZITU;
     }
 
     @Override
     public void switch7KK() {
-        replaceFragment(R.id.fragment, TabFragment.newInstance(ApiConfig.Type.KK));
+        searchType = ApiConfig.Type.KK;
     }
 
     @Override
     public void switchCollection() {
-        replaceFragment(R.id.fragment, CollectionListFragment.newInstance());
+        replaceFragment(CollectionListFragment.newInstance());
     }
 
     @Override
     public void onSearchStart(String content) {
-
+        SearchActivity.start(searchType, content);
     }
 
     @Override

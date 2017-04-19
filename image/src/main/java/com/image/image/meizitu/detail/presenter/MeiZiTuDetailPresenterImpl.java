@@ -4,7 +4,6 @@ import com.framework.base.mvp.PresenterImplCompat;
 import com.image.image.meizitu.detail.model.MeiZiTuDetailModel;
 import com.image.image.meizitu.detail.view.MeiZiTuDetailView;
 import com.image.manager.JsoupMeiZiTuManager;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
 
@@ -23,11 +22,7 @@ public class MeiZiTuDetailPresenterImpl extends PresenterImplCompat<List<MeiZiTu
 
     @Override
     public void netWorkRequest(String url) {
-        RxJsoupNetWork
-                .getInstance()
-                .getApi(
-                        RxJsoupNetWork.onSubscribe(url, this),
-                        this);
+        netWork(url);
     }
 
     @Override

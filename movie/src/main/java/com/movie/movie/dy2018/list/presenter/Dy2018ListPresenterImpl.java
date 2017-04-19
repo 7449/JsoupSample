@@ -5,7 +5,6 @@ import com.movie.manager.ApiConfig;
 import com.movie.manager.Dytt2018JsoupManager;
 import com.movie.movie.dy2018.list.model.Dy2018ListModel;
 import com.movie.movie.dy2018.list.view.Dy2018ListView;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
 
@@ -23,11 +22,7 @@ public class Dy2018ListPresenterImpl extends PresenterImplCompat<List<Dy2018List
 
     @Override
     public void netWorkRequest(int type, int page) {
-        RxJsoupNetWork
-                .getInstance()
-                .getApi(
-                        RxJsoupNetWork.onSubscribe(getDy2018Url(type, page), this),
-                        this);
+        netWork(getDy2018Url(type, page));
     }
 
     @Override

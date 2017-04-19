@@ -4,7 +4,6 @@ import com.framework.base.mvp.PresenterImplCompat;
 import com.movie.manager.DyttJsoupManager;
 import com.movie.movie.dytt.more.model.DyttXLMoreModel;
 import com.movie.movie.dytt.more.view.DyttXLMoreView;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
 
@@ -22,11 +21,7 @@ public class DyttXLMorePresenterImpl extends PresenterImplCompat<List<DyttXLMore
 
     @Override
     public void netWorkRequest(String url) {
-        RxJsoupNetWork
-                .getInstance()
-                .getApi(
-                        RxJsoupNetWork.onSubscribe(url, this),
-                        this);
+        netWork(url);
     }
 
     @Override

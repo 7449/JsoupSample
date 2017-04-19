@@ -5,7 +5,6 @@ import com.image.image.douban.list.model.DouBanListModel;
 import com.image.image.douban.list.view.DouBanListView;
 import com.image.manager.ApiConfig;
 import com.image.manager.JsoupDoubanManager;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
 
@@ -23,11 +22,7 @@ public class DouBanListPresenterImpl extends PresenterImplCompat<List<DouBanList
 
     @Override
     public void netWorkRequest(int id, int page) {
-        RxJsoupNetWork
-                .getInstance()
-                .getApi(
-                        RxJsoupNetWork.onSubscribe(ApiConfig.DBMZ_URL + (id + 2) + ApiConfig.dou_ban_link + page, this),
-                        this);
+        netWork(ApiConfig.DBMZ_URL + (id + 2) + ApiConfig.dou_ban_link + page);
     }
 
     @Override

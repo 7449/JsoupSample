@@ -4,7 +4,6 @@ import com.framework.base.mvp.PresenterImplCompat;
 import com.movie.manager.Dytt2018JsoupManager;
 import com.movie.movie.dy2018.detail.model.Dy2018DetailModel;
 import com.movie.movie.dy2018.detail.view.Dy2018DetailView;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 
 import org.jsoup.nodes.Document;
 
@@ -20,11 +19,7 @@ public class Dy2018DetailPresenterImpl extends PresenterImplCompat<Dy2018DetailM
 
     @Override
     public void netWorkRequest(String url) {
-        RxJsoupNetWork
-                .getInstance()
-                .getApi(
-                        RxJsoupNetWork.onSubscribe(url, this),
-                        this);
+        netWork(url);
     }
 
     @Override
