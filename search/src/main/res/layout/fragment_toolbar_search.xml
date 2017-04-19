@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/night_mask"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/reveal_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_search_height"
+        android:layout_margin="@dimen/toolbar_search_margin"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_finish"
+            android:layout_width="@dimen/toolbar_search_iv_width"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="?android:selectableItemBackground"
+            android:padding="@dimen/toolbar_search_iv_padding"
+            android:src="@drawable/ic_toolbar_search_finish" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/et_search"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/toolbar_search_et_margin"
+            android:layout_marginRight="@dimen/toolbar_search_et_margin"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="@string/toolbar_search_hint"
+            android:textColor="@color/gray"
+            android:textColorHint="@color/gray" />
+
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_search"
+            android:layout_width="@dimen/toolbar_search_iv_width"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="?android:selectableItemBackground"
+            android:padding="@dimen/toolbar_search_iv_padding"
+            android:src="@drawable/ic_find_search" />
+    </LinearLayout>
+</LinearLayout>

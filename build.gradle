@@ -8,13 +8,11 @@ buildscript {
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.1'
     }
 }
-
 allprojects {
     repositories {
         jcenter()
     }
 }
-
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
@@ -42,6 +40,7 @@ ext {
     flowVersion = '1.10@aar'
     greenDaoVersion = '3.2.0'
     flexboxVersion = '0.2.6'
+    circularVersion = '2.0.1@aar'
 
     imageStorePath = 'image.jks'
     imagePassword = '123456'

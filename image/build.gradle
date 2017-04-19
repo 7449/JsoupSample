@@ -43,7 +43,13 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
-
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+}
 dependencies {
+    compile "com.github.ozodrukh:CircularReveal:$circularVersion"
     compile project(':framework')
+    compile project(':search')
 }
