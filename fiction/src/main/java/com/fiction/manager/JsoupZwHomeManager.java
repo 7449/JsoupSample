@@ -2,6 +2,8 @@ package com.fiction.manager;
 
 import android.support.annotation.NonNull;
 
+import com.fiction.fiction.zw81.contents.model.ZWHomeContentsModel;
+import com.fiction.fiction.zw81.detail.model.ZWHomeDetailModel;
 import com.fiction.fiction.zw81.list.model.ZWHomeModel;
 
 import org.jsoup.nodes.Document;
@@ -25,12 +27,12 @@ public class JsoupZwHomeManager {
     public static final int TYPE_TITLE = 5;
 
     private static final String TYPE_TITLE_PUSH = "上期强推:";
-    private static final String TYPE_TITLE_XUAN_HUAN = "玄幻:";
-    private static final String TYPE_TITLE_XIU_ZHEN = "修真:";
-    private static final String TYPE_TITLE_DU_SHI = "都市:";
-    private static final String TYPE_TITLE_LI_SHI = "历史:";
-    private static final String TYPE_TITLE_WANG_YOU = "网游:";
-    private static final String TYPE_TITLE_KE_HUAN = "科幻:";
+    public static final String TYPE_TITLE_XUAN_HUAN = "玄幻:";
+    public static final String TYPE_TITLE_XIU_ZHEN = "修真:";
+    public static final String TYPE_TITLE_DU_SHI = "都市:";
+    public static final String TYPE_TITLE_LI_SHI = "历史:";
+    public static final String TYPE_TITLE_WANG_YOU = "网游:";
+    public static final String TYPE_TITLE_KE_HUAN = "科幻:";
     private static final String TYPE_TITLE_RETCENT = "最近更新:";
     private static final String TYPE_TITLE_ADD = "最新入库:";
 
@@ -206,5 +208,37 @@ public class JsoupZwHomeManager {
             zwHomeModel.type = TYPE_ADD;
             list.add(zwHomeModel);
         }
+    }
+
+    public List<ZWHomeContentsModel> getZwHomeContents() {
+        List<ZWHomeContentsModel> list = new ArrayList<>();
+        ZWHomeContentsModel contentsModel;
+        Elements a = document.select("#list").select("a");
+        for (Element element : a) {
+            contentsModel = new ZWHomeContentsModel();
+            contentsModel.title = element.text();
+            contentsModel.detailUrl = element.attr("abs:href");
+            list.add(contentsModel);
+        }
+        return list;
+    }
+
+
+    public ZWHomeDetailModel getZwHomeDetail() {
+        ZWHomeDetailModel detailModel = new ZWHomeDetailModel();
+        Elements select = document.select("div.bottem2").select("a[href$=.html]");
+        for (int i = 0; i < select.size(); i++) {
+            switch (i) {
+                case 0:
+                    detailModel.onPage = select.get(i).attr("abs:href");
+                    break;
+                case 1:
+                    detailModel.nextPage = select.get(i).attr("abs:href");
+                    break;
+            }
+        }
+        detailModel.title = document.select("div.bookname").select("h1").text();
+        detailModel.message = document.select("#content").html();
+        return detailModel;
     }
 }

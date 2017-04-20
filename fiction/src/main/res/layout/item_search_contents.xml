@@ -6,7 +6,7 @@
     android:background="?android:selectableItemBackground"
     tools:ignore="Overdraw">
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/contents_tv_"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

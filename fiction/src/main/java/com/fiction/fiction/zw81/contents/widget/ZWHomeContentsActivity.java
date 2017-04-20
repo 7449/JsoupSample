@@ -1,4 +1,4 @@
-package com.fiction.fiction.search.contents.widget;
+package com.fiction.fiction.zw81.contents.widget;
 
 import android.os.Bundle;
 import android.support.v4.widget.ContentLoadingProgressBar;
@@ -10,10 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.fiction.R;
-import com.fiction.fiction.search.contents.model.SearchContentsModel;
-import com.fiction.fiction.search.contents.presenter.SearchContentsPresenterImpl;
-import com.fiction.fiction.search.contents.view.SearchContentsView;
-import com.fiction.fiction.search.detail.widget.SearchDetailActivity;
+import com.fiction.fiction.zw81.contents.model.ZWHomeContentsModel;
+import com.fiction.fiction.zw81.contents.presenter.ZWHomeContentsPresenterImpl;
+import com.fiction.fiction.zw81.contents.view.ZWHomeContentsView;
+import com.fiction.fiction.zw81.detail.widget.ZWHomeDetailActivity;
 import com.framework.base.BaseActivity;
 import com.framework.base.BaseRecyclerAdapter;
 import com.framework.utils.UIUtils;
@@ -27,8 +27,8 @@ import java.util.List;
  * by y on 2017/1/8.
  */
 
-public class SearchContentsActivity extends BaseActivity
-        implements SearchContentsView, BaseRecyclerAdapter.OnItemClickListener<SearchContentsModel> {
+public class ZWHomeContentsActivity extends BaseActivity
+        implements ZWHomeContentsView, BaseRecyclerAdapter.OnItemClickListener<ZWHomeContentsModel> {
 
     private static final String URL = "url";
     private static final String TITLE = "title";
@@ -36,15 +36,15 @@ public class SearchContentsActivity extends BaseActivity
     private Toolbar toolbar;
     private ContentLoadingProgressBar progressBar;
     private RecyclerView recyclerView;
-    private SearchContentAdapter adapter;
+    private ZWHomeContentAdapter adapter;
 
-    private List<SearchContentsModel> list;
+    private List<ZWHomeContentsModel> list;
 
     public static void getInstance(String url, String title) {
         Bundle bundle = new Bundle();
         bundle.putString(URL, url);
         bundle.putString(TITLE, title);
-        UIUtils.startActivity(SearchContentsActivity.class, bundle);
+        UIUtils.startActivity(ZWHomeContentsActivity.class, bundle);
     }
 
 
@@ -54,11 +54,11 @@ public class SearchContentsActivity extends BaseActivity
         toolbar.setTitle(extras.getString(TITLE));
         setSupportActionBar(toolbar);
         list = new ArrayList<>();
-        adapter = new SearchContentAdapter(list);
+        adapter = new ZWHomeContentAdapter(list);
         adapter.setOnItemClickListener(this);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setAdapter(adapter);
-        new SearchContentsPresenterImpl(this).startContents(extras.getString(URL));
+        new ZWHomeContentsPresenterImpl(this).startContents(extras.getString(URL));
     }
 
     @Override
@@ -75,7 +75,7 @@ public class SearchContentsActivity extends BaseActivity
 
 
     @Override
-    public void netWorkSuccess(List<SearchContentsModel> data) {
+    public void netWorkSuccess(List<ZWHomeContentsModel> data) {
         Collections.reverse(data);
         adapter.addAll(data);
     }
@@ -96,8 +96,8 @@ public class SearchContentsActivity extends BaseActivity
     }
 
     @Override
-    public void onItemClick(View view, int position, SearchContentsModel info) {
-        SearchDetailActivity.getInstance(info.detailUrl);
+    public void onItemClick(View view, int position, ZWHomeContentsModel info) {
+        ZWHomeDetailActivity.getInstance(info.detailUrl);
     }
 
     @Override

@@ -25,14 +25,13 @@
             android:layout_height="wrap_content"
             tools:ignore="WebViewLayout">
 
-            <WebView
+            <com.framework.widget.EasyWebView
                 android:id="@+id/detail_webView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/btn_rootView"
                 android:layout_marginLeft="@dimen/margin"
-                android:layout_marginRight="@dimen/margin"
-                android:textSize="18sp" />
+                android:layout_marginRight="@dimen/margin" />
 
             <FrameLayout
                 android:id="@+id/btn_rootView"

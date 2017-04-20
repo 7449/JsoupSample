@@ -1,6 +1,7 @@
-package com.fiction.fiction.search.detail.widget;
+package com.fiction.fiction.zw81.detail.widget;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -9,10 +10,10 @@ import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 
 import com.fiction.R;
-import com.fiction.fiction.search.detail.model.SearchDetailModel;
-import com.fiction.fiction.search.detail.presenter.SearchDetailPresenter;
-import com.fiction.fiction.search.detail.presenter.SearchDetailPresenterImpl;
-import com.fiction.fiction.search.detail.view.SearchDetailView;
+import com.fiction.fiction.zw81.detail.model.ZWHomeDetailModel;
+import com.fiction.fiction.zw81.detail.presenter.ZWHomeDetailPresenter;
+import com.fiction.fiction.zw81.detail.presenter.ZWHomeDetailPresenterImpl;
+import com.fiction.fiction.zw81.detail.view.ZWHomeDetailView;
 import com.framework.base.BaseActivity;
 import com.framework.utils.UIUtils;
 import com.framework.widget.EasyWebView;
@@ -21,12 +22,12 @@ import com.framework.widget.EasyWebView;
  * by y on 2017/1/8.
  */
 
-public class SearchDetailActivity extends BaseActivity implements SearchDetailView, OnClickListener {
+public class ZWHomeDetailActivity extends BaseActivity implements ZWHomeDetailView, OnClickListener {
     private static final String URL = "url";
 
     private Toolbar toolbar;
     private ContentLoadingProgressBar progressBar;
-    private SearchDetailPresenter presenter;
+    private ZWHomeDetailPresenter presenter;
     private String onUrl = null;
     private String nextUrl = null;
     private EasyWebView webView;
@@ -35,12 +36,12 @@ public class SearchDetailActivity extends BaseActivity implements SearchDetailVi
     public static void getInstance(String url) {
         Bundle bundle = new Bundle();
         bundle.putString(URL, url);
-        UIUtils.startActivity(SearchDetailActivity.class, bundle);
+        UIUtils.startActivity(ZWHomeDetailActivity.class, bundle);
     }
 
     @Override
     protected void initCreate(Bundle savedInstanceState) {
-        presenter = new SearchDetailPresenterImpl(this);
+        presenter = new ZWHomeDetailPresenterImpl(this);
         Bundle extras = getIntent().getExtras();
         toolbar.setTitle(getString(R.string.app_name));
         setSupportActionBar(toolbar);
@@ -60,17 +61,17 @@ public class SearchDetailActivity extends BaseActivity implements SearchDetailVi
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_search_detail;
+        return R.layout.activity_zw_home_detail;
     }
 
     @Override
-    public void netWorkSuccess(SearchDetailModel data) {
+    public void netWorkSuccess(ZWHomeDetailModel data) {
         onUrl = data.onPage;
         nextUrl = data.nextPage;
         toolbar.setTitle(data.title);
-        webView.post(() -> webView.scrollTo(0, 0));
         webView.loadDataUrl(data.message);
         frameLayout.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(() -> webView.scrollTo(0, 0), 200);
     }
 
     @Override

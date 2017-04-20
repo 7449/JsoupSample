@@ -4,15 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:selectableItemBackground"
-    android:orientation="vertical"
-    android:padding="10dp">
+    tools:ignore="Overdraw">
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/tv_title"
+        android:id="@+id/contents_tv_"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        android:textColor="@color/colorAccent"
-        tools:text="圣墟" />
+        android:gravity="center"
+        android:padding="12dp" />
 
 </LinearLayout>
