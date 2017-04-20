@@ -1,7 +1,7 @@
 package com.fiction.fiction.zw81.list.widget;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import com.fiction.R;
 import com.fiction.fiction.zw81.list.model.ZWHomeModel;
@@ -46,7 +46,7 @@ public class ZWHomeFragment extends BaseFragment
 
         adapter = new ZWHomeAdapter(new ArrayList<>());
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
 
         setLoad();
@@ -64,8 +64,8 @@ public class ZWHomeFragment extends BaseFragment
 
     @Override
     public void netWorkSuccess(List<ZWHomeModel> data) {
-//        adapter.removeAll();
-//        adapter.addAll(data);
+        adapter.removeAll();
+        adapter.addAll(data);
     }
 
     @Override

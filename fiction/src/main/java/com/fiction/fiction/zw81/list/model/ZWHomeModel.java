@@ -7,5 +7,5 @@ import com.framework.base.mvp.BaseModel;
  */
 
 public class ZWHomeModel extends BaseModel {
-    public int type;
+    public int type = -1;
 }

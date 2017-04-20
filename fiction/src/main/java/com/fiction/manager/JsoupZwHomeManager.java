@@ -3,7 +3,6 @@ package com.fiction.manager;
 import android.support.annotation.NonNull;
 
 import com.fiction.fiction.zw81.list.model.ZWHomeModel;
-import com.socks.library.KLog;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -23,7 +22,17 @@ public class JsoupZwHomeManager {
     public static final int TYPE_CENTER = 2;   //中间6个小说区
     public static final int TYPE_RECENT = 3;   //最近更新小说列表
     public static final int TYPE_ADD = 4;   //最新入库小说
+    public static final int TYPE_TITLE = 5;
 
+    private static final String TYPE_TITLE_PUSH = "上期强推:";
+    private static final String TYPE_TITLE_XUAN_HUAN = "玄幻:";
+    private static final String TYPE_TITLE_XIU_ZHEN = "修真:";
+    private static final String TYPE_TITLE_DU_SHI = "都市:";
+    private static final String TYPE_TITLE_LI_SHI = "历史:";
+    private static final String TYPE_TITLE_WANG_YOU = "网游:";
+    private static final String TYPE_TITLE_KE_HUAN = "科幻:";
+    private static final String TYPE_TITLE_RETCENT = "最近更新:";
+    private static final String TYPE_TITLE_ADD = "最新入库:";
 
     private Document document;
 
@@ -60,12 +69,19 @@ public class JsoupZwHomeManager {
         initPush(list);
     }
 
+
     /**
      * 获取上期强推
      */
     private void initPush(List<ZWHomeModel> list) {
         ZWHomeModel zwHomeModel;
         Elements select = document.select("div.r").eq(0).select("a[href]");
+
+        ZWHomeModel pushTitle = new ZWHomeModel();
+        pushTitle.title = TYPE_TITLE_PUSH;
+        pushTitle.type = TYPE_TITLE;
+        list.add(pushTitle);
+
         for (Element element : select) {
             zwHomeModel = new ZWHomeModel();
             zwHomeModel.title = element.text();
@@ -83,20 +99,54 @@ public class JsoupZwHomeManager {
     private void initCenterHeader(List<ZWHomeModel> list) {
         ZWHomeModel zwHomeModel;
         Elements select = document.select("div.content");
-        for (int i = 0; i < select.size(); i++) {
+        int size = select.size();
+        for (int i = 0; i < size; i++) {
+
+            initTitle(list, i);
+
+
             zwHomeModel = new ZWHomeModel();
-            if (i == 0) {
-                Elements topSelect = select.get(i).select("div.top");
-                zwHomeModel.url = topSelect.select("img[src]").attr("src");
-                zwHomeModel.title = topSelect.select("img[src]").attr("alt");
-                zwHomeModel.detailUrl = topSelect.select("a:has(img)").attr("abs:href");
-                zwHomeModel.message = topSelect.select("dd").text();
-                zwHomeModel.type = TYPE_HEADER;
-                list.add(zwHomeModel);
-            } else {
-                initCenter(list, select.get(i).select("li:has(a)"));
-            }
+            Elements topSelect = select.get(i).select("div.top");
+            zwHomeModel.url = topSelect.select("img[src]").attr("src");
+            zwHomeModel.title = topSelect.select("img[src]").attr("alt");
+            zwHomeModel.detailUrl = topSelect.select("a:has(img)").attr("abs:href");
+            zwHomeModel.message = topSelect.select("dd").text();
+            zwHomeModel.type = TYPE_HEADER;
+            list.add(zwHomeModel);
+
+            initCenter(list, select.get(i).select("li:has(a)"));
         }
+
+        initRecent(list);
+    }
+
+    /**
+     * 添加6个小说区的title
+     */
+    private void initTitle(List<ZWHomeModel> list, int i) {
+        ZWHomeModel pushTitle = new ZWHomeModel();
+        pushTitle.type = TYPE_TITLE;
+        switch (i) {
+            case 0:
+                pushTitle.title = TYPE_TITLE_XUAN_HUAN;
+                break;
+            case 1:
+                pushTitle.title = TYPE_TITLE_XIU_ZHEN;
+                break;
+            case 2:
+                pushTitle.title = TYPE_TITLE_DU_SHI;
+                break;
+            case 3:
+                pushTitle.title = TYPE_TITLE_LI_SHI;
+                break;
+            case 4:
+                pushTitle.title = TYPE_TITLE_WANG_YOU;
+                break;
+            case 5:
+                pushTitle.title = TYPE_TITLE_KE_HUAN;
+                break;
+        }
+        list.add(pushTitle);
     }
 
     /**
@@ -112,21 +162,24 @@ public class JsoupZwHomeManager {
             zwHomeModel.type = TYPE_CENTER;
             list.add(zwHomeModel);
         }
-
-        initRecent(list);
     }
 
     /**
      * 最近更新小说列表
      */
     private void initRecent(List<ZWHomeModel> list) {
+
+        ZWHomeModel pushTitle = new ZWHomeModel();
+        pushTitle.title = TYPE_TITLE_RETCENT;
+        pushTitle.type = TYPE_TITLE;
+        list.add(pushTitle);
+
         ZWHomeModel zwHomeModel;
-        Elements select = document.select("div#newscontent").select("div.l").select("li");
-        KLog.i(select);
+        Elements select = document.select("div#newscontent").select("div.l").select("span.s2").select("a");
         for (Element element : select) {
             zwHomeModel = new ZWHomeModel();
-//            zwHomeModel.title = element.text();
-//            zwHomeModel.detailUrl = element.attr("abs:href");
+            zwHomeModel.title = element.text();
+            zwHomeModel.detailUrl = element.attr("abs:href");
             zwHomeModel.type = TYPE_RECENT;
             list.add(zwHomeModel);
         }
@@ -138,6 +191,12 @@ public class JsoupZwHomeManager {
      * 获取最新入库小说
      */
     private void initAdd(List<ZWHomeModel> list) {
+
+        ZWHomeModel pushTitle = new ZWHomeModel();
+        pushTitle.title = TYPE_TITLE_ADD;
+        pushTitle.type = TYPE_TITLE;
+        list.add(pushTitle);
+
         ZWHomeModel zwHomeModel;
         Elements select = document.select("div.r").eq(1).select("a[href]");
         for (Element element : select) {

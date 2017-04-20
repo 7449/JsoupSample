@@ -1,10 +1,15 @@
 package com.fiction.fiction.zw81.list.widget;
 
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.ViewGroup;
 
+import com.fiction.R;
 import com.fiction.fiction.zw81.list.model.ZWHomeModel;
+import com.fiction.manager.JsoupZwHomeManager;
 import com.framework.base.SuperViewHolder;
+import com.framework.utils.ImageLoaderUtils;
+import com.framework.utils.UIUtils;
 
 import java.util.List;
 
@@ -21,13 +26,45 @@ class ZWHomeAdapter extends RecyclerView.Adapter<SuperViewHolder> {
 
     @Override
     public SuperViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        switch (viewType) {
+            case JsoupZwHomeManager.TYPE_HEADER:
+                return new SuperViewHolder(UIUtils.getAdapterView(parent, R.layout.item_zw_home_header));
+            case JsoupZwHomeManager.TYPE_TITLE:
+                return new SuperViewHolder(UIUtils.getAdapterView(parent, R.layout.item_zw_home_title));
+            default:
+                return new SuperViewHolder(UIUtils.getAdapterView(parent, R.layout.item_zw_home_item));
+        }
     }
 
     @Override
     public void onBindViewHolder(SuperViewHolder holder, int position) {
         if (list == null) {
             return;
+        }
+        ZWHomeModel zwHomeModel = list.get(position);
+        switch (getItemViewType(position)) {
+            case JsoupZwHomeManager.TYPE_HEADER:
+
+                holder.setTextView(R.id.tv_title, zwHomeModel.title);
+                holder.setTextView(R.id.tv_content, zwHomeModel.message);
+                ImageLoaderUtils.display(holder.getImageView(R.id.image), zwHomeModel.url);
+                holder.itemView.setOnClickListener(v -> {
+                    //sdsss
+                });
+
+                break;
+            case JsoupZwHomeManager.TYPE_TITLE:
+                holder.setTextView(R.id.tv_title, zwHomeModel.title);
+                break;
+            case JsoupZwHomeManager.TYPE_PUSH:
+            case JsoupZwHomeManager.TYPE_CENTER:
+            case JsoupZwHomeManager.TYPE_RECENT:
+            case JsoupZwHomeManager.TYPE_ADD:
+                holder.setTextView(R.id.tv_title, zwHomeModel.title);
+                holder.itemView.setOnClickListener(v -> {
+                    //sdsss
+                });
+                break;
         }
     }
 
@@ -52,6 +89,22 @@ class ZWHomeAdapter extends RecyclerView.Adapter<SuperViewHolder> {
         if (list != null) {
             list.clear();
             notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onViewAttachedToWindow(SuperViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+        if (layoutParams != null && layoutParams instanceof StaggeredGridLayoutManager.LayoutParams) {
+            StaggeredGridLayoutManager.LayoutParams stagger = (StaggeredGridLayoutManager.LayoutParams) layoutParams;
+            int itemViewType = getItemViewType(holder.getLayoutPosition());
+            if (itemViewType == JsoupZwHomeManager.TYPE_HEADER
+                    || itemViewType == JsoupZwHomeManager.TYPE_TITLE) {
+                stagger.setFullSpan(true);
+            } else {
+                stagger.setFullSpan(false);
+            }
         }
     }
 }
