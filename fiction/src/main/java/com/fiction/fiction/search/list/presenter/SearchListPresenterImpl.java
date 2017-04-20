@@ -6,7 +6,7 @@ import com.fiction.db.SearchDb;
 import com.fiction.fiction.search.list.model.SearchListModel;
 import com.fiction.fiction.search.list.view.SearchListView;
 import com.fiction.manager.ApiConfig;
-import com.fiction.manager.Jsoup81Manager;
+import com.fiction.manager.JsoupZwManager;
 import com.framework.base.mvp.PresenterImplCompat;
 
 import org.jsoup.nodes.Document;
@@ -29,7 +29,7 @@ public class SearchListPresenterImpl extends PresenterImplCompat<List<SearchList
     public void startSearch(String fictionName, int page) {
         this.fictionName = fictionName;
         if (!TextUtils.isEmpty(fictionName)) {
-            netWork(ApiConfig.BASE_81 + fictionName + "&p=" + page + ApiConfig.SUFFIX_81);
+            netWork(ApiConfig.SEARCH_ZW81_URL + fictionName + "&p=" + page + ApiConfig.SEARCH_ZW81_SUFFIX);
         } else {
             view.fictionNameEmpty();
         }
@@ -45,6 +45,6 @@ public class SearchListPresenterImpl extends PresenterImplCompat<List<SearchList
 
     @Override
     public List<SearchListModel> getT(Document document) {
-        return Jsoup81Manager.get(document).get81List();
+        return JsoupZwManager.get(document).get81List();
     }
 }

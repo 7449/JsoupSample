@@ -80,6 +80,6 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void switch81() {
-        replaceFragment(TabFragment.newInstance(ApiConfig.Type.FICTION_81));
+        replaceFragment(TabFragment.newInstance(ApiConfig.Type.ZW_81));
     }
 }

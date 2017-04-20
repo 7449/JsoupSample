@@ -3,6 +3,7 @@ package com.framework.base.mvp;
 import com.rxjsoupnetwork.manager.RxJsoupDisposeManager;
 import com.rxjsoupnetwork.manager.RxJsoupNetWork;
 import com.rxjsoupnetwork.manager.RxJsoupNetWorkListener;
+import com.socks.library.KLog;
 
 import java.util.List;
 
@@ -29,6 +30,7 @@ public abstract class PresenterImplCompat<M, V extends BaseView<M>>
 
     @Override
     public void onNetWorkError(Throwable e) {
+        KLog.i(e.toString());
         view.hideProgress();
         view.netWorkError();
         if (api != null) {

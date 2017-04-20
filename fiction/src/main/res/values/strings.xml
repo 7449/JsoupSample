@@ -4,7 +4,7 @@
     <string name="dialog_unok">取消</string>
     <string name="dialog_ok">搜索</string>
     <string name="empty">小说名不能为空</string>
-    <string name="network_error">网络连接错误或者书名错误</string>
+    <string name="network_error">未知错误</string>
     <string name="sort">排序</string>
     <string name="next_page">下一页</string>
     <string name="on_page">上一页</string>

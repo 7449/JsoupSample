@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.fiction.R;
+import com.fiction.fiction.zw81.list.widget.ZWHomeFragment;
 import com.fiction.fiction.zw81.list.widget.ZWListFragment;
 import com.fiction.manager.ApiConfig;
 import com.framework.utils.UIUtils;
@@ -23,7 +24,7 @@ class TabAdapter extends FragmentPagerAdapter {
         super(childFragmentManager);
         this.type = type;
         switch (type) {
-            case ApiConfig.Type.FICTION_81:
+            case ApiConfig.Type.ZW_81:
                 name = UIUtils.getStringArray(R.array.tab_zw);
                 break;
         }
@@ -46,8 +47,8 @@ class TabAdapter extends FragmentPagerAdapter {
 
     private Fragment getFragment(int position) {
         switch (type) {
-            case ApiConfig.Type.FICTION_81:
-                return ZWListFragment.newInstance(position);
+            case ApiConfig.Type.ZW_81:
+                return position == 0 ? ZWHomeFragment.newInstance() : ZWListFragment.newInstance(position);
             default:
                 return null;
         }

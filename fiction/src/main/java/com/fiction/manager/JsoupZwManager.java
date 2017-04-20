@@ -17,21 +17,22 @@ import java.util.List;
  * by y on 2017/3/25.
  */
 
-public class Jsoup81Manager {
+public class JsoupZwManager {
     private Document document;
 
-    private Jsoup81Manager(Document document) {
+    private JsoupZwManager(Document document) {
         this.document = document;
     }
 
-    public static Jsoup81Manager get(@NonNull Document document) {
-        return new Jsoup81Manager(document);
+    public static JsoupZwManager get(@NonNull Document document) {
+        return new JsoupZwManager(document);
     }
 
     public List<SearchListModel> get81List() {
         List<SearchListModel> list = new ArrayList<>();
         SearchListModel fictionNameModel;
-        for (Element element : document.select("div.result-game-item")) {
+        Elements select = document.select("div.result-game-item");
+        for (Element element : select) {
             fictionNameModel = new SearchListModel();
             fictionNameModel.url = element.select("img.result-game-item-pic-link-img").attr("src");
             fictionNameModel.title = element.select("a.result-game-item-title-link").attr("title");
@@ -45,7 +46,8 @@ public class Jsoup81Manager {
     public List<SearchContentsModel> get81Contents() {
         List<SearchContentsModel> list = new ArrayList<>();
         SearchContentsModel contentsModel;
-        for (Element element : document.select("#list").select("a")) {
+        Elements a = document.select("#list").select("a");
+        for (Element element : a) {
             contentsModel = new SearchContentsModel();
             contentsModel.title = element.text();
             contentsModel.detailUrl = element.attr("abs:href");

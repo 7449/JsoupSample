@@ -7,10 +7,11 @@ package com.fiction.manager;
 public interface ApiConfig {
 
     //81中文网
-    String BASE_81 = "http://zhannei.baidu.com/cse/search?q=";
-    String SUFFIX_81 = "&s=3975864432584690275";
+    String SEARCH_ZW81_URL = "http://zhannei.baidu.com/cse/search?q=";
+    String SEARCH_ZW81_SUFFIX = "&s=3975864432584690275";
+    String ZW81_URL = "http://www.81zw.com/";
 
     interface Type {
-        String FICTION_81 = "81";
+        String ZW_81 = "81";
     }
 }
