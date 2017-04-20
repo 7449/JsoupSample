@@ -20,7 +20,7 @@ import com.image.manager.ApiConfig;
 import com.image.mian.presenter.MainPresenter;
 import com.image.mian.presenter.MainPresenterImpl;
 import com.image.mian.view.MainView;
-import com.image.search.widget.SearchActivity;
+import com.image.search.list.widget.SearchListActivity;
 import com.rxjsoupnetwork.manager.RxJsoupDisposeManager;
 import com.search.SearchFragment;
 import com.search.SearchToActivityInterface;
@@ -141,7 +141,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onSearchStart(String content) {
-        SearchActivity.start(searchType, content);
+        SearchListActivity.start(searchType, content);
     }
 
     @Override

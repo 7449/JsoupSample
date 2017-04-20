@@ -1,11 +1,11 @@
-package com.image.search.presenter;
+package com.image.search.list.presenter;
 
 import android.support.annotation.NonNull;
 
 import com.framework.base.mvp.PresenterImplCompat;
 import com.image.manager.JsoupSearchManager;
-import com.image.search.model.SearchModel;
-import com.image.search.view.SearchView;
+import com.image.search.list.model.SearchListModel;
+import com.image.search.list.view.SearchListView;
 
 import org.jsoup.nodes.Document;
 
@@ -15,9 +15,9 @@ import java.util.List;
  * by y on 2017/4/19.
  */
 
-public class SearchPresenterImpl extends PresenterImplCompat<List<SearchModel>, SearchView> implements SearchPresenter {
+public class SearchListPresenterImpl extends PresenterImplCompat<List<SearchListModel>, SearchListView> implements SearchListPresenter {
 
-    public SearchPresenterImpl(SearchView view) {
+    public SearchListPresenterImpl(SearchListView view) {
         super(view);
     }
 
@@ -27,7 +27,7 @@ public class SearchPresenterImpl extends PresenterImplCompat<List<SearchModel>, 
     }
 
     @Override
-    public List<SearchModel> getT(Document document) {
+    public List<SearchListModel> getT(Document document) {
         return JsoupSearchManager.get(document).getImageList();
     }
 }

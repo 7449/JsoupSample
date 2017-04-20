@@ -2,7 +2,7 @@ package com.image.manager;
 
 import android.support.annotation.NonNull;
 
-import com.image.search.model.SearchModel;
+import com.image.search.list.model.SearchListModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -27,12 +27,12 @@ public class JsoupSearchManager {
         return new JsoupSearchManager(document);
     }
 
-    public List<SearchModel> getImageList() {
-        List<SearchModel> listModels = new ArrayList<>();
-        SearchModel imageListModel;
+    public List<SearchListModel> getImageList() {
+        List<SearchListModel> listModels = new ArrayList<>();
+        SearchListModel imageListModel;
         Elements select = document.select("#pins").select("a:has(img)");
         for (Element element : select) {
-            imageListModel = new SearchModel();
+            imageListModel = new SearchListModel();
             imageListModel.url = element.select("img").attr("data-original");
             imageListModel.detailUrl = element.select("a").attr("href");
             listModels.add(imageListModel);

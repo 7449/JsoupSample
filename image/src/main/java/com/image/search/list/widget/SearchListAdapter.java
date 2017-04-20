@@ -1,10 +1,10 @@
-package com.image.search.widget;
+package com.image.search.list.widget;
 
 import com.framework.base.BaseRecyclerAdapter;
 import com.framework.base.SuperViewHolder;
 import com.framework.utils.ImageLoaderUtils;
 import com.image.R;
-import com.image.search.model.SearchModel;
+import com.image.search.list.model.SearchListModel;
 
 import java.util.List;
 
@@ -12,10 +12,10 @@ import java.util.List;
  * by y on 2017/4/19.
  */
 
-class SearchAdapter extends BaseRecyclerAdapter<SearchModel> {
+class SearchListAdapter extends BaseRecyclerAdapter<SearchListModel> {
 
 
-    SearchAdapter(List<SearchModel> mDatas) {
+    SearchListAdapter(List<SearchListModel> mDatas) {
         super(mDatas);
     }
 
@@ -25,7 +25,7 @@ class SearchAdapter extends BaseRecyclerAdapter<SearchModel> {
     }
 
     @Override
-    protected void onBind(SuperViewHolder viewHolder, int position, SearchModel mDatas) {
+    protected void onBind(SuperViewHolder viewHolder, int position, SearchListModel mDatas) {
         ImageLoaderUtils.display(viewHolder.getImageView(R.id.image), mDatas.url);
     }
 }

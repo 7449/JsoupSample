@@ -1,4 +1,4 @@
-package com.image.search.widget;
+package com.image.search.list.widget;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,10 +9,10 @@ import com.framework.base.BaseActivity;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
 import com.image.R;
-import com.image.search.model.SearchModel;
-import com.image.search.presenter.SearchPresenter;
-import com.image.search.presenter.SearchPresenterImpl;
-import com.image.search.view.SearchView;
+import com.image.search.list.model.SearchListModel;
+import com.image.search.list.presenter.SearchListPresenter;
+import com.image.search.list.presenter.SearchListPresenterImpl;
+import com.image.search.list.view.SearchListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +21,10 @@ import java.util.List;
  * by y on 2017/4/19.
  */
 
-public class SearchActivity extends BaseActivity
+public class SearchListActivity extends BaseActivity
         implements
         SwipeRefreshLayout.OnRefreshListener,
-        SearchView {
+        SearchListView {
 
     private static final String SEARCH_TYPE = "search";
     private static final String SEARCH_CONTENT = "content";
@@ -34,16 +34,16 @@ public class SearchActivity extends BaseActivity
     private Toolbar toolbar;
     private SwipeRefreshLayout swipeRefreshLayout;
     private LoadMoreRecyclerView recyclerView;
-    private SearchAdapter adapter;
+    private SearchListAdapter adapter;
 
-    private SearchPresenter presenter;
+    private SearchListPresenter presenter;
     private int page = 1;
 
     public static void start(String searchType, String content) {
         Bundle bundle = new Bundle();
         bundle.putString(SEARCH_TYPE, searchType);
         bundle.putString(SEARCH_CONTENT, content);
-        UIUtils.startActivity(SearchActivity.class, bundle);
+        UIUtils.startActivity(SearchListActivity.class, bundle);
     }
 
     @Override
@@ -58,14 +58,14 @@ public class SearchActivity extends BaseActivity
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         toolbar.setTitle(searchType + " (关键词:" + content + ")");
-        presenter = new SearchPresenterImpl(this);
+        presenter = new SearchListPresenterImpl(this);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(this::onRefresh);
         initRecyclerView();
     }
 
     private void initRecyclerView() {
-        adapter = new SearchAdapter(new ArrayList<>());
+        adapter = new SearchListAdapter(new ArrayList<>());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setLoadingMore(() -> {
@@ -94,7 +94,7 @@ public class SearchActivity extends BaseActivity
     }
 
     @Override
-    public void netWorkSuccess(List<SearchModel> data) {
+    public void netWorkSuccess(List<SearchListModel> data) {
         if (page == 1) {
             adapter.removeAll();
         }
