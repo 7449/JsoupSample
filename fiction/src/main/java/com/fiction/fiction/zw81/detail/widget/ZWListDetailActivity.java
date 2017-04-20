@@ -5,28 +5,27 @@ import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 
 import com.fiction.R;
-import com.fiction.fiction.zw81.detail.model.ZWHomeDetailModel;
-import com.fiction.fiction.zw81.detail.presenter.ZWHomeDetailPresenter;
-import com.fiction.fiction.zw81.detail.presenter.ZWHomeDetailPresenterImpl;
-import com.fiction.fiction.zw81.detail.view.ZWHomeDetailView;
+import com.fiction.fiction.zw81.detail.model.ZWListDetailModel;
+import com.fiction.fiction.zw81.detail.presenter.ZWListDetailPresenter;
+import com.fiction.fiction.zw81.detail.presenter.ZWListDetailPresenterImpl;
+import com.fiction.fiction.zw81.detail.view.ZWListDetailView;
 import com.framework.base.BaseActivity;
 import com.framework.utils.UIUtils;
 import com.framework.widget.EasyWebView;
 
 /**
- * by y on 2017/1/8.
+ * by y on 2017/4/6.
  */
 
-public class ZWHomeDetailActivity extends BaseActivity implements ZWHomeDetailView, OnClickListener {
+public class ZWListDetailActivity extends BaseActivity implements ZWListDetailView, View.OnClickListener {
     private static final String URL = "url";
 
     private Toolbar toolbar;
     private ContentLoadingProgressBar progressBar;
-    private ZWHomeDetailPresenter presenter;
+    private ZWListDetailPresenter presenter;
     private String onUrl = null;
     private String nextUrl = null;
     private EasyWebView webView;
@@ -35,12 +34,12 @@ public class ZWHomeDetailActivity extends BaseActivity implements ZWHomeDetailVi
     public static void getInstance(String url) {
         Bundle bundle = new Bundle();
         bundle.putString(URL, url);
-        UIUtils.startActivity(ZWHomeDetailActivity.class, bundle);
+        UIUtils.startActivity(ZWListDetailActivity.class, bundle);
     }
 
     @Override
     protected void initCreate(Bundle savedInstanceState) {
-        presenter = new ZWHomeDetailPresenterImpl(this);
+        presenter = new ZWListDetailPresenterImpl(this);
         Bundle extras = getIntent().getExtras();
         toolbar.setTitle(getString(R.string.app_name));
         setSupportActionBar(toolbar);
@@ -60,11 +59,11 @@ public class ZWHomeDetailActivity extends BaseActivity implements ZWHomeDetailVi
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_zw_home_detail;
+        return R.layout.activity_zw_list_detail;
     }
 
     @Override
-    public void netWorkSuccess(ZWHomeDetailModel data) {
+    public void netWorkSuccess(ZWListDetailModel data) {
         onUrl = data.onPage;
         nextUrl = data.nextPage;
         toolbar.setTitle(data.title);

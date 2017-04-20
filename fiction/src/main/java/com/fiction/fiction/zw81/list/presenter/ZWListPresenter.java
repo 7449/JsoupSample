@@ -5,5 +5,5 @@ package com.fiction.fiction.zw81.list.presenter;
  */
 
 public interface ZWListPresenter {
-    void startDetail(String url);
+    void netWork(int tabPosition);
 }

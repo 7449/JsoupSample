@@ -11,16 +11,16 @@ import android.widget.EditText;
  * by y on 2017/4/19
  */
 
-public class Utils {
+class Utils {
 
-    public static void offKeyboard(EditText editText) {
+    static void offKeyboard(EditText editText) {
         if (detectKeyboard(editText)) {
             InputMethodManager imm = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
         }
     }
 
-    public static void openKeyboard(EditText editText) {
+    static void openKeyboard(EditText editText) {
         if (!detectKeyboard(editText)) {
             InputMethodManager imm = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
@@ -33,7 +33,7 @@ public class Utils {
         return imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
 
-    public static void startAnimator(View view, Animation.AnimationListener animationListener) {
+    static void startAnimator(View view, Animation.AnimationListener animationListener) {
         TranslateAnimation mStartAnimation = new TranslateAnimation(
                 Animation.RELATIVE_TO_SELF, 0.0f,
                 Animation.RELATIVE_TO_SELF, 0.0f,
@@ -44,7 +44,7 @@ public class Utils {
         view.startAnimation(mStartAnimation);
     }
 
-    public static void endAnimator(View view, Animation.AnimationListener animationListener) {
+    static void endAnimator(View view, Animation.AnimationListener animationListener) {
         TranslateAnimation mEndAnimation = new TranslateAnimation(
                 Animation.RELATIVE_TO_SELF, 0.0f,
                 Animation.RELATIVE_TO_SELF, 0.0f,
@@ -55,7 +55,7 @@ public class Utils {
         view.startAnimation(mEndAnimation);
     }
 
-    public static class SimpleAnimationListener implements Animation.AnimationListener {
+    static class SimpleAnimationListener implements Animation.AnimationListener {
 
         @Override
         public void onAnimationStart(Animation animation) {

@@ -21,8 +21,8 @@
         </activity>
         <activity android:name=".fiction.search.contents.widget.SearchContentsActivity" />
         <activity android:name=".fiction.search.detail.widget.SearchDetailActivity" />
-        <activity android:name=".fiction.zw81.contents.widget.ZWContentsActivity" />
-        <activity android:name=".fiction.zw81.detail.widget.ZWDetailActivity" />
+        <activity android:name=".fiction.zw81.contents.widget.ZWListContentsActivity" />
+        <activity android:name=".fiction.zw81.detail.widget.ZWListDetailActivity" />
         <activity android:name=".fiction.zw81.contents.widget.ZWHomeContentsActivity" />
         <activity android:name=".fiction.zw81.detail.widget.ZWHomeDetailActivity" />
     </application>

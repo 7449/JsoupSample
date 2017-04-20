@@ -6,7 +6,7 @@ import com.fiction.db.SearchDb;
 import com.fiction.fiction.search.list.model.SearchListModel;
 import com.fiction.fiction.search.list.view.SearchListView;
 import com.fiction.manager.ApiConfig;
-import com.fiction.manager.JsoupZwManager;
+import com.fiction.manager.JsoupZwSearchManager;
 import com.framework.base.mvp.PresenterImplCompat;
 
 import org.jsoup.nodes.Document;
@@ -45,6 +45,6 @@ public class SearchListPresenterImpl extends PresenterImplCompat<List<SearchList
 
     @Override
     public List<SearchListModel> getT(Document document) {
-        return JsoupZwManager.get(document).get81List();
+        return JsoupZwSearchManager.get(document).get81List();
     }
 }

@@ -227,14 +227,18 @@ public class JsoupZwHomeManager {
     public ZWHomeDetailModel getZwHomeDetail() {
         ZWHomeDetailModel detailModel = new ZWHomeDetailModel();
         Elements select = document.select("div.bottem2").select("a[href$=.html]");
-        for (int i = 0; i < select.size(); i++) {
-            switch (i) {
-                case 0:
-                    detailModel.onPage = select.get(i).attr("abs:href");
-                    break;
-                case 1:
-                    detailModel.nextPage = select.get(i).attr("abs:href");
-                    break;
+        if (select.size() == 1) {
+            detailModel.nextPage = select.attr("abs:href");
+        } else {
+            for (int i = 0; i < select.size(); i++) {
+                switch (i) {
+                    case 0:
+                        detailModel.onPage = select.get(i).attr("abs:href");
+                        break;
+                    case 1:
+                        detailModel.nextPage = select.get(i).attr("abs:href");
+                        break;
+                }
             }
         }
         detailModel.title = document.select("div.bookname").select("h1").text();

@@ -2,7 +2,7 @@ package com.fiction.fiction.search.detail.presenter;
 
 import com.fiction.fiction.search.detail.model.SearchDetailModel;
 import com.fiction.fiction.search.detail.view.SearchDetailView;
-import com.fiction.manager.JsoupZwManager;
+import com.fiction.manager.JsoupZwSearchManager;
 import com.framework.base.mvp.PresenterImplCompat;
 
 import org.jsoup.nodes.Document;
@@ -24,6 +24,6 @@ public class SearchDetailPresenterImpl extends PresenterImplCompat<SearchDetailM
 
     @Override
     public SearchDetailModel getT(Document document) {
-        return JsoupZwManager.get(document).get81Detail();
+        return JsoupZwSearchManager.get(document).get81Detail();
     }
 }

@@ -7,4 +7,5 @@ import com.framework.base.mvp.BaseModel;
  */
 
 public class ZWListModel extends BaseModel {
+    public int type = -1;
 }
