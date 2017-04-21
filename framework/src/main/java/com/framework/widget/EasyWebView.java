@@ -17,6 +17,11 @@ import com.framework.utils.HtmlUtils;
 public class EasyWebView extends WebView {
 
     private ProgressBar progressbar;
+    private WebViewLoadListener loadListener;
+
+    public void setLoadListener(WebViewLoadListener loadListener) {
+        this.loadListener = loadListener;
+    }
 
     public EasyWebView(Context context) {
         super(context);
@@ -59,6 +64,9 @@ public class EasyWebView extends WebView {
 
     private void newProgressBar(int newProgress) {
         if (newProgress == 100) {
+            if (loadListener != null) {
+                loadListener.loadingSuccess();
+            }
             progressbar.setVisibility(GONE);
         } else {
             if (progressbar.getVisibility() == GONE) {
@@ -79,9 +87,12 @@ public class EasyWebView extends WebView {
         super.onScrollChanged(l, t, oldl, oldt);
     }
 
-
     public void loadDataUrl(String url) {
         loadDataWithBaseURL(null, HtmlUtils.getHtml(url), HtmlUtils.getMimeType(), HtmlUtils.getCoding(), null);
+    }
+
+    public interface WebViewLoadListener {
+        void loadingSuccess();
     }
 
 }

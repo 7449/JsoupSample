@@ -1,6 +1,7 @@
 package com.fiction.manager;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.fiction.fiction.zw81.contents.model.ZWListContentsModel;
 import com.fiction.fiction.zw81.detail.model.ZWListDetailModel;
@@ -123,7 +124,11 @@ public class JsoupZwListManager {
         ZWListDetailModel detailModel = new ZWListDetailModel();
         Elements select = document.select("div.bottem2").select("a[href$=.html]");
         if (select.size() == 1) {
-            detailModel.nextPage = select.attr("abs:href");
+            if (TextUtils.equals(select.text(), ApiConfig.NEXT_PAGE)) {
+                detailModel.nextPage = select.attr("abs:href");
+            } else {
+                detailModel.onPage = select.attr("abs:href");
+            }
         } else {
             for (int i = 0; i < select.size(); i++) {
                 switch (i) {

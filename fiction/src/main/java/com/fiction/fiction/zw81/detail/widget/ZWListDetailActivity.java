@@ -20,7 +20,8 @@ import com.framework.widget.EasyWebView;
  * by y on 2017/4/6.
  */
 
-public class ZWListDetailActivity extends BaseActivity implements ZWListDetailView, View.OnClickListener {
+public class ZWListDetailActivity extends BaseActivity
+        implements ZWListDetailView, View.OnClickListener, EasyWebView.WebViewLoadListener {
     private static final String URL = "url";
 
     private Toolbar toolbar;
@@ -39,6 +40,7 @@ public class ZWListDetailActivity extends BaseActivity implements ZWListDetailVi
 
     @Override
     protected void initCreate(Bundle savedInstanceState) {
+        webView.setLoadListener(this);
         presenter = new ZWListDetailPresenterImpl(this);
         Bundle extras = getIntent().getExtras();
         toolbar.setTitle(getString(R.string.app_name));
@@ -68,7 +70,6 @@ public class ZWListDetailActivity extends BaseActivity implements ZWListDetailVi
         nextUrl = data.nextPage;
         toolbar.setTitle(data.title);
         webView.loadDataUrl(data.message);
-        frameLayout.setVisibility(View.VISIBLE);
         webView.post(() -> webView.scrollTo(0, 0));
     }
 
@@ -108,4 +109,8 @@ public class ZWListDetailActivity extends BaseActivity implements ZWListDetailVi
         }
     }
 
+    @Override
+    public void loadingSuccess() {
+        frameLayout.setVisibility(View.VISIBLE);
+    }
 }

@@ -21,7 +21,8 @@ import com.framework.widget.EasyWebView;
  * by y on 2017/1/8.
  */
 
-public class SearchDetailActivity extends BaseActivity implements SearchDetailView, OnClickListener {
+public class SearchDetailActivity extends BaseActivity
+        implements SearchDetailView, OnClickListener, EasyWebView.WebViewLoadListener {
     private static final String URL = "url";
 
     private Toolbar toolbar;
@@ -40,6 +41,7 @@ public class SearchDetailActivity extends BaseActivity implements SearchDetailVi
 
     @Override
     protected void initCreate(Bundle savedInstanceState) {
+        webView.setLoadListener(this);
         presenter = new SearchDetailPresenterImpl(this);
         Bundle extras = getIntent().getExtras();
         toolbar.setTitle(getString(R.string.app_name));
@@ -70,7 +72,6 @@ public class SearchDetailActivity extends BaseActivity implements SearchDetailVi
         toolbar.setTitle(data.title);
         webView.post(() -> webView.scrollTo(0, 0));
         webView.loadDataUrl(data.message);
-        frameLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -109,4 +110,8 @@ public class SearchDetailActivity extends BaseActivity implements SearchDetailVi
         }
     }
 
+    @Override
+    public void loadingSuccess() {
+        frameLayout.setVisibility(View.VISIBLE);
+    }
 }
