@@ -9,6 +9,7 @@ import com.framework.base.BaseActivity;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
 import com.image.R;
+import com.image.search.detail.widget.SearchDetailActivity;
 import com.image.search.list.model.SearchListModel;
 import com.image.search.list.presenter.SearchListPresenter;
 import com.image.search.list.presenter.SearchListPresenterImpl;
@@ -72,6 +73,8 @@ public class SearchListActivity extends BaseActivity
             ++page;
             presenter.netWorkRequest(searchType, content, page);
         });
+        adapter.setOnItemClickListener(
+                (view, position, info) -> SearchDetailActivity.startIntent(searchType, info.detailUrl));
         recyclerView.setAdapter(adapter);
     }
 

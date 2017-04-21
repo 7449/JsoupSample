@@ -2,6 +2,7 @@ package com.image.search.detail.presenter;
 
 
 import com.framework.base.mvp.PresenterImplCompat;
+import com.image.manager.JsoupSearchManager;
 import com.image.search.detail.model.SearchDetailModel;
 import com.image.search.detail.view.SearchDetailView;
 
@@ -19,14 +20,14 @@ public class SearchDetailPresenterImpl extends PresenterImplCompat<List<SearchDe
         super(view);
     }
 
+
     @Override
-    public void netWorkRequest(String url) {
+    public void netWorkRequest(String searchType, String url) {
         netWork(url);
     }
 
-
     @Override
     public List<SearchDetailModel> getT(Document document) {
-        return null;
+        return JsoupSearchManager.get(document).getImageDetail();
     }
 }

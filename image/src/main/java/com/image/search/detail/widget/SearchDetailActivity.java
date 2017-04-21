@@ -14,7 +14,6 @@ import com.framework.widget.ExtendedViewPager;
 import com.image.R;
 import com.image.collection.sql.CollectionUtils;
 import com.image.search.detail.model.SearchDetailModel;
-import com.image.search.detail.presenter.SearchDetailPresenter;
 import com.image.search.detail.presenter.SearchDetailPresenterImpl;
 import com.image.search.detail.view.SearchDetailView;
 
@@ -28,15 +27,18 @@ import java.util.List;
 
 public class SearchDetailActivity extends BaseActivity implements SearchDetailView {
     private static final String URL = "URL";
+    private static final String SEARCH_TYPE = "type";
     private String url;
+    private String searchType;
     private Toolbar toolbar;
     private ExtendedViewPager viewPager;
     private ContentLoadingProgressBar loadingProgressBar;
     private SearchDetailAdapter adapter;
 
-    public static void startIntent(String url) {
+    public static void startIntent(String searchType, String url) {
         Bundle bundle = new Bundle();
         bundle.putString(URL, url);
+        bundle.putString(SEARCH_TYPE, searchType);
         UIUtils.startActivity(SearchDetailActivity.class, bundle);
     }
 
@@ -45,22 +47,23 @@ public class SearchDetailActivity extends BaseActivity implements SearchDetailVi
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             url = extras.getString(URL);
+            searchType = extras.getString(SEARCH_TYPE);
         }
 
-        SearchDetailPresenter presenter = new SearchDetailPresenterImpl(this);
         adapter = new SearchDetailAdapter(new ArrayList<>());
         viewPager.setAdapter(adapter);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        toolbar.setTitle(getString(R.string.dbmz_title));
-        presenter.netWorkRequest(url);
+        setTitles(1, adapter.getCount());
+        new SearchDetailPresenterImpl(this).netWorkRequest(searchType, url);
 
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
+                setTitles(position + 1, adapter.getCount());
                 invalidateOptionsMenu();
             }
         });
@@ -101,6 +104,7 @@ public class SearchDetailActivity extends BaseActivity implements SearchDetailVi
     @Override
     public void netWorkSuccess(List<SearchDetailModel> data) {
         adapter.addAll(data);
+        setTitles(1, adapter.getCount());
         invalidateOptionsMenu();
     }
 
@@ -130,4 +134,7 @@ public class SearchDetailActivity extends BaseActivity implements SearchDetailVi
         loadingProgressBar.hide();
     }
 
+    private void setTitles(int page, int imageSize) {
+        toolbar.setTitle(searchType + "(" + page + "/" + imageSize + ")");
+    }
 }

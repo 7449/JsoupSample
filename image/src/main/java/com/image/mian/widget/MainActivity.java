@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -79,14 +78,15 @@ public class MainActivity extends BaseActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         toolbar.setTitle(item.getTitle());
+        presenter.switchId(item.getItemId());
+        invalidateOptionsMenu();
         if (item.getItemId() == R.id.collection) {
+            replaceFragment(CollectionListFragment.newInstance());
             layoutParams.setScrollFlags(0);
         } else {
+            replaceFragment(TabFragment.newInstance(searchType));
             layoutParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
         }
-        presenter.switchId(item.getItemId());
-        replaceFragment(TabFragment.newInstance(searchType));
-        invalidateOptionsMenu();
         drawerLayout.closeDrawers();
         return true;
     }
@@ -95,7 +95,15 @@ public class MainActivity extends BaseActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         MenuItem item = menu.findItem(R.id.action_search);
-        item.setVisible(!TextUtils.equals(searchType, ApiConfig.Type.DOU_BAN_MEI_ZI));
+        switch (searchType) {
+            case ApiConfig.Type.DOU_BAN_MEI_ZI:
+            case ApiConfig.Type.COLLECTION:
+                item.setVisible(false);
+                break;
+            default:
+                item.setVisible(true);
+                break;
+        }
         return true;
     }
 
@@ -136,7 +144,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void switchCollection() {
-        replaceFragment(CollectionListFragment.newInstance());
+        searchType = ApiConfig.Type.COLLECTION;
     }
 
     @Override

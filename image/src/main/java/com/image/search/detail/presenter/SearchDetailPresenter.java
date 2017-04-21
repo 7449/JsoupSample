@@ -5,6 +5,6 @@ package com.image.search.detail.presenter;
  */
 public interface SearchDetailPresenter {
 
-    void netWorkRequest(String url);
+    void netWorkRequest(String searchType, String url);
 
 }

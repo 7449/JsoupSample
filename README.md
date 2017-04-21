@@ -53,7 +53,11 @@ jsoupSample
 
 ## 非常感谢以下开源框架：
 
-> android.support
+> [jsoup](http://www.open-open.com/jsoup/)
+
+	获取Html内容
+
+> [android](https://developer.android.com/index.html)
 		
 	android
 		
