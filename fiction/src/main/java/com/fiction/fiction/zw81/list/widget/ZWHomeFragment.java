@@ -48,7 +48,6 @@ public class ZWHomeFragment extends BaseFragment
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
-
         setLoad();
     }
 
@@ -70,7 +69,8 @@ public class ZWHomeFragment extends BaseFragment
 
     @Override
     public void netWorkError() {
-        UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
+        if (getActivity() != null)
+            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
     }
 
     @Override

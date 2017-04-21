@@ -8,6 +8,7 @@ jsoupSample
 	>浏览小说
 	
 	[81中文网](http://www.81zw.com/book/8012/)<br>
+	[笔趣阁](http://www.biqiuge.com/)<br>
 
 ![](https://github.com/7449/JsoupSample/blob/master/screenshot/fiction_zw.gif)
 ![](https://github.com/7449/JsoupSample/blob/master/screenshot/fiction_search.gif)

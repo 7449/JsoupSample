@@ -80,7 +80,8 @@ public class ZWListFragment extends BaseFragment
 
     @Override
     public void netWorkError() {
-        UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
+        if (getActivity() != null)
+            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
     }
 
     @Override

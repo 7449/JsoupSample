@@ -82,4 +82,9 @@ public class MainActivity extends BaseActivity
     public void switch81() {
         replaceFragment(TabFragment.newInstance(ApiConfig.Type.ZW_81));
     }
+
+    @Override
+    public void switchBiQuGe() {
+        replaceFragment(TabFragment.newInstance(ApiConfig.Type.BI_QU_GE));
+    }
 }

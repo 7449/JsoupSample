@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import com.fiction.R;
 import com.fiction.fiction.zw81.contents.widget.ZWHomeContentsActivity;
 import com.fiction.fiction.zw81.list.model.ZWHomeModel;
+import com.fiction.manager.ApiConfig;
 import com.fiction.manager.JsoupZwHomeManager;
 import com.framework.base.SuperViewHolder;
 import com.framework.utils.ImageLoaderUtils;
@@ -55,7 +56,7 @@ class ZWHomeAdapter extends RecyclerView.Adapter<SuperViewHolder> {
                 break;
             case JsoupZwHomeManager.TYPE_TITLE:
                 holder.setTextView(R.id.tv_title, zwHomeModel.title);
-                holder.itemView.setOnClickListener(v -> RxBus.getInstance().send(JsoupZwHomeManager.TYPE_HEADER, zwHomeModel.title));
+                holder.itemView.setOnClickListener(v -> RxBus.getInstance().send(ApiConfig.Type.ZW_81, zwHomeModel.title));
                 break;
             case JsoupZwHomeManager.TYPE_PUSH:
             case JsoupZwHomeManager.TYPE_CENTER:

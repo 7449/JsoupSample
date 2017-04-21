@@ -113,7 +113,8 @@ public class SearchFragment extends Fragment
                             super.onAnimationEnd(animation);
                             mSearchLayout.setVisibility(View.GONE);
                             mSearchLayout.clearAnimation();
-                            getActivity().getSupportFragmentManager().popBackStack();
+                            if (getActivity() != null)
+                                getActivity().getSupportFragmentManager().popBackStack();
                         }
                     });
         }

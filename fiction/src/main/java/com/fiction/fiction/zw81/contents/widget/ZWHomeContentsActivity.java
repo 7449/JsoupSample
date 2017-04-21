@@ -70,7 +70,7 @@ public class ZWHomeContentsActivity extends BaseActivity
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_search_contents;
+        return R.layout.activity_zw_home_contents;
     }
 
 

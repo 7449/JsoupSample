@@ -25,6 +25,10 @@
         <activity android:name=".fiction.zw81.detail.widget.ZWListDetailActivity" />
         <activity android:name=".fiction.zw81.contents.widget.ZWHomeContentsActivity" />
         <activity android:name=".fiction.zw81.detail.widget.ZWHomeDetailActivity" />
+        <activity android:name=".fiction.biquge.contents.widget.BiQuGeHomeContentsActivity" />
+        <activity android:name=".fiction.biquge.contents.widget.BiQuGeListContentsActivity" />
+        <activity android:name=".fiction.biquge.detail.widget.BiQuGeHomeDetailActivity" />
+        <activity android:name=".fiction.biquge.detail.widget.BiQuGeListDetailActivity" />
     </application>
 
 </manifest>

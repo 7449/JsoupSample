@@ -8,4 +8,7 @@ public interface MainView {
     void switchSearch();
 
     void switch81();
+
+    void switchBiQuGe();
+
 }

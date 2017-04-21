@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.framework.R;
+import com.socks.library.KLog;
 
 /**
  * by y on 2016/7/26.
@@ -19,6 +20,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLayoutId());
         initById();
         initCreate(savedInstanceState);
+        KLog.i(getClass().getSimpleName());
     }
 
     public void replaceFragment(Fragment fragment) {

@@ -28,14 +28,15 @@ public class JsoupZwHomeManager {
     public static final int TYPE_TITLE = 5;
 
     private static final String TYPE_TITLE_PUSH = "上期强推:";
+    private static final String TYPE_TITLE_RETCENT = "最近更新:";
+    private static final String TYPE_TITLE_ADD = "最新入库:";
+
     public static final String TYPE_TITLE_XUAN_HUAN = "玄幻:";
     public static final String TYPE_TITLE_XIU_ZHEN = "修真:";
     public static final String TYPE_TITLE_DU_SHI = "都市:";
     public static final String TYPE_TITLE_LI_SHI = "历史:";
     public static final String TYPE_TITLE_WANG_YOU = "网游:";
     public static final String TYPE_TITLE_KE_HUAN = "科幻:";
-    private static final String TYPE_TITLE_RETCENT = "最近更新:";
-    private static final String TYPE_TITLE_ADD = "最新入库:";
 
     private Document document;
 

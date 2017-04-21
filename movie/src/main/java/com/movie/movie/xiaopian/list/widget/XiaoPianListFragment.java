@@ -110,7 +110,8 @@ public class XiaoPianListFragment extends BaseFragment
 
     @Override
     public void netWorkError() {
-        UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
+        if (getActivity() != null)
+            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
     }
 
     @Override
@@ -136,6 +137,7 @@ public class XiaoPianListFragment extends BaseFragment
 
     @Override
     public void noMore() {
-        UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.data_empty));
+        if (getActivity() != null)
+            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.data_empty));
     }
 }

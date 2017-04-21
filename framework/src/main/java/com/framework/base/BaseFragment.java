@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.socks.library.KLog;
+
 /**
  * by y on 2016/7/26.
  */
@@ -37,6 +39,7 @@ public abstract class BaseFragment extends Fragment {
             view = getLayoutInflater(savedInstanceState).inflate(getLayoutId(), null);
             isPrepared = true;
         }
+        KLog.i(getClass().getSimpleName());
         initById();
         return view;
     }

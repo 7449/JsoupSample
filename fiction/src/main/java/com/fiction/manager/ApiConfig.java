@@ -14,7 +14,11 @@ public interface ApiConfig {
     String SEARCH_ZW81_SUFFIX = "&s=3975864432584690275";
     String ZW81_URL = "http://www.81zw.com/";
 
+    //笔趣阁
+    String BI_QU_GE_URL = "http://www.biqiuge.com/";
+
     interface Type {
         String ZW_81 = "81";
+        String BI_QU_GE = "笔趣阁";
     }
 }

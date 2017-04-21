@@ -22,4 +22,24 @@
         <item>yanqing</item>
         <item>qita</item>
     </string-array>
+
+    <string-array name="tab_bi_qu_ge">
+        <item>首页</item>
+        <item>玄幻</item>
+        <item>修真</item>
+        <item>都市</item>
+        <item>穿越</item>
+        <item>网游</item>
+        <item>科幻</item>
+        <item>完本</item>
+    </string-array>
+    <string-array name="tab_bi_qu_ge_suffix">
+        <item>xuanhuanxiaoshuo</item>
+        <item>xiuzhenxiaoshuo</item>
+        <item>dushixiaoshuo</item>
+        <item>chuanyuexiaoshuo</item>
+        <item>wangyouxiaoshuo</item>
+        <item>kehuanxiaoshuo</item>
+        <item>wanben</item>
+    </string-array>
 </resources>

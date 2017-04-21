@@ -81,6 +81,7 @@ public class ZWHomeDetailActivity extends BaseActivity
 
     @Override
     public void showProgress() {
+        frameLayout.setVisibility(View.GONE);
         progressBar.show();
     }
 

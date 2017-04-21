@@ -56,6 +56,7 @@ public abstract class PresenterImplCompat<M, V extends BaseView<M>>
     }
 
     protected void netWork(String url) {
+        KLog.i(url);
         api = RxJsoupNetWork
                 .getInstance()
                 .getApi(
