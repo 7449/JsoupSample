@@ -8,6 +8,10 @@ jsoupSample
 	>浏览小说
 	
 	[81中文网](http://www.81zw.com/book/8012/)<br>
+
+![](https://github.com/7449/JsoupSample/blob/master/screenshot/fiction_zw.gif)
+
+![](https://github.com/7449/JsoupSample/blob/master/screenshot/fiction_search.gif)
 	
 * image
 
@@ -18,6 +22,9 @@ jsoupSample
 	[MM](http://www.mmjpg.com/)</br>
 	[MEIZITU](http://www.meizitu.com/)</br>
 	[7kk](http://m.7kk.com/)<br>
+
+![](https://github.com/7449/JsoupSample/blob/master/screenshot/image.gif)
+![](https://github.com/7449/JsoupSample/blob/master/screenshot/image_search.gif)
 	
 * movie
 
@@ -29,6 +36,7 @@ jsoupSample
 	[飘花](http://www.piaohua.com)<br>
 	
 	
+![](https://github.com/7449/JsoupSample/blob/master/screenshot/movie.gif)
 	
 整个框架围绕着`framework`这个`modules`展开。
 
