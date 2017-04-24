@@ -32,7 +32,6 @@ ext {
     movieApplicationId = 'com.movie'
     imageApplicationId = 'com.image'
     fictionApplicationId = 'com.fiction'
-    taobaoApplicationId = 'com.taobao'
 
     supportVersion = '25.3.0'
     glideVersion = '3.7.0'
@@ -54,8 +53,4 @@ ext {
     movieStorePath = 'movie.jks'
     moviePassword = '123456'
     movieKeyAlias = 'movie'
-
-    taobaoStorePath = 'taobao.jks'
-    taobaoPassword = '123456'
-    taobaoKeyAlias = 'taobao'
 }
