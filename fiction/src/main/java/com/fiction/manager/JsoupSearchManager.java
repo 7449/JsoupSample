@@ -18,15 +18,15 @@ import java.util.List;
  * by y on 2017/3/25.
  */
 
-public class JsoupZwSearchManager {
+public class JsoupSearchManager {
     private Document document;
 
-    private JsoupZwSearchManager(Document document) {
+    private JsoupSearchManager(Document document) {
         this.document = document;
     }
 
-    public static JsoupZwSearchManager get(@NonNull Document document) {
-        return new JsoupZwSearchManager(document);
+    public static JsoupSearchManager get(@NonNull Document document) {
+        return new JsoupSearchManager(document);
     }
 
     public List<SearchListModel> get81List() {

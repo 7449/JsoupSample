@@ -2,7 +2,7 @@ package com.fiction.fiction.search.contents.presenter;
 
 import com.fiction.fiction.search.contents.model.SearchContentsModel;
 import com.fiction.fiction.search.contents.view.SearchContentsView;
-import com.fiction.manager.JsoupZwSearchManager;
+import com.fiction.manager.JsoupSearchManager;
 import com.framework.base.mvp.PresenterImplCompat;
 
 import org.jsoup.nodes.Document;
@@ -26,6 +26,6 @@ public class SearchContentsPresenterImpl extends PresenterImplCompat<List<Search
 
     @Override
     public List<SearchContentsModel> getT(Document document) {
-        return JsoupZwSearchManager.get(document).get81Contents();
+        return JsoupSearchManager.get(document).get81Contents();
     }
 }

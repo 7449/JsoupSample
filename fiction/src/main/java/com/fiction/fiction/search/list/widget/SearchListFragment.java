@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import com.fiction.R;
 import com.fiction.db.GreenDaoDbUtils;
@@ -16,6 +17,7 @@ import com.fiction.fiction.search.list.model.SearchListModel;
 import com.fiction.fiction.search.list.presenter.SearchListPresenter;
 import com.fiction.fiction.search.list.presenter.SearchListPresenterImpl;
 import com.fiction.fiction.search.list.view.SearchListView;
+import com.fiction.manager.ApiConfig;
 import com.framework.base.BaseFragment;
 import com.framework.base.BaseRecyclerAdapter;
 import com.framework.utils.UIUtils;
@@ -41,6 +43,7 @@ public class SearchListFragment extends BaseFragment
     private int page = 0;
     private String fictionName;
     private AlertDialog alertDialog;
+    private String searchType = ApiConfig.Type.ZW_81;
 
 
     @Override
@@ -116,7 +119,7 @@ public class SearchListFragment extends BaseFragment
     public void onLoadMore() {
         if (editText != null) {
             ++page;
-            presenter.startSearch(fictionName, page);
+            presenter.startSearch(fictionName, page, searchType);
         }
     }
 
@@ -135,13 +138,28 @@ public class SearchListFragment extends BaseFragment
 
     private void startNetWork() {
         page = 0;
-        presenter.startSearch(fictionName, page);
+        presenter.startSearch(fictionName, page, searchType);
     }
 
     private void startDialog() {
         List<SqlBean> fictionNameAll = GreenDaoDbUtils.getFictionNameAll();
         View view = View.inflate(getActivity(), R.layout.dialog_search, null);
         editText = (EditText) view.findViewById(R.id.search_et);
+        RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.rg_view);
+
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            switch (checkedId) {
+                case R.id.zw:
+                    searchType = ApiConfig.Type.ZW_81;
+                    break;
+                case R.id.biquge:
+                    searchType = ApiConfig.Type.BI_QU_GE;
+                    break;
+                case R.id.ksw:
+                    searchType = ApiConfig.Type.KSW;
+                    break;
+            }
+        });
 
         FlexboxLayout flowLayout = (FlexboxLayout) view.findViewById(R.id.flow);
         flowLayout.removeAllViews();

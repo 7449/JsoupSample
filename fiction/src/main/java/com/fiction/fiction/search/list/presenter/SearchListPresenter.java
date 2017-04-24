@@ -5,5 +5,5 @@ package com.fiction.fiction.search.list.presenter;
  */
 
 public interface SearchListPresenter {
-    void startSearch(String fictionName, int page);
+    void startSearch(String fictionName, int page, String searchType);
 }

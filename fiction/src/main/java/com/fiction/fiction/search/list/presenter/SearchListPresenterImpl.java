@@ -6,7 +6,7 @@ import com.fiction.db.SearchDb;
 import com.fiction.fiction.search.list.model.SearchListModel;
 import com.fiction.fiction.search.list.view.SearchListView;
 import com.fiction.manager.ApiConfig;
-import com.fiction.manager.JsoupZwSearchManager;
+import com.fiction.manager.JsoupSearchManager;
 import com.framework.base.mvp.PresenterImplCompat;
 
 import org.jsoup.nodes.Document;
@@ -26,10 +26,10 @@ public class SearchListPresenterImpl extends PresenterImplCompat<List<SearchList
     }
 
     @Override
-    public void startSearch(String fictionName, int page) {
+    public void startSearch(String fictionName, int page, String searchType) {
         this.fictionName = fictionName;
         if (!TextUtils.isEmpty(fictionName)) {
-            netWork(ApiConfig.SEARCH_ZW81_URL + fictionName + "&p=" + page + ApiConfig.SEARCH_ZW81_SUFFIX);
+            netWork(getSearchUrl(searchType, fictionName, page));
         } else {
             view.fictionNameEmpty();
         }
@@ -45,6 +45,20 @@ public class SearchListPresenterImpl extends PresenterImplCompat<List<SearchList
 
     @Override
     public List<SearchListModel> getT(Document document) {
-        return JsoupZwSearchManager.get(document).get81List();
+        return JsoupSearchManager.get(document).get81List();
+    }
+
+    /**
+     * 这种小说网站好像调用的搜索网站都一样......
+     */
+    private String getSearchUrl(String searchType, String fictionName, int page) {
+        switch (searchType) {
+            case ApiConfig.Type.ZW_81:
+                return ApiConfig.SEARCH_URL + fictionName + "&p=" + page + ApiConfig.SEARCH_SUFFIX;
+            case ApiConfig.Type.BI_QU_GE:
+                return ApiConfig.SEARCH_URL + fictionName + "&p=" + page + ApiConfig.SEARCH_SUFFIX;
+            default:
+                return ApiConfig.SEARCH_URL + fictionName + "&p=" + page + ApiConfig.SEARCH_SUFFIX;
+        }
     }
 }
