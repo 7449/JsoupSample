@@ -30,6 +30,9 @@ public class MainPresenterImpl implements MainPresenter {
             case R.id.bi_qu_ge:
                 mainView.switchBiQuGe();
                 break;
+            case R.id.ksw:
+                mainView.switchKsw();
+                break;
         }
     }
 }

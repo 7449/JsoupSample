@@ -42,4 +42,26 @@
         <item>kehuanxiaoshuo</item>
         <item>wanben</item>
     </string-array>
+
+    <string-array name="tab_ksw">
+        <item>首页</item>
+        <item>玄幻</item>
+        <item>修真</item>
+        <item>都市</item>
+        <item>穿越</item>
+        <item>网游</item>
+        <item>科幻</item>
+        <item>其他</item>
+        <item>完本</item>
+    </string-array>
+    <string-array name="tab_ksw_suffix">
+        <item>s_1/</item>
+        <item>s_2/</item>
+        <item>s_3/</item>
+        <item>s_4/</item>
+        <item>s_5/</item>
+        <item>s_6/</item>
+        <item>s_7/</item>
+        <item>s_qb/</item>
+    </string-array>
 </resources>

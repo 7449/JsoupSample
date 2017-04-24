@@ -9,6 +9,8 @@ public interface MainView {
 
     void switch81();
 
+    void switchKsw();
+
     void switchBiQuGe();
 
 }

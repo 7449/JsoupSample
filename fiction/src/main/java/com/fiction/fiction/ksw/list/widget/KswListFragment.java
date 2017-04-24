@@ -1,12 +1,13 @@
-package com.fiction.fiction.biquge.list.widget;
+package com.fiction.fiction.ksw.list.widget;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import com.fiction.R;
-import com.fiction.fiction.biquge.list.model.BiQuGeHomeModel;
-import com.fiction.fiction.biquge.list.presenter.BiQuGeHomePresenterImpl;
-import com.fiction.fiction.biquge.list.view.BiQuGeHomeView;
+import com.fiction.fiction.ksw.list.model.KswListModel;
+import com.fiction.fiction.ksw.list.presenter.KswListPresenterImpl;
+import com.fiction.fiction.ksw.list.view.KswListView;
 import com.framework.base.BaseFragment;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
@@ -15,24 +16,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * by y on 2017/4/20
+ * by y on 2017/4/6.
  */
 
-public class BiQuGeHomeFragment extends BaseFragment
-        implements SwipeRefreshLayout.OnRefreshListener, BiQuGeHomeView {
+public class KswListFragment extends BaseFragment
+        implements KswListView, SwipeRefreshLayout.OnRefreshListener {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private LoadMoreRecyclerView recyclerView;
 
-    private BiQuGeHomeAdapter adapter;
+    private KswListAdapter adapter;
 
-    public static BiQuGeHomeFragment newInstance() {
-        return new BiQuGeHomeFragment();
+    public static KswListFragment newInstance(int position) {
+        KswListFragment biQuGeListFragment = new KswListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(FRAGMENT_INDEX, position);
+        biQuGeListFragment.setArguments(bundle);
+        return biQuGeListFragment;
+    }
+
+    @Override
+    protected void initBundle() {
+        super.initBundle();
+        tabPosition = bundle.getInt(FRAGMENT_INDEX);
     }
 
     @Override
     protected void initById() {
-        swipeRefreshLayout = getView(R.id.srf_layout);
+        swipeRefreshLayout = getView(R.id.refresh_layout);
         recyclerView = getView(R.id.recyclerView);
     }
 
@@ -44,26 +55,25 @@ public class BiQuGeHomeFragment extends BaseFragment
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(this::onRefresh);
 
-        adapter = new BiQuGeHomeAdapter(new ArrayList<>());
+        adapter = new KswListAdapter(new ArrayList<>());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
-
         setLoad();
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_biquge_home;
+        return R.layout.fragment_ksw_list;
     }
 
     @Override
     public void onRefresh() {
-        new BiQuGeHomePresenterImpl(this).netWork();
+        new KswListPresenterImpl(this).netWork(tabPosition);
     }
 
     @Override
-    public void netWorkSuccess(List<BiQuGeHomeModel> data) {
+    public void netWorkSuccess(List<KswListModel> data) {
         adapter.removeAll();
         adapter.addAll(data);
     }

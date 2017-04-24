@@ -17,8 +17,12 @@ public interface ApiConfig {
     //笔趣阁
     String BI_QU_GE_URL = "http://www.biqiuge.com/";
 
+    //零点看书
+    String KSW_URL = "http://www.00ksw.net/";
+
     interface Type {
         String ZW_81 = "81";
         String BI_QU_GE = "笔趣阁";
+        String KSW = "零点看书";
     }
 }

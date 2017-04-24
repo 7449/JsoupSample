@@ -29,11 +29,11 @@ class BiQuGeListAdapter extends RecyclerView.Adapter<SuperViewHolder> {
     public SuperViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case JsoupBiQuGeListManager.TYPE_HEADER:
-                return new SuperViewHolder(UIUtils.getAdapterView(parent, R.layout.item_zw_list_header));
+                return new SuperViewHolder(UIUtils.getAdapterView(parent, R.layout.item_biquge_list_header));
             case JsoupBiQuGeListManager.TYPE_TITLE:
-                return new SuperViewHolder(UIUtils.getAdapterView(parent, R.layout.item_zw_list_title));
+                return new SuperViewHolder(UIUtils.getAdapterView(parent, R.layout.item_biquge_list_title));
             default:
-                return new SuperViewHolder(UIUtils.getAdapterView(parent, R.layout.item_zw_list_item));
+                return new SuperViewHolder(UIUtils.getAdapterView(parent, R.layout.item_biquge_list_item));
         }
     }
 
