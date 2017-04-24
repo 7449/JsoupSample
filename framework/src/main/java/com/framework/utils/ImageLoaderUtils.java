@@ -13,8 +13,8 @@ import com.framework.R;
 public class ImageLoaderUtils {
 
     public static void display(@NonNull ImageView imageView, String url) {
-        Glide.with(imageView.getContext()).load(url).placeholder(R.drawable.ic_launcher)
-                .error(R.drawable.ic_launcher).crossFade().into(imageView);
+        Glide.with(imageView.getContext()).load(url).placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher).crossFade().into(imageView);
     }
 
 }
