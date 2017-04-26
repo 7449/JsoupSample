@@ -58,11 +58,11 @@ class TabAdapter extends FragmentPagerAdapter {
     private Fragment getFragment(int position) {
         switch (type) {
             case ApiConfig.Type.ZW_81:
-                return position == 0 ? ZWHomeFragment.newInstance() : ZWListFragment.newInstance(position);
+                return position == 0 ? ZWHomeFragment.newInstance(type) : ZWListFragment.newInstance(type, position);
             case ApiConfig.Type.BI_QU_GE:
-                return position == 0 ? BiQuGeHomeFragment.newInstance() : BiQuGeListFragment.newInstance(position);
+                return position == 0 ? BiQuGeHomeFragment.newInstance(type) : BiQuGeListFragment.newInstance(type, position);
             case ApiConfig.Type.KSW:
-                return position == 0 ? KswHomeFragment.newInstance() : KswListFragment.newInstance(position);
+                return position == 0 ? KswHomeFragment.newInstance(type) : KswListFragment.newInstance(type, position);
             default:
                 return null;
         }

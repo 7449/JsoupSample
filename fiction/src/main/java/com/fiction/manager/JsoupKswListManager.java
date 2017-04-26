@@ -3,8 +3,8 @@ package com.fiction.manager;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.fiction.fiction.ksw.contents.model.KswListContentsModel;
-import com.fiction.fiction.ksw.detail.model.KswListDetailModel;
+import com.fiction.fiction.contents.model.FictionContentsModel;
+import com.fiction.fiction.detail.model.FictionDetailModel;
 import com.fiction.fiction.ksw.list.model.KswListModel;
 
 import org.jsoup.nodes.Document;
@@ -106,12 +106,12 @@ public class JsoupKswListManager {
         }
     }
 
-    public List<KswListContentsModel> getKswListContents() {
-        List<KswListContentsModel> list = new ArrayList<>();
-        KswListContentsModel contentsModel;
+    public List<FictionContentsModel> getKswListContents() {
+        List<FictionContentsModel> list = new ArrayList<>();
+        FictionContentsModel contentsModel;
         Elements a = document.select("#list").select("a");
         for (Element element : a) {
-            contentsModel = new KswListContentsModel();
+            contentsModel = new FictionContentsModel();
             contentsModel.title = element.text();
             contentsModel.detailUrl = element.attr("abs:href");
             list.add(contentsModel);
@@ -120,8 +120,8 @@ public class JsoupKswListManager {
     }
 
 
-    public KswListDetailModel getKswListDetail() {
-        KswListDetailModel detailModel = new KswListDetailModel();
+    public FictionDetailModel getKswListDetail() {
+        FictionDetailModel detailModel = new FictionDetailModel();
         Elements select = document.select("div.bottem2").select("a[href$=.html]");
         if (select.size() == 1) {
             if (TextUtils.equals(select.text(), ApiConfig.NEXT_PAGE)) {

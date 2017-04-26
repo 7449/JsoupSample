@@ -3,9 +3,9 @@ package com.fiction.manager;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.fiction.fiction.biquge.contents.model.BiQuGeListContentsModel;
-import com.fiction.fiction.biquge.detail.model.BiQuGeListDetailModel;
 import com.fiction.fiction.biquge.list.model.BiQuGeListModel;
+import com.fiction.fiction.contents.model.FictionContentsModel;
+import com.fiction.fiction.detail.model.FictionDetailModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -106,12 +106,12 @@ public class JsoupBiQuGeListManager {
         }
     }
 
-    public List<BiQuGeListContentsModel> getBiQuGeListContents() {
-        List<BiQuGeListContentsModel> list = new ArrayList<>();
-        BiQuGeListContentsModel contentsModel;
+    public List<FictionContentsModel> getBiQuGeListContents() {
+        List<FictionContentsModel> list = new ArrayList<>();
+        FictionContentsModel contentsModel;
         Elements a = document.select("#list").select("a");
         for (Element element : a) {
-            contentsModel = new BiQuGeListContentsModel();
+            contentsModel = new FictionContentsModel();
             contentsModel.title = element.text();
             contentsModel.detailUrl = element.attr("abs:href");
             list.add(contentsModel);
@@ -120,8 +120,8 @@ public class JsoupBiQuGeListManager {
     }
 
 
-    public BiQuGeListDetailModel getBiqugeListDetail() {
-        BiQuGeListDetailModel detailModel = new BiQuGeListDetailModel();
+    public FictionDetailModel getBiqugeListDetail() {
+        FictionDetailModel detailModel = new FictionDetailModel();
         Elements select = document.select("div.bottem").select("a[href$=.html]");
         if (select.size() == 1) {
             if (TextUtils.equals(select.text(), ApiConfig.NEXT_PAGE)) {

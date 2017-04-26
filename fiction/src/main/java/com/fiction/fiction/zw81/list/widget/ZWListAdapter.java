@@ -5,8 +5,9 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.ViewGroup;
 
 import com.fiction.R;
-import com.fiction.fiction.zw81.contents.widget.ZWListContentsActivity;
+import com.fiction.fiction.contents.widget.FictionContentsActivity;
 import com.fiction.fiction.zw81.list.model.ZWListModel;
+import com.fiction.manager.ApiConfig;
 import com.fiction.manager.JsoupZwListManager;
 import com.framework.base.SuperViewHolder;
 import com.framework.utils.ImageLoaderUtils;
@@ -20,9 +21,11 @@ import java.util.List;
 
 class ZWListAdapter extends RecyclerView.Adapter<SuperViewHolder> {
     private List<ZWListModel> list = null;
+    private String type = ApiConfig.Type.ZW_81;
 
-    ZWListAdapter(List<ZWListModel> list) {
+    ZWListAdapter(List<ZWListModel> list, String type) {
         this.list = list;
+        this.type = type;
     }
 
     @Override
@@ -49,7 +52,7 @@ class ZWListAdapter extends RecyclerView.Adapter<SuperViewHolder> {
                 holder.setTextView(R.id.tv_title, zwListModel.title);
                 holder.setTextView(R.id.tv_content, zwListModel.message);
                 ImageLoaderUtils.display(holder.getImageView(R.id.image), zwListModel.url);
-                holder.itemView.setOnClickListener(v -> ZWListContentsActivity.getInstance(zwListModel.detailUrl, zwListModel.title));
+                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, zwListModel.detailUrl, zwListModel.title));
 
                 break;
             case JsoupZwListManager.TYPE_TITLE:
@@ -58,7 +61,7 @@ class ZWListAdapter extends RecyclerView.Adapter<SuperViewHolder> {
             case JsoupZwListManager.TYPE_UPDATE:
             case JsoupZwListManager.TYPE_ADD:
                 holder.setTextView(R.id.tv_title, zwListModel.title);
-                holder.itemView.setOnClickListener(v -> ZWListContentsActivity.getInstance(zwListModel.detailUrl, zwListModel.title));
+                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, zwListModel.detailUrl, zwListModel.title));
                 break;
         }
     }

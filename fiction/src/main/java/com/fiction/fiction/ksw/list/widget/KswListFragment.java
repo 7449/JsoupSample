@@ -27,10 +27,11 @@ public class KswListFragment extends BaseFragment
 
     private KswListAdapter adapter;
 
-    public static KswListFragment newInstance(int position) {
+    public static KswListFragment newInstance(String type, int position) {
         KswListFragment biQuGeListFragment = new KswListFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(FRAGMENT_INDEX, position);
+        bundle.putString(FRAGMENT_TYPE, type);
         biQuGeListFragment.setArguments(bundle);
         return biQuGeListFragment;
     }
@@ -39,6 +40,7 @@ public class KswListFragment extends BaseFragment
     protected void initBundle() {
         super.initBundle();
         tabPosition = bundle.getInt(FRAGMENT_INDEX);
+        type = bundle.getString(FRAGMENT_TYPE);
     }
 
     @Override
@@ -55,7 +57,7 @@ public class KswListFragment extends BaseFragment
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(this::onRefresh);
 
-        adapter = new KswListAdapter(new ArrayList<>());
+        adapter = new KswListAdapter(new ArrayList<>(), type);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);

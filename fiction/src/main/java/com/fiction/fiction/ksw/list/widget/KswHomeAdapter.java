@@ -5,7 +5,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.ViewGroup;
 
 import com.fiction.R;
-import com.fiction.fiction.ksw.contents.widget.KswHomeContentsActivity;
+import com.fiction.fiction.contents.widget.FictionContentsActivity;
 import com.fiction.fiction.ksw.list.model.KswHomeModel;
 import com.fiction.manager.ApiConfig;
 import com.fiction.manager.JsoupKswHomeManager;
@@ -22,9 +22,11 @@ import java.util.List;
 
 class KswHomeAdapter extends RecyclerView.Adapter<SuperViewHolder> {
     private List<KswHomeModel> list = null;
+    private String type = ApiConfig.Type.ZW_81;
 
-    KswHomeAdapter(List<KswHomeModel> list) {
+    KswHomeAdapter(List<KswHomeModel> list, String type) {
         this.list = list;
+        this.type = type;
     }
 
     @Override
@@ -51,7 +53,7 @@ class KswHomeAdapter extends RecyclerView.Adapter<SuperViewHolder> {
                 holder.setTextView(R.id.tv_title, kswHomeModel.title);
                 holder.setTextView(R.id.tv_content, kswHomeModel.message);
                 ImageLoaderUtils.display(holder.getImageView(R.id.image), kswHomeModel.url);
-                holder.itemView.setOnClickListener(v -> KswHomeContentsActivity.getInstance(kswHomeModel.detailUrl, kswHomeModel.title));
+                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, kswHomeModel.detailUrl, kswHomeModel.title));
 
                 break;
             case JsoupKswHomeManager.TYPE_TITLE:
@@ -63,7 +65,7 @@ class KswHomeAdapter extends RecyclerView.Adapter<SuperViewHolder> {
             case JsoupKswHomeManager.TYPE_RECENT:
             case JsoupKswHomeManager.TYPE_ADD:
                 holder.setTextView(R.id.tv_title, kswHomeModel.title);
-                holder.itemView.setOnClickListener(v -> KswHomeContentsActivity.getInstance(kswHomeModel.detailUrl, kswHomeModel.title));
+                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, kswHomeModel.detailUrl, kswHomeModel.title));
                 break;
         }
     }

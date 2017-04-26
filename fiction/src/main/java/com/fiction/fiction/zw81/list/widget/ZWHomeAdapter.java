@@ -5,7 +5,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.ViewGroup;
 
 import com.fiction.R;
-import com.fiction.fiction.zw81.contents.widget.ZWHomeContentsActivity;
+import com.fiction.fiction.contents.widget.FictionContentsActivity;
 import com.fiction.fiction.zw81.list.model.ZWHomeModel;
 import com.fiction.manager.ApiConfig;
 import com.fiction.manager.JsoupZwHomeManager;
@@ -22,9 +22,11 @@ import java.util.List;
 
 class ZWHomeAdapter extends RecyclerView.Adapter<SuperViewHolder> {
     private List<ZWHomeModel> list = null;
+    private String type = ApiConfig.Type.ZW_81;
 
-    ZWHomeAdapter(List<ZWHomeModel> list) {
+    ZWHomeAdapter(List<ZWHomeModel> list, String type) {
         this.list = list;
+        this.type = type;
     }
 
     @Override
@@ -51,7 +53,7 @@ class ZWHomeAdapter extends RecyclerView.Adapter<SuperViewHolder> {
                 holder.setTextView(R.id.tv_title, zwHomeModel.title);
                 holder.setTextView(R.id.tv_content, zwHomeModel.message);
                 ImageLoaderUtils.display(holder.getImageView(R.id.image), zwHomeModel.url);
-                holder.itemView.setOnClickListener(v -> ZWHomeContentsActivity.getInstance(zwHomeModel.detailUrl, zwHomeModel.title));
+                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, zwHomeModel.detailUrl, zwHomeModel.title));
 
                 break;
             case JsoupZwHomeManager.TYPE_TITLE:
@@ -63,7 +65,7 @@ class ZWHomeAdapter extends RecyclerView.Adapter<SuperViewHolder> {
             case JsoupZwHomeManager.TYPE_RECENT:
             case JsoupZwHomeManager.TYPE_ADD:
                 holder.setTextView(R.id.tv_title, zwHomeModel.title);
-                holder.itemView.setOnClickListener(v -> ZWHomeContentsActivity.getInstance(zwHomeModel.detailUrl, zwHomeModel.title));
+                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, zwHomeModel.detailUrl, zwHomeModel.title));
                 break;
         }
     }

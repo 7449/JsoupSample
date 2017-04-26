@@ -5,8 +5,9 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.ViewGroup;
 
 import com.fiction.R;
-import com.fiction.fiction.biquge.contents.widget.BiQuGeListContentsActivity;
 import com.fiction.fiction.biquge.list.model.BiQuGeListModel;
+import com.fiction.fiction.contents.widget.FictionContentsActivity;
+import com.fiction.manager.ApiConfig;
 import com.fiction.manager.JsoupBiQuGeListManager;
 import com.framework.base.SuperViewHolder;
 import com.framework.utils.ImageLoaderUtils;
@@ -20,9 +21,11 @@ import java.util.List;
 
 class BiQuGeListAdapter extends RecyclerView.Adapter<SuperViewHolder> {
     private List<BiQuGeListModel> list = null;
+    private String type = ApiConfig.Type.ZW_81;
 
-    BiQuGeListAdapter(List<BiQuGeListModel> list) {
+    BiQuGeListAdapter(List<BiQuGeListModel> list, String type) {
         this.list = list;
+        this.type = type;
     }
 
     @Override
@@ -49,7 +52,7 @@ class BiQuGeListAdapter extends RecyclerView.Adapter<SuperViewHolder> {
                 holder.setTextView(R.id.tv_title, biqugeListModel.title);
                 holder.setTextView(R.id.tv_content, biqugeListModel.message);
                 ImageLoaderUtils.display(holder.getImageView(R.id.image), biqugeListModel.url);
-                holder.itemView.setOnClickListener(v -> BiQuGeListContentsActivity.getInstance(biqugeListModel.detailUrl, biqugeListModel.title));
+                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, biqugeListModel.detailUrl, biqugeListModel.title));
 
                 break;
             case JsoupBiQuGeListManager.TYPE_TITLE:
@@ -58,7 +61,7 @@ class BiQuGeListAdapter extends RecyclerView.Adapter<SuperViewHolder> {
             case JsoupBiQuGeListManager.TYPE_UPDATE:
             case JsoupBiQuGeListManager.TYPE_ADD:
                 holder.setTextView(R.id.tv_title, biqugeListModel.title);
-                holder.itemView.setOnClickListener(v -> BiQuGeListContentsActivity.getInstance(biqugeListModel.detailUrl, biqugeListModel.title));
+                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, biqugeListModel.detailUrl, biqugeListModel.title));
                 break;
         }
     }

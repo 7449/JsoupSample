@@ -1,5 +1,7 @@
 package com.fiction.fiction.biquge.list.widget;
 
+import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
@@ -26,14 +28,24 @@ public class BiQuGeHomeFragment extends BaseFragment
 
     private BiQuGeHomeAdapter adapter;
 
-    public static BiQuGeHomeFragment newInstance() {
-        return new BiQuGeHomeFragment();
+    public static BiQuGeHomeFragment newInstance(String type) {
+        BiQuGeHomeFragment fragment = new BiQuGeHomeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(FRAGMENT_TYPE, type);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
     protected void initById() {
         swipeRefreshLayout = getView(R.id.srf_layout);
         recyclerView = getView(R.id.recyclerView);
+    }
+
+    @Override
+    protected void initBundle() {
+        super.initBundle();
+        type = bundle.getString(FRAGMENT_TYPE);
     }
 
     @Override
@@ -44,7 +56,7 @@ public class BiQuGeHomeFragment extends BaseFragment
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(this::onRefresh);
 
-        adapter = new BiQuGeHomeAdapter(new ArrayList<>());
+        adapter = new BiQuGeHomeAdapter(new ArrayList<>(), type);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);

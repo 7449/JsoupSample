@@ -27,10 +27,11 @@ public class BiQuGeListFragment extends BaseFragment
 
     private BiQuGeListAdapter adapter;
 
-    public static BiQuGeListFragment newInstance(int position) {
+    public static BiQuGeListFragment newInstance(String type, int position) {
         BiQuGeListFragment biQuGeListFragment = new BiQuGeListFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(FRAGMENT_INDEX, position);
+        bundle.putString(FRAGMENT_TYPE, type);
         biQuGeListFragment.setArguments(bundle);
         return biQuGeListFragment;
     }
@@ -55,7 +56,7 @@ public class BiQuGeListFragment extends BaseFragment
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(this::onRefresh);
 
-        adapter = new BiQuGeListAdapter(new ArrayList<>());
+        adapter = new BiQuGeListAdapter(new ArrayList<>(), type);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);

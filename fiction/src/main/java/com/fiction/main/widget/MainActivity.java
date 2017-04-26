@@ -11,10 +11,10 @@ import android.view.MenuItem;
 
 import com.fiction.R;
 import com.fiction.fiction.search.list.widget.SearchListFragment;
-import com.fiction.manager.ApiConfig;
 import com.fiction.main.presenter.MainPresenter;
 import com.fiction.main.presenter.MainPresenterImpl;
 import com.fiction.main.view.MainView;
+import com.fiction.manager.ApiConfig;
 import com.framework.base.BaseActivity;
 import com.rxjsoupnetwork.manager.RxJsoupDisposeManager;
 
@@ -28,7 +28,7 @@ public class MainActivity extends BaseActivity
     private AppBarLayout.LayoutParams layoutParams;
 
     @Override
-    protected void initCreate(Bundle savedInstanceState) {
+    protected void initCreate(Bundle savedInstanceState) throws NoSuchMethodException {
         layoutParams = (AppBarLayout.LayoutParams) appBarLayout.getChildAt(0).getLayoutParams();
         presenter = new MainPresenterImpl(this);
         navigationView.setNavigationItemSelectedListener(this);

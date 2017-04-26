@@ -27,10 +27,11 @@ public class ZWListFragment extends BaseFragment
 
     private ZWListAdapter adapter;
 
-    public static ZWListFragment newInstance(int position) {
+    public static ZWListFragment newInstance(String type, int position) {
         ZWListFragment zwListFragment = new ZWListFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(FRAGMENT_INDEX, position);
+        bundle.putString(FRAGMENT_TYPE, type);
         zwListFragment.setArguments(bundle);
         return zwListFragment;
     }
@@ -39,6 +40,7 @@ public class ZWListFragment extends BaseFragment
     protected void initBundle() {
         super.initBundle();
         tabPosition = bundle.getInt(FRAGMENT_INDEX);
+        type = bundle.getString(FRAGMENT_TYPE);
     }
 
     @Override
@@ -55,7 +57,7 @@ public class ZWListFragment extends BaseFragment
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(this::onRefresh);
 
-        adapter = new ZWListAdapter(new ArrayList<>());
+        adapter = new ZWListAdapter(new ArrayList<>(), type);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);

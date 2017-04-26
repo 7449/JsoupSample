@@ -1,5 +1,6 @@
 package com.fiction.fiction.zw81.list.widget;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
@@ -26,14 +27,24 @@ public class ZWHomeFragment extends BaseFragment
 
     private ZWHomeAdapter adapter;
 
-    public static ZWHomeFragment newInstance() {
-        return new ZWHomeFragment();
+    public static ZWHomeFragment newInstance(String type) {
+        ZWHomeFragment fragment = new ZWHomeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(FRAGMENT_TYPE, type);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
     protected void initById() {
         swipeRefreshLayout = getView(R.id.srf_layout);
         recyclerView = getView(R.id.recyclerView);
+    }
+
+    @Override
+    protected void initBundle() {
+        super.initBundle();
+        type = bundle.getString(FRAGMENT_TYPE);
     }
 
     @Override
@@ -44,7 +55,7 @@ public class ZWHomeFragment extends BaseFragment
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(this::onRefresh);
 
-        adapter = new ZWHomeAdapter(new ArrayList<>());
+        adapter = new ZWHomeAdapter(new ArrayList<>(), type);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);

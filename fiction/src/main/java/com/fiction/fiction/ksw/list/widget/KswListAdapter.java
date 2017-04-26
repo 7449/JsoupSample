@@ -5,8 +5,9 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.ViewGroup;
 
 import com.fiction.R;
-import com.fiction.fiction.ksw.contents.widget.KswListContentsActivity;
+import com.fiction.fiction.contents.widget.FictionContentsActivity;
 import com.fiction.fiction.ksw.list.model.KswListModel;
+import com.fiction.manager.ApiConfig;
 import com.fiction.manager.JsoupKswListManager;
 import com.framework.base.SuperViewHolder;
 import com.framework.utils.ImageLoaderUtils;
@@ -20,9 +21,11 @@ import java.util.List;
 
 class KswListAdapter extends RecyclerView.Adapter<SuperViewHolder> {
     private List<KswListModel> list = null;
+    private String type = ApiConfig.Type.ZW_81;
 
-    KswListAdapter(List<KswListModel> list) {
+    KswListAdapter(List<KswListModel> list, String type) {
         this.list = list;
+        this.type = type;
     }
 
     @Override
@@ -49,7 +52,7 @@ class KswListAdapter extends RecyclerView.Adapter<SuperViewHolder> {
                 holder.setTextView(R.id.tv_title, kswListModel.title);
                 holder.setTextView(R.id.tv_content, kswListModel.message);
                 ImageLoaderUtils.display(holder.getImageView(R.id.image), kswListModel.url);
-                holder.itemView.setOnClickListener(v -> KswListContentsActivity.getInstance(kswListModel.detailUrl, kswListModel.title));
+                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, kswListModel.detailUrl, kswListModel.title));
 
                 break;
             case JsoupKswListManager.TYPE_TITLE:
@@ -58,7 +61,7 @@ class KswListAdapter extends RecyclerView.Adapter<SuperViewHolder> {
             case JsoupKswListManager.TYPE_UPDATE:
             case JsoupKswListManager.TYPE_ADD:
                 holder.setTextView(R.id.tv_title, kswListModel.title);
-                holder.itemView.setOnClickListener(v -> KswListContentsActivity.getInstance(kswListModel.detailUrl, kswListModel.title));
+                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, kswListModel.detailUrl, kswListModel.title));
                 break;
         }
     }

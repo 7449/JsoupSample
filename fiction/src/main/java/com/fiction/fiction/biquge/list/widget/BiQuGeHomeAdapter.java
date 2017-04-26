@@ -5,8 +5,8 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.ViewGroup;
 
 import com.fiction.R;
-import com.fiction.fiction.biquge.contents.widget.BiQuGeHomeContentsActivity;
 import com.fiction.fiction.biquge.list.model.BiQuGeHomeModel;
+import com.fiction.fiction.contents.widget.FictionContentsActivity;
 import com.fiction.manager.ApiConfig;
 import com.fiction.manager.JsoupBiQuGeHomeManager;
 import com.framework.base.SuperViewHolder;
@@ -22,9 +22,11 @@ import java.util.List;
 
 class BiQuGeHomeAdapter extends RecyclerView.Adapter<SuperViewHolder> {
     private List<BiQuGeHomeModel> list = null;
+    private String type = ApiConfig.Type.ZW_81;
 
-    BiQuGeHomeAdapter(List<BiQuGeHomeModel> list) {
+    BiQuGeHomeAdapter(List<BiQuGeHomeModel> list, String type) {
         this.list = list;
+        this.type = type;
     }
 
     @Override
@@ -51,7 +53,7 @@ class BiQuGeHomeAdapter extends RecyclerView.Adapter<SuperViewHolder> {
                 holder.setTextView(R.id.tv_title, biQuGeHomeModel.title);
                 holder.setTextView(R.id.tv_content, biQuGeHomeModel.message);
                 ImageLoaderUtils.display(holder.getImageView(R.id.image), biQuGeHomeModel.url);
-                holder.itemView.setOnClickListener(v -> BiQuGeHomeContentsActivity.getInstance(biQuGeHomeModel.detailUrl, biQuGeHomeModel.title));
+                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, biQuGeHomeModel.detailUrl, biQuGeHomeModel.title));
 
                 break;
             case JsoupBiQuGeHomeManager.TYPE_TITLE:
@@ -63,7 +65,7 @@ class BiQuGeHomeAdapter extends RecyclerView.Adapter<SuperViewHolder> {
             case JsoupBiQuGeHomeManager.TYPE_RECENT:
             case JsoupBiQuGeHomeManager.TYPE_ADD:
                 holder.setTextView(R.id.tv_title, biQuGeHomeModel.title);
-                holder.itemView.setOnClickListener(v -> BiQuGeHomeContentsActivity.getInstance(biQuGeHomeModel.detailUrl, biQuGeHomeModel.title));
+                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, biQuGeHomeModel.detailUrl, biQuGeHomeModel.title));
                 break;
         }
     }

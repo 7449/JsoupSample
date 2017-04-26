@@ -3,8 +3,8 @@ package com.fiction.manager;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.fiction.fiction.zw81.contents.model.ZWListContentsModel;
-import com.fiction.fiction.zw81.detail.model.ZWListDetailModel;
+import com.fiction.fiction.detail.model.FictionDetailModel;
+import com.fiction.fiction.contents.model.FictionContentsModel;
 import com.fiction.fiction.zw81.list.model.ZWListModel;
 
 import org.jsoup.nodes.Document;
@@ -106,12 +106,12 @@ public class JsoupZwListManager {
         }
     }
 
-    public List<ZWListContentsModel> getZwListContents() {
-        List<ZWListContentsModel> list = new ArrayList<>();
-        ZWListContentsModel contentsModel;
+    public List<FictionContentsModel> getZwListContents() {
+        List<FictionContentsModel> list = new ArrayList<>();
+        FictionContentsModel contentsModel;
         Elements a = document.select("#list").select("a");
         for (Element element : a) {
-            contentsModel = new ZWListContentsModel();
+            contentsModel = new FictionContentsModel();
             contentsModel.title = element.text();
             contentsModel.detailUrl = element.attr("abs:href");
             list.add(contentsModel);
@@ -120,8 +120,8 @@ public class JsoupZwListManager {
     }
 
 
-    public ZWListDetailModel getZwListDetail() {
-        ZWListDetailModel detailModel = new ZWListDetailModel();
+    public FictionDetailModel getZwListDetail() {
+        FictionDetailModel detailModel = new FictionDetailModel();
         Elements select = document.select("div.bottem2").select("a[href$=.html]");
         if (select.size() == 1) {
             if (TextUtils.equals(select.text(), ApiConfig.NEXT_PAGE)) {
