@@ -3,9 +3,7 @@ package com.fiction.fiction.detail.presenter;
 import com.fiction.fiction.detail.model.FictionDetailModel;
 import com.fiction.fiction.detail.view.FictionDetailView;
 import com.fiction.manager.ApiConfig;
-import com.fiction.manager.JsoupBiQuGeListManager;
-import com.fiction.manager.JsoupKswListManager;
-import com.fiction.manager.JsoupZwListManager;
+import com.fiction.manager.JsoupFictionListManager;
 import com.framework.base.mvp.PresenterImplCompat;
 
 import org.jsoup.nodes.Document;
@@ -30,15 +28,6 @@ public class FictionDetailPresenterImpl extends PresenterImplCompat<FictionDetai
 
     @Override
     public FictionDetailModel getT(Document document) {
-        switch (type) {
-            case ApiConfig.Type.BI_QU_GE:
-                return JsoupBiQuGeListManager.get(document).getBiqugeListDetail();
-            case ApiConfig.Type.KSW:
-                return JsoupKswListManager.get(document).getKswListDetail();
-            case ApiConfig.Type.ZW_81:
-                return JsoupZwListManager.get(document).getZwListDetail();
-            default:
-                return new FictionDetailModel();
-        }
+        return JsoupFictionListManager.get(document).getDetail(type);
     }
 }

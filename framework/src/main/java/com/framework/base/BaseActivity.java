@@ -33,7 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         return (T) findViewById(id);
     }
 
-    protected abstract void initCreate(Bundle savedInstanceState) throws NoSuchMethodException;
+    protected abstract void initCreate(Bundle savedInstanceState);
 
     protected abstract void initById();
 

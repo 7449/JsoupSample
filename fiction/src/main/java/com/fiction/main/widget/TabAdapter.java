@@ -6,12 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.fiction.R;
-import com.fiction.fiction.biquge.list.widget.BiQuGeHomeFragment;
-import com.fiction.fiction.biquge.list.widget.BiQuGeListFragment;
-import com.fiction.fiction.ksw.list.widget.KswHomeFragment;
-import com.fiction.fiction.ksw.list.widget.KswListFragment;
-import com.fiction.fiction.zw81.list.widget.ZWHomeFragment;
-import com.fiction.fiction.zw81.list.widget.ZWListFragment;
+import com.fiction.fiction.home.widget.FictionHomeFragment;
+import com.fiction.fiction.list.widget.FictionListFragment;
 import com.fiction.manager.ApiConfig;
 import com.framework.utils.UIUtils;
 
@@ -58,11 +54,9 @@ class TabAdapter extends FragmentPagerAdapter {
     private Fragment getFragment(int position) {
         switch (type) {
             case ApiConfig.Type.ZW_81:
-                return position == 0 ? ZWHomeFragment.newInstance(type) : ZWListFragment.newInstance(type, position);
             case ApiConfig.Type.BI_QU_GE:
-                return position == 0 ? BiQuGeHomeFragment.newInstance(type) : BiQuGeListFragment.newInstance(type, position);
             case ApiConfig.Type.KSW:
-                return position == 0 ? KswHomeFragment.newInstance(type) : KswListFragment.newInstance(type, position);
+                return position == 0 ? FictionHomeFragment.newInstance(type) : FictionListFragment.newInstance(type, position);
             default:
                 return null;
         }

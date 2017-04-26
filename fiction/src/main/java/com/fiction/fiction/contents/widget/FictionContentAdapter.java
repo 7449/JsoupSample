@@ -21,7 +21,7 @@ class FictionContentAdapter extends BaseRecyclerAdapter<FictionContentsModel> {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.item_zw_list_contents;
+        return R.layout.item_fiction_list_contents;
     }
 
     @Override

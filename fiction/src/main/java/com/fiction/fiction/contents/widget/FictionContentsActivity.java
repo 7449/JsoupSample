@@ -75,7 +75,7 @@ public class FictionContentsActivity extends BaseActivity
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_zw_list_contents;
+        return R.layout.activity_fiction_list_contents;
     }
 
 

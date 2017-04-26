@@ -19,12 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".fiction.search.contents.widget.SearchContentsActivity" />
         <activity android:name=".fiction.contents.widget.FictionContentsActivity" />
-        <activity android:name=".fiction.biquge.contents.widget.BiQuGeListContentsActivity" />
         <activity android:name=".fiction.detail.widget.FictionDetailActivity" />
-        <activity android:name=".fiction.ksw.contents.widget.KswListContentsActivity" />
-        <activity android:name=".fiction.ksw.detail.widget.KswListDetailActivity" />
     </application>
 
 </manifest>

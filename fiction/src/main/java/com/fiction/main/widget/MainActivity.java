@@ -28,7 +28,7 @@ public class MainActivity extends BaseActivity
     private AppBarLayout.LayoutParams layoutParams;
 
     @Override
-    protected void initCreate(Bundle savedInstanceState) throws NoSuchMethodException {
+    protected void initCreate(Bundle savedInstanceState) {
         layoutParams = (AppBarLayout.LayoutParams) appBarLayout.getChildAt(0).getLayoutParams();
         presenter = new MainPresenterImpl(this);
         navigationView.setNavigationItemSelectedListener(this);

@@ -67,7 +67,7 @@ public class FictionDetailActivity extends BaseActivity
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_biquge_list_detail;
+        return R.layout.activity_fiction_list_detail;
     }
 
     @Override

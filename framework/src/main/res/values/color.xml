@@ -9,6 +9,4 @@
     <color name="selector_btn_true">#FA7198</color>
     <color name="selector_btn_false">#96435B</color>
 
-    <color name="gray">#B8B8B8</color>
-    <color name="night_mask">#90000000</color>
 </resources>
