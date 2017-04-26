@@ -19,7 +19,7 @@ import com.image.main.presenter.MainPresenter;
 import com.image.main.presenter.MainPresenterImpl;
 import com.image.main.view.MainView;
 import com.image.manager.ApiConfig;
-import com.image.search.list.widget.SearchListActivity;
+import com.image.image.search.widget.SearchListActivity;
 import com.rxjsoupnetwork.manager.RxJsoupDisposeManager;
 import com.search.SearchFragment;
 import com.search.SearchToActivityInterface;

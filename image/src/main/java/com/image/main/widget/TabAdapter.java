@@ -7,11 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.framework.utils.UIUtils;
 import com.image.R;
-import com.image.image.douban.list.widget.DouBanListFragment;
-import com.image.image.kk.list.widget.KKListFragment;
-import com.image.image.meizitu.list.widget.MeiZiTuListFragment;
-import com.image.image.mm.list.widget.MMListFragment;
-import com.image.image.mzitu.list.widget.MZiTuListFragment;
+import com.image.image.list.widget.ImageListFragment;
 import com.image.manager.ApiConfig;
 
 /**
@@ -48,7 +44,7 @@ class TabAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return getFragment(position);
+        return ImageListFragment.newInstance(type, position);
     }
 
     @Override
@@ -59,23 +55,6 @@ class TabAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return name.length;
-    }
-
-    private Fragment getFragment(int position) {
-        switch (type) {
-            case ApiConfig.Type.DOU_BAN_MEI_ZI:
-                return DouBanListFragment.newInstance(position);
-            case ApiConfig.Type.M_ZI_TU:
-                return MZiTuListFragment.newInstance(position);
-            case ApiConfig.Type.MM:
-                return MMListFragment.newInstance(position);
-            case ApiConfig.Type.MEIZITU:
-                return MeiZiTuListFragment.newInstance(position);
-            case ApiConfig.Type.KK:
-                return KKListFragment.newInstance(position);
-            default:
-                return null;
-        }
     }
 
 }
