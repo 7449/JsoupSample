@@ -15,10 +15,10 @@ import com.framework.base.BaseActivity;
 import com.framework.utils.UIUtils;
 import com.image.R;
 import com.image.collection.list.CollectionListFragment;
-import com.image.manager.ApiConfig;
 import com.image.main.presenter.MainPresenter;
 import com.image.main.presenter.MainPresenterImpl;
 import com.image.main.view.MainView;
+import com.image.manager.ApiConfig;
 import com.image.search.list.widget.SearchListActivity;
 import com.rxjsoupnetwork.manager.RxJsoupDisposeManager;
 import com.search.SearchFragment;
@@ -98,6 +98,9 @@ public class MainActivity extends BaseActivity
         switch (searchType) {
             case ApiConfig.Type.DOU_BAN_MEI_ZI:
             case ApiConfig.Type.COLLECTION:
+            case ApiConfig.Type.MEIZITU:
+            case ApiConfig.Type.KK:
+            case ApiConfig.Type.MM:
                 item.setVisible(false);
                 break;
             default:

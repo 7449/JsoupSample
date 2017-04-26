@@ -26,4 +26,8 @@ public interface ApiConfig {
         String KK = "7kk";
         String COLLECTION = "收藏";
     }
+
+    interface SearchUrl {
+        String M_ZI_TU_SEARCH_URL = "http://www.mzitu.com/search/%s/page/%s/";
+    }
 }

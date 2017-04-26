@@ -67,9 +67,10 @@ public class SearchFragment extends Fragment
             if (TextUtils.isEmpty(trim)) {
                 searchInterface.emptySearch();
             } else {
-                onBack();
-
+                Utils.offKeyboard(etSearch);
+                etSearch.getText().clear();
                 searchInterface.onSearchStart(trim);
+                getActivity().getSupportFragmentManager().popBackStack();
             }
         }
     }

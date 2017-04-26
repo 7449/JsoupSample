@@ -1,9 +1,12 @@
 package com.image.manager;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
+import com.framework.utils.MatcherUtils;
 import com.image.search.detail.model.SearchDetailModel;
 import com.image.search.list.model.SearchListModel;
+import com.socks.library.KLog;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -19,6 +22,7 @@ import java.util.List;
 public class JsoupSearchManager {
     private static final String IMAGE_TITLE = "http://i.meizitu.net/";
     private static final String IMAGE_SUFFIX = "01.jpg";
+    private static final String PAGE_ON = "«上一页";
     private Document document;
 
     private JsoupSearchManager(Document document) {
@@ -30,14 +34,28 @@ public class JsoupSearchManager {
     }
 
     public List<SearchListModel> getImageList() {
+        int totalPage = 0;
         List<SearchListModel> listModels = new ArrayList<>();
-        SearchListModel imageListModel;
-        Elements select = document.select("#pins").select("a:has(img)");
-        for (Element element : select) {
-            imageListModel = new SearchListModel();
-            imageListModel.url = element.select("img").attr("data-original");
-            imageListModel.detailUrl = element.select("a").attr("href");
-            listModels.add(imageListModel);
+        String searchPage = document.select("div.nav-links").select("a").text();
+        KLog.i(searchPage);
+        if (TextUtils.isEmpty(searchPage)) {
+            return listModels;
+        } else {
+            if (!searchPage.contains(PAGE_ON)) {
+                totalPage = MatcherUtils.getIntHasSpace(searchPage);
+                KLog.i(totalPage);
+            }
+            SearchListModel imageListModel;
+            Elements select = document.select("#pins").select("a:has(img)");
+            for (Element element : select) {
+                imageListModel = new SearchListModel();
+                imageListModel.url = element.select("img").attr("data-original");
+                imageListModel.detailUrl = element.select("a").attr("href");
+                if (!searchPage.contains(PAGE_ON)) {
+                    imageListModel.totalPage = totalPage;
+                }
+                listModels.add(imageListModel);
+            }
         }
         return listModels;
     }

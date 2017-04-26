@@ -7,4 +7,5 @@ import com.framework.base.mvp.BaseModel;
  */
 
 public class SearchListModel extends BaseModel {
+    public int totalPage;
 }

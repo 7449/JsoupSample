@@ -14,6 +14,7 @@ import com.image.search.list.model.SearchListModel;
 import com.image.search.list.presenter.SearchListPresenter;
 import com.image.search.list.presenter.SearchListPresenterImpl;
 import com.image.search.list.view.SearchListView;
+import com.socks.library.KLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +71,11 @@ public class SearchListActivity extends BaseActivity
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setLoadingMore(() -> {
+            KLog.i(adapter.getTotalPage());
+            if (page == adapter.getTotalPage()) {
+                UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.data_empty));
+                return;
+            }
             ++page;
             presenter.netWorkRequest(searchType, content, page);
         });

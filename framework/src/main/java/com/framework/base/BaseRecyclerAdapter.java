@@ -16,7 +16,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
 
     private OnItemClickListener<T> mOnItemClickListener;
     private OnItemLongClickListener<T> mOnLongClickListener;
-    private List<T> mDatas = new LinkedList<>();
+    protected List<T> mDatas = new LinkedList<>();
 
     public BaseRecyclerAdapter(List<T> mDatas) {
         this.mDatas = mDatas;

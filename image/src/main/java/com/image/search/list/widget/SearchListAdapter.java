@@ -28,4 +28,8 @@ class SearchListAdapter extends BaseRecyclerAdapter<SearchListModel> {
     protected void onBind(SuperViewHolder viewHolder, int position, SearchListModel mDatas) {
         ImageLoaderUtils.display(viewHolder.getImageView(R.id.image), mDatas.url);
     }
+
+    int getTotalPage() {
+        return mDatas == null ? 0 : mDatas.get(0).totalPage;
+    }
 }
