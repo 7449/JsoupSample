@@ -41,6 +41,7 @@ ext {
     greenDaoVersion = '3.2.0'
     flexboxVersion = '0.2.6'
     circularVersion = '2.0.1@aar'
+    leakcanaryVersion = 'leakcanary-android:1.5.1'
 
     imageStorePath = 'image.jks'
     imagePassword = '123456'

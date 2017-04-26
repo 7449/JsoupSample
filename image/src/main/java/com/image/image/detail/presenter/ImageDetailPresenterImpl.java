@@ -40,6 +40,7 @@ public class ImageDetailPresenterImpl extends PresenterImplCompat<List<ImageDeta
 
             case ApiConfig.Type.KK:
 
+
                 RxJsoupNetWork.getInstance().getApi(RxJsoupNetWork.onSubscribe(url,
                         document -> JsoupKKManager.get(document).getDetailUrl()),
                         new RxJsoupNetWorkListener<List<String>>() {
@@ -59,8 +60,8 @@ public class ImageDetailPresenterImpl extends PresenterImplCompat<List<ImageDeta
 
                             @Override
                             public void onNetWorkSuccess(List<String> data) {
-                                for (long i = 0; i < data.size(); i++) {
-                                    netWork(data.get((int) i));
+                                for (int i = 0; i < data.size(); i++) {
+                                    netWork(data.get(i));
                                     if (i == data.size() - 1) {
                                         view.reverse();
                                     }

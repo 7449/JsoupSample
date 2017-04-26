@@ -25,5 +25,6 @@ dependencies {
     compile "com.github.zhaokaiqiang.klog:library:$klogVersion"
     compile "org.greenrobot:greendao:$greenDaoVersion"
     compile "com.google.android:flexbox:$flexboxVersion"
+    compile "com.squareup.leakcanary:$leakcanaryVersion"
 //    compile "org.apmem.tools:layouts:$flowVersion"
 }
