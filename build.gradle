@@ -11,18 +11,19 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url "https://jitpack.io" }
     }
 }
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
 ext {
-    proguardFile = "proguard-android.txt"
-    proguardSuffixFile = "proguard-rules.pro"
+    proguardFile = 'proguard-android.txt'
+    proguardSuffixFile = 'proguard-rules.pro'
 
     compileSdkVersion = 25
     buildToolsVersion = '25.0.2'
-    minSdkVersion = 15
+    minSdkVersion = 16
     targetSdkVersion = 25
     versionCode = 1
     versionName = '1.0'
@@ -32,6 +33,10 @@ ext {
     movieApplicationId = 'com.movie'
     imageApplicationId = 'com.image'
     fictionApplicationId = 'com.fiction'
+    magneticApplicationId = 'com.magnetic'
+
+    androidPackageName = 'com.android.support'
+    kotlinPackageName = 'org.jetbrains.kotlin'
 
     supportVersion = '25.3.0'
     glideVersion = '3.7.0'
@@ -54,4 +59,8 @@ ext {
     movieStorePath = 'movie.jks'
     moviePassword = '123456'
     movieKeyAlias = 'movie'
+
+    magneticStorePath = 'magnetic.jks'
+    magneticPassword = '123456'
+    magneticKeyAlias = 'magnetic'
 }

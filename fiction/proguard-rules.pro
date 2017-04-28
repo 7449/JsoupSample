@@ -42,6 +42,9 @@
   public *;
 }
 
+### jellyToolbar
+-keep class com.yalantis.**{*;}
+
 ### greendao
 
 -keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
