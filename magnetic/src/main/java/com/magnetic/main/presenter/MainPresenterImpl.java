@@ -2,6 +2,7 @@ package com.magnetic.main.presenter;
 
 import android.support.annotation.MenuRes;
 
+import com.magnetic.R;
 import com.magnetic.main.view.MainView;
 
 /**
@@ -19,7 +20,9 @@ public class MainPresenterImpl implements MainPresenter {
     @Override
     public void switchId(@MenuRes int id) {
         switch (id) {
-
+            case R.id.magnetic:
+                mainView.switchMagnetic();
+                break;
         }
     }
 }

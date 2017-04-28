@@ -12,6 +12,7 @@ import com.magnetic.R;
 import com.magnetic.main.presenter.MainPresenter;
 import com.magnetic.main.presenter.MainPresenterImpl;
 import com.magnetic.main.view.MainView;
+import com.magnetic.manager.ApiConfig;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, MainView {
     private Toolbar toolbar;
@@ -25,6 +26,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         navigationView.setNavigationItemSelectedListener(this);
         toolbar.setTitle(getString(R.string.app_name));
         setSupportActionBar(toolbar);
+        switchMagnetic();
     }
 
     @Override
@@ -45,5 +47,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         presenter.switchId(item.getItemId());
         drawerLayout.closeDrawers();
         return true;
+    }
+
+    @Override
+    public void switchMagnetic() {
+        replaceFragment(TabFragment.newInstance(ApiConfig.Type.MAGNETIC));
     }
 }

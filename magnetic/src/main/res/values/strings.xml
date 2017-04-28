@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">快看磁力</string>
+    <string name="network_error">网络错误</string>
+    <string name="search_empty">搜索关键词不能为空</string>
 </resources>

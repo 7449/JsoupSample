@@ -5,5 +5,5 @@ package com.magnetic.main.view;
  */
 
 public interface MainView {
-
+    void switchMagnetic();
 }

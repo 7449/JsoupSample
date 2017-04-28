@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="magnetic_tab">
+        <item>樱桃</item>
+        <item>磁力链</item>
+        <item>磁力搜</item>
+    </string-array>
+</resources>
