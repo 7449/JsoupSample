@@ -35,9 +35,6 @@ ext {
     fictionApplicationId = 'com.fiction'
     magneticApplicationId = 'com.magnetic'
 
-    androidPackageName = 'com.android.support'
-    kotlinPackageName = 'org.jetbrains.kotlin'
-
     supportVersion = '25.3.0'
     glideVersion = '3.7.0'
     jsoupNetWorkVersion = '0.0.2'
