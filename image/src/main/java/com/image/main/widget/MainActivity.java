@@ -56,7 +56,7 @@ public class MainActivity extends BaseActivity
     @Override
     public void onBackPressed() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        SearchFragment searchFragment = (SearchFragment) fragmentManager.findFragmentByTag(SearchFragment.SEARCH_TAG);
+        SearchFragment searchFragment = (SearchFragment) fragmentManager.findFragmentByTag(SearchFragment.Companion.getSEARCH_TAG());
         if (searchFragment != null) {
             searchFragment.onBack();
         } else {
@@ -114,7 +114,7 @@ public class MainActivity extends BaseActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                SearchFragment.startFragment(this, this);
+                SearchFragment.Companion.startFragment(this, this);
                 break;
         }
         return true;
@@ -151,7 +151,7 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public void onSearchStart(String content) {
+    public void onSearchStart(@NonNull String content) {
         SearchListActivity.start(searchType, content);
     }
 
