@@ -30,9 +30,9 @@ class DyttXLMoreAdapter extends RecyclerView.Adapter<SuperViewHolder> {
     public SuperViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case TYPE_HEADER:
-                return new SuperViewHolder(UIUtils.getAdapterView(parent, R.layout.item_dytt_more_xl_header));
+                return new SuperViewHolder(UIUtils.INSTANCE.getAdapterView(parent, R.layout.item_dytt_more_xl_header));
             default:
-                return new SuperViewHolder(UIUtils.getAdapterView(parent, R.layout.item_dytt_more_xl_item));
+                return new SuperViewHolder(UIUtils.INSTANCE.getAdapterView(parent, R.layout.item_dytt_more_xl_item));
         }
     }
 
@@ -44,16 +44,16 @@ class DyttXLMoreAdapter extends RecyclerView.Adapter<SuperViewHolder> {
 
         switch (getItemViewType(position)) {
             case TYPE_HEADER:
-                holder.setTextView(R.id.dytt_tv_title, list.get(position).title);
-                holder.itemView.setOnClickListener(v -> DyttVideoMoreActivity.startIntent(list.get(position).itemType, ApiConfig.Type.DYTT_XL_TYPE, list.get(position).title));
+                holder.setTextView(R.id.dytt_tv_title, list.get(position).getTitle());
+                holder.itemView.setOnClickListener(v -> DyttVideoMoreActivity.startIntent(list.get(position).itemType, ApiConfig.Type.DYTT_XL_TYPE, list.get(position).getTitle()));
                 break;
             default:
-                holder.setTextView(R.id.dytt_item_content, list.get(position).title);
+                holder.setTextView(R.id.dytt_item_content, list.get(position).getTitle());
                 holder.itemView.setOnClickListener(v -> {
-                    if (ApkUtils.getXLIntent() != null) {
-                        DyttVideoDetailActivity.startIntent(list.get(position).url);
+                    if (ApkUtils.INSTANCE.getXLIntent() != null) {
+                        DyttVideoDetailActivity.startIntent(list.get(position).getUrl());
                     } else {
-                        UIUtils.toast(UIUtils.getString(R.string.xl));
+                        UIUtils.INSTANCE.toast(UIUtils.INSTANCE.getString(R.string.xl));
                     }
                 });
                 break;

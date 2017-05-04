@@ -22,23 +22,23 @@ public class UrlManager {
 
             case ApiConfig.Type.KK:
 
-                return String.format(ApiConfig.KK_URL + UIUtils.getStringArray(R.array.kk_array_suffix)[tabPosition], page);
+                return String.format(ApiConfig.KK_URL + UIUtils.INSTANCE.getStringArray(R.array.kk_array_suffix)[tabPosition], page);
 
             case ApiConfig.Type.M_ZI_TU:
 
                 return ApiConfig.M_ZI_TU_URL +
-                        UIUtils.getStringArray(R.array.mzitu_array_suffix)[tabPosition] +
+                        UIUtils.INSTANCE.getStringArray(R.array.mzitu_array_suffix)[tabPosition] +
                         ApiConfig.SLASH +
                         ApiConfig.PAGE +
                         ApiConfig.SLASH + page;
 
             case ApiConfig.Type.MM:
 
-                return String.format(ApiConfig.MM_URL + UIUtils.getStringArray(R.array.mm_array_suffix)[tabPosition], page);
+                return String.format(ApiConfig.MM_URL + UIUtils.INSTANCE.getStringArray(R.array.mm_array_suffix)[tabPosition], page);
 
             case ApiConfig.Type.MEIZITU:
 
-                return ApiConfig.MEIZITU_URL + String.format(UIUtils.getStringArray(R.array.meizitu_array_suffix)[tabPosition], page);
+                return ApiConfig.MEIZITU_URL + String.format(UIUtils.INSTANCE.getStringArray(R.array.meizitu_array_suffix)[tabPosition], page);
 
             default:
                 return "";

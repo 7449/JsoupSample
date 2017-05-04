@@ -111,7 +111,7 @@ public class PiaoHuaListFragment extends BaseFragment
     @Override
     public void netWorkError() {
         if (getActivity() != null)
-            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
+            UIUtils.INSTANCE.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
     }
 
     @Override
@@ -128,16 +128,16 @@ public class PiaoHuaListFragment extends BaseFragment
 
     @Override
     public void onItemClick(View view, int position, PiaoHuaListModel info) {
-        if (ApkUtils.getXLIntent() != null) {
-            PiaoHuaDetailActivity.startIntent(info.detailUrl);
+        if (ApkUtils.INSTANCE.getXLIntent() != null) {
+            PiaoHuaDetailActivity.startIntent(info.getDetailUrl());
         } else {
-            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
+            UIUtils.INSTANCE.snackBar(getActivity().findViewById(R.id.coordinatorLayout), UIUtils.INSTANCE.getString(R.string.xl));
         }
     }
 
     @Override
     public void noMore() {
         if (getActivity() != null)
-            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.data_empty));
+            UIUtils.INSTANCE.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.data_empty));
     }
 }

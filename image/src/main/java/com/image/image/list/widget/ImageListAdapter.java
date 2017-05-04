@@ -25,6 +25,6 @@ class ImageListAdapter extends BaseRecyclerAdapter<ImageListModel> {
 
     @Override
     protected void onBind(SuperViewHolder viewHolder, int position, ImageListModel mDatas) {
-        ImageLoaderUtils.display(viewHolder.getImageView(R.id.image), mDatas.url);
+        ImageLoaderUtils.INSTANCE.display(viewHolder.getImageView(R.id.image), mDatas.getUrl());
     }
 }

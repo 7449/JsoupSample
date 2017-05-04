@@ -23,7 +23,7 @@ public interface ApiConfig {
     String KSW_URL = "http://www.00ksw.net/";
 
     interface Type {
-        String ZW_81 = "81";
+        String ZW_81 = "81中文网";
         String BI_QU_GE = "笔趣阁";
         String KSW = "零点看书";
     }

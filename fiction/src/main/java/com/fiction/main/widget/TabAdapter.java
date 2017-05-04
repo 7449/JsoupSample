@@ -25,13 +25,13 @@ class TabAdapter extends FragmentPagerAdapter {
         this.type = type;
         switch (type) {
             case ApiConfig.Type.ZW_81:
-                name = UIUtils.getStringArray(R.array.tab_zw);
+                name = UIUtils.INSTANCE.getStringArray(R.array.tab_zw);
                 break;
             case ApiConfig.Type.BI_QU_GE:
-                name = UIUtils.getStringArray(R.array.tab_bi_qu_ge);
+                name = UIUtils.INSTANCE.getStringArray(R.array.tab_bi_qu_ge);
                 break;
             case ApiConfig.Type.KSW:
-                name = UIUtils.getStringArray(R.array.tab_ksw);
+                name = UIUtils.INSTANCE.getStringArray(R.array.tab_ksw);
                 break;
         }
     }

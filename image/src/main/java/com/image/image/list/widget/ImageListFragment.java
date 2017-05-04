@@ -74,7 +74,7 @@ public class ImageListFragment extends BaseFragment
             imageListPresenter.netWorkRequest(type, tabPosition, page);
         });
         adapter.setOnItemClickListener((view, position, info) ->
-                ImageDetailActivity.startIntent(type, info.detailUrl)
+                ImageDetailActivity.startIntent(type, info.getDetailUrl())
         );
         recyclerView.setAdapter(adapter);
     }
@@ -102,7 +102,7 @@ public class ImageListFragment extends BaseFragment
     @Override
     public void netWorkError() {
         if (getActivity() != null) {
-            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
+            UIUtils.INSTANCE.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
         }
     }
 
@@ -121,7 +121,7 @@ public class ImageListFragment extends BaseFragment
     @Override
     public void noMore() {
         if (getActivity() != null) {
-            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.data_empty));
+            UIUtils.INSTANCE.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.data_empty));
         }
     }
 }

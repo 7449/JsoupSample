@@ -37,8 +37,8 @@ public class JsoupMZiTuManager {
         Elements select = document.select("#pins").select("a:has(img)");
         for (Element element : select) {
             imageListModel = new ImageListModel();
-            imageListModel.url = element.select("img").attr("data-original");
-            imageListModel.detailUrl = element.select("a").attr("href");
+            imageListModel.setUrl(element.select("img").attr("data-original"));
+            imageListModel.setDetailUrl(element.select("a").attr("href"));
             listModels.add(imageListModel);
         }
         return listModels;
@@ -63,9 +63,9 @@ public class JsoupMZiTuManager {
         for (Integer i = 1; i <= integer; i++) {
             imageDetailModel = new ImageDetailModel();
             if (i > 9) {
-                imageDetailModel.url = IMAGE_TITLE + year + "/" + moth + "/" + mark + i + ".jpg";
+                imageDetailModel.setUrl(IMAGE_TITLE + year + "/" + moth + "/" + mark + i + ".jpg");
             } else {
-                imageDetailModel.url = IMAGE_TITLE + year + "/" + moth + "/" + mark + 0 + i + ".jpg";
+                imageDetailModel.setUrl(IMAGE_TITLE + year + "/" + moth + "/" + mark + 0 + i + ".jpg");
             }
             list.add(imageDetailModel);
         }

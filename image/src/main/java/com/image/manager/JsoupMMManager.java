@@ -37,8 +37,8 @@ public class JsoupMMManager {
         Elements select = document.select("div.pic").select("li");
         for (Element element : select) {
             imageListModel = new ImageListModel();
-            imageListModel.url = element.select("img").attr("src");
-            imageListModel.detailUrl = element.select("a").attr("abs:href");
+            imageListModel.setUrl(element.select("img").attr("src"));
+            imageListModel.setDetailUrl(element.select("a").attr("abs:href"));
             listModels.add(imageListModel);
         }
         return listModels;
@@ -53,7 +53,7 @@ public class JsoupMMManager {
         ImageDetailModel imageDetailModel;
         for (Integer i = 1; i <= integer; i++) {
             imageDetailModel = new ImageDetailModel();
-            imageDetailModel.url = mmImageTitle + split[0] + "/" + split[1] + "/" + i + ".jpg";
+            imageDetailModel.setUrl(mmImageTitle + split[0] + "/" + split[1] + "/" + i + ".jpg");
             list.add(imageDetailModel);
         }
 

@@ -24,7 +24,7 @@ class XiaoPianListAdapter extends BaseRecyclerAdapter<XiaoPianListModel> {
 
     @Override
     protected void onBind(SuperViewHolder viewHolder, int position, XiaoPianListModel mDatas) {
-        viewHolder.setTextView(R.id.xiaopian_item_content, mDatas.title);
+        viewHolder.setTextView(R.id.xiaopian_item_content, mDatas.getTitle());
     }
 
 }

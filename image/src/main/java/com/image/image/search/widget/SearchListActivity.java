@@ -45,7 +45,7 @@ public class SearchListActivity extends BaseActivity
         Bundle bundle = new Bundle();
         bundle.putString(SEARCH_TYPE, searchType);
         bundle.putString(SEARCH_CONTENT, content);
-        UIUtils.startActivity(SearchListActivity.class, bundle);
+        UIUtils.INSTANCE.startActivity(SearchListActivity.class, bundle);
     }
 
     @Override
@@ -73,14 +73,14 @@ public class SearchListActivity extends BaseActivity
         recyclerView.setLoadingMore(() -> {
             KLog.i(adapter.getTotalPage());
             if (page == adapter.getTotalPage()) {
-                UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.data_empty));
+                UIUtils.INSTANCE.snackBar(getView(R.id.coordinatorLayout), getString(R.string.data_empty));
                 return;
             }
             ++page;
             presenter.netWorkRequest(searchType, content, page);
         });
         adapter.setOnItemClickListener(
-                (view, position, info) -> ImageDetailActivity.startIntent(searchType, info.detailUrl));
+                (view, position, info) -> ImageDetailActivity.startIntent(searchType, info.getDetailUrl()));
         recyclerView.setAdapter(adapter);
     }
 
@@ -112,7 +112,7 @@ public class SearchListActivity extends BaseActivity
 
     @Override
     public void netWorkError() {
-        UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
+        UIUtils.INSTANCE.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
     }
 
     @Override
@@ -130,6 +130,6 @@ public class SearchListActivity extends BaseActivity
 
     @Override
     public void noMore() {
-        UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.data_empty));
+        UIUtils.INSTANCE.snackBar(getView(R.id.coordinatorLayout), getString(R.string.data_empty));
     }
 }

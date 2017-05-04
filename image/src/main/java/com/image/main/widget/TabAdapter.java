@@ -24,19 +24,19 @@ class TabAdapter extends FragmentPagerAdapter {
         this.type = type;
         switch (type) {
             case ApiConfig.Type.DOU_BAN_MEI_ZI:
-                name = UIUtils.getStringArray(R.array.dbmz_array);
+                name = UIUtils.INSTANCE.getStringArray(R.array.dbmz_array);
                 break;
             case ApiConfig.Type.M_ZI_TU:
-                name = UIUtils.getStringArray(R.array.mzitu_array);
+                name = UIUtils.INSTANCE.getStringArray(R.array.mzitu_array);
                 break;
             case ApiConfig.Type.MM:
-                name = UIUtils.getStringArray(R.array.mm_array);
+                name = UIUtils.INSTANCE.getStringArray(R.array.mm_array);
                 break;
             case ApiConfig.Type.MEIZITU:
-                name = UIUtils.getStringArray(R.array.meizitu_array);
+                name = UIUtils.INSTANCE.getStringArray(R.array.meizitu_array);
                 break;
             case ApiConfig.Type.KK:
-                name = UIUtils.getStringArray(R.array.kk_array);
+                name = UIUtils.INSTANCE.getStringArray(R.array.kk_array);
                 break;
         }
 

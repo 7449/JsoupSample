@@ -32,7 +32,7 @@ public class MagneticListPresenterImpl extends PresenterImplCompat<List<Magnetic
                 url = String.format(ApiConfig.BT_CHERRY_URL, content, page);
                 break;
             case 1:
-                url = String.format(ApiConfig.BT_URLS_URL, StringUtils.getString(content, "~"), page);
+                url = String.format(ApiConfig.BT_URLS_URL, StringUtils.INSTANCE.getString(content, "~"), page);
                 break;
             case 2:
                 url = String.format(ApiConfig.BT_CILISOU_URL, content, page - 1);

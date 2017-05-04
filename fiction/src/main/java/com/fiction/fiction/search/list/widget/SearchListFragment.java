@@ -90,7 +90,7 @@ public class SearchListFragment extends BaseFragment
 
     @Override
     public void netWorkError() {
-        UIUtils.snackBar(getView(R.id.fa_btn), getString(R.string.network_error));
+        UIUtils.INSTANCE.snackBar(getView(R.id.fa_btn), getString(R.string.network_error));
     }
 
     @Override
@@ -106,13 +106,13 @@ public class SearchListFragment extends BaseFragment
 
     @Override
     public void fictionNameEmpty() {
-        UIUtils.snackBar(getView(R.id.fa_btn), getString(R.string.empty));
+        UIUtils.INSTANCE.snackBar(getView(R.id.fa_btn), getString(R.string.empty));
     }
 
 
     @Override
     public void onItemClick(View view, int position, SearchListModel info) {
-        FictionContentsActivity.getInstance(ApiConfig.Type.ZW_81, info.detailUrl, info.title);
+        FictionContentsActivity.getInstance(ApiConfig.Type.ZW_81, info.getDetailUrl(), info.getTitle());
     }
 
     @Override
@@ -185,6 +185,6 @@ public class SearchListFragment extends BaseFragment
 
     @Override
     public void noMore() {
-        UIUtils.snackBar(getView(R.id.fa_btn), getString(R.string.data_empty));
+        UIUtils.INSTANCE.snackBar(getView(R.id.fa_btn), getString(R.string.data_empty));
     }
 }

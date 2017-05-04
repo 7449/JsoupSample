@@ -32,11 +32,11 @@ class FictionListAdapter extends RecyclerView.Adapter<SuperViewHolder> {
     public SuperViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case JsoupFictionListManager.TYPE_HEADER:
-                return new SuperViewHolder(UIUtils.getAdapterView(parent, R.layout.item_fiction_list_header));
+                return new SuperViewHolder(UIUtils.INSTANCE.getAdapterView(parent, R.layout.item_fiction_list_header));
             case JsoupFictionListManager.TYPE_TITLE:
-                return new SuperViewHolder(UIUtils.getAdapterView(parent, R.layout.item_fiction_list_title));
+                return new SuperViewHolder(UIUtils.INSTANCE.getAdapterView(parent, R.layout.item_fiction_list_title));
             default:
-                return new SuperViewHolder(UIUtils.getAdapterView(parent, R.layout.item_fiction_list_item));
+                return new SuperViewHolder(UIUtils.INSTANCE.getAdapterView(parent, R.layout.item_fiction_list_item));
         }
     }
 
@@ -49,19 +49,19 @@ class FictionListAdapter extends RecyclerView.Adapter<SuperViewHolder> {
         switch (getItemViewType(position)) {
             case JsoupFictionListManager.TYPE_HEADER:
 
-                holder.setTextView(R.id.tv_title, biqugeListModel.title);
-                holder.setTextView(R.id.tv_content, biqugeListModel.message);
-                ImageLoaderUtils.display(holder.getImageView(R.id.image), biqugeListModel.url);
-                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, biqugeListModel.detailUrl, biqugeListModel.title));
+                holder.setTextView(R.id.tv_title, biqugeListModel.getTitle());
+                holder.setTextView(R.id.tv_content, biqugeListModel.getMessage());
+                ImageLoaderUtils.INSTANCE.display(holder.getImageView(R.id.image), biqugeListModel.getUrl());
+                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, biqugeListModel.getDetailUrl(), biqugeListModel.getTitle()));
 
                 break;
             case JsoupFictionListManager.TYPE_TITLE:
-                holder.setTextView(R.id.tv_title, biqugeListModel.title);
+                holder.setTextView(R.id.tv_title, biqugeListModel.getTitle());
                 break;
             case JsoupFictionListManager.TYPE_UPDATE:
             case JsoupFictionListManager.TYPE_ADD:
-                holder.setTextView(R.id.tv_title, biqugeListModel.title);
-                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, biqugeListModel.detailUrl, biqugeListModel.title));
+                holder.setTextView(R.id.tv_title, biqugeListModel.getTitle());
+                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, biqugeListModel.getDetailUrl(), biqugeListModel.getTitle()));
                 break;
         }
     }

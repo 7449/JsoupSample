@@ -50,8 +50,8 @@ public class DyttJsoupManager {
         Elements dyttNewElements = document.select("div.co_content2").select("a");
         for (Element element : dyttNewElements) {
             newModel = new DyttNewModel();
-            newModel.title = element.text();
-            newModel.detailUrl = element.attr("abs:href");
+            newModel.setTitle(element.text());
+            newModel.setDetailUrl(element.attr("abs:href"));
             dyttNewModels.add(newModel);
         }
         return dyttNewModels;
@@ -70,8 +70,8 @@ public class DyttJsoupManager {
             model = new DyttChosenModel();
             model.type = 0;
             model.itemType = i;
-            model.title = select.get(i).text().replace(CHOSEN_SUFFIX, "");
-            model.url = select.get(i).select("a").attr("abs:href");
+            model.setTitle(select.get(i).text().replace(CHOSEN_SUFFIX, ""));
+            model.setUrl(select.get(i).select("a").attr("abs:href"));
             dyttChosenModels.add(model);
             getDyttChosenItemList(i, dyttChosenModels, itemSelect.get(i).select("a[href]"));
         }
@@ -86,8 +86,8 @@ public class DyttJsoupManager {
                 itemModel = new DyttChosenModel();
                 itemModel.type = 1;
                 itemModel.itemType = itemType;
-                itemModel.title = itemElements.get(i).text();
-                itemModel.url = itemElements.get(i).attr("abs:href");
+                itemModel.setTitle(itemElements.get(i).text());
+                itemModel.setUrl(itemElements.get(i).attr("abs:href"));
                 dyttChosenModels.add(itemModel);
             }
         }
@@ -99,9 +99,9 @@ public class DyttJsoupManager {
      */
     public DyttVideoDetailModel getDyttVideoDetail() {
         DyttVideoDetailModel model = new DyttVideoDetailModel();
-        model.title = document.select("div.title_all").eq(4).text();
+        model.setTitle(document.select("div.title_all").eq(4).text());
         Elements select = document.select("div#Zoom");
-        model.message = select.html();
+        model.setMessage(select.html());
         return model;
     }
 
@@ -115,8 +115,8 @@ public class DyttJsoupManager {
         for (Element element : select) {
             if (!element.text().startsWith("[")) {
                 model = new DyttVideoMoreModel();
-                model.title = element.text();
-                model.url = element.attr("abs:href");
+                model.setTitle(element.text());
+                model.setUrl(element.attr("abs:href"));
                 moreModels.add(model);
             }
         }
@@ -136,8 +136,8 @@ public class DyttJsoupManager {
             model = new DyttXLMoreModel();
             model.type = 0;
             model.itemType = i;
-            model.title = select.get(i).text().replace(CHOSEN_SUFFIX, "");
-            model.url = select.get(i).select("a").attr("abs:href");
+            model.setTitle(select.get(i).text().replace(CHOSEN_SUFFIX, ""));
+            model.setUrl(select.get(i).select("a").attr("abs:href"));
             dyttXLMoreModels.add(model);
             getDyttMoreXLItemList(i, dyttXLMoreModels, itemSelect.get(i).select("a[href]"));
         }
@@ -152,8 +152,8 @@ public class DyttJsoupManager {
                 itemModel = new DyttXLMoreModel();
                 itemModel.type = 1;
                 itemModel.itemType = itemType;
-                itemModel.title = itemElements.get(i).text();
-                itemModel.url = itemElements.get(i).attr("abs:href");
+                itemModel.setTitle(itemElements.get(i).text());
+                itemModel.setUrl(itemElements.get(i).attr("abs:href"));
                 dyttChosenModels.add(itemModel);
             }
         }

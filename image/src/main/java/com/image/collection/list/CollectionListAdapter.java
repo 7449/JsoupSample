@@ -25,6 +25,6 @@ class CollectionListAdapter extends BaseRecyclerAdapter<CollectionModel> {
 
     @Override
     protected void onBind(SuperViewHolder viewHolder, int position, CollectionModel mDatas) {
-        ImageLoaderUtils.display(viewHolder.getImageView(R.id.image), mDatas.getUrl());
+        ImageLoaderUtils.INSTANCE.display(viewHolder.getImageView(R.id.image), mDatas.getUrl());
     }
 }

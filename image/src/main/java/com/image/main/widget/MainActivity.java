@@ -157,6 +157,6 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void emptySearch() {
-        UIUtils.toast(UIUtils.getString(R.string.search_empty));
+        UIUtils.INSTANCE.toast(UIUtils.INSTANCE.getString(R.string.search_empty));
     }
 }

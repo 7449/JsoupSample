@@ -26,13 +26,13 @@ public class FictionListPresenterImpl extends PresenterImplCompat<List<FictionLi
     public void netWork(String type, int tabPosition) {
         switch (type) {
             case ApiConfig.Type.KSW:
-                netWork(ApiConfig.KSW_URL + UIUtils.getStringArray(R.array.tab_ksw_suffix)[tabPosition - 1]);
+                netWork(ApiConfig.KSW_URL + UIUtils.INSTANCE.getStringArray(R.array.tab_ksw_suffix)[tabPosition - 1]);
                 break;
             case ApiConfig.Type.BI_QU_GE:
-                netWork(ApiConfig.BI_QU_GE_URL + UIUtils.getStringArray(R.array.tab_bi_qu_ge_suffix)[tabPosition - 1]);
+                netWork(ApiConfig.BI_QU_GE_URL + UIUtils.INSTANCE.getStringArray(R.array.tab_bi_qu_ge_suffix)[tabPosition - 1]);
                 break;
             case ApiConfig.Type.ZW_81:
-                netWork(ApiConfig.ZW81_URL + UIUtils.getStringArray(R.array.tab_zw_suffix)[tabPosition - 1]);
+                netWork(ApiConfig.ZW81_URL + UIUtils.INSTANCE.getStringArray(R.array.tab_zw_suffix)[tabPosition - 1]);
                 break;
         }
     }

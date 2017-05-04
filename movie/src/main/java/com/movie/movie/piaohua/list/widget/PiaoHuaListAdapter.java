@@ -27,8 +27,8 @@ class PiaoHuaListAdapter extends BaseRecyclerAdapter<PiaoHuaListModel> {
 
     @Override
     protected void onBind(SuperViewHolder viewHolder, int position, PiaoHuaListModel mDatas) {
-        viewHolder.setTextView(R.id.piaohua_item_tv, Html.fromHtml(mDatas.title));
-        ImageLoaderUtils.display(viewHolder.getImageView(R.id.piaohua_item_iv), mDatas.url);
+        viewHolder.setTextView(R.id.piaohua_item_tv, Html.fromHtml(mDatas.getTitle()));
+        ImageLoaderUtils.INSTANCE.display(viewHolder.getImageView(R.id.piaohua_item_iv), mDatas.getUrl());
     }
 
 }

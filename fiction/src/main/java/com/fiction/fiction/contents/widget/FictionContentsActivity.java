@@ -48,7 +48,7 @@ public class FictionContentsActivity extends BaseActivity
         bundle.putString(URL, url);
         bundle.putString(TITLE, title);
         bundle.putString(TYPE, type);
-        UIUtils.startActivity(FictionContentsActivity.class, bundle);
+        UIUtils.INSTANCE.startActivity(FictionContentsActivity.class, bundle);
     }
 
 
@@ -87,7 +87,7 @@ public class FictionContentsActivity extends BaseActivity
 
     @Override
     public void netWorkError() {
-        UIUtils.snackBar(getView(R.id.rootView), getString(R.string.network_error));
+        UIUtils.INSTANCE.snackBar(getView(R.id.rootView), getString(R.string.network_error));
     }
 
     @Override
@@ -102,7 +102,7 @@ public class FictionContentsActivity extends BaseActivity
 
     @Override
     public void onItemClick(View view, int position, FictionContentsModel info) {
-        FictionDetailActivity.getInstance(type, info.detailUrl);
+        FictionDetailActivity.getInstance(type, info.getDetailUrl());
     }
 
     @Override

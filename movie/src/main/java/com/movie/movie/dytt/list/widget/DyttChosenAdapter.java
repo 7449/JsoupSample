@@ -33,9 +33,9 @@ class DyttChosenAdapter extends RecyclerView.Adapter<SuperViewHolder> {
     public SuperViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case TYPE_HEADER:
-                return new SuperViewHolder(UIUtils.getAdapterView(parent, R.layout.item_dytt_chosen_header));
+                return new SuperViewHolder(UIUtils.INSTANCE.getAdapterView(parent, R.layout.item_dytt_chosen_header));
             default:
-                return new SuperViewHolder(UIUtils.getAdapterView(parent, R.layout.item_dytt_chosen_item));
+                return new SuperViewHolder(UIUtils.INSTANCE.getAdapterView(parent, R.layout.item_dytt_chosen_item));
         }
     }
 
@@ -47,7 +47,7 @@ class DyttChosenAdapter extends RecyclerView.Adapter<SuperViewHolder> {
 
         switch (getItemViewType(position)) {
             case TYPE_HEADER:
-                holder.setTextView(R.id.dytt_tv_title, list.get(position).title);
+                holder.setTextView(R.id.dytt_tv_title, list.get(position).getTitle());
                 holder.itemView.setOnClickListener(v -> {
                     switch (list.get(position).itemType) {
                         case DyttJsoupManager.TYPE_2016:
@@ -55,21 +55,21 @@ class DyttChosenAdapter extends RecyclerView.Adapter<SuperViewHolder> {
                         case DyttJsoupManager.TYPE_US:
                         case DyttJsoupManager.TYPE_TV:
                         case DyttJsoupManager.TYPE_ACG:
-                            DyttVideoMoreActivity.startIntent(list.get(position).itemType, ApiConfig.Type.DYTT_CHOSEN_TYPE, list.get(position).title);
+                            DyttVideoMoreActivity.startIntent(list.get(position).itemType, ApiConfig.Type.DYTT_CHOSEN_TYPE, list.get(position).getTitle());
                             break;
                         case DyttJsoupManager.TYPE_XL:
-                            DyttXLMoreActivity.startIntent(list.get(position).title);
+                            DyttXLMoreActivity.startIntent(list.get(position).getTitle());
                             break;
                     }
                 });
                 break;
             default:
-                holder.setTextView(R.id.dytt_item_content, list.get(position).title);
+                holder.setTextView(R.id.dytt_item_content, list.get(position).getTitle());
                 holder.itemView.setOnClickListener(v -> {
-                    if (ApkUtils.getXLIntent() != null) {
-                        DyttVideoDetailActivity.startIntent(list.get(position).url);
+                    if (ApkUtils.INSTANCE.getXLIntent() != null) {
+                        DyttVideoDetailActivity.startIntent(list.get(position).getUrl());
                     } else {
-                        UIUtils.toast(UIUtils.getString(R.string.xl));
+                        UIUtils.INSTANCE.toast(UIUtils.INSTANCE.getString(R.string.xl));
                     }
                 });
                 break;

@@ -39,12 +39,12 @@ public class CollectionDetailDialog extends BaseDialogFragment {
 
     @Override
     public AlertDialog getDialog() {
-        mRootView = getRootView(R.layout.collection_detail);
+        setMRootView(getRootView(R.layout.collection_detail));
 
-        mAlertDialog = new AlertDialog
+        setMAlertDialog(new AlertDialog
                 .Builder(getActivity())
-                .setView(mRootView)
-                .create();
+                .setView(getMRootView())
+                .create());
 
         ExtendedViewPager viewPager = getView(R.id.viewPager);
         toolbar = getView(R.id.toolbar);
@@ -61,7 +61,7 @@ public class CollectionDetailDialog extends BaseDialogFragment {
             }
         });
 
-        return mAlertDialog;
+        return getMAlertDialog();
     }
 
     @Override
@@ -96,7 +96,7 @@ public class CollectionDetailDialog extends BaseDialogFragment {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             TouchImageView imageView = new TouchImageView(container.getContext());
-            ImageLoaderUtils.display(imageView, list.get(position).getUrl());
+            ImageLoaderUtils.INSTANCE.display(imageView, list.get(position).getUrl());
             container.addView(imageView);
             return imageView;
         }

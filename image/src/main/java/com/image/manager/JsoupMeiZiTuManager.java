@@ -35,8 +35,8 @@ public class JsoupMeiZiTuManager {
         Elements select = document.select("div.pic");
         for (Element element : select) {
             imageListModel = new ImageListModel();
-            imageListModel.url = element.select("img").attr("src");
-            imageListModel.detailUrl = element.select("a[href]").attr("abs:href");
+            imageListModel.setUrl(element.select("img").attr("src"));
+            imageListModel.setDetailUrl(element.select("a[href]").attr("abs:href"));
             listModels.add(imageListModel);
         }
         return listModels;
@@ -50,7 +50,7 @@ public class JsoupMeiZiTuManager {
         Elements select = document.select("div#picture").select("img");
         for (Element element : select) {
             imageDetailModel = new ImageDetailModel();
-            imageDetailModel.url = element.attr("src");
+            imageDetailModel.setUrl(element.attr("src"));
             list.add(imageDetailModel);
         }
 

@@ -31,6 +31,6 @@ class FictionContentAdapter extends BaseRecyclerAdapter<FictionContentsModel> {
         } else {
             viewHolder.setTextColor(R.id.contents_tv_, ContextCompat.getColor(viewHolder.getContext(), R.color.black));
         }
-        viewHolder.setTextView(R.id.contents_tv_, mDatas.title);
+        viewHolder.setTextView(R.id.contents_tv_, mDatas.getTitle());
     }
 }

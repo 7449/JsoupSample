@@ -34,8 +34,8 @@ public class JsoupDoubanManager {
         Elements a = document.select("div.img_single").select("a");
         for (Element element : a) {
             imageListModel = new ImageListModel();
-            imageListModel.url = element.select("img[class]").attr("src");
-            imageListModel.detailUrl = element.select("a[class]").attr("href");
+            imageListModel.setUrl(element.select("img[class]").attr("src"));
+            imageListModel.setDetailUrl(element.select("a[class]").attr("href"));
             listModels.add(imageListModel);
         }
         return listModels;
@@ -47,7 +47,7 @@ public class JsoupDoubanManager {
         Elements img = document.select("div.panel-body").select("img");
         for (Element element : img) {
             imageDetailModel = new ImageDetailModel();
-            imageDetailModel.url = element.select("img[src]").attr("src");
+            imageDetailModel.setUrl(element.select("img[src]").attr("src"));
             list.add(imageDetailModel);
         }
         return list;

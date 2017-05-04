@@ -24,6 +24,6 @@ class DyttVideoMoreAdapter extends BaseRecyclerAdapter<DyttVideoMoreModel> {
 
     @Override
     protected void onBind(SuperViewHolder viewHolder, int position, DyttVideoMoreModel mDatas) {
-        viewHolder.setTextView(R.id.dytt_item_content, mDatas.title);
+        viewHolder.setTextView(R.id.dytt_item_content, mDatas.getTitle());
     }
 }

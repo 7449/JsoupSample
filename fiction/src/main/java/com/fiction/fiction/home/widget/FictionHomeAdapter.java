@@ -33,11 +33,11 @@ class FictionHomeAdapter extends RecyclerView.Adapter<SuperViewHolder> {
     public SuperViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case JsoupFictionHomeManager.TYPE_HEADER:
-                return new SuperViewHolder(UIUtils.getAdapterView(parent, R.layout.item_fiction_home_header));
+                return new SuperViewHolder(UIUtils.INSTANCE.getAdapterView(parent, R.layout.item_fiction_home_header));
             case JsoupFictionHomeManager.TYPE_TITLE:
-                return new SuperViewHolder(UIUtils.getAdapterView(parent, R.layout.item_fiction_home_title));
+                return new SuperViewHolder(UIUtils.INSTANCE.getAdapterView(parent, R.layout.item_fiction_home_title));
             default:
-                return new SuperViewHolder(UIUtils.getAdapterView(parent, R.layout.item_fiction_home_item));
+                return new SuperViewHolder(UIUtils.INSTANCE.getAdapterView(parent, R.layout.item_fiction_home_item));
         }
     }
 
@@ -50,22 +50,22 @@ class FictionHomeAdapter extends RecyclerView.Adapter<SuperViewHolder> {
         switch (getItemViewType(position)) {
             case JsoupFictionHomeManager.TYPE_HEADER:
 
-                holder.setTextView(R.id.tv_title, kswHomeModel.title);
-                holder.setTextView(R.id.tv_content, kswHomeModel.message);
-                ImageLoaderUtils.display(holder.getImageView(R.id.image), kswHomeModel.url);
-                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, kswHomeModel.detailUrl, kswHomeModel.title));
+                holder.setTextView(R.id.tv_title, kswHomeModel.getTitle());
+                holder.setTextView(R.id.tv_content, kswHomeModel.getMessage());
+                ImageLoaderUtils.INSTANCE.display(holder.getImageView(R.id.image), kswHomeModel.getUrl());
+                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, kswHomeModel.getDetailUrl(), kswHomeModel.getTitle()));
 
                 break;
             case JsoupFictionHomeManager.TYPE_TITLE:
-                holder.setTextView(R.id.tv_title, kswHomeModel.title);
-                holder.itemView.setOnClickListener(v -> RxBus.getInstance().send(ApiConfig.Type.BI_QU_GE, kswHomeModel.title));
+                holder.setTextView(R.id.tv_title, kswHomeModel.getTitle());
+                holder.itemView.setOnClickListener(v -> RxBus.getInstance().send(ApiConfig.Type.BI_QU_GE, kswHomeModel.getTitle()));
                 break;
             case JsoupFictionHomeManager.TYPE_HOT:
             case JsoupFictionHomeManager.TYPE_CENTER:
             case JsoupFictionHomeManager.TYPE_RECENT:
             case JsoupFictionHomeManager.TYPE_ADD:
-                holder.setTextView(R.id.tv_title, kswHomeModel.title);
-                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, kswHomeModel.detailUrl, kswHomeModel.title));
+                holder.setTextView(R.id.tv_title, kswHomeModel.getTitle());
+                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, kswHomeModel.getDetailUrl(), kswHomeModel.getTitle()));
                 break;
         }
     }

@@ -36,7 +36,7 @@ public class GreenDaoUtils {
 
     private static DaoMaster.DevOpenHelper getDevOpenHelper() {
         if (devOpenHelper == null) {
-            devOpenHelper = new DaoMaster.DevOpenHelper(UIUtils.getContext(), SQL_NAME, null);
+            devOpenHelper = new DaoMaster.DevOpenHelper(UIUtils.INSTANCE.getContext(), SQL_NAME, null);
         }
         return devOpenHelper;
     }

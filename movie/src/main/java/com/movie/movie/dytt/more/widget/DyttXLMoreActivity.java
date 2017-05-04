@@ -36,7 +36,7 @@ public class DyttXLMoreActivity extends BaseActivity
     public static void startIntent(String title) {
         Bundle bundle = new Bundle();
         bundle.putString(TITLE, title);
-        UIUtils.startActivity(DyttXLMoreActivity.class, bundle);
+        UIUtils.INSTANCE.startActivity(DyttXLMoreActivity.class, bundle);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class DyttXLMoreActivity extends BaseActivity
 
     @Override
     public void netWorkError() {
-        UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
+        UIUtils.INSTANCE.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
     }
 
     @Override

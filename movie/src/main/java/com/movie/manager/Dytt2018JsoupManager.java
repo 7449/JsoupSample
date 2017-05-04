@@ -35,8 +35,8 @@ public class Dytt2018JsoupManager {
         Elements select = document.select("a.ulink[title]");
         for (Element element : select) {
             model = new Dy2018ListModel();
-            model.title = element.text();
-            model.detailUrl = element.attr("abs:href");
+            model.setTitle(element.text());
+            model.setDetailUrl(element.attr("abs:href"));
             list.add(model);
         }
         return list;
@@ -44,8 +44,8 @@ public class Dytt2018JsoupManager {
 
     public Dy2018DetailModel getDy2018Detail() {
         Dy2018DetailModel model = new Dy2018DetailModel();
-        model.title = document.select("div.title_all").text();
-        model.message = document.select("div#Zoom").html();
+        model.setTitle(document.select("div.title_all").text());
+        model.setMessage(document.select("div#Zoom").html());
         return model;
     }
 }

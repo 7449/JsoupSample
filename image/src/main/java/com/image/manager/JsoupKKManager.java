@@ -36,8 +36,8 @@ public class JsoupKKManager {
         Elements select = document.select("div.pic-block").select("a");
         for (Element element : select) {
             imageListModel = new ImageListModel();
-            imageListModel.url = element.select("img").attr("src");
-            imageListModel.detailUrl = element.select("a").attr("abs:href");
+            imageListModel.setUrl(element.select("img").attr("src"));
+            imageListModel.setDetailUrl(element.select("a").attr("abs:href"));
             listModels.add(imageListModel);
         }
         return listModels;
@@ -47,7 +47,7 @@ public class JsoupKKManager {
         List<String> list = new ArrayList<>();
         Elements img = document.select("img.lazy-img");
         //获取总张数
-        int count = MatcherUtils.getInt(document.select("p.ui-block-a").text());
+        int count = MatcherUtils.INSTANCE.getInt(document.select("p.ui-block-a").text());
         //有几页
         long round = Math.round((double) count / img.size());
         String url = document.select("div.pagination").select("div.ui-block-a").select("a").attr("abs:href").replace("1.html", "");
@@ -64,7 +64,7 @@ public class JsoupKKManager {
         for (Element element : img) {
             imageDetailModel = new ImageDetailModel();
             String attr = element.attr("data-original");
-            imageDetailModel.url = attr.replace("219_300", "800_0");
+            imageDetailModel.setUrl(attr.replace("219_300", "800_0"));
             list.add(imageDetailModel);
         }
         return list;

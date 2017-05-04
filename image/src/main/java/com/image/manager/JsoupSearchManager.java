@@ -39,15 +39,15 @@ public class JsoupSearchManager {
             return listModels;
         } else {
             if (!searchPage.contains(PAGE_ON)) {
-                totalPage = MatcherUtils.getIntHasSpace(searchPage);
+                totalPage = MatcherUtils.INSTANCE.getIntHasSpace(searchPage);
                 KLog.i(totalPage);
             }
             SearchListModel imageListModel;
             Elements select = document.select("#pins").select("a:has(img)");
             for (Element element : select) {
                 imageListModel = new SearchListModel();
-                imageListModel.url = element.select("img").attr("data-original");
-                imageListModel.detailUrl = element.select("a").attr("href");
+                imageListModel.setUrl(element.select("img").attr("data-original"));
+                imageListModel.setDetailUrl(element.select("a").attr("href"));
                 if (!searchPage.contains(PAGE_ON)) {
                     imageListModel.totalPage = totalPage;
                 }

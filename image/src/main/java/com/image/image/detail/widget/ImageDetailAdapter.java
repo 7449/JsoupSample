@@ -25,7 +25,7 @@ class ImageDetailAdapter extends BasePagerAdapter<ImageDetailModel> {
     @Override
     protected Object instantiate(ViewGroup container, int position, ImageDetailModel data) {
         TouchImageView imageView = new TouchImageView(container.getContext());
-        ImageLoaderUtils.display(imageView, data.url);
+        ImageLoaderUtils.INSTANCE.display(imageView, data.getUrl());
         container.addView(imageView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         return imageView;
     }

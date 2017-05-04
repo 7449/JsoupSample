@@ -40,7 +40,7 @@ public class ImageDetailActivity extends BaseActivity implements ImageDetailView
         Bundle bundle = new Bundle();
         bundle.putString(URL, url);
         bundle.putString(TYPE, type);
-        UIUtils.startActivity(ImageDetailActivity.class, bundle);
+        UIUtils.INSTANCE.startActivity(ImageDetailActivity.class, bundle);
     }
 
     @Override
@@ -74,14 +74,14 @@ public class ImageDetailActivity extends BaseActivity implements ImageDetailView
             if (item.getItemId() == R.id.collection) {
                 String imageUrl = adapter.getUrl(viewPager.getCurrentItem());
                 if (TextUtils.isEmpty(imageUrl)) {
-                    UIUtils.snackBar(getView(R.id.ll_layout), getString(R.string.collection_loading));
+                    UIUtils.INSTANCE.snackBar(getView(R.id.ll_layout), getString(R.string.collection_loading));
                 } else {
                     if (CollectionUtils.isEmpty(imageUrl)) {
                         CollectionUtils.insert(imageUrl);
-                        UIUtils.snackBar(getView(R.id.ll_layout), getString(R.string.collection_ok));
+                        UIUtils.INSTANCE.snackBar(getView(R.id.ll_layout), getString(R.string.collection_ok));
                     } else {
                         CollectionUtils.deleted(imageUrl);
-                        UIUtils.snackBar(getView(R.id.ll_layout), getString(R.string.collection_deleted));
+                        UIUtils.INSTANCE.snackBar(getView(R.id.ll_layout), getString(R.string.collection_deleted));
                     }
                     invalidateOptionsMenu();
                 }
@@ -123,7 +123,7 @@ public class ImageDetailActivity extends BaseActivity implements ImageDetailView
 
     @Override
     public void netWorkError() {
-        UIUtils.snackBar(getView(R.id.ll_layout), getString(R.string.network_error));
+        UIUtils.INSTANCE.snackBar(getView(R.id.ll_layout), getString(R.string.network_error));
     }
 
     @Override

@@ -59,10 +59,10 @@ public class JsoupFictionHomeManager {
         Elements select = document.select("div.item");
         for (Element element : select) {
             kswModel = new FictionHomeModel();
-            kswModel.title = element.select("img[src]").attr("alt");
-            kswModel.url = element.select("img[src]").attr("src");
-            kswModel.detailUrl = element.select("a:has(img)").attr("abs:href");
-            kswModel.message = element.select("dd").text();
+            kswModel.setTitle(element.select("img[src]").attr("alt"));
+            kswModel.setUrl(element.select("img[src]").attr("src"));
+            kswModel.setDetailUrl(element.select("a:has(img)").attr("abs:href"));
+            kswModel.setMessage(element.select("dd").text());
             kswModel.type = TYPE_HEADER;
             list.add(kswModel);
         }
@@ -79,14 +79,14 @@ public class JsoupFictionHomeManager {
         Elements select = document.select("div.r").eq(0).select("a[href]");
 
         FictionHomeModel hotTitle = new FictionHomeModel();
-        hotTitle.title = TYPE_TITLE_HOT;
+        hotTitle.setTitle(TYPE_TITLE_HOT);
         hotTitle.type = TYPE_TITLE;
         list.add(hotTitle);
 
         for (Element element : select) {
             kswModel = new FictionHomeModel();
-            kswModel.title = element.text();
-            kswModel.detailUrl = element.attr("abs:href");
+            kswModel.setTitle(element.text());
+            kswModel.setDetailUrl(element.attr("abs:href"));
             kswModel.type = TYPE_HOT;
             list.add(kswModel);
         }
@@ -108,10 +108,10 @@ public class JsoupFictionHomeManager {
 
             kswHomeModel = new FictionHomeModel();
             Elements topSelect = select.get(i).select("div.top");
-            kswHomeModel.url = topSelect.select("img[src]").attr("src");
-            kswHomeModel.title = topSelect.select("img[src]").attr("alt");
-            kswHomeModel.detailUrl = topSelect.select("a:has(img)").attr("abs:href");
-            kswHomeModel.message = topSelect.select("dd").text();
+            kswHomeModel.setUrl(topSelect.select("img[src]").attr("src"));
+            kswHomeModel.setTitle(topSelect.select("img[src]").attr("alt"));
+            kswHomeModel.setDetailUrl(topSelect.select("a:has(img)").attr("abs:href"));
+            kswHomeModel.setMessage(topSelect.select("dd").text());
             kswHomeModel.type = TYPE_HEADER;
             list.add(kswHomeModel);
 
@@ -129,22 +129,22 @@ public class JsoupFictionHomeManager {
         pushTitle.type = TYPE_TITLE;
         switch (i) {
             case 0:
-                pushTitle.title = TYPE_TITLE_XUAN_HUAN;
+                pushTitle.setTitle(TYPE_TITLE_XUAN_HUAN);
                 break;
             case 1:
-                pushTitle.title = TYPE_TITLE_XIU_ZHEN;
+                pushTitle.setTitle(TYPE_TITLE_XIU_ZHEN);
                 break;
             case 2:
-                pushTitle.title = TYPE_TITLE_DU_SHI;
+                pushTitle.setTitle(TYPE_TITLE_DU_SHI);
                 break;
             case 3:
-                pushTitle.title = TYPE_TITLE_CHUAN_YUE;
+                pushTitle.setTitle(TYPE_TITLE_CHUAN_YUE);
                 break;
             case 4:
-                pushTitle.title = TYPE_TITLE_WANG_YOU;
+                pushTitle.setTitle(TYPE_TITLE_WANG_YOU);
                 break;
             case 5:
-                pushTitle.title = TYPE_TITLE_KE_HUAN;
+                pushTitle.setTitle(TYPE_TITLE_KE_HUAN);
                 break;
         }
         list.add(pushTitle);
@@ -158,8 +158,8 @@ public class JsoupFictionHomeManager {
         Elements a = elements.select("a");
         for (Element element : a) {
             kswHomeModel = new FictionHomeModel();
-            kswHomeModel.title = element.text();
-            kswHomeModel.detailUrl = element.attr("abs:href");
+            kswHomeModel.setTitle(element.text());
+            kswHomeModel.setDetailUrl(element.attr("abs:href"));
             kswHomeModel.type = TYPE_CENTER;
             list.add(kswHomeModel);
         }
@@ -171,7 +171,7 @@ public class JsoupFictionHomeManager {
     private void initRecent(List<FictionHomeModel> list) {
 
         FictionHomeModel pushTitle = new FictionHomeModel();
-        pushTitle.title = TYPE_TITLE_RETCENT;
+        pushTitle.setTitle(TYPE_TITLE_RETCENT);
         pushTitle.type = TYPE_TITLE;
         list.add(pushTitle);
 
@@ -179,8 +179,8 @@ public class JsoupFictionHomeManager {
         Elements select = document.select("div#newscontent").select("div.l").select("span.s2").select("a");
         for (Element element : select) {
             kswHomeModel = new FictionHomeModel();
-            kswHomeModel.title = element.text();
-            kswHomeModel.detailUrl = element.attr("abs:href");
+            kswHomeModel.setTitle(element.text());
+            kswHomeModel.setDetailUrl(element.attr("abs:href"));
             kswHomeModel.type = TYPE_RECENT;
             list.add(kswHomeModel);
         }
@@ -194,7 +194,7 @@ public class JsoupFictionHomeManager {
     private void initAdd(List<FictionHomeModel> list) {
 
         FictionHomeModel pushTitle = new FictionHomeModel();
-        pushTitle.title = TYPE_TITLE_ADD;
+        pushTitle.setTitle(TYPE_TITLE_ADD);
         pushTitle.type = TYPE_TITLE;
         list.add(pushTitle);
 
@@ -202,8 +202,8 @@ public class JsoupFictionHomeManager {
         Elements select = document.select("div.r").eq(1).select("a[href]");
         for (Element element : select) {
             kswHomeModel = new FictionHomeModel();
-            kswHomeModel.title = element.text();
-            kswHomeModel.detailUrl = element.attr("abs:href");
+            kswHomeModel.setTitle(element.text());
+            kswHomeModel.setDetailUrl(element.attr("abs:href"));
             kswHomeModel.type = TYPE_ADD;
             list.add(kswHomeModel);
         }

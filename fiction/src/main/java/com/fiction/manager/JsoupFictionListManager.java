@@ -52,10 +52,10 @@ public class JsoupFictionListManager {
         Elements select = document.select("div.item");
         for (Element element : select) {
             kswListModel = new FictionListModel();
-            kswListModel.title = element.select("img[src]").attr("alt");
-            kswListModel.url = element.select("img[src]").attr("src");
-            kswListModel.detailUrl = element.select("a:has(img)").attr("abs:href");
-            kswListModel.message = element.select("dd").text();
+            kswListModel.setTitle(element.select("img[src]").attr("alt"));
+            kswListModel.setUrl(element.select("img[src]").attr("src"));
+            kswListModel.setDetailUrl(element.select("a:has(img)").attr("abs:href"));
+            kswListModel.setMessage(element.select("dd").text());
             kswListModel.type = TYPE_HEADER;
             list.add(kswListModel);
         }
@@ -67,7 +67,7 @@ public class JsoupFictionListManager {
      */
     private void initList(List<FictionListModel> list) {
         FictionListModel pushTitle = new FictionListModel();
-        pushTitle.title = TYPE_TITLE_LIST;
+        pushTitle.setTitle(TYPE_TITLE_LIST);
         pushTitle.type = TYPE_TITLE;
         list.add(pushTitle);
 
@@ -75,8 +75,8 @@ public class JsoupFictionListManager {
         Elements select = document.select("div#newscontent").select("div.l").select("span.s2").select("a");
         for (Element element : select) {
             kswListModel = new FictionListModel();
-            kswListModel.title = element.text();
-            kswListModel.detailUrl = element.attr("abs:href");
+            kswListModel.setTitle(element.text());
+            kswListModel.setDetailUrl(element.attr("abs:href"));
             kswListModel.type = TYPE_UPDATE;
             list.add(kswListModel);
         }
@@ -91,7 +91,7 @@ public class JsoupFictionListManager {
     private void initAdd(List<FictionListModel> list) {
 
         FictionListModel pushTitle = new FictionListModel();
-        pushTitle.title = TYPE_TITLE_ADD;
+        pushTitle.setTitle(TYPE_TITLE_ADD);
         pushTitle.type = TYPE_TITLE;
         list.add(pushTitle);
 
@@ -99,8 +99,8 @@ public class JsoupFictionListManager {
         Elements select = document.select("div.r").select("a[href]");
         for (Element element : select) {
             kswListModel = new FictionListModel();
-            kswListModel.title = element.text();
-            kswListModel.detailUrl = element.attr("abs:href");
+            kswListModel.setTitle(element.text());
+            kswListModel.setDetailUrl(element.attr("abs:href"));
             kswListModel.type = TYPE_ADD;
             list.add(kswListModel);
         }
@@ -112,8 +112,8 @@ public class JsoupFictionListManager {
         Elements a = document.select("#list").select("a");
         for (Element element : a) {
             contentsModel = new FictionContentsModel();
-            contentsModel.title = element.text();
-            contentsModel.detailUrl = element.attr("abs:href");
+            contentsModel.setTitle(element.text());
+            contentsModel.setDetailUrl(element.attr("abs:href"));
             list.add(contentsModel);
         }
         return list;
@@ -152,8 +152,8 @@ public class JsoupFictionListManager {
                 }
             }
         }
-        detailModel.title = document.select("div.bookname").select("h1").text();
-        detailModel.message = document.select("#content").html();
+        detailModel.setTitle(document.select("div.bookname").select("h1").text());
+        detailModel.setMessage(document.select("#content").html());
         return detailModel;
     }
 }

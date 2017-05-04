@@ -32,10 +32,10 @@ public class JsoupSearchManager {
         Elements select = document.select("div.result-game-item");
         for (Element element : select) {
             fictionNameModel = new SearchListModel();
-            fictionNameModel.url = element.select("img.result-game-item-pic-link-img").attr("src");
-            fictionNameModel.title = element.select("a.result-game-item-title-link").attr("title");
-            fictionNameModel.detailUrl = element.select("a.result-game-item-title-link").attr("href");
-            fictionNameModel.message = element.select("p.result-game-item-desc").text();
+            fictionNameModel.setUrl(element.select("img.result-game-item-pic-link-img").attr("src"));
+            fictionNameModel.setTitle(element.select("a.result-game-item-title-link").attr("title"));
+            fictionNameModel.setDetailUrl(element.select("a.result-game-item-title-link").attr("href"));
+            fictionNameModel.setMessage(element.select("p.result-game-item-desc").text());
             list.add(fictionNameModel);
         }
         return list;

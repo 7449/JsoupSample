@@ -40,7 +40,7 @@ public class FictionDetailActivity extends BaseActivity
         Bundle bundle = new Bundle();
         bundle.putString(URL, url);
         bundle.putString(TYPE, type);
-        UIUtils.startActivity(FictionDetailActivity.class, bundle);
+        UIUtils.INSTANCE.startActivity(FictionDetailActivity.class, bundle);
     }
 
     @Override
@@ -74,14 +74,14 @@ public class FictionDetailActivity extends BaseActivity
     public void netWorkSuccess(FictionDetailModel data) {
         onUrl = data.onPage;
         nextUrl = data.nextPage;
-        toolbar.setTitle(data.title);
-        webView.loadDataUrl(data.message);
+        toolbar.setTitle(data.getTitle());
+        webView.loadDataUrl(data.getMessage());
         webView.post(() -> webView.scrollTo(0, 0));
     }
 
     @Override
     public void netWorkError() {
-        UIUtils.snackBar(getView(R.id.rootView), getString(R.string.network_error));
+        UIUtils.INSTANCE.snackBar(getView(R.id.rootView), getString(R.string.network_error));
     }
 
     @Override
@@ -103,14 +103,14 @@ public class FictionDetailActivity extends BaseActivity
                 if (!TextUtils.isEmpty(nextUrl)) {
                     presenter.startDetail(nextUrl, type);
                 } else {
-                    UIUtils.toast(UIUtils.getString(R.string.on_empty));
+                    UIUtils.INSTANCE.toast(UIUtils.INSTANCE.getString(R.string.on_empty));
                 }
                 break;
             case R.id.btn_on:
                 if (!TextUtils.isEmpty(onUrl)) {
                     presenter.startDetail(onUrl, type);
                 } else {
-                    UIUtils.toast(UIUtils.getString(R.string.on_empty));
+                    UIUtils.INSTANCE.toast(UIUtils.INSTANCE.getString(R.string.on_empty));
                 }
                 break;
         }
