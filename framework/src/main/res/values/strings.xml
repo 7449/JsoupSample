@@ -4,4 +4,5 @@
     <string name="dialog_exit_positive">确定</string>
     <string name="dialog_download_tips">检测到下载地址为FTP，安装迅雷才能下载</string>
     <string name="data_empty">没有数据了</string>
+    <string name="permission_denied">权限被拒绝</string>
 </resources>

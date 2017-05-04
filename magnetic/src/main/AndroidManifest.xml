@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.magnetic">
 
-    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name="com.framework.App"
         android:allowBackup="true"
