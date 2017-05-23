@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">search</string>
-    <string name="toolbar_search_hint">请输入关键词搜索</string>
-    <string name="action_search">搜索</string>
-</resources>

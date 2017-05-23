@@ -16,7 +16,6 @@ import com.fiction.main.presenter.MainPresenterImpl;
 import com.fiction.main.view.MainView;
 import com.fiction.manager.ApiConfig;
 import com.framework.base.BaseActivity;
-import com.rxjsoupnetwork.manager.RxJsoupDisposeManager;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainView {
@@ -49,7 +48,6 @@ public class MainActivity extends BaseActivity
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            RxJsoupDisposeManager.getInstance().clearDispose();
             super.onBackPressed();
         }
     }

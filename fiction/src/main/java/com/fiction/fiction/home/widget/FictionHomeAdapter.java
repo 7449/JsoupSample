@@ -12,9 +12,10 @@ import com.fiction.manager.JsoupFictionHomeManager;
 import com.framework.base.SuperViewHolder;
 import com.framework.utils.ImageLoaderUtils;
 import com.framework.utils.UIUtils;
-import com.rxjsoupnetwork.bus.RxBus;
 
 import java.util.List;
+
+import io.reactivex.jsoup.network.bus.RxBus;
 
 /**
  * by y on 2017/4/21
@@ -58,7 +59,7 @@ class FictionHomeAdapter extends RecyclerView.Adapter<SuperViewHolder> {
                 break;
             case JsoupFictionHomeManager.TYPE_TITLE:
                 holder.setTextView(R.id.tv_title, kswHomeModel.title);
-                holder.itemView.setOnClickListener(v -> RxBus.getInstance().send(ApiConfig.Type.BI_QU_GE, kswHomeModel.title));
+                holder.itemView.setOnClickListener(v -> RxBus.getInstance().post(ApiConfig.Type.BI_QU_GE, kswHomeModel.title));
                 break;
             case JsoupFictionHomeManager.TYPE_HOT:
             case JsoupFictionHomeManager.TYPE_CENTER:

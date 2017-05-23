@@ -8,10 +8,9 @@ import com.fiction.manager.ApiConfig;
 import com.fiction.manager.JsoupFictionHomeManager;
 import com.framework.R;
 import com.framework.base.BaseFragment;
-import com.rxjsoupnetwork.bus.RxBus;
-import com.rxjsoupnetwork.bus.RxBusCallBack;
 
-import io.reactivex.observers.DisposableObserver;
+import io.reactivex.jsoup.network.bus.RxBus;
+import io.reactivex.jsoup.network.bus.RxBusCallBack;
 
 
 /**
@@ -21,7 +20,6 @@ public class TabFragment extends BaseFragment {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private DisposableObserver<String> tabSelectObserver;
 
     public static TabFragment newInstance(String type) {
         TabFragment tabFragment = new TabFragment();
@@ -48,50 +46,51 @@ public class TabFragment extends BaseFragment {
         viewPager.setAdapter(new TabAdapter(getChildFragmentManager(), type));
         tabLayout.setupWithViewPager(viewPager);
 
-        tabSelectObserver =
-                RxBus.getInstance()
-                        .toObservable(
-                                ApiConfig.Type.BI_QU_GE,
-                                String.class,
-                                new RxBusCallBack<String>() {
-                                    @Override
-                                    public void onNext(String data) {
-                                        switch (data) {
-                                            case JsoupFictionHomeManager.TYPE_TITLE_XUAN_HUAN:
-                                                viewPager.setCurrentItem(1);
-                                                break;
-                                            case JsoupFictionHomeManager.TYPE_TITLE_XIU_ZHEN:
-                                                viewPager.setCurrentItem(2);
-                                                break;
-                                            case JsoupFictionHomeManager.TYPE_TITLE_DU_SHI:
-                                                viewPager.setCurrentItem(3);
-                                                break;
-                                            case JsoupFictionHomeManager.TYPE_TITLE_CHUAN_YUE:
-                                                viewPager.setCurrentItem(4);
-                                                break;
-                                            case JsoupFictionHomeManager.TYPE_TITLE_WANG_YOU:
-                                                viewPager.setCurrentItem(5);
-                                                break;
-                                            case JsoupFictionHomeManager.TYPE_TITLE_KE_HUAN:
-                                                viewPager.setCurrentItem(6);
-                                                break;
-                                        }
-                                    }
+        RxBus.getInstance()
+                .register(
+                        ApiConfig.Type.BI_QU_GE,
+                        new RxBusCallBack<String>() {
+                            @Override
+                            public void onBusNext(String s) {
+                                switch (s) {
+                                    case JsoupFictionHomeManager.TYPE_TITLE_XUAN_HUAN:
+                                        viewPager.setCurrentItem(1);
+                                        break;
+                                    case JsoupFictionHomeManager.TYPE_TITLE_XIU_ZHEN:
+                                        viewPager.setCurrentItem(2);
+                                        break;
+                                    case JsoupFictionHomeManager.TYPE_TITLE_DU_SHI:
+                                        viewPager.setCurrentItem(3);
+                                        break;
+                                    case JsoupFictionHomeManager.TYPE_TITLE_CHUAN_YUE:
+                                        viewPager.setCurrentItem(4);
+                                        break;
+                                    case JsoupFictionHomeManager.TYPE_TITLE_WANG_YOU:
+                                        viewPager.setCurrentItem(5);
+                                        break;
+                                    case JsoupFictionHomeManager.TYPE_TITLE_KE_HUAN:
+                                        viewPager.setCurrentItem(6);
+                                        break;
+                                }
+                            }
 
-                                    @Override
-                                    public void onError(Throwable throwable) {
+                            @Override
+                            public void onBusError(Throwable throwable) {
 
-                                    }
-                                });
+                            }
+
+                            @Override
+                            public Class<String> busOfType() {
+                                return String.class;
+                            }
+                        });
 
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (tabSelectObserver != null) {
-            RxBus.getInstance().unregister(ApiConfig.Type.BI_QU_GE, tabSelectObserver);
-        }
+        RxBus.getInstance().unregister(ApiConfig.Type.BI_QU_GE);
     }
 
     @Override

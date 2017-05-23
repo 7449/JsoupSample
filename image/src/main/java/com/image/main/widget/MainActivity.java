@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
@@ -12,20 +11,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.framework.base.BaseActivity;
-import com.framework.utils.UIUtils;
 import com.image.R;
 import com.image.collection.list.CollectionListFragment;
-import com.image.image.search.widget.SearchListActivity;
 import com.image.main.presenter.MainPresenter;
 import com.image.main.presenter.MainPresenterImpl;
 import com.image.main.view.MainView;
 import com.image.manager.ApiConfig;
-import com.rxjsoupnetwork.manager.RxJsoupDisposeManager;
-import com.search.SearchFragment;
-import com.search.SearchToActivityInterface;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MainView, SearchToActivityInterface {
+        implements NavigationView.OnNavigationItemSelectedListener, MainView {
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -55,17 +49,10 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        SearchFragment searchFragment = (SearchFragment) fragmentManager.findFragmentByTag(SearchFragment.SEARCH_TAG);
-        if (searchFragment != null) {
-            searchFragment.onBack();
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                drawerLayout.closeDrawer(GravityCompat.START);
-            } else {
-                RxJsoupDisposeManager.getInstance().clearDispose();
-                super.onBackPressed();
-            }
+            super.onBackPressed();
         }
     }
 
@@ -93,28 +80,12 @@ public class MainActivity extends BaseActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        MenuItem item = menu.findItem(R.id.action_search);
         switch (searchType) {
             case ApiConfig.Type.DOU_BAN_MEI_ZI:
             case ApiConfig.Type.COLLECTION:
             case ApiConfig.Type.MEIZITU:
             case ApiConfig.Type.KK:
             case ApiConfig.Type.MM:
-                item.setVisible(false);
-                break;
-            default:
-                item.setVisible(true);
-                break;
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_search:
-                SearchFragment.startFragment(this, this);
                 break;
         }
         return true;
@@ -150,13 +121,4 @@ public class MainActivity extends BaseActivity
         searchType = ApiConfig.Type.COLLECTION;
     }
 
-    @Override
-    public void onSearchStart(String content) {
-        SearchListActivity.start(searchType, content);
-    }
-
-    @Override
-    public void emptySearch() {
-        UIUtils.toast(UIUtils.getString(R.string.search_empty));
-    }
 }

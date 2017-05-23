@@ -10,13 +10,14 @@ import com.image.manager.JsoupKKManager;
 import com.image.manager.JsoupMMManager;
 import com.image.manager.JsoupMZiTuManager;
 import com.image.manager.JsoupMeiZiTuManager;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
-import com.rxjsoupnetwork.manager.RxJsoupNetWorkListener;
 
 import org.jsoup.nodes.Document;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.jsoup.network.manager.RxJsoupNetWork;
+import io.reactivex.jsoup.network.manager.RxJsoupNetWorkListener;
 
 /**
  * by y on 2016/7/28.
@@ -41,8 +42,7 @@ public class ImageDetailPresenterImpl extends PresenterImplCompat<List<ImageDeta
             case ApiConfig.Type.KK:
 
 
-                RxJsoupNetWork.getInstance().getApi(RxJsoupNetWork.onSubscribe(url,
-                        document -> JsoupKKManager.get(document).getDetailUrl()),
+                RxJsoupNetWork.getInstance().getApi(url,
                         new RxJsoupNetWorkListener<List<String>>() {
                             @Override
                             public void onNetWorkStart() {
@@ -66,6 +66,11 @@ public class ImageDetailPresenterImpl extends PresenterImplCompat<List<ImageDeta
                                         view.reverse();
                                     }
                                 }
+                            }
+
+                            @Override
+                            public List<String> getT(Document document) {
+                                return JsoupKKManager.get(document).getDetailUrl();
                             }
                         });
 

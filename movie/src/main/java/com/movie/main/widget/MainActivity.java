@@ -15,7 +15,6 @@ import com.movie.main.presenter.MainPresenterImpl;
 import com.movie.main.view.MainView;
 import com.movie.main.widget.tab.TabFragment;
 import com.movie.manager.ApiConfig;
-import com.rxjsoupnetwork.manager.RxJsoupDisposeManager;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainView {
@@ -44,7 +43,6 @@ public class MainActivity extends BaseActivity
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            RxJsoupDisposeManager.getInstance().clearDispose();
             super.onBackPressed();
         }
     }

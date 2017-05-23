@@ -1,1 +1,1 @@
-include ':app', ':framework', ':movie', ':image', ':fiction', ':search', ':magnetic'
+include ':app', ':framework', ':movie', ':image', ':fiction', ':magnetic'
