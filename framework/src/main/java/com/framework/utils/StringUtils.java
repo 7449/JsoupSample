@@ -6,15 +6,20 @@ package com.framework.utils;
 
 public class StringUtils {
 
+    private StringUtils() {
+    }
+
 
     public static String getString(String s, String mark) {
         char[] chars = s.toCharArray();
+
         StringBuilder buffer = new StringBuilder();
+
         for (int i = 0; i < chars.length; i++) {
             if (i != chars.length - 1) {
-                buffer.append(chars[i]).append(mark);
+                buffer.append(String.valueOf(chars[i])).append(mark);
             } else {
-                buffer.append(chars[i]);
+                buffer.append(String.valueOf(chars[i]));
             }
         }
 

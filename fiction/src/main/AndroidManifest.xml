@@ -19,20 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".fiction.search.contents.widget.SearchContentsActivity" />
-        <activity android:name=".fiction.search.detail.widget.SearchDetailActivity" />
-        <activity android:name=".fiction.zw81.contents.widget.ZWListContentsActivity" />
-        <activity android:name=".fiction.zw81.detail.widget.ZWListDetailActivity" />
-        <activity android:name=".fiction.zw81.contents.widget.ZWHomeContentsActivity" />
-        <activity android:name=".fiction.zw81.detail.widget.ZWHomeDetailActivity" />
-        <activity android:name=".fiction.biquge.contents.widget.BiQuGeHomeContentsActivity" />
-        <activity android:name=".fiction.biquge.contents.widget.BiQuGeListContentsActivity" />
-        <activity android:name=".fiction.biquge.detail.widget.BiQuGeHomeDetailActivity" />
-        <activity android:name=".fiction.biquge.detail.widget.BiQuGeListDetailActivity" />
-        <activity android:name=".fiction.ksw.contents.widget.KswHomeContentsActivity" />
-        <activity android:name=".fiction.ksw.contents.widget.KswListContentsActivity" />
-        <activity android:name=".fiction.ksw.detail.widget.KswHomeDetailActivity" />
-        <activity android:name=".fiction.ksw.detail.widget.KswListDetailActivity" />
+        <activity android:name=".fiction.contents.widget.FictionContentsActivity" />
+        <activity android:name=".fiction.detail.widget.FictionDetailActivity" />
     </application>
 
 </manifest>

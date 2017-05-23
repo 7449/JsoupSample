@@ -2,8 +2,8 @@ package com.image.manager;
 
 import android.support.annotation.NonNull;
 
-import com.image.image.meizitu.detail.model.MeiZiTuDetailModel;
-import com.image.image.meizitu.list.model.MeiZiTuListModel;
+import com.image.image.detail.model.ImageDetailModel;
+import com.image.image.list.model.ImageListModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -29,12 +29,12 @@ public class JsoupMeiZiTuManager {
         return new JsoupMeiZiTuManager(document);
     }
 
-    public List<MeiZiTuListModel> getImageList() {
-        List<MeiZiTuListModel> listModels = new ArrayList<>();
-        MeiZiTuListModel imageListModel;
+    public List<ImageListModel> getImageList() {
+        List<ImageListModel> listModels = new ArrayList<>();
+        ImageListModel imageListModel;
         Elements select = document.select("div.pic");
         for (Element element : select) {
-            imageListModel = new MeiZiTuListModel();
+            imageListModel = new ImageListModel();
             imageListModel.url = element.select("img").attr("src");
             imageListModel.detailUrl = element.select("a[href]").attr("abs:href");
             listModels.add(imageListModel);
@@ -42,14 +42,14 @@ public class JsoupMeiZiTuManager {
         return listModels;
     }
 
-    public List<MeiZiTuDetailModel> getImageDetail() {
+    public List<ImageDetailModel> getImageDetail() {
 
-        List<MeiZiTuDetailModel> list = new ArrayList<>();
-        MeiZiTuDetailModel imageDetailModel;
+        List<ImageDetailModel> list = new ArrayList<>();
+        ImageDetailModel imageDetailModel;
 
         Elements select = document.select("div#picture").select("img");
         for (Element element : select) {
-            imageDetailModel = new MeiZiTuDetailModel();
+            imageDetailModel = new ImageDetailModel();
             imageDetailModel.url = element.attr("src");
             list.add(imageDetailModel);
         }

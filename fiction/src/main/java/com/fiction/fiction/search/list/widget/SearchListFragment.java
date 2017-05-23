@@ -12,7 +12,7 @@ import android.widget.RadioGroup;
 import com.fiction.R;
 import com.fiction.db.GreenDaoDbUtils;
 import com.fiction.db.SqlBean;
-import com.fiction.fiction.search.contents.widget.SearchContentsActivity;
+import com.fiction.fiction.contents.widget.FictionContentsActivity;
 import com.fiction.fiction.search.list.model.SearchListModel;
 import com.fiction.fiction.search.list.presenter.SearchListPresenter;
 import com.fiction.fiction.search.list.presenter.SearchListPresenterImpl;
@@ -112,7 +112,7 @@ public class SearchListFragment extends BaseFragment
 
     @Override
     public void onItemClick(View view, int position, SearchListModel info) {
-        SearchContentsActivity.getInstance(info.detailUrl, info.title);
+        FictionContentsActivity.getInstance(ApiConfig.Type.ZW_81, info.detailUrl, info.title);
     }
 
     @Override

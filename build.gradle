@@ -11,18 +11,19 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url "https://jitpack.io" }
     }
 }
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
 ext {
-    proguardFile = "proguard-android.txt"
-    proguardSuffixFile = "proguard-rules.pro"
+    proguardFile = 'proguard-android.txt'
+    proguardSuffixFile = 'proguard-rules.pro'
 
     compileSdkVersion = 25
     buildToolsVersion = '25.0.2'
-    minSdkVersion = 15
+    minSdkVersion = 16
     targetSdkVersion = 25
     versionCode = 1
     versionName = '1.0'
@@ -42,6 +43,7 @@ ext {
     greenDaoVersion = '3.2.0'
     flexboxVersion = '0.2.6'
     circularVersion = '2.0.1@aar'
+    leakcanaryVersion = 'leakcanary-android:1.5.1'
 
     imageStorePath = 'image.jks'
     imagePassword = '123456'

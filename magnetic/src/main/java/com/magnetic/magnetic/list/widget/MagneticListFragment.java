@@ -1,8 +1,10 @@
 package com.magnetic.magnetic.list.widget;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 
 import com.framework.base.BaseFragment;
 import com.framework.utils.UIUtils;
@@ -21,7 +23,7 @@ import java.util.List;
  */
 
 public class MagneticListFragment extends BaseFragment
-        implements SwipeRefreshLayout.OnRefreshListener, MagneticListView {
+        implements SwipeRefreshLayout.OnRefreshListener, MagneticListView, MagneticSearchDialogFragment.MagneticListener {
     protected int page = 1;
     private LoadMoreRecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -114,5 +116,19 @@ public class MagneticListFragment extends BaseFragment
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_magnetic_list;
+    }
+
+    @Override
+    public void onSearchNext(@NonNull String content) {
+        if (TextUtils.isEmpty(content)) {
+            UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.search_empty));
+        } else {
+
+        }
+    }
+
+    @Override
+    public void onSearchCancel() {
+
     }
 }

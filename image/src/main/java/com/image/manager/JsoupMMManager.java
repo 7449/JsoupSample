@@ -2,8 +2,8 @@ package com.image.manager;
 
 import android.support.annotation.NonNull;
 
-import com.image.image.mm.detail.model.MMDetailModel;
-import com.image.image.mm.list.model.MMListModel;
+import com.image.image.detail.model.ImageDetailModel;
+import com.image.image.list.model.ImageListModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -31,12 +31,12 @@ public class JsoupMMManager {
         return new JsoupMMManager(document);
     }
 
-    public List<MMListModel> getImageList() {
-        List<MMListModel> listModels = new ArrayList<>();
-        MMListModel imageListModel;
+    public List<ImageListModel> getImageList() {
+        List<ImageListModel> listModels = new ArrayList<>();
+        ImageListModel imageListModel;
         Elements select = document.select("div.pic").select("li");
         for (Element element : select) {
-            imageListModel = new MMListModel();
+            imageListModel = new ImageListModel();
             imageListModel.url = element.select("img").attr("src");
             imageListModel.detailUrl = element.select("a").attr("abs:href");
             listModels.add(imageListModel);
@@ -45,14 +45,14 @@ public class JsoupMMManager {
     }
 
 
-    public List<MMDetailModel> getImageDetail() {
-        List<MMDetailModel> list = new ArrayList<>();
+    public List<ImageDetailModel> getImageDetail() {
+        List<ImageDetailModel> list = new ArrayList<>();
         String html = document.select("script[type]").html();
         String[] split = html.substring(html.indexOf("[") + 1, html.indexOf("]")).split(",");
         Integer integer = Integer.valueOf(split[2]);
-        MMDetailModel imageDetailModel;
+        ImageDetailModel imageDetailModel;
         for (Integer i = 1; i <= integer; i++) {
-            imageDetailModel = new MMDetailModel();
+            imageDetailModel = new ImageDetailModel();
             imageDetailModel.url = mmImageTitle + split[0] + "/" + split[1] + "/" + i + ".jpg";
             list.add(imageDetailModel);
         }
