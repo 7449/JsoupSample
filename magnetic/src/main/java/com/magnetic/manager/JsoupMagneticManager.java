@@ -2,7 +2,7 @@ package com.magnetic.manager;
 
 import android.support.annotation.NonNull;
 
-import com.magnetic.magnetic.list.model.MagneticListModel;
+import com.magnetic.mvp.model.MagneticModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -28,12 +28,12 @@ public class JsoupMagneticManager {
         return new JsoupMagneticManager(document);
     }
 
-    public List<MagneticListModel> getList() {
-        List<MagneticListModel> listModels = new ArrayList<>();
-        MagneticListModel listModel;
+    public List<MagneticModel> getList() {
+        List<MagneticModel> listModels = new ArrayList<>();
+        MagneticModel listModel;
         Elements select = document.select("div.r:has(a)");
         for (Element element : select) {
-            listModel = new MagneticListModel();
+            listModel = new MagneticModel();
             listModel.message = element.select("a").eq(0).text();
             listModel.url = element.select("a").eq(1).attr("href");
             listModels.add(listModel);

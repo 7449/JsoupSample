@@ -2,8 +2,7 @@ package com.movie.manager;
 
 import android.support.annotation.NonNull;
 
-import com.movie.movie.xiaopian.detail.model.XiaoPianDetailModel;
-import com.movie.movie.xiaopian.list.model.XiaoPianListModel;
+import com.movie.mvp.model.MovieModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -29,12 +28,12 @@ public class XiaoPianJsoupManager {
         return new XiaoPianJsoupManager(document);
     }
 
-    public List<XiaoPianListModel> getXiaoPianList() {
-        List<XiaoPianListModel> listModels = new ArrayList<>();
-        XiaoPianListModel model;
+    public List<MovieModel> getXiaoPianList() {
+        List<MovieModel> listModels = new ArrayList<>();
+        MovieModel model;
         Elements select = document.select("a.ulink[title]");
         for (Element element : select) {
-            model = new XiaoPianListModel();
+            model = new MovieModel();
             model.title = element.text();
             model.detailUrl = element.attr("abs:href");
             listModels.add(model);
@@ -42,8 +41,8 @@ public class XiaoPianJsoupManager {
         return listModels;
     }
 
-    public XiaoPianDetailModel getXiaoPianDetail() {
-        XiaoPianDetailModel model = new XiaoPianDetailModel();
+    public MovieModel getXiaoPianDetail() {
+        MovieModel model = new MovieModel();
         model.title = document.select("div.title_all").text();
         model.message = document.select("div#Zoom").html();
         return model;

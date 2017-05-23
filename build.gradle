@@ -37,13 +37,14 @@ ext {
 
     supportVersion = '25.3.0'
     glideVersion = '3.7.0'
-    jsoupNetWorkVersion = '0.0.3'
+    jsoupNetWorkVersion = '0.0.5'
     klogVersion = '1.6.0'
     flowVersion = '1.10@aar'
     greenDaoVersion = '3.2.0'
     flexboxVersion = '0.2.6'
     circularVersion = '2.0.1@aar'
     leakcanaryVersion = 'leakcanary-android:1.5.1'
+    xAdapterVersion = '0.1.7'
 
     imageStorePath = 'image.jks'
     imagePassword = '123456'

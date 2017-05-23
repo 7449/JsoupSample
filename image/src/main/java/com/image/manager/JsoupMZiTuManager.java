@@ -2,8 +2,7 @@ package com.image.manager;
 
 import android.support.annotation.NonNull;
 
-import com.image.image.detail.model.ImageDetailModel;
-import com.image.image.list.model.ImageListModel;
+import com.image.mvp.model.ImageModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -31,12 +30,12 @@ public class JsoupMZiTuManager {
         return new JsoupMZiTuManager(document);
     }
 
-    public List<ImageListModel> getImageList() {
-        List<ImageListModel> listModels = new ArrayList<>();
-        ImageListModel imageListModel;
+    public List<ImageModel> getImageList() {
+        List<ImageModel> listModels = new ArrayList<>();
+        ImageModel imageListModel;
         Elements select = document.select("#pins").select("a:has(img)");
         for (Element element : select) {
-            imageListModel = new ImageListModel();
+            imageListModel = new ImageModel();
             imageListModel.url = element.select("img").attr("data-original");
             imageListModel.detailUrl = element.select("a").attr("href");
             listModels.add(imageListModel);
@@ -44,10 +43,10 @@ public class JsoupMZiTuManager {
         return listModels;
     }
 
-    public List<ImageDetailModel> getImageDetail() {
+    public List<ImageModel> getImageDetail() {
 
-        List<ImageDetailModel> list = new ArrayList<>();
-        ImageDetailModel imageDetailModel;
+        List<ImageModel> list = new ArrayList<>();
+        ImageModel imageDetailModel;
         //先获取第一页的image url 并且去掉后缀 01.jpg
         String url = document.select("div.main-image").select("img").attr("src").replace(IMAGE_SUFFIX, "");
 
@@ -61,7 +60,7 @@ public class JsoupMZiTuManager {
         Elements select = document.select("div.pagenavi").select("a");
         Integer integer = Integer.valueOf(select.eq(select.size() - 2).text());
         for (Integer i = 1; i <= integer; i++) {
-            imageDetailModel = new ImageDetailModel();
+            imageDetailModel = new ImageModel();
             if (i > 9) {
                 imageDetailModel.url = IMAGE_TITLE + year + "/" + moth + "/" + mark + i + ".jpg";
             } else {

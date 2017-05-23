@@ -12,15 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".main.widget.MainActivity">
+        <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".fiction.contents.widget.FictionContentsActivity" />
-        <activity android:name=".fiction.detail.widget.FictionDetailActivity" />
+        <activity android:name=".ui.activity.FictionContentsActivity" />
+        <activity android:name=".ui.activity.FictionDetailActivity" />
     </application>
 
 </manifest>

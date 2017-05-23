@@ -3,8 +3,7 @@ package com.image.manager;
 import android.support.annotation.NonNull;
 
 import com.framework.utils.MatcherUtils;
-import com.image.image.detail.model.ImageDetailModel;
-import com.image.image.list.model.ImageListModel;
+import com.image.mvp.model.ImageModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -30,12 +29,12 @@ public class JsoupKKManager {
         return new JsoupKKManager(document);
     }
 
-    public List<ImageListModel> getImageList() {
-        List<ImageListModel> listModels = new ArrayList<>();
-        ImageListModel imageListModel;
+    public List<ImageModel> getImageList() {
+        List<ImageModel> listModels = new ArrayList<>();
+        ImageModel imageListModel;
         Elements select = document.select("div.pic-block").select("a");
         for (Element element : select) {
-            imageListModel = new ImageListModel();
+            imageListModel = new ImageModel();
             imageListModel.url = element.select("img").attr("src");
             imageListModel.detailUrl = element.select("a").attr("abs:href");
             listModels.add(imageListModel);
@@ -57,12 +56,12 @@ public class JsoupKKManager {
         return list;
     }
 
-    public List<ImageDetailModel> getImageDetail() {
-        List<ImageDetailModel> list = new ArrayList<>();
+    public List<ImageModel> getImageDetail() {
+        List<ImageModel> list = new ArrayList<>();
         Elements img = document.select("img.lazy-img");
-        ImageDetailModel imageDetailModel;
+        ImageModel imageDetailModel;
         for (Element element : img) {
-            imageDetailModel = new ImageDetailModel();
+            imageDetailModel = new ImageModel();
             String attr = element.attr("data-original");
             imageDetailModel.url = attr.replace("219_300", "800_0");
             list.add(imageDetailModel);

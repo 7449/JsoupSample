@@ -3,9 +3,7 @@ package com.fiction.manager;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.fiction.fiction.contents.model.FictionContentsModel;
-import com.fiction.fiction.detail.model.FictionDetailModel;
-import com.fiction.fiction.list.model.FictionListModel;
+import com.fiction.mvp.model.FictionModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -38,8 +36,8 @@ public class JsoupFictionListManager {
         return new JsoupFictionListManager(document);
     }
 
-    public List<FictionListModel> getList() {
-        List<FictionListModel> list = new ArrayList<>();
+    public List<FictionModel> getList() {
+        List<FictionModel> list = new ArrayList<>();
         initHeader(list);
         return list;
     }
@@ -47,11 +45,11 @@ public class JsoupFictionListManager {
     /**
      * 获取首页六个小说
      */
-    private void initHeader(List<FictionListModel> list) {
-        FictionListModel kswListModel;
+    private void initHeader(List<FictionModel> list) {
+        FictionModel kswListModel;
         Elements select = document.select("div.item");
         for (Element element : select) {
-            kswListModel = new FictionListModel();
+            kswListModel = new FictionModel();
             kswListModel.title = element.select("img[src]").attr("alt");
             kswListModel.url = element.select("img[src]").attr("src");
             kswListModel.detailUrl = element.select("a:has(img)").attr("abs:href");
@@ -65,16 +63,16 @@ public class JsoupFictionListManager {
     /**
      * 最近更新小说列表
      */
-    private void initList(List<FictionListModel> list) {
-        FictionListModel pushTitle = new FictionListModel();
+    private void initList(List<FictionModel> list) {
+        FictionModel pushTitle = new FictionModel();
         pushTitle.title = TYPE_TITLE_LIST;
         pushTitle.type = TYPE_TITLE;
         list.add(pushTitle);
 
-        FictionListModel kswListModel;
+        FictionModel kswListModel;
         Elements select = document.select("div#newscontent").select("div.l").select("span.s2").select("a");
         for (Element element : select) {
-            kswListModel = new FictionListModel();
+            kswListModel = new FictionModel();
             kswListModel.title = element.text();
             kswListModel.detailUrl = element.attr("abs:href");
             kswListModel.type = TYPE_UPDATE;
@@ -88,17 +86,17 @@ public class JsoupFictionListManager {
     /**
      * 获取最新入库小说
      */
-    private void initAdd(List<FictionListModel> list) {
+    private void initAdd(List<FictionModel> list) {
 
-        FictionListModel pushTitle = new FictionListModel();
+        FictionModel pushTitle = new FictionModel();
         pushTitle.title = TYPE_TITLE_ADD;
         pushTitle.type = TYPE_TITLE;
         list.add(pushTitle);
 
-        FictionListModel kswListModel;
+        FictionModel kswListModel;
         Elements select = document.select("div.r").select("a[href]");
         for (Element element : select) {
-            kswListModel = new FictionListModel();
+            kswListModel = new FictionModel();
             kswListModel.title = element.text();
             kswListModel.detailUrl = element.attr("abs:href");
             kswListModel.type = TYPE_ADD;
@@ -106,12 +104,12 @@ public class JsoupFictionListManager {
         }
     }
 
-    public List<FictionContentsModel> getContents() {
-        List<FictionContentsModel> list = new ArrayList<>();
-        FictionContentsModel contentsModel;
+    public List<FictionModel> getContents() {
+        List<FictionModel> list = new ArrayList<>();
+        FictionModel contentsModel;
         Elements a = document.select("#list").select("a");
         for (Element element : a) {
-            contentsModel = new FictionContentsModel();
+            contentsModel = new FictionModel();
             contentsModel.title = element.text();
             contentsModel.detailUrl = element.attr("abs:href");
             list.add(contentsModel);
@@ -120,7 +118,7 @@ public class JsoupFictionListManager {
     }
 
 
-    public FictionDetailModel getDetail(String type) {
+    public FictionModel getDetail(String type) {
 
         String divClass;
 
@@ -132,7 +130,7 @@ public class JsoupFictionListManager {
                 divClass = "div.bottem2";
                 break;
         }
-        FictionDetailModel detailModel = new FictionDetailModel();
+        FictionModel detailModel = new FictionModel();
         Elements select = document.select(divClass).select("a[href$=.html]");
         if (select.size() == 1) {
             if (TextUtils.equals(select.text(), ApiConfig.NEXT_PAGE)) {

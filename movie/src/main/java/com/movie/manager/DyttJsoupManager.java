@@ -2,11 +2,7 @@ package com.movie.manager;
 
 import android.support.annotation.NonNull;
 
-import com.movie.movie.dytt.detail.model.DyttVideoDetailModel;
-import com.movie.movie.dytt.list.model.DyttChosenModel;
-import com.movie.movie.dytt.list.model.DyttNewModel;
-import com.movie.movie.dytt.more.model.DyttVideoMoreModel;
-import com.movie.movie.dytt.more.model.DyttXLMoreModel;
+import com.movie.mvp.model.MovieModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -44,12 +40,12 @@ public class DyttJsoupManager {
     /**
      * 获取dytt侧边栏的最新发布
      */
-    public List<DyttNewModel> getDyttNewList() {
-        List<DyttNewModel> dyttNewModels = new ArrayList<>();
-        DyttNewModel newModel;
+    public List<MovieModel> getDyttNewList() {
+        List<MovieModel> dyttNewModels = new ArrayList<>();
+        MovieModel newModel;
         Elements dyttNewElements = document.select("div.co_content2").select("a");
         for (Element element : dyttNewElements) {
-            newModel = new DyttNewModel();
+            newModel = new MovieModel();
             newModel.title = element.text();
             newModel.detailUrl = element.attr("abs:href");
             dyttNewModels.add(newModel);
@@ -60,14 +56,14 @@ public class DyttJsoupManager {
     /**
      * 获取dytt中间的资源分布
      */
-    public List<DyttChosenModel> getDyttChosenList() {
-        List<DyttChosenModel> dyttChosenModels = new ArrayList<>();
-        DyttChosenModel model;
+    public List<MovieModel> getDyttChosenList() {
+        List<MovieModel> dyttChosenModels = new ArrayList<>();
+        MovieModel model;
         Elements select = document.select("div.title_all:has(a)");
         Elements itemSelect = document.select("table[cellpadding=0]");
         int size = select.size();
         for (int i = 0; i < size - 1; i++) {
-            model = new DyttChosenModel();
+            model = new MovieModel();
             model.type = 0;
             model.itemType = i;
             model.title = select.get(i).text().replace(CHOSEN_SUFFIX, "");
@@ -78,12 +74,12 @@ public class DyttJsoupManager {
         return dyttChosenModels;
     }
 
-    private void getDyttChosenItemList(int itemType, List<DyttChosenModel> dyttChosenModels, Elements itemElements) {
-        DyttChosenModel itemModel;
+    private void getDyttChosenItemList(int itemType, List<MovieModel> dyttChosenModels, Elements itemElements) {
+        MovieModel itemModel;
         int size = itemElements.size();
         for (int i = 0; i < size; i++) {
             if (i % 2 != 0) {
-                itemModel = new DyttChosenModel();
+                itemModel = new MovieModel();
                 itemModel.type = 1;
                 itemModel.itemType = itemType;
                 itemModel.title = itemElements.get(i).text();
@@ -97,8 +93,8 @@ public class DyttJsoupManager {
     /**
      * 获取dytt详情
      */
-    public DyttVideoDetailModel getDyttVideoDetail() {
-        DyttVideoDetailModel model = new DyttVideoDetailModel();
+    public MovieModel getDyttVideoDetail() {
+        MovieModel model = new MovieModel();
         model.title = document.select("div.title_all").eq(4).text();
         Elements select = document.select("div#Zoom");
         model.message = select.html();
@@ -108,13 +104,13 @@ public class DyttJsoupManager {
     /**
      * 最新电影 华语电视剧 欧美电视剧 迅雷综艺节目 最新动漫   更多
      */
-    public List<DyttVideoMoreModel> getDyttMoreVideoList() {
-        List<DyttVideoMoreModel> moreModels = new ArrayList<>();
-        DyttVideoMoreModel model;
+    public List<MovieModel> getDyttMoreVideoList() {
+        List<MovieModel> moreModels = new ArrayList<>();
+        MovieModel model;
         Elements select = document.select("a.ulink");
         for (Element element : select) {
             if (!element.text().startsWith("[")) {
-                model = new DyttVideoMoreModel();
+                model = new MovieModel();
                 model.title = element.text();
                 model.url = element.attr("abs:href");
                 moreModels.add(model);
@@ -126,14 +122,14 @@ public class DyttJsoupManager {
     /**
      * 迅雷资源更多
      */
-    public List<DyttXLMoreModel> getDyttMoreXLList() {
-        List<DyttXLMoreModel> dyttXLMoreModels = new ArrayList<>();
-        DyttXLMoreModel model;
+    public List<MovieModel> getDyttMoreXLList() {
+        List<MovieModel> dyttXLMoreModels = new ArrayList<>();
+        MovieModel model;
         Elements select = document.select("div.title_all:has(a)");
         Elements itemSelect = document.select("table[cellpadding=0]");
         int size = select.size();
         for (int i = 0; i < size; i++) {
-            model = new DyttXLMoreModel();
+            model = new MovieModel();
             model.type = 0;
             model.itemType = i;
             model.title = select.get(i).text().replace(CHOSEN_SUFFIX, "");
@@ -144,12 +140,12 @@ public class DyttJsoupManager {
         return dyttXLMoreModels;
     }
 
-    private void getDyttMoreXLItemList(int itemType, List<DyttXLMoreModel> dyttChosenModels, Elements itemElements) {
-        DyttXLMoreModel itemModel;
+    private void getDyttMoreXLItemList(int itemType, List<MovieModel> dyttChosenModels, Elements itemElements) {
+        MovieModel itemModel;
         int size = itemElements.size();
         for (int i = 0; i < size; i++) {
             if (i % 2 != 0) {
-                itemModel = new DyttXLMoreModel();
+                itemModel = new MovieModel();
                 itemModel.type = 1;
                 itemModel.itemType = itemType;
                 itemModel.title = itemElements.get(i).text();

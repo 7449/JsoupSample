@@ -11,15 +11,15 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.widget.MainActivity">
+        <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".image.search.widget.SearchListActivity" />
-        <activity android:name=".image.detail.widget.ImageDetailActivity" />
+        <activity android:name=".ui.activity.SearchListActivity" />
+        <activity android:name=".ui.activity.ImageDetailActivity" />
     </application>
 
 </manifest>

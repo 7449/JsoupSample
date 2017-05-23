@@ -2,7 +2,7 @@ package com.fiction.manager;
 
 import android.support.annotation.NonNull;
 
-import com.fiction.fiction.search.list.model.SearchListModel;
+import com.fiction.mvp.model.FictionModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -26,12 +26,12 @@ public class JsoupSearchManager {
         return new JsoupSearchManager(document);
     }
 
-    public List<SearchListModel> get81List() {
-        List<SearchListModel> list = new ArrayList<>();
-        SearchListModel fictionNameModel;
+    public List<FictionModel> get81List() {
+        List<FictionModel> list = new ArrayList<>();
+        FictionModel fictionNameModel;
         Elements select = document.select("div.result-game-item");
         for (Element element : select) {
-            fictionNameModel = new SearchListModel();
+            fictionNameModel = new FictionModel();
             fictionNameModel.url = element.select("img.result-game-item-pic-link-img").attr("src");
             fictionNameModel.title = element.select("a.result-game-item-title-link").attr("title");
             fictionNameModel.detailUrl = element.select("a.result-game-item-title-link").attr("href");

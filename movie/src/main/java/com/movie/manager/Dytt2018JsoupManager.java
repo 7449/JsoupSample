@@ -2,8 +2,7 @@ package com.movie.manager;
 
 import android.support.annotation.NonNull;
 
-import com.movie.movie.dy2018.detail.model.Dy2018DetailModel;
-import com.movie.movie.dy2018.list.model.Dy2018ListModel;
+import com.movie.mvp.model.MovieModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -29,12 +28,12 @@ public class Dytt2018JsoupManager {
         return new Dytt2018JsoupManager(document);
     }
 
-    public List<Dy2018ListModel> getDy2018List() {
-        List<Dy2018ListModel> list = new ArrayList<>();
-        Dy2018ListModel model;
+    public List<MovieModel> getDy2018List() {
+        List<MovieModel> list = new ArrayList<>();
+        MovieModel model;
         Elements select = document.select("a.ulink[title]");
         for (Element element : select) {
-            model = new Dy2018ListModel();
+            model = new MovieModel();
             model.title = element.text();
             model.detailUrl = element.attr("abs:href");
             list.add(model);
@@ -42,8 +41,8 @@ public class Dytt2018JsoupManager {
         return list;
     }
 
-    public Dy2018DetailModel getDy2018Detail() {
-        Dy2018DetailModel model = new Dy2018DetailModel();
+    public MovieModel getDy2018Detail() {
+        MovieModel model = new MovieModel();
         model.title = document.select("div.title_all").text();
         model.message = document.select("div#Zoom").html();
         return model;

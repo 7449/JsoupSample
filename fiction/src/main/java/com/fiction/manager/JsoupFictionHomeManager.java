@@ -2,7 +2,7 @@ package com.fiction.manager;
 
 import android.support.annotation.NonNull;
 
-import com.fiction.fiction.home.model.FictionHomeModel;
+import com.fiction.mvp.model.FictionModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -45,8 +45,8 @@ public class JsoupFictionHomeManager {
         return new JsoupFictionHomeManager(document);
     }
 
-    public List<FictionHomeModel> getKswHome() {
-        List<FictionHomeModel> list = new ArrayList<>();
+    public List<FictionModel> getKswHome() {
+        List<FictionModel> list = new ArrayList<>();
         initHeader(list);
         return list;
     }
@@ -54,11 +54,11 @@ public class JsoupFictionHomeManager {
     /**
      * 获取首页四个小说
      */
-    private void initHeader(List<FictionHomeModel> list) {
-        FictionHomeModel kswModel;
+    private void initHeader(List<FictionModel> list) {
+        FictionModel kswModel;
         Elements select = document.select("div.item");
         for (Element element : select) {
-            kswModel = new FictionHomeModel();
+            kswModel = new FictionModel();
             kswModel.title = element.select("img[src]").attr("alt");
             kswModel.url = element.select("img[src]").attr("src");
             kswModel.detailUrl = element.select("a:has(img)").attr("abs:href");
@@ -74,17 +74,17 @@ public class JsoupFictionHomeManager {
     /**
      * 获取热门小说
      */
-    private void initPush(List<FictionHomeModel> list) {
-        FictionHomeModel kswModel;
+    private void initPush(List<FictionModel> list) {
+        FictionModel kswModel;
         Elements select = document.select("div.r").eq(0).select("a[href]");
 
-        FictionHomeModel hotTitle = new FictionHomeModel();
+        FictionModel hotTitle = new FictionModel();
         hotTitle.title = TYPE_TITLE_HOT;
         hotTitle.type = TYPE_TITLE;
         list.add(hotTitle);
 
         for (Element element : select) {
-            kswModel = new FictionHomeModel();
+            kswModel = new FictionModel();
             kswModel.title = element.text();
             kswModel.detailUrl = element.attr("abs:href");
             kswModel.type = TYPE_HOT;
@@ -97,8 +97,8 @@ public class JsoupFictionHomeManager {
     /**
      * 获取中间6个小说区头部
      */
-    private void initCenterHeader(List<FictionHomeModel> list) {
-        FictionHomeModel kswHomeModel;
+    private void initCenterHeader(List<FictionModel> list) {
+        FictionModel kswHomeModel;
         Elements select = document.select("div.content");
         int size = select.size();
         for (int i = 0; i < size; i++) {
@@ -106,7 +106,7 @@ public class JsoupFictionHomeManager {
             initTitle(list, i);
 
 
-            kswHomeModel = new FictionHomeModel();
+            kswHomeModel = new FictionModel();
             Elements topSelect = select.get(i).select("div.top");
             kswHomeModel.url = topSelect.select("img[src]").attr("src");
             kswHomeModel.title = topSelect.select("img[src]").attr("alt");
@@ -124,8 +124,8 @@ public class JsoupFictionHomeManager {
     /**
      * 添加6个小说区的title
      */
-    private void initTitle(List<FictionHomeModel> list, int i) {
-        FictionHomeModel pushTitle = new FictionHomeModel();
+    private void initTitle(List<FictionModel> list, int i) {
+        FictionModel pushTitle = new FictionModel();
         pushTitle.type = TYPE_TITLE;
         switch (i) {
             case 0:
@@ -153,11 +153,11 @@ public class JsoupFictionHomeManager {
     /**
      * 获取小说中间6个区详情
      */
-    private void initCenter(List<FictionHomeModel> list, Elements elements) {
-        FictionHomeModel kswHomeModel;
+    private void initCenter(List<FictionModel> list, Elements elements) {
+        FictionModel kswHomeModel;
         Elements a = elements.select("a");
         for (Element element : a) {
-            kswHomeModel = new FictionHomeModel();
+            kswHomeModel = new FictionModel();
             kswHomeModel.title = element.text();
             kswHomeModel.detailUrl = element.attr("abs:href");
             kswHomeModel.type = TYPE_CENTER;
@@ -168,17 +168,17 @@ public class JsoupFictionHomeManager {
     /**
      * 最近更新小说列表
      */
-    private void initRecent(List<FictionHomeModel> list) {
+    private void initRecent(List<FictionModel> list) {
 
-        FictionHomeModel pushTitle = new FictionHomeModel();
+        FictionModel pushTitle = new FictionModel();
         pushTitle.title = TYPE_TITLE_RETCENT;
         pushTitle.type = TYPE_TITLE;
         list.add(pushTitle);
 
-        FictionHomeModel kswHomeModel;
+        FictionModel kswHomeModel;
         Elements select = document.select("div#newscontent").select("div.l").select("span.s2").select("a");
         for (Element element : select) {
-            kswHomeModel = new FictionHomeModel();
+            kswHomeModel = new FictionModel();
             kswHomeModel.title = element.text();
             kswHomeModel.detailUrl = element.attr("abs:href");
             kswHomeModel.type = TYPE_RECENT;
@@ -191,17 +191,17 @@ public class JsoupFictionHomeManager {
     /**
      * 获取最新入库小说
      */
-    private void initAdd(List<FictionHomeModel> list) {
+    private void initAdd(List<FictionModel> list) {
 
-        FictionHomeModel pushTitle = new FictionHomeModel();
+        FictionModel pushTitle = new FictionModel();
         pushTitle.title = TYPE_TITLE_ADD;
         pushTitle.type = TYPE_TITLE;
         list.add(pushTitle);
 
-        FictionHomeModel kswHomeModel;
+        FictionModel kswHomeModel;
         Elements select = document.select("div.r").eq(1).select("a[href]");
         for (Element element : select) {
-            kswHomeModel = new FictionHomeModel();
+            kswHomeModel = new FictionModel();
             kswHomeModel.title = element.text();
             kswHomeModel.detailUrl = element.attr("abs:href");
             kswHomeModel.type = TYPE_ADD;

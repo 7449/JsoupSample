@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.framework.utils.MatcherUtils;
-import com.image.image.search.model.SearchListModel;
+import com.image.mvp.model.ImageModel;
 import com.socks.library.KLog;
 
 import org.jsoup.nodes.Document;
@@ -30,9 +30,9 @@ public class JsoupSearchManager {
         return new JsoupSearchManager(document);
     }
 
-    public List<SearchListModel> getImageList() {
+    public List<ImageModel> getImageList() {
         int totalPage = 0;
-        List<SearchListModel> listModels = new ArrayList<>();
+        List<ImageModel> listModels = new ArrayList<>();
         String searchPage = document.select("div.nav-links").select("a").text();
         KLog.i(searchPage);
         if (TextUtils.isEmpty(searchPage)) {
@@ -42,10 +42,10 @@ public class JsoupSearchManager {
                 totalPage = MatcherUtils.getIntHasSpace(searchPage);
                 KLog.i(totalPage);
             }
-            SearchListModel imageListModel;
+            ImageModel imageListModel;
             Elements select = document.select("#pins").select("a:has(img)");
             for (Element element : select) {
-                imageListModel = new SearchListModel();
+                imageListModel = new ImageModel();
                 imageListModel.url = element.select("img").attr("data-original");
                 imageListModel.detailUrl = element.select("a").attr("href");
                 if (!searchPage.contains(PAGE_ON)) {

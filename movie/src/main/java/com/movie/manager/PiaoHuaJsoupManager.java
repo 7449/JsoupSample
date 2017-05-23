@@ -2,8 +2,7 @@ package com.movie.manager;
 
 import android.support.annotation.NonNull;
 
-import com.movie.movie.piaohua.detail.model.PiaoHuaDetailModel;
-import com.movie.movie.piaohua.list.model.PiaoHuaListModel;
+import com.movie.mvp.model.MovieModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -29,12 +28,12 @@ public class PiaoHuaJsoupManager {
     }
 
 
-    public List<PiaoHuaListModel> getList() {
-        List<PiaoHuaListModel> listModels = new ArrayList<>();
-        PiaoHuaListModel model;
+    public List<MovieModel> getList() {
+        List<MovieModel> listModels = new ArrayList<>();
+        MovieModel model;
         Elements select = document.select("div#list").select("a[class]");
         for (Element element : select) {
-            model = new PiaoHuaListModel();
+            model = new MovieModel();
             model.title = element.select("img").attr("alt");
             model.url = element.select("img").attr("src");
             model.detailUrl = element.attr("abs:href");
@@ -43,8 +42,8 @@ public class PiaoHuaJsoupManager {
         return listModels;
     }
 
-    public PiaoHuaDetailModel getDetail() {
-        PiaoHuaDetailModel model = new PiaoHuaDetailModel();
+    public MovieModel getDetail() {
+        MovieModel model = new MovieModel();
         model.title = document.select("div#show").text();
         model.message = document.select("div#showinfo").html();
         return model;

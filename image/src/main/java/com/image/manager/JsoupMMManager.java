@@ -2,8 +2,7 @@ package com.image.manager;
 
 import android.support.annotation.NonNull;
 
-import com.image.image.detail.model.ImageDetailModel;
-import com.image.image.list.model.ImageListModel;
+import com.image.mvp.model.ImageModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -31,12 +30,12 @@ public class JsoupMMManager {
         return new JsoupMMManager(document);
     }
 
-    public List<ImageListModel> getImageList() {
-        List<ImageListModel> listModels = new ArrayList<>();
-        ImageListModel imageListModel;
+    public List<ImageModel> getImageList() {
+        List<ImageModel> listModels = new ArrayList<>();
+        ImageModel imageListModel;
         Elements select = document.select("div.pic").select("li");
         for (Element element : select) {
-            imageListModel = new ImageListModel();
+            imageListModel = new ImageModel();
             imageListModel.url = element.select("img").attr("src");
             imageListModel.detailUrl = element.select("a").attr("abs:href");
             listModels.add(imageListModel);
@@ -45,25 +44,17 @@ public class JsoupMMManager {
     }
 
 
-    public List<ImageDetailModel> getImageDetail() {
-        List<ImageDetailModel> list = new ArrayList<>();
+    public List<ImageModel> getImageDetail() {
+        List<ImageModel> list = new ArrayList<>();
         String html = document.select("script[type]").html();
         String[] split = html.substring(html.indexOf("[") + 1, html.indexOf("]")).split(",");
         Integer integer = Integer.valueOf(split[2]);
-        ImageDetailModel imageDetailModel;
+        ImageModel imageDetailModel;
         for (Integer i = 1; i <= integer; i++) {
-            imageDetailModel = new ImageDetailModel();
+            imageDetailModel = new ImageModel();
             imageDetailModel.url = mmImageTitle + split[0] + "/" + split[1] + "/" + i + ".jpg";
             list.add(imageDetailModel);
         }
-
-//        MMDetailModel imageDetailModel;
-//        Elements mzituElements = document.select("div.content").select("img");
-//        for (Element element : mzituElements) {
-//            imageDetailModel = new MMDetailModel();
-//            imageDetailModel.url = element.attr("src");
-//            list.add(imageDetailModel);
-//        }
         return list;
     }
 }
