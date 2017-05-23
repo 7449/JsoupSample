@@ -111,7 +111,7 @@ public class XiaoPianListFragment extends BaseFragment
     @Override
     public void netWorkError() {
         if (getActivity() != null)
-            UIUtils.INSTANCE.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
+            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
     }
 
     @Override
@@ -128,16 +128,16 @@ public class XiaoPianListFragment extends BaseFragment
 
     @Override
     public void onItemClick(View view, int position, XiaoPianListModel info) {
-        if (ApkUtils.INSTANCE.getXLIntent() != null) {
-            XiaopianDetailActivity.startIntent(info.getDetailUrl());
+        if (ApkUtils.getXLIntent() != null) {
+            XiaopianDetailActivity.startIntent(info.detailUrl);
         } else {
-            UIUtils.INSTANCE.snackBar(getActivity().findViewById(R.id.coordinatorLayout), UIUtils.INSTANCE.getString(R.string.xl));
+            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
         }
     }
 
     @Override
     public void noMore() {
         if (getActivity() != null)
-            UIUtils.INSTANCE.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.data_empty));
+            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.data_empty));
     }
 }

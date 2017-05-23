@@ -74,7 +74,7 @@ public class DyttChosenFragment extends BaseFragment
     @Override
     public void netWorkError() {
         if (getActivity() != null) {
-            UIUtils.INSTANCE.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
+            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
         }
     }
 

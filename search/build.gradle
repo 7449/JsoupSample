@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -11,9 +11,12 @@ android {
         versionName rootProject.versionName
         resConfigs rootProject.resConfigs
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 dependencies {
     provided "com.android.support:appcompat-v7:$supportVersion"
     provided "com.android.support:design:$supportVersion"
-    provided "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }

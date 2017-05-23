@@ -34,7 +34,7 @@ public class XiaoPianListPresenterImpl extends PresenterImplCompat<List<XiaoPian
     }
 
     private String getXiaoPianUrl(int type, int page) {
-        String[] stringArray = UIUtils.INSTANCE.getStringArray(R.array.xiao_pian_suffix);
+        String[] stringArray = UIUtils.getStringArray(R.array.xiao_pian_suffix);
         if (page == 1) {
             return String.format(ApiConfig.XIAO_PIAN_URL + stringArray[type], "");
         } else {

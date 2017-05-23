@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/toolbar" />
+
+
+        </android.support.design.widget.AppBarLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="WebViewLayout">
+
+            <com.framework.widget.EasyWebView
+                android:id="@+id/detail_webView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/btn_rootView"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginRight="@dimen/margin" />
+
+            <FrameLayout
+                android:id="@+id/btn_rootView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/margin"
+                android:visibility="gone">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_margin="@dimen/margin">
+
+                    <Button
+                        android:id="@+id/btn_next"
+                        android:layout_width="50dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/selector_btn"
+                        android:text="@string/next_page"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="@dimen/margin">
+
+                    <Button
+                        android:id="@+id/btn_on"
+                        android:layout_width="50dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/selector_btn"
+                        android:text="@string/on_page"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </android.support.v7.widget.CardView>
+
+
+            </FrameLayout>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <include layout="@layout/loading_layout" />
+
+
+</FrameLayout>

@@ -85,7 +85,7 @@ public class DyttNewFragment extends BaseFragment
     @Override
     public void netWorkError() {
         if (getActivity() != null) {
-            UIUtils.INSTANCE.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
+            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
         }
     }
 
@@ -103,10 +103,10 @@ public class DyttNewFragment extends BaseFragment
 
     @Override
     public void onItemClick(View view, int position, DyttNewModel info) {
-        if (ApkUtils.INSTANCE.getXLIntent() != null) {
-            DyttVideoDetailActivity.startIntent(info.getDetailUrl());
+        if (ApkUtils.getXLIntent() != null) {
+            DyttVideoDetailActivity.startIntent(info.detailUrl);
         } else {
-            UIUtils.INSTANCE.snackBar(getActivity().findViewById(R.id.coordinatorLayout), UIUtils.INSTANCE.getString(R.string.xl));
+            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
         }
     }
 }

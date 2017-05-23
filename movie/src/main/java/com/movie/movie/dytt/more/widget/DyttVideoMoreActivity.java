@@ -48,7 +48,7 @@ public class DyttVideoMoreActivity extends BaseActivity
         bundle.putInt(TYPE, type);
         bundle.putInt(PLACE, placeType);
         bundle.putString(TITLE, title);
-        UIUtils.INSTANCE.startActivity(DyttVideoMoreActivity.class, bundle);
+        UIUtils.startActivity(DyttVideoMoreActivity.class, bundle);
     }
 
     @Override
@@ -112,7 +112,7 @@ public class DyttVideoMoreActivity extends BaseActivity
 
     @Override
     public void netWorkError() {
-        UIUtils.INSTANCE.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
+        UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
     }
 
     @Override
@@ -129,15 +129,15 @@ public class DyttVideoMoreActivity extends BaseActivity
 
     @Override
     public void onItemClick(View view, int position, DyttVideoMoreModel info) {
-        if (ApkUtils.INSTANCE.getXLIntent() != null) {
-            DyttVideoDetailActivity.startIntent(info.getUrl());
+        if (ApkUtils.getXLIntent() != null) {
+            DyttVideoDetailActivity.startIntent(info.url);
         } else {
-            UIUtils.INSTANCE.snackBar(getView(R.id.coordinatorLayout), UIUtils.INSTANCE.getString(R.string.xl));
+            UIUtils.snackBar(getView(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
         }
     }
 
     @Override
     public void noMore() {
-        UIUtils.INSTANCE.snackBar(getView(R.id.coordinatorLayout), getString(R.string.data_empty));
+        UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.data_empty));
     }
 }

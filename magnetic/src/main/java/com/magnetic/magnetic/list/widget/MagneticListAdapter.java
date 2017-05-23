@@ -24,6 +24,6 @@ class MagneticListAdapter extends BaseRecyclerAdapter<MagneticListModel> {
 
     @Override
     protected void onBind(SuperViewHolder viewHolder, int position, MagneticListModel mDatas) {
-        viewHolder.setTextView(R.id.list_tv, mDatas.getMessage());
+        viewHolder.setTextView(R.id.list_tv, mDatas.message);
     }
 }

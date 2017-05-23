@@ -2,8 +2,8 @@ package com.image.manager;
 
 import android.support.annotation.NonNull;
 
-import com.image.image.detail.model.ImageDetailModel;
-import com.image.image.list.model.ImageListModel;
+import com.image.image.meizitu.detail.model.MeiZiTuDetailModel;
+import com.image.image.meizitu.list.model.MeiZiTuListModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -29,28 +29,28 @@ public class JsoupMeiZiTuManager {
         return new JsoupMeiZiTuManager(document);
     }
 
-    public List<ImageListModel> getImageList() {
-        List<ImageListModel> listModels = new ArrayList<>();
-        ImageListModel imageListModel;
+    public List<MeiZiTuListModel> getImageList() {
+        List<MeiZiTuListModel> listModels = new ArrayList<>();
+        MeiZiTuListModel imageListModel;
         Elements select = document.select("div.pic");
         for (Element element : select) {
-            imageListModel = new ImageListModel();
-            imageListModel.setUrl(element.select("img").attr("src"));
-            imageListModel.setDetailUrl(element.select("a[href]").attr("abs:href"));
+            imageListModel = new MeiZiTuListModel();
+            imageListModel.url = element.select("img").attr("src");
+            imageListModel.detailUrl = element.select("a[href]").attr("abs:href");
             listModels.add(imageListModel);
         }
         return listModels;
     }
 
-    public List<ImageDetailModel> getImageDetail() {
+    public List<MeiZiTuDetailModel> getImageDetail() {
 
-        List<ImageDetailModel> list = new ArrayList<>();
-        ImageDetailModel imageDetailModel;
+        List<MeiZiTuDetailModel> list = new ArrayList<>();
+        MeiZiTuDetailModel imageDetailModel;
 
         Elements select = document.select("div#picture").select("img");
         for (Element element : select) {
-            imageDetailModel = new ImageDetailModel();
-            imageDetailModel.setUrl(element.attr("src"));
+            imageDetailModel = new MeiZiTuDetailModel();
+            imageDetailModel.url = element.attr("src");
             list.add(imageDetailModel);
         }
 

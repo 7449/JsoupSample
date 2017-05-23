@@ -12,7 +12,7 @@ import android.widget.RadioGroup;
 import com.fiction.R;
 import com.fiction.db.GreenDaoDbUtils;
 import com.fiction.db.SqlBean;
-import com.fiction.fiction.contents.widget.FictionContentsActivity;
+import com.fiction.fiction.search.contents.widget.SearchContentsActivity;
 import com.fiction.fiction.search.list.model.SearchListModel;
 import com.fiction.fiction.search.list.presenter.SearchListPresenter;
 import com.fiction.fiction.search.list.presenter.SearchListPresenterImpl;
@@ -90,7 +90,7 @@ public class SearchListFragment extends BaseFragment
 
     @Override
     public void netWorkError() {
-        UIUtils.INSTANCE.snackBar(getView(R.id.fa_btn), getString(R.string.network_error));
+        UIUtils.snackBar(getView(R.id.fa_btn), getString(R.string.network_error));
     }
 
     @Override
@@ -106,13 +106,13 @@ public class SearchListFragment extends BaseFragment
 
     @Override
     public void fictionNameEmpty() {
-        UIUtils.INSTANCE.snackBar(getView(R.id.fa_btn), getString(R.string.empty));
+        UIUtils.snackBar(getView(R.id.fa_btn), getString(R.string.empty));
     }
 
 
     @Override
     public void onItemClick(View view, int position, SearchListModel info) {
-        FictionContentsActivity.getInstance(ApiConfig.Type.ZW_81, info.getDetailUrl(), info.getTitle());
+        SearchContentsActivity.getInstance(info.detailUrl, info.title);
     }
 
     @Override
@@ -185,6 +185,6 @@ public class SearchListFragment extends BaseFragment
 
     @Override
     public void noMore() {
-        UIUtils.INSTANCE.snackBar(getView(R.id.fa_btn), getString(R.string.data_empty));
+        UIUtils.snackBar(getView(R.id.fa_btn), getString(R.string.data_empty));
     }
 }

@@ -1,0 +1,33 @@
+package com.image.image.meizitu.list.presenter;
+
+import com.framework.base.mvp.PresenterImplCompat;
+import com.framework.utils.UIUtils;
+import com.image.R;
+import com.image.image.meizitu.list.model.MeiZiTuListModel;
+import com.image.image.meizitu.list.view.MeiZiTuListView;
+import com.image.manager.ApiConfig;
+import com.image.manager.JsoupMeiZiTuManager;
+
+import org.jsoup.nodes.Document;
+
+import java.util.List;
+
+/**
+ * by y on 2017/3/26.
+ */
+
+public class MeiZiTuListPresenterImpl extends PresenterImplCompat<List<MeiZiTuListModel>, MeiZiTuListView> implements MeiZiTuListPresenter {
+    public MeiZiTuListPresenterImpl(MeiZiTuListView view) {
+        super(view);
+    }
+
+    @Override
+    public void netWorkRequest(int type, int page) {
+        netWork(ApiConfig.MEIZITU_URL + String.format(UIUtils.getStringArray(R.array.meizitu_array_suffix)[type], page));
+    }
+
+    @Override
+    public List<MeiZiTuListModel> getT(Document document) {
+        return JsoupMeiZiTuManager.get(document).getImageList();
+    }
+}

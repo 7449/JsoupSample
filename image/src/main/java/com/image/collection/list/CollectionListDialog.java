@@ -31,7 +31,7 @@ public class CollectionListDialog extends BaseDialogFragment {
     public AlertDialog getDialog() {
         listener = (CollectionListener) getParentFragment();
         int position = getArguments().getInt("position");
-        setMAlertDialog(new AlertDialog
+        mAlertDialog = new AlertDialog
                 .Builder(getActivity())
                 .setMessage(getString(R.string.dialog_collection_message))
                 .setNegativeButton(getString(R.string.dialog_exit_cancel), null)
@@ -40,8 +40,8 @@ public class CollectionListDialog extends BaseDialogFragment {
                         listener.onCollectionDeletedNext(position);
                     }
                 })
-                .create());
-        return getMAlertDialog();
+                .create();
+        return mAlertDialog;
     }
 
     @Override

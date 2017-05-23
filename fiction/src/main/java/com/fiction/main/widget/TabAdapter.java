@@ -6,8 +6,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.fiction.R;
-import com.fiction.fiction.home.widget.FictionHomeFragment;
-import com.fiction.fiction.list.widget.FictionListFragment;
+import com.fiction.fiction.biquge.list.widget.BiQuGeHomeFragment;
+import com.fiction.fiction.biquge.list.widget.BiQuGeListFragment;
+import com.fiction.fiction.ksw.list.widget.KswHomeFragment;
+import com.fiction.fiction.ksw.list.widget.KswListFragment;
+import com.fiction.fiction.zw81.list.widget.ZWHomeFragment;
+import com.fiction.fiction.zw81.list.widget.ZWListFragment;
 import com.fiction.manager.ApiConfig;
 import com.framework.utils.UIUtils;
 
@@ -25,13 +29,13 @@ class TabAdapter extends FragmentPagerAdapter {
         this.type = type;
         switch (type) {
             case ApiConfig.Type.ZW_81:
-                name = UIUtils.INSTANCE.getStringArray(R.array.tab_zw);
+                name = UIUtils.getStringArray(R.array.tab_zw);
                 break;
             case ApiConfig.Type.BI_QU_GE:
-                name = UIUtils.INSTANCE.getStringArray(R.array.tab_bi_qu_ge);
+                name = UIUtils.getStringArray(R.array.tab_bi_qu_ge);
                 break;
             case ApiConfig.Type.KSW:
-                name = UIUtils.INSTANCE.getStringArray(R.array.tab_ksw);
+                name = UIUtils.getStringArray(R.array.tab_ksw);
                 break;
         }
     }
@@ -54,9 +58,11 @@ class TabAdapter extends FragmentPagerAdapter {
     private Fragment getFragment(int position) {
         switch (type) {
             case ApiConfig.Type.ZW_81:
+                return position == 0 ? ZWHomeFragment.newInstance() : ZWListFragment.newInstance(position);
             case ApiConfig.Type.BI_QU_GE:
+                return position == 0 ? BiQuGeHomeFragment.newInstance() : BiQuGeListFragment.newInstance(position);
             case ApiConfig.Type.KSW:
-                return position == 0 ? FictionHomeFragment.newInstance(type) : FictionListFragment.newInstance(type, position);
+                return position == 0 ? KswHomeFragment.newInstance() : KswListFragment.newInstance(position);
             default:
                 return null;
         }

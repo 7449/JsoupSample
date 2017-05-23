@@ -3,8 +3,8 @@ package com.image.manager;
 import android.support.annotation.NonNull;
 
 import com.framework.utils.MatcherUtils;
-import com.image.image.detail.model.ImageDetailModel;
-import com.image.image.list.model.ImageListModel;
+import com.image.image.kk.detail.model.KKDetailModel;
+import com.image.image.kk.list.model.KKListModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -30,24 +30,24 @@ public class JsoupKKManager {
         return new JsoupKKManager(document);
     }
 
-    public List<ImageListModel> getImageList() {
-        List<ImageListModel> listModels = new ArrayList<>();
-        ImageListModel imageListModel;
+    public List<KKListModel> getImageList() {
+        List<KKListModel> listModels = new ArrayList<>();
+        KKListModel imageListModel;
         Elements select = document.select("div.pic-block").select("a");
         for (Element element : select) {
-            imageListModel = new ImageListModel();
-            imageListModel.setUrl(element.select("img").attr("src"));
-            imageListModel.setDetailUrl(element.select("a").attr("abs:href"));
+            imageListModel = new KKListModel();
+            imageListModel.url = element.select("img").attr("src");
+            imageListModel.detailUrl = element.select("a").attr("abs:href");
             listModels.add(imageListModel);
         }
         return listModels;
     }
 
-    public List<String> getDetailUrl() {
+    public List<String> getKKDetailUrl() {
         List<String> list = new ArrayList<>();
         Elements img = document.select("img.lazy-img");
         //获取总张数
-        int count = MatcherUtils.INSTANCE.getInt(document.select("p.ui-block-a").text());
+        int count = MatcherUtils.getInt(document.select("p.ui-block-a").text());
         //有几页
         long round = Math.round((double) count / img.size());
         String url = document.select("div.pagination").select("div.ui-block-a").select("a").attr("abs:href").replace("1.html", "");
@@ -57,14 +57,14 @@ public class JsoupKKManager {
         return list;
     }
 
-    public List<ImageDetailModel> getImageDetail() {
-        List<ImageDetailModel> list = new ArrayList<>();
+    public List<KKDetailModel> getKKDetailImage() {
+        List<KKDetailModel> list = new ArrayList<>();
         Elements img = document.select("img.lazy-img");
-        ImageDetailModel imageDetailModel;
+        KKDetailModel imageDetailModel;
         for (Element element : img) {
-            imageDetailModel = new ImageDetailModel();
+            imageDetailModel = new KKDetailModel();
             String attr = element.attr("data-original");
-            imageDetailModel.setUrl(attr.replace("219_300", "800_0"));
+            imageDetailModel.url = attr.replace("219_300", "800_0");
             list.add(imageDetailModel);
         }
         return list;

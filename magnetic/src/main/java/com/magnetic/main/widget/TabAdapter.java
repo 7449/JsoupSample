@@ -24,7 +24,7 @@ class TabAdapter extends FragmentPagerAdapter {
         this.type = type;
         switch (type) {
             case ApiConfig.Type.MAGNETIC:
-                name = UIUtils.INSTANCE.getStringArray(R.array.magnetic_tab);
+                name = UIUtils.getStringArray(R.array.magnetic_tab);
                 break;
         }
     }

@@ -35,9 +35,9 @@ public class PiaoHuaJsoupManager {
         Elements select = document.select("div#list").select("a[class]");
         for (Element element : select) {
             model = new PiaoHuaListModel();
-            model.setTitle(element.select("img").attr("alt"));
-            model.setUrl(element.select("img").attr("src"));
-            model.setDetailUrl(element.attr("abs:href"));
+            model.title = element.select("img").attr("alt");
+            model.url = element.select("img").attr("src");
+            model.detailUrl = element.attr("abs:href");
             listModels.add(model);
         }
         return listModels;
@@ -45,8 +45,8 @@ public class PiaoHuaJsoupManager {
 
     public PiaoHuaDetailModel getDetail() {
         PiaoHuaDetailModel model = new PiaoHuaDetailModel();
-        model.setTitle(document.select("div#show").text());
-        model.setMessage(document.select("div#showinfo").html());
+        model.title = document.select("div#show").text();
+        model.message = document.select("div#showinfo").html();
         return model;
     }
 }

@@ -29,7 +29,7 @@ public class DyttVideoDetailActivity extends BaseActivity implements
     public static void startIntent(String url) {
         Bundle bundle = new Bundle();
         bundle.putString(URL, url);
-        UIUtils.INSTANCE.startActivity(DyttVideoDetailActivity.class, bundle);
+        UIUtils.startActivity(DyttVideoDetailActivity.class, bundle);
     }
 
     @Override
@@ -56,14 +56,14 @@ public class DyttVideoDetailActivity extends BaseActivity implements
 
     @Override
     public void netWorkSuccess(DyttVideoDetailModel data) {
-        toolbar.setTitle(data.getTitle());
-        webView.loadDataUrl(data.getMessage());
+        toolbar.setTitle(data.title);
+        webView.loadDataUrl(data.message);
     }
 
 
     @Override
     public void netWorkError() {
-        UIUtils.INSTANCE.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
+        UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
     }
 
     @Override

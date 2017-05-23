@@ -1,30 +1,18 @@
 package com.framework.base;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.framework.App;
 import com.framework.R;
-import com.framework.utils.PermissionsUtils;
-import com.framework.utils.UIUtils;
-import com.rxjsoupnetwork.manager.RxJsoupDisposeManager;
 import com.socks.library.KLog;
-import com.squareup.leakcanary.RefWatcher;
-
-import org.jetbrains.annotations.NotNull;
-
-import io.reactivex.disposables.Disposable;
 
 /**
  * by y on 2016/7/26.
  */
-public abstract class BaseActivity extends AppCompatActivity implements PermissionsUtils.PermissionsCallBack {
-
-    private Disposable permissionsDisposable;
+public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,35 +20,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
         setContentView(getLayoutId());
         initById();
         initCreate(savedInstanceState);
-        permissionsDisposable = PermissionsUtils.INSTANCE.requestPermission(this, PermissionsUtils.INSTANCE.getWRITE());
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (permissionsDisposable != null) {
-            RxJsoupDisposeManager.getInstance().unDispose(permissionsDisposable);
-        }
-        RefWatcher refWatcher = App.Companion.getRefWatcher();
-        if (refWatcher != null) {
-            KLog.i("leakcanary", String.format("watch %s", getClass().getSimpleName()));
-            refWatcher.watch(this);
-        }
-    }
-
-    @Override
-    public void onPermissionsError() {
-        UIUtils.INSTANCE.toast(getString(R.string.permission_denied));
-    }
-
-    @Override
-    public void onPermissionsSuccess() {
-    }
-
-    @NotNull
-    @Override
-    public Activity getPermissionActivity() {
-        return this;
+        KLog.i(getClass().getSimpleName());
     }
 
     public void replaceFragment(Fragment fragment) {
@@ -86,5 +46,4 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

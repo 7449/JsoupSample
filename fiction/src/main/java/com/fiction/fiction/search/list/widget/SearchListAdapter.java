@@ -25,8 +25,8 @@ class SearchListAdapter extends BaseRecyclerAdapter<SearchListModel> {
 
     @Override
     protected void onBind(SuperViewHolder viewHolder, int position, SearchListModel mDatas) {
-        ImageLoaderUtils.INSTANCE.display(viewHolder.getImageView(R.id.search_iv_img), mDatas.getUrl());
-        viewHolder.setTextView(R.id.search_tv_title, mDatas.getTitle());
-        viewHolder.setTextView(R.id.search_tv_content, mDatas.getMessage());
+        ImageLoaderUtils.display(viewHolder.getImageView(R.id.search_iv_img), mDatas.url);
+        viewHolder.setTextView(R.id.search_tv_title, mDatas.title);
+        viewHolder.setTextView(R.id.search_tv_content, mDatas.message);
     }
 }

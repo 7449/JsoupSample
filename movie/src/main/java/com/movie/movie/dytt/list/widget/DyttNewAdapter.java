@@ -25,6 +25,6 @@ class DyttNewAdapter extends BaseRecyclerAdapter<DyttNewModel> {
 
     @Override
     protected void onBind(SuperViewHolder viewHolder, int position, DyttNewModel mDatas) {
-        viewHolder.setTextView(R.id.tv_dytt_new, mDatas.getTitle());
+        viewHolder.setTextView(R.id.tv_dytt_new, mDatas.title);
     }
 }

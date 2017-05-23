@@ -35,7 +35,7 @@ public class PiaoHuaListPresenterImpl extends PresenterImplCompat<List<PiaoHuaLi
 
 
     private String getPiaoHuaUrl(int position, int page) {
-        String[] stringArray = UIUtils.INSTANCE.getStringArray(R.array.piao_hua_suffix);
+        String[] stringArray = UIUtils.getStringArray(R.array.piao_hua_suffix);
         return String.format(ApiConfig.PIAO_HUA_URL + stringArray[position], page);
     }
 }

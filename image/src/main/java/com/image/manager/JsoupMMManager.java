@@ -2,8 +2,8 @@ package com.image.manager;
 
 import android.support.annotation.NonNull;
 
-import com.image.image.detail.model.ImageDetailModel;
-import com.image.image.list.model.ImageListModel;
+import com.image.image.mm.detail.model.MMDetailModel;
+import com.image.image.mm.list.model.MMListModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -31,29 +31,29 @@ public class JsoupMMManager {
         return new JsoupMMManager(document);
     }
 
-    public List<ImageListModel> getImageList() {
-        List<ImageListModel> listModels = new ArrayList<>();
-        ImageListModel imageListModel;
+    public List<MMListModel> getImageList() {
+        List<MMListModel> listModels = new ArrayList<>();
+        MMListModel imageListModel;
         Elements select = document.select("div.pic").select("li");
         for (Element element : select) {
-            imageListModel = new ImageListModel();
-            imageListModel.setUrl(element.select("img").attr("src"));
-            imageListModel.setDetailUrl(element.select("a").attr("abs:href"));
+            imageListModel = new MMListModel();
+            imageListModel.url = element.select("img").attr("src");
+            imageListModel.detailUrl = element.select("a").attr("abs:href");
             listModels.add(imageListModel);
         }
         return listModels;
     }
 
 
-    public List<ImageDetailModel> getImageDetail() {
-        List<ImageDetailModel> list = new ArrayList<>();
+    public List<MMDetailModel> getImageDetail() {
+        List<MMDetailModel> list = new ArrayList<>();
         String html = document.select("script[type]").html();
         String[] split = html.substring(html.indexOf("[") + 1, html.indexOf("]")).split(",");
         Integer integer = Integer.valueOf(split[2]);
-        ImageDetailModel imageDetailModel;
+        MMDetailModel imageDetailModel;
         for (Integer i = 1; i <= integer; i++) {
-            imageDetailModel = new ImageDetailModel();
-            imageDetailModel.setUrl(mmImageTitle + split[0] + "/" + split[1] + "/" + i + ".jpg");
+            imageDetailModel = new MMDetailModel();
+            imageDetailModel.url = mmImageTitle + split[0] + "/" + split[1] + "/" + i + ".jpg";
             list.add(imageDetailModel);
         }
 

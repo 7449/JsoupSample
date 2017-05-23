@@ -24,6 +24,6 @@ class Dy2018ListAdapter extends BaseRecyclerAdapter<Dy2018ListModel> {
 
     @Override
     protected void onBind(SuperViewHolder viewHolder, int position, Dy2018ListModel mDatas) {
-        viewHolder.setTextView(R.id.dy2018_item_content, mDatas.getTitle());
+        viewHolder.setTextView(R.id.dy2018_item_content, mDatas.title);
     }
 }

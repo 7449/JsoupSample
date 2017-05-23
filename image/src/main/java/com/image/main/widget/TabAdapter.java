@@ -7,7 +7,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.framework.utils.UIUtils;
 import com.image.R;
-import com.image.image.list.widget.ImageListFragment;
+import com.image.image.douban.list.widget.DouBanListFragment;
+import com.image.image.kk.list.widget.KKListFragment;
+import com.image.image.meizitu.list.widget.MeiZiTuListFragment;
+import com.image.image.mm.list.widget.MMListFragment;
+import com.image.image.mzitu.list.widget.MZiTuListFragment;
 import com.image.manager.ApiConfig;
 
 /**
@@ -24,19 +28,19 @@ class TabAdapter extends FragmentPagerAdapter {
         this.type = type;
         switch (type) {
             case ApiConfig.Type.DOU_BAN_MEI_ZI:
-                name = UIUtils.INSTANCE.getStringArray(R.array.dbmz_array);
+                name = UIUtils.getStringArray(R.array.dbmz_array);
                 break;
             case ApiConfig.Type.M_ZI_TU:
-                name = UIUtils.INSTANCE.getStringArray(R.array.mzitu_array);
+                name = UIUtils.getStringArray(R.array.mzitu_array);
                 break;
             case ApiConfig.Type.MM:
-                name = UIUtils.INSTANCE.getStringArray(R.array.mm_array);
+                name = UIUtils.getStringArray(R.array.mm_array);
                 break;
             case ApiConfig.Type.MEIZITU:
-                name = UIUtils.INSTANCE.getStringArray(R.array.meizitu_array);
+                name = UIUtils.getStringArray(R.array.meizitu_array);
                 break;
             case ApiConfig.Type.KK:
-                name = UIUtils.INSTANCE.getStringArray(R.array.kk_array);
+                name = UIUtils.getStringArray(R.array.kk_array);
                 break;
         }
 
@@ -44,7 +48,7 @@ class TabAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return ImageListFragment.newInstance(type, position);
+        return getFragment(position);
     }
 
     @Override
@@ -55,6 +59,23 @@ class TabAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return name.length;
+    }
+
+    private Fragment getFragment(int position) {
+        switch (type) {
+            case ApiConfig.Type.DOU_BAN_MEI_ZI:
+                return DouBanListFragment.newInstance(position);
+            case ApiConfig.Type.M_ZI_TU:
+                return MZiTuListFragment.newInstance(position);
+            case ApiConfig.Type.MM:
+                return MMListFragment.newInstance(position);
+            case ApiConfig.Type.MEIZITU:
+                return MeiZiTuListFragment.newInstance(position);
+            case ApiConfig.Type.KK:
+                return KKListFragment.newInstance(position);
+            default:
+                return null;
+        }
     }
 
 }

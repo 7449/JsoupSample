@@ -2,8 +2,8 @@ package com.image.manager;
 
 import android.support.annotation.NonNull;
 
-import com.image.image.detail.model.ImageDetailModel;
-import com.image.image.list.model.ImageListModel;
+import com.image.image.douban.detail.model.DouBanDetailModel;
+import com.image.image.douban.list.model.DouBanListModel;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -28,26 +28,26 @@ public class JsoupDoubanManager {
         return new JsoupDoubanManager(document);
     }
 
-    public List<ImageListModel> getImageList() {
-        List<ImageListModel> listModels = new ArrayList<>();
-        ImageListModel imageListModel;
+    public List<DouBanListModel> getImageList() {
+        List<DouBanListModel> listModels = new ArrayList<>();
+        DouBanListModel imageListModel;
         Elements a = document.select("div.img_single").select("a");
         for (Element element : a) {
-            imageListModel = new ImageListModel();
-            imageListModel.setUrl(element.select("img[class]").attr("src"));
-            imageListModel.setDetailUrl(element.select("a[class]").attr("href"));
+            imageListModel = new DouBanListModel();
+            imageListModel.url = element.select("img[class]").attr("src");
+            imageListModel.detailUrl = element.select("a[class]").attr("href");
             listModels.add(imageListModel);
         }
         return listModels;
     }
 
-    public List<ImageDetailModel> getImageDetail() {
-        List<ImageDetailModel> list = new ArrayList<>();
-        ImageDetailModel imageDetailModel;
+    public List<DouBanDetailModel> getImageDetail() {
+        List<DouBanDetailModel> list = new ArrayList<>();
+        DouBanDetailModel imageDetailModel;
         Elements img = document.select("div.panel-body").select("img");
         for (Element element : img) {
-            imageDetailModel = new ImageDetailModel();
-            imageDetailModel.setUrl(element.select("img[src]").attr("src"));
+            imageDetailModel = new DouBanDetailModel();
+            imageDetailModel.url = element.select("img[src]").attr("src");
             list.add(imageDetailModel);
         }
         return list;

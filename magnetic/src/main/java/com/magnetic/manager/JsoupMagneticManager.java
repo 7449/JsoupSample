@@ -34,8 +34,8 @@ public class JsoupMagneticManager {
         Elements select = document.select("div.r:has(a)");
         for (Element element : select) {
             listModel = new MagneticListModel();
-            listModel.setMessage(element.select("a").eq(0).text());
-            listModel.setUrl(element.select("a").eq(1).attr("href"));
+            listModel.message = element.select("a").eq(0).text();
+            listModel.url = element.select("a").eq(1).attr("href");
             listModels.add(listModel);
         }
         return listModels;

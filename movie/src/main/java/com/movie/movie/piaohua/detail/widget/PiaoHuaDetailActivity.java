@@ -26,7 +26,7 @@ public class PiaoHuaDetailActivity extends BaseActivity implements PiaoHuaDetail
     public static void startIntent(String url) {
         Bundle bundle = new Bundle();
         bundle.putString(URL, url);
-        UIUtils.INSTANCE.startActivity(PiaoHuaDetailActivity.class, bundle);
+        UIUtils.startActivity(PiaoHuaDetailActivity.class, bundle);
     }
 
     @Override
@@ -52,13 +52,13 @@ public class PiaoHuaDetailActivity extends BaseActivity implements PiaoHuaDetail
 
     @Override
     public void netWorkSuccess(PiaoHuaDetailModel data) {
-        toolbar.setTitle(data.getTitle());
-        webView.loadDataUrl(data.getMessage());
+        toolbar.setTitle(data.title);
+        webView.loadDataUrl(data.message);
     }
 
     @Override
     public void netWorkError() {
-        UIUtils.INSTANCE.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
+        UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
     }
 
     @Override

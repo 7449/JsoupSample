@@ -37,10 +37,10 @@ public class DyttVideoMorePresenterImpl extends PresenterImplCompat<List<DyttVid
 
     private String getMoreUrl(int type, int placeType, int page) {
         if (placeType == ApiConfig.Type.DYTT_CHOSEN_TYPE) {
-            String[] stringArray = UIUtils.INSTANCE.getStringArray(R.array.dytt_chosen_suffix);
+            String[] stringArray = UIUtils.getStringArray(R.array.dytt_chosen_suffix);
             return type == 0 ? String.format(BASE_URL + stringArray[type], page) : String.format(BASE_URL + stringArray[type - 1], page);
         } else {
-            return String.format(BASE_URL + UIUtils.INSTANCE.getStringArray(R.array.dytt_xl_suffix)[type], page);
+            return String.format(BASE_URL + UIUtils.getStringArray(R.array.dytt_xl_suffix)[type], page);
         }
     }
 }

@@ -26,7 +26,7 @@ public class Dy2018DetailActivity extends BaseActivity implements Dy2018DetailVi
     public static void startIntent(String url) {
         Bundle bundle = new Bundle();
         bundle.putString(URL, url);
-        UIUtils.INSTANCE.startActivity(Dy2018DetailActivity.class, bundle);
+        UIUtils.startActivity(Dy2018DetailActivity.class, bundle);
     }
 
     @Override
@@ -52,13 +52,13 @@ public class Dy2018DetailActivity extends BaseActivity implements Dy2018DetailVi
 
     @Override
     public void netWorkSuccess(Dy2018DetailModel data) {
-        toolbar.setTitle(data.getTitle());
-        webView.loadDataUrl(data.getMessage());
+        toolbar.setTitle(data.title);
+        webView.loadDataUrl(data.message);
     }
 
     @Override
     public void netWorkError() {
-        UIUtils.INSTANCE.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
+        UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
     }
 
     @Override

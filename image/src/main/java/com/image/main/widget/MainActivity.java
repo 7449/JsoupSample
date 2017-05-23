@@ -15,11 +15,11 @@ import com.framework.base.BaseActivity;
 import com.framework.utils.UIUtils;
 import com.image.R;
 import com.image.collection.list.CollectionListFragment;
-import com.image.image.search.widget.SearchListActivity;
 import com.image.main.presenter.MainPresenter;
 import com.image.main.presenter.MainPresenterImpl;
 import com.image.main.view.MainView;
 import com.image.manager.ApiConfig;
+import com.image.search.list.widget.SearchListActivity;
 import com.rxjsoupnetwork.manager.RxJsoupDisposeManager;
 import com.search.SearchFragment;
 import com.search.SearchToActivityInterface;
@@ -56,7 +56,7 @@ public class MainActivity extends BaseActivity
     @Override
     public void onBackPressed() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        SearchFragment searchFragment = (SearchFragment) fragmentManager.findFragmentByTag(SearchFragment.Companion.getSEARCH_TAG());
+        SearchFragment searchFragment = (SearchFragment) fragmentManager.findFragmentByTag(SearchFragment.SEARCH_TAG);
         if (searchFragment != null) {
             searchFragment.onBack();
         } else {
@@ -114,7 +114,7 @@ public class MainActivity extends BaseActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                SearchFragment.Companion.startFragment(this, this);
+                SearchFragment.startFragment(this, this);
                 break;
         }
         return true;
@@ -151,12 +151,12 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public void onSearchStart(@NonNull String content) {
+    public void onSearchStart(String content) {
         SearchListActivity.start(searchType, content);
     }
 
     @Override
     public void emptySearch() {
-        UIUtils.INSTANCE.toast(UIUtils.INSTANCE.getString(R.string.search_empty));
+        UIUtils.toast(UIUtils.getString(R.string.search_empty));
     }
 }

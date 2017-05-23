@@ -35,6 +35,9 @@ android {
             proguardFiles getDefaultProguardFile(rootProject.proguardFile), rootProject.proguardSuffixFile
         }
     }
+    greendao {
+        targetGenDir 'src/main/java/'
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

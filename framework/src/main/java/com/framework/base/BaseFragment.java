@@ -7,9 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.framework.App;
 import com.socks.library.KLog;
-import com.squareup.leakcanary.RefWatcher;
 
 /**
  * by y on 2016/7/26.
@@ -53,16 +51,6 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        RefWatcher refWatcher = App.Companion.getRefWatcher();
-        if (refWatcher != null) {
-            KLog.i("leakcanary", String.format("watch %s", getClass().getSimpleName()));
-            refWatcher.watch(this);
-        }
-    }
-
-    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (getUserVisibleHint()) {
@@ -94,6 +82,5 @@ public abstract class BaseFragment extends Fragment {
     protected void setLoad() {
         isLoad = true;
     }
-
 }
 

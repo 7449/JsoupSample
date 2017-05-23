@@ -35,8 +35,8 @@ public class XiaoPianJsoupManager {
         Elements select = document.select("a.ulink[title]");
         for (Element element : select) {
             model = new XiaoPianListModel();
-            model.setTitle(element.text());
-            model.setDetailUrl(element.attr("abs:href"));
+            model.title = element.text();
+            model.detailUrl = element.attr("abs:href");
             listModels.add(model);
         }
         return listModels;
@@ -44,8 +44,8 @@ public class XiaoPianJsoupManager {
 
     public XiaoPianDetailModel getXiaoPianDetail() {
         XiaoPianDetailModel model = new XiaoPianDetailModel();
-        model.setTitle(document.select("div.title_all").text());
-        model.setMessage(document.select("div#Zoom").html());
+        model.title = document.select("div.title_all").text();
+        model.message = document.select("div#Zoom").html();
         return model;
     }
 }

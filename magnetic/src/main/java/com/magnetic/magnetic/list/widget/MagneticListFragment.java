@@ -70,7 +70,7 @@ public class MagneticListFragment extends BaseFragment
             ++page;
             presenter.netWorkRequest("黑猫警长", tabPosition, page);
         });
-        adapter.setOnItemClickListener((view, position, info) -> UIUtils.INSTANCE.toast(info.getUrl())
+        adapter.setOnItemClickListener((view, position, info) -> UIUtils.toast(info.url)
         );
         recyclerView.setAdapter(adapter);
     }
@@ -91,7 +91,7 @@ public class MagneticListFragment extends BaseFragment
 
     @Override
     public void netWorkError() {
-        UIUtils.INSTANCE.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
+        UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
     }
 
     @Override
@@ -108,7 +108,7 @@ public class MagneticListFragment extends BaseFragment
 
     @Override
     public void noMore() {
-        UIUtils.INSTANCE.snackBar(getView(R.id.coordinatorLayout), getString(R.string.data_empty));
+        UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.data_empty));
     }
 
     @Override
