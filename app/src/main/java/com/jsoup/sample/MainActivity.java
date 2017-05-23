@@ -7,16 +7,14 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.framework.utils.MatcherUtils;
-import com.rxjsoupnetwork.manager.RxJsoupDisposeManager;
-import com.rxjsoupnetwork.manager.RxJsoupNetWork;
-import com.rxjsoupnetwork.manager.RxJsoupNetWorkListener;
 import com.socks.library.KLog;
 
-import io.reactivex.observers.DisposableObserver;
+import org.jsoup.nodes.Document;
+
+import io.reactivex.jsoup.network.manager.RxJsoupNetWork;
+import io.reactivex.jsoup.network.manager.RxJsoupNetWorkListener;
 
 public class MainActivity extends AppCompatActivity {
-
-    private DisposableObserver<String> api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,18 +24,8 @@ public class MainActivity extends AppCompatActivity {
         ProgressBar contentLoadingProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
         findViewById(R.id.test).setOnClickListener(v ->
-                api = RxJsoupNetWork.getInstance().getApi(
-
-                        RxJsoupNetWork.onSubscribe("http://www.mzitu.com/search/test/page/1/",
-                                document -> {
-                                    String a = document.select("div.nav-links").select("a").text();
-                                    if (TextUtils.isEmpty(a)) {
-                                        // 404 搜索没有数据
-                                    } else {
-                                        int anInt = MatcherUtils.getIntHasSpace(a);
-                                    }
-                                    return "Test";
-                                })
+                RxJsoupNetWork.getInstance().getApi(
+                        "http://www.mzitu.com/search/test/page/1/"
                         ,
                         new RxJsoupNetWorkListener<String>() {
                             @Override
@@ -60,6 +48,17 @@ public class MainActivity extends AppCompatActivity {
                             public void onNetWorkSuccess(String data) {
 
                             }
+
+                            @Override
+                            public String getT(Document document) {
+                                String a = document.select("div.nav-links").select("a").text();
+                                if (TextUtils.isEmpty(a)) {
+                                    // 404 搜索没有数据
+                                } else {
+                                    int anInt = MatcherUtils.getIntHasSpace(a);
+                                }
+                                return "Test";
+                            }
                         }
                 ));
     }
@@ -67,8 +66,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (api != null) {
-            RxJsoupDisposeManager.getInstance().unDispose(api);
-        }
+        RxJsoupNetWork.getInstance().cancel(RxJsoupNetWork.TAG);
     }
 }
