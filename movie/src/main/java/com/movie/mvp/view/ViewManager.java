@@ -1,6 +1,7 @@
 package com.movie.mvp.view;
 
 import com.framework.base.mvp.BaseListView;
+import com.framework.base.mvp.BaseModel;
 import com.framework.base.mvp.BaseView;
 import com.movie.mvp.model.MovieModel;
 
@@ -44,7 +45,7 @@ public interface ViewManager {
     interface XiaoPianListView extends BaseListView<List<MovieModel>> {
     }
 
-    interface MainView {
+    interface MainView extends BaseView<BaseModel> {
         void switchDytt();
 
         void swichDy2018();

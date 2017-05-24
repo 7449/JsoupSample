@@ -12,25 +12,23 @@ import android.view.MenuItem;
 import com.fiction.R;
 import com.fiction.manager.ApiConfig;
 import com.fiction.mvp.presenter.MainPresenterImpl;
-import com.fiction.mvp.presenter.PresenterManager;
 import com.fiction.mvp.view.ViewManager;
 import com.fiction.ui.fragment.SearchListFragment;
 import com.fiction.ui.fragment.TabFragment;
 import com.framework.base.BaseActivity;
+import com.framework.base.mvp.BaseModel;
 
-public class MainActivity extends BaseActivity
+public class MainActivity extends BaseActivity<MainPresenterImpl>
         implements NavigationView.OnNavigationItemSelectedListener, ViewManager.MainView {
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private PresenterManager.MainPresenter presenter;
     private AppBarLayout appBarLayout;
     private AppBarLayout.LayoutParams layoutParams;
 
     @Override
     protected void initCreate(Bundle savedInstanceState) {
         layoutParams = (AppBarLayout.LayoutParams) appBarLayout.getChildAt(0).getLayoutParams();
-        presenter = new MainPresenterImpl(this);
         navigationView.setNavigationItemSelectedListener(this);
         toolbar.setTitle(getString(R.string.title_81));
         switch81();
@@ -42,6 +40,11 @@ public class MainActivity extends BaseActivity
         toolbar = getView(R.id.toolbar);
         drawerLayout = getView(R.id.dl_layout);
         navigationView = getView(R.id.navigationview);
+    }
+
+    @Override
+    protected MainPresenterImpl initPresenterImpl() {
+        return new MainPresenterImpl(this);
     }
 
     @Override
@@ -67,7 +70,7 @@ public class MainActivity extends BaseActivity
         } else {
             layoutParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
         }
-        presenter.switchId(item.getItemId());
+        mPresenter.switchId(item.getItemId());
         drawerLayout.closeDrawers();
         return true;
     }
@@ -90,5 +93,25 @@ public class MainActivity extends BaseActivity
     @Override
     public void switchBiQuGe() {
         replaceFragment(TabFragment.newInstance(ApiConfig.Type.BI_QU_GE));
+    }
+
+    @Override
+    public void netWorkSuccess(BaseModel data) {
+
+    }
+
+    @Override
+    public void netWorkError() {
+
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
     }
 }

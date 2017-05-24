@@ -7,12 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.framework.base.mvp.PresenterImplCompat;
 import com.socks.library.KLog;
 
 /**
  * by y on 2016/7/26.
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment<P extends PresenterImplCompat> extends Fragment {
 
     protected static final String FRAGMENT_INDEX = "fragment_index";
     protected static final String FRAGMENT_TYPE = "fragment_type";
@@ -23,6 +24,7 @@ public abstract class BaseFragment extends Fragment {
     protected String type = null;
     protected Bundle bundle;
     private View view;
+    protected P mPresenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mPresenter=  initPresenter();
         initActivityCreated();
     }
 
@@ -74,6 +77,8 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected abstract void initById();
+
+    protected abstract P initPresenter();
 
     protected abstract void initActivityCreated();
 

@@ -12,7 +12,6 @@ import com.framework.widget.LoadMoreRecyclerView;
 import com.magnetic.R;
 import com.magnetic.mvp.model.MagneticModel;
 import com.magnetic.mvp.presenter.MagneticListPresenterImpl;
-import com.magnetic.mvp.presenter.PresenterManager;
 import com.magnetic.mvp.view.ViewManager;
 import com.xadapter.adapter.XRecyclerViewAdapter;
 
@@ -22,13 +21,12 @@ import java.util.List;
  * by y on 2017/4/28
  */
 
-public class MagneticListFragment extends BaseFragment
+public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl>
         implements SwipeRefreshLayout.OnRefreshListener, ViewManager.MagneticListView, MagneticSearchDialogFragment.MagneticListener {
     protected int page = 1;
     private LoadMoreRecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    private PresenterManager.MagneticListPresenter presenter;
     private XRecyclerViewAdapter<MagneticModel> mAdapter;
 
     public static MagneticListFragment newInstance(String type, int position) {
@@ -53,12 +51,16 @@ public class MagneticListFragment extends BaseFragment
     }
 
     @Override
+    protected MagneticListPresenterImpl initPresenter() {
+        return new MagneticListPresenterImpl(this);
+    }
+
+    @Override
     protected void initActivityCreated() {
         if (!isPrepared || !isVisible || isLoad) {
             return;
         }
         initRecyclerView();
-        presenter = new MagneticListPresenterImpl(this);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(this::onRefresh);
         setLoad();
@@ -70,7 +72,7 @@ public class MagneticListFragment extends BaseFragment
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setLoadingMore(() -> {
             ++page;
-            presenter.netWorkRequest("黑猫警长", tabPosition, page);
+            mPresenter.netWorkRequest("黑猫警长", tabPosition, page);
         });
         recyclerView.setAdapter(
                 mAdapter.setLayoutId(R.layout.item_magnetic_list)
@@ -84,7 +86,7 @@ public class MagneticListFragment extends BaseFragment
     @Override
     public void onRefresh() {
         page = 1;
-        presenter.netWorkRequest("黑猫警长", tabPosition, page);
+        mPresenter.netWorkRequest("黑猫警长", tabPosition, page);
     }
 
     @Override

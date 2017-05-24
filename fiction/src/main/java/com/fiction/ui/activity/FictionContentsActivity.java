@@ -22,11 +22,12 @@ import com.xadapter.holder.XViewHolder;
 import java.util.Collections;
 import java.util.List;
 
+
 /**
  * by y on 2017/4/6.
  */
 
-public class FictionContentsActivity extends BaseActivity
+public class FictionContentsActivity extends BaseActivity<FictionContentsPresenterImpl>
         implements ViewManager.FictionContentsView, OnXBindListener<FictionModel> {
 
     private static final String URL = "url";
@@ -35,11 +36,10 @@ public class FictionContentsActivity extends BaseActivity
 
     private String type = ApiConfig.Type.ZW_81;
 
-    private Toolbar toolbar;
     private ContentLoadingProgressBar progressBar;
     private RecyclerView recyclerView;
     private XRecyclerViewAdapter<FictionModel> mAdapter;
-
+    private Toolbar toolbar;
 
     public static void getInstance(String type, String url, String title) {
         Bundle bundle = new Bundle();
@@ -65,7 +65,7 @@ public class FictionContentsActivity extends BaseActivity
                         .onXBind(this)
                         .setOnItemClickListener((view, position, info) -> FictionDetailActivity.getInstance(type, info.detailUrl))
         );
-        new FictionContentsPresenterImpl(this).startContents(extras.getString(URL), type);
+        mPresenter.startContents(extras.getString(URL), type);
     }
 
     @Override
@@ -73,6 +73,11 @@ public class FictionContentsActivity extends BaseActivity
         toolbar = getView(R.id.toolbar);
         recyclerView = getView(R.id.recyclerView);
         progressBar = getView(R.id.progress_bar);
+    }
+
+    @Override
+    protected FictionContentsPresenterImpl initPresenterImpl() {
+        return new FictionContentsPresenterImpl(this);
     }
 
     @Override

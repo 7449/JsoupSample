@@ -8,22 +8,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.framework.base.BaseActivity;
+import com.framework.base.mvp.BaseModel;
 import com.magnetic.R;
 import com.magnetic.manager.ApiConfig;
 import com.magnetic.mvp.presenter.MainPresenterImpl;
-import com.magnetic.mvp.presenter.PresenterManager;
 import com.magnetic.mvp.view.ViewManager;
 import com.magnetic.ui.fragment.TabFragment;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, ViewManager.MainView {
+public class MainActivity extends BaseActivity<MainPresenterImpl> implements NavigationView.OnNavigationItemSelectedListener, ViewManager.MainView {
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private PresenterManager.MainPresenter presenter;
 
     @Override
     protected void initCreate(Bundle savedInstanceState) {
-        presenter = new MainPresenterImpl(this);
         navigationView.setNavigationItemSelectedListener(this);
         toolbar.setTitle(getString(R.string.app_name));
         setSupportActionBar(toolbar);
@@ -38,6 +36,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     @Override
+    protected MainPresenterImpl initPresenterImpl() {
+        return new MainPresenterImpl(this);
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
     }
@@ -45,7 +48,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         toolbar.setTitle(item.getTitle());
-        presenter.switchId(item.getItemId());
+        mPresenter.switchId(item.getItemId());
         drawerLayout.closeDrawers();
         return true;
     }
@@ -53,5 +56,25 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public void switchMagnetic() {
         replaceFragment(TabFragment.newInstance(ApiConfig.Type.MAGNETIC));
+    }
+
+    @Override
+    public void netWorkSuccess(BaseModel data) {
+
+    }
+
+    @Override
+    public void netWorkError() {
+
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
     }
 }

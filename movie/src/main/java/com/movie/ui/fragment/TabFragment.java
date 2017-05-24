@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.framework.base.BaseFragment;
+import com.framework.base.mvp.PresenterImplCompat;
 import com.framework.utils.UIUtils;
 import com.movie.R;
 import com.movie.manager.ApiConfig;
@@ -37,8 +38,13 @@ public class TabFragment extends BaseFragment {
 
     @Override
     protected void initById() {
-        tabLayout = getView(R.id.tab_layout);
-        viewPager = getView(R.id.viewPager);
+        tabLayout = (TabLayout) getView(R.id.tab_layout);
+        viewPager = (ViewPager) getView(R.id.viewPager);
+    }
+
+    @Override
+    protected PresenterImplCompat initPresenter() {
+        return null;
     }
 
     @Override

@@ -11,6 +11,7 @@ import com.fiction.R;
 import com.fiction.manager.ApiConfig;
 import com.fiction.manager.JsoupFictionHomeManager;
 import com.framework.base.BaseFragment;
+import com.framework.base.mvp.PresenterImplCompat;
 import com.framework.utils.UIUtils;
 
 import io.reactivex.jsoup.network.bus.RxBus;
@@ -41,8 +42,13 @@ public class TabFragment extends BaseFragment {
 
     @Override
     protected void initById() {
-        tabLayout = getView(R.id.tab_layout);
-        viewPager = getView(R.id.viewPager);
+        tabLayout = (TabLayout) getView(R.id.tab_layout);
+        viewPager = (ViewPager) getView(R.id.viewPager);
+    }
+
+    @Override
+    protected PresenterImplCompat initPresenter() {
+        return null;
     }
 
     @Override

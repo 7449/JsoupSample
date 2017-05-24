@@ -29,7 +29,7 @@ import io.reactivex.jsoup.network.bus.RxBus;
  * by y on 2017/4/20
  */
 
-public class FictionHomeFragment extends BaseFragment
+public class FictionHomeFragment extends BaseFragment<FictionHomePresenterImpl>
         implements SwipeRefreshLayout.OnRefreshListener,
         ViewManager.FictionHomeView, XMultiAdapterListener<FictionModel> {
 
@@ -50,6 +50,11 @@ public class FictionHomeFragment extends BaseFragment
     protected void initById() {
         swipeRefreshLayout = getView(R.id.srf_layout);
         recyclerView = getView(R.id.recyclerView);
+    }
+
+    @Override
+    protected FictionHomePresenterImpl initPresenter() {
+        return new FictionHomePresenterImpl(this);
     }
 
     @Override
@@ -83,7 +88,7 @@ public class FictionHomeFragment extends BaseFragment
 
     @Override
     public void onRefresh() {
-        new FictionHomePresenterImpl(this).netWorkRequest(type);
+        mPresenter.netWorkRequest(type);
     }
 
     @Override

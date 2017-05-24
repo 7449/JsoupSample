@@ -3,36 +3,44 @@ package com.movie.mvp.presenter;
 
 import android.support.annotation.MenuRes;
 
+import com.framework.base.mvp.BaseModel;
+import com.framework.base.mvp.PresenterImplCompat;
 import com.movie.R;
 import com.movie.mvp.view.ViewManager;
+
+import org.jsoup.nodes.Document;
 
 /**
  * by y on 2017/3/22
  */
 
-public class MainPresenterImpl implements PresenterManager.MainPresenter {
+public class MainPresenterImpl extends PresenterImplCompat<BaseModel,ViewManager.MainView> implements PresenterManager.MainPresenter {
 
-    private final ViewManager.MainView mainView;
 
-    public MainPresenterImpl(ViewManager.MainView mainView) {
-        this.mainView = mainView;
+    public MainPresenterImpl(ViewManager.MainView view) {
+        super(view);
     }
 
     @Override
     public void switchId(@MenuRes int id) {
         switch (id) {
             case R.id.dytt:
-                mainView.switchDytt();
+                view.switchDytt();
                 break;
             case R.id.dy_2018:
-                mainView.swichDy2018();
+                view.swichDy2018();
                 break;
             case R.id.xiaopian:
-                mainView.switchXiaoPian();
+                view.switchXiaoPian();
                 break;
             case R.id.piaohua:
-                mainView.switchPiaoHua();
+                view.switchPiaoHua();
                 break;
         }
+    }
+
+    @Override
+    public BaseModel getT(Document document) {
+        return null;
     }
 }

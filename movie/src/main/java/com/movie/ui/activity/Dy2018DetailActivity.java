@@ -16,7 +16,7 @@ import com.movie.mvp.view.ViewManager;
  * by y on 2017/3/24.
  */
 
-public class Dy2018DetailActivity extends BaseActivity implements ViewManager.Dy2018DetailView {
+public class Dy2018DetailActivity extends BaseActivity<Dy2018DetailPresenterImpl> implements ViewManager.Dy2018DetailView {
 
     private static final String URL = "url";
     private Toolbar toolbar;
@@ -35,7 +35,7 @@ public class Dy2018DetailActivity extends BaseActivity implements ViewManager.Dy
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        new Dy2018DetailPresenterImpl(this).netWorkRequest(getIntent().getExtras().getString(URL));
+        mPresenter.netWorkRequest(getIntent().getExtras().getString(URL));
     }
 
     @Override
@@ -43,6 +43,11 @@ public class Dy2018DetailActivity extends BaseActivity implements ViewManager.Dy
         toolbar = getView(R.id.toolbar);
         webView = getView(R.id.webView);
         progressBar = getView(R.id.progress_bar);
+    }
+
+    @Override
+    protected Dy2018DetailPresenterImpl initPresenterImpl() {
+        return new Dy2018DetailPresenterImpl(this);
     }
 
     @Override

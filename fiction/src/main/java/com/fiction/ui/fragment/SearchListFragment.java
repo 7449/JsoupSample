@@ -14,7 +14,6 @@ import com.fiction.db.GreenDaoDbUtils;
 import com.fiction.db.SqlBean;
 import com.fiction.manager.ApiConfig;
 import com.fiction.mvp.model.FictionModel;
-import com.fiction.mvp.presenter.PresenterManager;
 import com.fiction.mvp.presenter.SearchListPresenterImpl;
 import com.fiction.mvp.view.ViewManager;
 import com.fiction.ui.activity.FictionContentsActivity;
@@ -28,13 +27,12 @@ import com.xadapter.adapter.XRecyclerViewAdapter;
 
 import java.util.List;
 
-public class SearchListFragment extends BaseFragment
+public class SearchListFragment extends BaseFragment<SearchListPresenterImpl>
         implements View.OnClickListener, ViewManager.SearchListView,
         LoadMoreRecyclerView.LoadMoreListener,
         View.OnFocusChangeListener,
         DialogInterface.OnClickListener {
 
-    private PresenterManager.SearchListPresenter presenter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private LoadMoreRecyclerView recyclerView;
     private EditText editText;
@@ -52,9 +50,13 @@ public class SearchListFragment extends BaseFragment
     }
 
     @Override
+    protected SearchListPresenterImpl initPresenter() {
+        return new SearchListPresenterImpl(this);
+    }
+
+    @Override
     protected void initActivityCreated() {
         swipeRefreshLayout.setEnabled(false);
-        presenter = new SearchListPresenterImpl(this);
         mAdapter = new XRecyclerViewAdapter<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setLoadingMore(this);
@@ -119,7 +121,7 @@ public class SearchListFragment extends BaseFragment
     public void onLoadMore() {
         if (editText != null) {
             ++page;
-            presenter.startSearch(fictionName, page, searchType);
+            mPresenter.startSearch(fictionName, page, searchType);
         }
     }
 
@@ -138,7 +140,7 @@ public class SearchListFragment extends BaseFragment
 
     private void startNetWork() {
         page = 0;
-        presenter.startSearch(fictionName, page, searchType);
+        mPresenter.startSearch(fictionName, page, searchType);
     }
 
     private void startDialog() {

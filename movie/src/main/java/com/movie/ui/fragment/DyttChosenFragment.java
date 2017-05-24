@@ -13,7 +13,6 @@ import com.movie.manager.ApiConfig;
 import com.movie.manager.DyttJsoupManager;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.presenter.DyttChosenPresenterImpl;
-import com.movie.mvp.presenter.PresenterManager;
 import com.movie.mvp.view.ViewManager;
 import com.movie.ui.activity.DyttVideoDetailActivity;
 import com.movie.ui.activity.DyttVideoMoreActivity;
@@ -29,11 +28,10 @@ import java.util.List;
  * by y on 2017/3/24
  */
 
-public class DyttChosenFragment extends BaseFragment
+public class DyttChosenFragment extends BaseFragment<DyttChosenPresenterImpl>
         implements SwipeRefreshLayout.OnRefreshListener, ViewManager.DyttChosenView, XMultiAdapterListener<MovieModel> {
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
-    private PresenterManager.DyttChosenPresenter presenter;
     private MultiAdapter<MovieModel> mAdapter;
     private static final int TYPE_HEADER = 0;
 
@@ -49,12 +47,16 @@ public class DyttChosenFragment extends BaseFragment
     }
 
     @Override
+    protected DyttChosenPresenterImpl initPresenter() {
+        return new DyttChosenPresenterImpl(this);
+    }
+
+    @Override
     protected void initActivityCreated() {
         if (!isPrepared || !isVisible || isLoad) {
             return;
         }
         initRecyclerView();
-        presenter = new DyttChosenPresenterImpl(this);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(this::onRefresh);
         setLoad();
@@ -76,7 +78,7 @@ public class DyttChosenFragment extends BaseFragment
 
     @Override
     public void onRefresh() {
-        presenter.netWorkRequest();
+        mPresenter.netWorkRequest();
     }
 
     @Override

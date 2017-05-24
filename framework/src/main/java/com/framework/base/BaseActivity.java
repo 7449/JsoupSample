@@ -7,35 +7,39 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.framework.R;
-import com.socks.library.KLog;
+import com.framework.base.mvp.PresenterImplCompat;
 
 /**
  * by y on 2016/7/26.
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity<P extends PresenterImplCompat> extends AppCompatActivity {
+
+
+    protected P mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         initById();
+        mPresenter = initPresenterImpl();
         initCreate(savedInstanceState);
-        KLog.i(getClass().getSimpleName());
     }
 
     public void replaceFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragment).commit();
     }
 
-
     protected <T extends View> T getView(int id) {
-        //noinspection unchecked
         return (T) findViewById(id);
     }
+
 
     protected abstract void initCreate(Bundle savedInstanceState);
 
     protected abstract void initById();
+
+    protected abstract P initPresenterImpl();
 
     protected abstract int getLayoutId();
 
@@ -46,4 +50,5 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

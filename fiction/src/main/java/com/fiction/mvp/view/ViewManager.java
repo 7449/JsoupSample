@@ -2,6 +2,7 @@ package com.fiction.mvp.view;
 
 import com.fiction.mvp.model.FictionModel;
 import com.framework.base.mvp.BaseListView;
+import com.framework.base.mvp.BaseModel;
 import com.framework.base.mvp.BaseView;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public interface ViewManager {
         void fictionNameEmpty();
     }
 
-    interface MainView {
+    interface MainView extends BaseView<BaseModel> {
         void switchSearch();
 
         void switch81();

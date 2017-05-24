@@ -13,7 +13,6 @@ import com.framework.widget.LoadMoreRecyclerView;
 import com.movie.R;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.presenter.PiaoHuaListPresenterImpl;
-import com.movie.mvp.presenter.PresenterManager;
 import com.movie.mvp.view.ViewManager;
 import com.movie.ui.activity.PiaoHuaDetailActivity;
 import com.xadapter.adapter.XRecyclerViewAdapter;
@@ -24,7 +23,7 @@ import java.util.List;
  * by y on 2017/4/18
  */
 
-public class PiaoHuaListFragment extends BaseFragment
+public class PiaoHuaListFragment extends BaseFragment<PiaoHuaListPresenterImpl>
         implements SwipeRefreshLayout.OnRefreshListener,
         LoadMoreRecyclerView.LoadMoreListener,
         ViewManager.PiaoHuaListView {
@@ -33,7 +32,6 @@ public class PiaoHuaListFragment extends BaseFragment
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private LoadMoreRecyclerView recyclerView;
-    private PresenterManager.PiaoHuaListPresenter presenter;
     private XRecyclerViewAdapter<MovieModel> mAdapter;
 
     public static PiaoHuaListFragment newInstance(int position) {
@@ -58,12 +56,15 @@ public class PiaoHuaListFragment extends BaseFragment
     }
 
     @Override
+    protected PiaoHuaListPresenterImpl initPresenter() {
+        return new PiaoHuaListPresenterImpl(this);
+    }
+
+    @Override
     protected void initActivityCreated() {
         if (!isPrepared || !isVisible || isLoad) {
             return;
         }
-
-        presenter = new PiaoHuaListPresenterImpl(this);
 
         mAdapter = new XRecyclerViewAdapter<>();
 
@@ -99,7 +100,7 @@ public class PiaoHuaListFragment extends BaseFragment
     @Override
     public void onRefresh() {
         page = 1;
-        presenter.netWorkRequest(tabPosition, page);
+        mPresenter.netWorkRequest(tabPosition, page);
     }
 
     @Override
@@ -108,7 +109,7 @@ public class PiaoHuaListFragment extends BaseFragment
             return;
         }
         ++page;
-        presenter.netWorkRequest(tabPosition, page);
+        mPresenter.netWorkRequest(tabPosition, page);
     }
 
     @Override

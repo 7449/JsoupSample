@@ -11,7 +11,6 @@ import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
 import com.image.R;
 import com.image.mvp.model.ImageModel;
-import com.image.mvp.presenter.PresenterManager;
 import com.image.mvp.presenter.SearchListPresenterImpl;
 import com.image.mvp.view.ViewManager;
 import com.xadapter.adapter.XRecyclerViewAdapter;
@@ -22,7 +21,7 @@ import java.util.List;
  * by y on 2017/4/19.
  */
 
-public class SearchListActivity extends BaseActivity
+public class SearchListActivity extends BaseActivity<SearchListPresenterImpl>
         implements
         SwipeRefreshLayout.OnRefreshListener,
         ViewManager.SearchListView {
@@ -38,7 +37,6 @@ public class SearchListActivity extends BaseActivity
 
     private XRecyclerViewAdapter<ImageModel> mAdapter;
 
-    private PresenterManager.SearchListPresenter presenter;
     private int page = 1;
 
     public static void start(String searchType, String content) {
@@ -60,7 +58,6 @@ public class SearchListActivity extends BaseActivity
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         toolbar.setTitle(searchType + " (关键词:" + content + ")");
-        presenter = new SearchListPresenterImpl(this);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(this::onRefresh);
         initRecyclerView();
@@ -76,7 +73,7 @@ public class SearchListActivity extends BaseActivity
                 return;
             }
             ++page;
-            presenter.netWorkRequest(searchType, content, page);
+            mPresenter.netWorkRequest(searchType, content, page);
         });
         recyclerView.setAdapter(
                 mAdapter.setLayoutId(R.layout.activity_search)
@@ -93,6 +90,11 @@ public class SearchListActivity extends BaseActivity
     }
 
     @Override
+    protected SearchListPresenterImpl initPresenterImpl() {
+        return new SearchListPresenterImpl(this);
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.activity_search;
     }
@@ -100,7 +102,7 @@ public class SearchListActivity extends BaseActivity
     @Override
     public void onRefresh() {
         page = 1;
-        presenter.netWorkRequest(searchType, content, page);
+        mPresenter.netWorkRequest(searchType, content, page);
     }
 
     @Override

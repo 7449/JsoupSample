@@ -10,7 +10,6 @@ import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
 import com.movie.R;
 import com.movie.mvp.model.MovieModel;
-import com.movie.mvp.presenter.PresenterManager;
 import com.movie.mvp.presenter.XiaoPianListPresenterImpl;
 import com.movie.mvp.view.ViewManager;
 import com.movie.ui.activity.XiaopianDetailActivity;
@@ -22,7 +21,7 @@ import java.util.List;
  * by y on 2017/3/24.
  */
 
-public class XiaoPianListFragment extends BaseFragment
+public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl>
         implements SwipeRefreshLayout.OnRefreshListener,
         LoadMoreRecyclerView.LoadMoreListener,
         ViewManager.XiaoPianListView {
@@ -31,7 +30,6 @@ public class XiaoPianListFragment extends BaseFragment
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private LoadMoreRecyclerView recyclerView;
-    private PresenterManager.XiaoPianListPresenter presenter;
     private XRecyclerViewAdapter<MovieModel> mAdapter;
 
     public static XiaoPianListFragment newInstance(int position) {
@@ -56,13 +54,15 @@ public class XiaoPianListFragment extends BaseFragment
     }
 
     @Override
+    protected XiaoPianListPresenterImpl initPresenter() {
+        return new XiaoPianListPresenterImpl(this);
+    }
+
+    @Override
     protected void initActivityCreated() {
         if (!isPrepared || !isVisible || isLoad) {
             return;
         }
-
-        presenter = new XiaoPianListPresenterImpl(this);
-
         mAdapter = new XRecyclerViewAdapter<>();
 
         recyclerView.setHasFixedSize(true);
@@ -94,7 +94,7 @@ public class XiaoPianListFragment extends BaseFragment
     @Override
     public void onRefresh() {
         page = 1;
-        presenter.netWorkRequest(tabPosition, page);
+        mPresenter.netWorkRequest(tabPosition, page);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class XiaoPianListFragment extends BaseFragment
             return;
         }
         ++page;
-        presenter.netWorkRequest(tabPosition, page);
+        mPresenter.netWorkRequest(tabPosition, page);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.image.mvp.view;
 
 import com.framework.base.mvp.BaseListView;
+import com.framework.base.mvp.BaseModel;
 import com.framework.base.mvp.BaseView;
 import com.image.mvp.model.ImageModel;
 
@@ -23,7 +24,7 @@ public interface ViewManager {
 
     }
 
-    interface MainView {
+    interface MainView extends BaseView<BaseModel> {
 
         void switchDouban();
 

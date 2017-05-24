@@ -27,14 +27,13 @@ import java.util.List;
  * by y on 2017/3/24
  */
 
-public class DyttXLMoreActivity extends BaseActivity
+public class DyttXLMoreActivity extends BaseActivity<DyttXLMorePresenterImpl>
         implements SwipeRefreshLayout.OnRefreshListener, ViewManager.DyttXLMoreView, XMultiAdapterListener<MovieModel> {
     private static final String TITLE = "title";
 
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private PresenterManager.DyttXLMorePresenter presenter;
 
     private MultiAdapter<MovieModel> mAdapter;
     private static final int TYPE_HEADER = 0;
@@ -47,7 +46,6 @@ public class DyttXLMoreActivity extends BaseActivity
 
     @Override
     protected void initCreate(Bundle savedInstanceState) {
-        presenter = new DyttXLMorePresenterImpl(this);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -74,13 +72,18 @@ public class DyttXLMoreActivity extends BaseActivity
     }
 
     @Override
+    protected DyttXLMorePresenterImpl initPresenterImpl() {
+        return new DyttXLMorePresenterImpl(this);
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.activity_dytt_more_xl;
     }
 
     @Override
     public void onRefresh() {
-        presenter.netWorkRequest(ApiConfig.DYTT_XL);
+        mPresenter.netWorkRequest(ApiConfig.DYTT_XL);
     }
 
     @Override

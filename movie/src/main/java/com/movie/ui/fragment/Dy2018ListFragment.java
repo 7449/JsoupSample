@@ -11,7 +11,6 @@ import com.framework.widget.LoadMoreRecyclerView;
 import com.movie.R;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.presenter.Dy2018ListPresenterImpl;
-import com.movie.mvp.presenter.PresenterManager;
 import com.movie.mvp.view.ViewManager;
 import com.movie.ui.activity.Dy2018DetailActivity;
 import com.xadapter.adapter.XRecyclerViewAdapter;
@@ -22,7 +21,7 @@ import java.util.List;
  * by y on 2017/3/24.
  */
 
-public class Dy2018ListFragment extends BaseFragment
+public class Dy2018ListFragment extends BaseFragment<Dy2018ListPresenterImpl>
         implements SwipeRefreshLayout.OnRefreshListener,
         LoadMoreRecyclerView.LoadMoreListener,
         ViewManager.Dy2018ListView {
@@ -31,7 +30,6 @@ public class Dy2018ListFragment extends BaseFragment
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private LoadMoreRecyclerView recyclerView;
-    private PresenterManager.Dy2018ListPresenter presenter;
     private XRecyclerViewAdapter<MovieModel> mAdapte;
 
     public static Dy2018ListFragment newInstance(int position) {
@@ -56,12 +54,15 @@ public class Dy2018ListFragment extends BaseFragment
     }
 
     @Override
+    protected Dy2018ListPresenterImpl initPresenter() {
+        return new Dy2018ListPresenterImpl(this);
+    }
+
+    @Override
     protected void initActivityCreated() {
         if (!isPrepared || !isVisible || isLoad) {
             return;
         }
-
-        presenter = new Dy2018ListPresenterImpl(this);
 
         mAdapte = new XRecyclerViewAdapter<>();
 
@@ -94,7 +95,7 @@ public class Dy2018ListFragment extends BaseFragment
     @Override
     public void onRefresh() {
         page = 1;
-        presenter.netWorkRequest(tabPosition, page);
+        mPresenter.netWorkRequest(tabPosition, page);
     }
 
     @Override
@@ -103,7 +104,7 @@ public class Dy2018ListFragment extends BaseFragment
             return;
         }
         ++page;
-        presenter.netWorkRequest(tabPosition, page);
+        mPresenter.netWorkRequest(tabPosition, page);
     }
 
     @Override

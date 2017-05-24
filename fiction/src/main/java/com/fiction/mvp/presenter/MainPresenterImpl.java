@@ -4,35 +4,43 @@ import android.support.annotation.MenuRes;
 
 import com.fiction.R;
 import com.fiction.mvp.view.ViewManager;
+import com.framework.base.mvp.BaseModel;
+import com.framework.base.mvp.PresenterImplCompat;
+
+import org.jsoup.nodes.Document;
 
 
 /**
  * by y on 2017/3/22
  */
 
-public class MainPresenterImpl implements PresenterManager.MainPresenter {
+public class MainPresenterImpl  extends PresenterImplCompat<BaseModel,ViewManager.MainView> implements PresenterManager.MainPresenter {
 
-    private final ViewManager.MainView mainView;
 
-    public MainPresenterImpl(ViewManager.MainView mainView) {
-        this.mainView = mainView;
+    public MainPresenterImpl(ViewManager.MainView view) {
+        super(view);
     }
 
     @Override
     public void switchId(@MenuRes int id) {
         switch (id) {
             case R.id.search:
-                mainView.switchSearch();
+                view.switchSearch();
                 break;
             case R.id.fiction_81:
-                mainView.switch81();
+                view.switch81();
                 break;
             case R.id.bi_qu_ge:
-                mainView.switchBiQuGe();
+                view.switchBiQuGe();
                 break;
             case R.id.ksw:
-                mainView.switchKsw();
+                view.switchKsw();
                 break;
         }
+    }
+
+    @Override
+    public BaseModel getT(Document document) {
+        return null;
     }
 }

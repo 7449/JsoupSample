@@ -18,7 +18,7 @@ import com.movie.mvp.view.ViewManager;
  * dytt电影界面
  */
 
-public class DyttVideoDetailActivity extends BaseActivity implements
+public class DyttVideoDetailActivity extends BaseActivity<DyttVideoDetailPresenterImpl> implements
         ViewManager.DyttVideoDetailView {
     private static final String URL = "URL";
 
@@ -38,7 +38,7 @@ public class DyttVideoDetailActivity extends BaseActivity implements
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        new DyttVideoDetailPresenterImpl(this).netWorkRequest(getIntent().getExtras().getString(URL));
+        mPresenter.netWorkRequest(getIntent().getExtras().getString(URL));
     }
 
     @Override
@@ -46,6 +46,11 @@ public class DyttVideoDetailActivity extends BaseActivity implements
         toolbar = getView(R.id.toolbar);
         webView = getView(R.id.webView);
         progressBar = getView(R.id.progress_bar);
+    }
+
+    @Override
+    protected DyttVideoDetailPresenterImpl initPresenterImpl() {
+        return new DyttVideoDetailPresenterImpl(this);
     }
 
     @Override

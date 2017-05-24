@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.framework.base.BaseFragment;
+import com.framework.base.mvp.PresenterImplCompat;
 import com.framework.utils.ImageLoaderUtils;
 import com.image.R;
 import com.image.collection.CollectionModel;
@@ -35,8 +36,13 @@ public class CollectionListFragment extends BaseFragment
 
     @Override
     protected void initById() {
-        recyclerView = getView(R.id.recyclerView);
-        textView = getView(R.id.tv_empty);
+        recyclerView = (RecyclerView) getView(R.id.recyclerView);
+        textView = (TextView) getView(R.id.tv_empty);
+    }
+
+    @Override
+    protected PresenterImplCompat initPresenter() {
+        return null;
     }
 
     @Override

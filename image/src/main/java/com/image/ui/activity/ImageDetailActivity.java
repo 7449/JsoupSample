@@ -20,7 +20,6 @@ import com.image.R;
 import com.image.collection.CollectionUtils;
 import com.image.mvp.model.ImageModel;
 import com.image.mvp.presenter.ImageDetailPresenterImpl;
-import com.image.mvp.presenter.PresenterManager;
 import com.image.mvp.view.ViewManager;
 
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ import java.util.List;
  * by y on 2017/3/23
  */
 
-public class ImageDetailActivity extends BaseActivity implements ViewManager.ImageDetailView {
+public class ImageDetailActivity extends BaseActivity<ImageDetailPresenterImpl> implements ViewManager.ImageDetailView {
     private static final String URL = "URL";
     private static final String TYPE = "TYPE";
     private String type;
@@ -53,7 +52,6 @@ public class ImageDetailActivity extends BaseActivity implements ViewManager.Ima
         Bundle extras = getIntent().getExtras();
         type = extras.getString(TYPE);
 
-        PresenterManager.ImageDetailPresenter presenter = new ImageDetailPresenterImpl(this);
 
         adapter = new ImageDetailAdapter(new ArrayList<>());
         viewPager.setAdapter(adapter);
@@ -64,7 +62,7 @@ public class ImageDetailActivity extends BaseActivity implements ViewManager.Ima
             setTitles(1, adapter.getCount());
         }
 
-        presenter.netWorkRequest(type, extras.getString(URL));
+        mPresenter.netWorkRequest(type, extras.getString(URL));
 
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -100,6 +98,11 @@ public class ImageDetailActivity extends BaseActivity implements ViewManager.Ima
         toolbar = getView(R.id.toolbar);
         viewPager = getView(R.id.viewPager);
         loadingProgressBar = getView(R.id.progress_bar);
+    }
+
+    @Override
+    protected ImageDetailPresenterImpl initPresenterImpl() {
+        return new ImageDetailPresenterImpl(this);
     }
 
     @Override

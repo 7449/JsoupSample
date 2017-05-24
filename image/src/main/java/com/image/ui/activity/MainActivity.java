@@ -10,20 +10,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.framework.base.BaseActivity;
+import com.framework.base.mvp.BaseModel;
 import com.image.R;
 import com.image.manager.ApiConfig;
 import com.image.mvp.presenter.MainPresenterImpl;
-import com.image.mvp.presenter.PresenterManager;
 import com.image.mvp.view.ViewManager;
 import com.image.ui.fragment.CollectionListFragment;
 import com.image.ui.fragment.TabFragment;
 
-public class MainActivity extends BaseActivity
+public class MainActivity extends BaseActivity<MainPresenterImpl>
         implements NavigationView.OnNavigationItemSelectedListener, ViewManager.MainView {
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private PresenterManager.MainPresenter presenter;
     private AppBarLayout appBarLayout;
     private AppBarLayout.LayoutParams layoutParams;
     private String searchType = null;
@@ -32,7 +31,6 @@ public class MainActivity extends BaseActivity
     @Override
     protected void initCreate(Bundle savedInstanceState) {
         layoutParams = (AppBarLayout.LayoutParams) appBarLayout.getChildAt(0).getLayoutParams();
-        presenter = new MainPresenterImpl(this);
         navigationView.setNavigationItemSelectedListener(this);
         toolbar.setTitle(getString(R.string.dbmz_title));
         setSupportActionBar(toolbar);
@@ -45,6 +43,11 @@ public class MainActivity extends BaseActivity
         toolbar = getView(R.id.toolbar);
         drawerLayout = getView(R.id.dl_layout);
         navigationView = getView(R.id.navigationview);
+    }
+
+    @Override
+    protected MainPresenterImpl initPresenterImpl() {
+        return null;
     }
 
     @Override
@@ -65,7 +68,7 @@ public class MainActivity extends BaseActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         toolbar.setTitle(item.getTitle());
-        presenter.switchId(item.getItemId());
+        mPresenter.switchId(item.getItemId());
         if (item.getItemId() == R.id.collection) {
             replaceFragment(CollectionListFragment.newInstance());
             layoutParams.setScrollFlags(0);
@@ -107,4 +110,23 @@ public class MainActivity extends BaseActivity
         searchType = ApiConfig.Type.COLLECTION;
     }
 
+    @Override
+    public void netWorkSuccess(BaseModel data) {
+
+    }
+
+    @Override
+    public void netWorkError() {
+
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
 }

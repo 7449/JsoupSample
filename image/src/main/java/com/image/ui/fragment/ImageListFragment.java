@@ -11,7 +11,6 @@ import com.framework.widget.LoadMoreRecyclerView;
 import com.image.R;
 import com.image.mvp.model.ImageModel;
 import com.image.mvp.presenter.ImageListPresenterImpl;
-import com.image.mvp.presenter.PresenterManager;
 import com.image.mvp.view.ViewManager;
 import com.image.ui.activity.ImageDetailActivity;
 import com.xadapter.adapter.XRecyclerViewAdapter;
@@ -22,15 +21,13 @@ import java.util.List;
 /**
  * by y on 2016/7/28.
  */
-public class ImageListFragment extends BaseFragment
+public class ImageListFragment extends BaseFragment<ImageListPresenterImpl>
         implements SwipeRefreshLayout.OnRefreshListener, ViewManager.ImageListView {
 
     protected int page = 1;
 
     private LoadMoreRecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
-
-    private PresenterManager.ImageListPresenter imageListPresenter;
 
     private XRecyclerViewAdapter<ImageModel> mAdapter;
 
@@ -56,12 +53,16 @@ public class ImageListFragment extends BaseFragment
     }
 
     @Override
+    protected ImageListPresenterImpl initPresenter() {
+        return new ImageListPresenterImpl(this);
+    }
+
+    @Override
     protected void initActivityCreated() {
         if (!isPrepared || !isVisible || isLoad) {
             return;
         }
         initRecyclerView();
-        imageListPresenter = new ImageListPresenterImpl(this);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(this::onRefresh);
         setLoad();
@@ -73,7 +74,7 @@ public class ImageListFragment extends BaseFragment
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setLoadingMore(() -> {
             ++page;
-            imageListPresenter.netWorkRequest(type, tabPosition, page);
+            mPresenter.netWorkRequest(type, tabPosition, page);
         });
         recyclerView.setAdapter(
                 mAdapter
@@ -91,7 +92,7 @@ public class ImageListFragment extends BaseFragment
     @Override
     public void onRefresh() {
         page = 1;
-        imageListPresenter.netWorkRequest(type, tabPosition, page);
+        mPresenter.netWorkRequest(type, tabPosition, page);
     }
 
 

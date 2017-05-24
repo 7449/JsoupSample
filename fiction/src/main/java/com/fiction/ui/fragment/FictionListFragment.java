@@ -26,7 +26,7 @@ import java.util.List;
  * by y on 2017/4/6.
  */
 
-public class FictionListFragment extends BaseFragment
+public class FictionListFragment extends BaseFragment<FictionListPresenterImpl>
         implements ViewManager.FictionListView, SwipeRefreshLayout.OnRefreshListener, XMultiAdapterListener<FictionModel> {
 
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -57,6 +57,11 @@ public class FictionListFragment extends BaseFragment
     }
 
     @Override
+    protected FictionListPresenterImpl initPresenter() {
+        return new FictionListPresenterImpl(this);
+    }
+
+    @Override
     protected void initActivityCreated() {
         if (!isPrepared || !isVisible || isLoad) {
             return;
@@ -80,7 +85,7 @@ public class FictionListFragment extends BaseFragment
 
     @Override
     public void onRefresh() {
-        new FictionListPresenterImpl(this).netWork(type, tabPosition);
+        mPresenter.netWork(type, tabPosition);
     }
 
     @Override

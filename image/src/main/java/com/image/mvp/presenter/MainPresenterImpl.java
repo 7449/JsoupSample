@@ -2,42 +2,50 @@ package com.image.mvp.presenter;
 
 import android.support.annotation.MenuRes;
 
+import com.framework.base.mvp.BaseModel;
+import com.framework.base.mvp.PresenterImplCompat;
 import com.image.R;
 import com.image.mvp.view.ViewManager;
+
+import org.jsoup.nodes.Document;
 
 /**
  * by y on 2017/3/22
  */
 
-public class MainPresenterImpl implements PresenterManager.MainPresenter {
+public class MainPresenterImpl extends PresenterImplCompat<BaseModel,ViewManager.MainView> implements PresenterManager.MainPresenter {
 
-    private final ViewManager.MainView mainView;
 
-    public MainPresenterImpl(ViewManager.MainView mainView) {
-        this.mainView = mainView;
+    public MainPresenterImpl(ViewManager.MainView view) {
+        super(view);
     }
 
     @Override
     public void switchId(@MenuRes int id) {
         switch (id) {
             case R.id.mzitu:
-                mainView.switchMZitu();
+                view.switchMZitu();
                 break;
             case R.id.dbmz:
-                mainView.switchDouban();
+                view.switchDouban();
                 break;
             case R.id.mm:
-                mainView.switchMM();
+                view.switchMM();
                 break;
             case R.id.meizitu:
-                mainView.switchMeiZiTu();
+                view.switchMeiZiTu();
                 break;
             case R.id.kk:
-                mainView.switch7KK();
+                view.switch7KK();
                 break;
             case R.id.collection:
-                mainView.switchCollection();
+                view.switchCollection();
                 break;
         }
+    }
+
+    @Override
+    public BaseModel getT(Document document) {
+        return null;
     }
 }

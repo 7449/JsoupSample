@@ -24,7 +24,7 @@ import java.util.List;
  * by y on 2017/3/24
  */
 
-public class DyttVideoMoreActivity extends BaseActivity
+public class DyttVideoMoreActivity extends BaseActivity<DyttVideoMorePresenterImpl>
         implements ViewManager.DyttVideoMoreView,
         SwipeRefreshLayout.OnRefreshListener, LoadMoreRecyclerView.LoadMoreListener {
     private static final String TYPE = "type";
@@ -36,7 +36,6 @@ public class DyttVideoMoreActivity extends BaseActivity
     private LoadMoreRecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Toolbar toolbar;
-    private PresenterManager.DyttVideoMorePresenter presenter;
     private XRecyclerViewAdapter<MovieModel> mAdapter;
 
     public static void startIntent(int type, int placeType, String title) {
@@ -74,7 +73,6 @@ public class DyttVideoMoreActivity extends BaseActivity
                         })
         );
 
-        presenter = new DyttVideoMorePresenterImpl(this);
 
         swipeRefreshLayout.post(this::onRefresh);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -88,6 +86,11 @@ public class DyttVideoMoreActivity extends BaseActivity
     }
 
     @Override
+    protected DyttVideoMorePresenterImpl initPresenterImpl() {
+        return new DyttVideoMorePresenterImpl(this);
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.activity_dytt_more_video;
     }
@@ -95,7 +98,7 @@ public class DyttVideoMoreActivity extends BaseActivity
     @Override
     public void onRefresh() {
         page = 1;
-        presenter.netWorkRequest(type, placeType, page);
+        mPresenter.netWorkRequest(type, placeType, page);
     }
 
     @Override
@@ -104,7 +107,7 @@ public class DyttVideoMoreActivity extends BaseActivity
             return;
         }
         ++page;
-        presenter.netWorkRequest(type, placeType, page);
+        mPresenter.netWorkRequest(type, placeType, page);
     }
 
     @Override

@@ -16,7 +16,7 @@ import com.movie.mvp.view.ViewManager;
  * by y on 2017/3/24.
  */
 
-public class PiaoHuaDetailActivity extends BaseActivity implements ViewManager.PiaoHuaDetailView {
+public class PiaoHuaDetailActivity extends BaseActivity<PiaoHuaDetailPresenterImpl> implements ViewManager.PiaoHuaDetailView {
 
     private static final String URL = "url";
     private Toolbar toolbar;
@@ -35,7 +35,7 @@ public class PiaoHuaDetailActivity extends BaseActivity implements ViewManager.P
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        new PiaoHuaDetailPresenterImpl(this).netWorkRequest(getIntent().getExtras().getString(URL));
+        mPresenter.netWorkRequest(getIntent().getExtras().getString(URL));
     }
 
     @Override
@@ -43,6 +43,11 @@ public class PiaoHuaDetailActivity extends BaseActivity implements ViewManager.P
         toolbar = getView(R.id.toolbar);
         webView = getView(R.id.webView);
         progressBar = getView(R.id.progress_bar);
+    }
+
+    @Override
+    protected PiaoHuaDetailPresenterImpl initPresenterImpl() {
+        return new PiaoHuaDetailPresenterImpl(this);
     }
 
     @Override

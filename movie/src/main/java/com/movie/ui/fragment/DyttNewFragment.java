@@ -10,7 +10,6 @@ import com.framework.utils.UIUtils;
 import com.movie.R;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.presenter.DyttNewPresenterImpl;
-import com.movie.mvp.presenter.PresenterManager;
 import com.movie.mvp.view.ViewManager;
 import com.movie.ui.activity.DyttVideoDetailActivity;
 import com.xadapter.adapter.XRecyclerViewAdapter;
@@ -23,13 +22,12 @@ import java.util.List;
  * 最新发布170部影视 Fragment
  */
 
-public class DyttNewFragment extends BaseFragment
+public class DyttNewFragment extends BaseFragment<DyttNewPresenterImpl>
         implements SwipeRefreshLayout.OnRefreshListener,
         ViewManager.DyttNewView {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
-    private PresenterManager.DyttNewPresenter presenter;
     private XRecyclerViewAdapter<MovieModel> mAdapter;
 
     public static DyttNewFragment newInstance() {
@@ -43,12 +41,16 @@ public class DyttNewFragment extends BaseFragment
     }
 
     @Override
+    protected DyttNewPresenterImpl initPresenter() {
+        return new DyttNewPresenterImpl(this);
+    }
+
+    @Override
     protected void initActivityCreated() {
         if (!isPrepared || !isVisible || isLoad) {
             return;
         }
         initRecyclerView();
-        presenter = new DyttNewPresenterImpl(this);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(this::onRefresh);
         setLoad();
@@ -78,7 +80,7 @@ public class DyttNewFragment extends BaseFragment
 
     @Override
     public void onRefresh() {
-        presenter.netWorkRequest();
+        mPresenter.netWorkRequest();
     }
 
     @Override
