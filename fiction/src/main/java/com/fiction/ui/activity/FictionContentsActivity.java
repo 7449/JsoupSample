@@ -7,19 +7,18 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.fiction.R;
-import com.fiction.adapter.FictionContentAdapter;
 import com.fiction.manager.ApiConfig;
 import com.fiction.mvp.model.FictionModel;
 import com.fiction.mvp.presenter.FictionContentsPresenterImpl;
 import com.fiction.mvp.view.ViewManager;
 import com.framework.base.BaseActivity;
-import com.framework.base.BaseRecyclerAdapter;
 import com.framework.utils.UIUtils;
+import com.xadapter.OnXBindListener;
+import com.xadapter.adapter.XRecyclerViewAdapter;
+import com.xadapter.holder.XViewHolder;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,7 +27,7 @@ import java.util.List;
  */
 
 public class FictionContentsActivity extends BaseActivity
-        implements ViewManager.FictionContentsView, BaseRecyclerAdapter.OnItemClickListener<FictionModel> {
+        implements ViewManager.FictionContentsView, OnXBindListener<FictionModel> {
 
     private static final String URL = "url";
     private static final String TITLE = "title";
@@ -39,9 +38,8 @@ public class FictionContentsActivity extends BaseActivity
     private Toolbar toolbar;
     private ContentLoadingProgressBar progressBar;
     private RecyclerView recyclerView;
-    private FictionContentAdapter adapter;
+    private XRecyclerViewAdapter<FictionModel> mAdapter;
 
-    private List<FictionModel> list;
 
     public static void getInstance(String type, String url, String title) {
         Bundle bundle = new Bundle();
@@ -58,11 +56,15 @@ public class FictionContentsActivity extends BaseActivity
         type = extras.getString(TYPE);
         toolbar.setTitle(extras.getString(TITLE));
         setSupportActionBar(toolbar);
-        list = new ArrayList<>();
-        adapter = new FictionContentAdapter(list);
-        adapter.setOnItemClickListener(this);
+
+        mAdapter = new XRecyclerViewAdapter<>();
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(
+                mAdapter
+                        .setLayoutId(R.layout.item_fiction_list_contents)
+                        .onXBind(this)
+                        .setOnItemClickListener((view, position, info) -> FictionDetailActivity.getInstance(type, info.detailUrl))
+        );
         new FictionContentsPresenterImpl(this).startContents(extras.getString(URL), type);
     }
 
@@ -82,7 +84,7 @@ public class FictionContentsActivity extends BaseActivity
     @Override
     public void netWorkSuccess(List<FictionModel> data) {
         Collections.reverse(data);
-        adapter.addAll(data);
+        mAdapter.addAllData(data);
     }
 
     @Override
@@ -100,10 +102,6 @@ public class FictionContentsActivity extends BaseActivity
         progressBar.hide();
     }
 
-    @Override
-    public void onItemClick(View view, int position, FictionModel info) {
-        FictionDetailActivity.getInstance(type, info.detailUrl);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -115,10 +113,20 @@ public class FictionContentsActivity extends BaseActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_sort:
-                Collections.reverse(list);
-                adapter.notifyDataSetChanged();
+                Collections.reverse(mAdapter.getData());
+                mAdapter.notifyDataSetChanged();
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onXBind(XViewHolder holder, int position, FictionModel fictionModel) {
+        if (position < 10) {
+            holder.setTextColor(R.id.contents_tv_, R.color.colorAccent);
+        } else {
+            holder.setTextColor(R.id.contents_tv_, R.color.black);
+        }
+        holder.setTextView(R.id.contents_tv_, fictionModel.title);
     }
 }

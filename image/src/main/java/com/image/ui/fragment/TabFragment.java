@@ -2,11 +2,15 @@ package com.image.ui.fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.framework.R;
 import com.framework.base.BaseFragment;
-import com.image.adapter.TabAdapter;
+import com.framework.utils.UIUtils;
+import com.image.manager.ApiConfig;
 
 
 /**
@@ -48,4 +52,51 @@ public class TabFragment extends BaseFragment {
     protected int getLayoutId() {
         return R.layout.fragment_tab;
     }
+
+
+    private static class TabAdapter extends FragmentPagerAdapter {
+
+        private String[] name;
+        private String type;
+
+        TabAdapter(FragmentManager childFragmentManager, String type) {
+            super(childFragmentManager);
+            this.type = type;
+            switch (type) {
+                case ApiConfig.Type.DOU_BAN_MEI_ZI:
+                    name = UIUtils.getStringArray(R.array.dbmz_array);
+                    break;
+                case ApiConfig.Type.M_ZI_TU:
+                    name = UIUtils.getStringArray(R.array.mzitu_array);
+                    break;
+                case ApiConfig.Type.MM:
+                    name = UIUtils.getStringArray(R.array.mm_array);
+                    break;
+                case ApiConfig.Type.MEIZITU:
+                    name = UIUtils.getStringArray(R.array.meizitu_array);
+                    break;
+                case ApiConfig.Type.KK:
+                    name = UIUtils.getStringArray(R.array.kk_array);
+                    break;
+            }
+
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return ImageListFragment.newInstance(type, position);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return name[position];
+        }
+
+        @Override
+        public int getCount() {
+            return name.length;
+        }
+
+    }
+
 }

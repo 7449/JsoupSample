@@ -3,22 +3,21 @@ package com.movie.ui.fragment;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.view.View;
+import android.text.Html;
 
 import com.framework.base.BaseFragment;
-import com.framework.base.BaseRecyclerAdapter;
 import com.framework.utils.ApkUtils;
+import com.framework.utils.ImageLoaderUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
 import com.movie.R;
-import com.movie.adapter.PiaoHuaListAdapter;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.presenter.PiaoHuaListPresenterImpl;
 import com.movie.mvp.presenter.PresenterManager;
 import com.movie.mvp.view.ViewManager;
 import com.movie.ui.activity.PiaoHuaDetailActivity;
+import com.xadapter.adapter.XRecyclerViewAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,15 +27,14 @@ import java.util.List;
 public class PiaoHuaListFragment extends BaseFragment
         implements SwipeRefreshLayout.OnRefreshListener,
         LoadMoreRecyclerView.LoadMoreListener,
-        BaseRecyclerAdapter.OnItemClickListener<MovieModel>,
         ViewManager.PiaoHuaListView {
 
     private int page = 1;
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private LoadMoreRecyclerView recyclerView;
-    private PiaoHuaListAdapter adapter;
     private PresenterManager.PiaoHuaListPresenter presenter;
+    private XRecyclerViewAdapter<MovieModel> mAdapter;
 
     public static PiaoHuaListFragment newInstance(int position) {
         PiaoHuaListFragment fragment = new PiaoHuaListFragment();
@@ -67,13 +65,25 @@ public class PiaoHuaListFragment extends BaseFragment
 
         presenter = new PiaoHuaListPresenterImpl(this);
 
-        adapter = new PiaoHuaListAdapter(new ArrayList<>());
-        adapter.setOnItemClickListener(this);
+        mAdapter = new XRecyclerViewAdapter<>();
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerView.setLoadingMore(this);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(
+                mAdapter.setLayoutId(R.layout.item_piao_hua)
+                        .onXBind((holder, position, movieModel) -> {
+                            holder.setTextView(R.id.piaohua_item_tv, Html.fromHtml(movieModel.title));
+                            ImageLoaderUtils.display(holder.getImageView(R.id.piaohua_item_iv), movieModel.url);
+                        })
+                        .setOnItemClickListener((view, position, info) -> {
+                            if (ApkUtils.getXLIntent() != null) {
+                                PiaoHuaDetailActivity.startIntent(info.detailUrl);
+                            } else {
+                                UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
+                            }
+                        })
+        );
 
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(this::onRefresh);
@@ -104,9 +114,9 @@ public class PiaoHuaListFragment extends BaseFragment
     @Override
     public void netWorkSuccess(List<MovieModel> data) {
         if (page == 1) {
-            adapter.removeAll();
+            mAdapter.removeAll();
         }
-        adapter.addAll(data);
+        mAdapter.addAllData(data);
     }
 
     @Override
@@ -125,15 +135,6 @@ public class PiaoHuaListFragment extends BaseFragment
     public void hideProgress() {
         if (swipeRefreshLayout != null)
             swipeRefreshLayout.setRefreshing(false);
-    }
-
-    @Override
-    public void onItemClick(View view, int position, MovieModel info) {
-        if (ApkUtils.getXLIntent() != null) {
-            PiaoHuaDetailActivity.startIntent(info.detailUrl);
-        } else {
-            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
-        }
     }
 
     @Override

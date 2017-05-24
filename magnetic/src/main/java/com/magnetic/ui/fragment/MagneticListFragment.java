@@ -10,13 +10,12 @@ import com.framework.base.BaseFragment;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
 import com.magnetic.R;
-import com.magnetic.adapter.MagneticListAdapter;
 import com.magnetic.mvp.model.MagneticModel;
 import com.magnetic.mvp.presenter.MagneticListPresenterImpl;
 import com.magnetic.mvp.presenter.PresenterManager;
 import com.magnetic.mvp.view.ViewManager;
+import com.xadapter.adapter.XRecyclerViewAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +29,7 @@ public class MagneticListFragment extends BaseFragment
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private PresenterManager.MagneticListPresenter presenter;
-    private MagneticListAdapter adapter;
+    private XRecyclerViewAdapter<MagneticModel> mAdapter;
 
     public static MagneticListFragment newInstance(String type, int position) {
         MagneticListFragment listFragment = new MagneticListFragment();
@@ -66,16 +65,20 @@ public class MagneticListFragment extends BaseFragment
     }
 
     private void initRecyclerView() {
-        adapter = new MagneticListAdapter(new ArrayList<>());
+        mAdapter = new XRecyclerViewAdapter<>();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setLoadingMore(() -> {
             ++page;
             presenter.netWorkRequest("黑猫警长", tabPosition, page);
         });
-        adapter.setOnItemClickListener((view, position, info) -> UIUtils.toast(info.url)
+        recyclerView.setAdapter(
+                mAdapter.setLayoutId(R.layout.item_magnetic_list)
+                        .onXBind((holder, position, magneticModel) -> holder.setTextView(R.id.list_tv, magneticModel.message))
+                        .setOnItemClickListener((view, position, info) -> {
+
+                        })
         );
-        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -87,9 +90,9 @@ public class MagneticListFragment extends BaseFragment
     @Override
     public void netWorkSuccess(List<MagneticModel> data) {
         if (page == 1) {
-            adapter.removeAll();
+            mAdapter.removeAll();
         }
-        adapter.addAll(data);
+        mAdapter.addAllData(data);
     }
 
     @Override

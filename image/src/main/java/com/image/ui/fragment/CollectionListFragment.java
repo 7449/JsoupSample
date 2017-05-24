@@ -6,14 +6,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.framework.base.BaseFragment;
-import com.framework.base.BaseRecyclerAdapter;
+import com.framework.utils.ImageLoaderUtils;
 import com.image.R;
-import com.image.adapter.CollectionListAdapter;
 import com.image.collection.CollectionModel;
 import com.image.collection.CollectionUtils;
 import com.image.collection.GreenDaoDbUtils;
 import com.image.ui.dialog.CollectionDetailDialog;
 import com.image.ui.dialog.CollectionListDialog;
+import com.xadapter.adapter.XRecyclerViewAdapter;
 
 import java.util.List;
 
@@ -22,12 +22,12 @@ import java.util.List;
  */
 
 public class CollectionListFragment extends BaseFragment
-        implements BaseRecyclerAdapter.OnItemClickListener<CollectionModel>,
-        BaseRecyclerAdapter.OnItemLongClickListener<CollectionModel>, CollectionListDialog.CollectionListener {
+        implements CollectionListDialog.CollectionListener {
 
     private RecyclerView recyclerView;
     private TextView textView;
-    private CollectionListAdapter collectionListAdapter;
+
+    private XRecyclerViewAdapter<CollectionModel> mAdapter;
 
     public static CollectionListFragment newInstance() {
         return new CollectionListFragment();
@@ -41,13 +41,20 @@ public class CollectionListFragment extends BaseFragment
 
     @Override
     protected void initActivityCreated() {
+        mAdapter = new XRecyclerViewAdapter<>();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         List<CollectionModel> collectionAll = GreenDaoDbUtils.getCollectionAll();
-        collectionListAdapter = new CollectionListAdapter(collectionAll);
-        collectionListAdapter.setOnItemClickListener(this);
-        collectionListAdapter.setOnLongClickListener(this);
-        recyclerView.setAdapter(collectionListAdapter);
+
+        recyclerView.setAdapter(
+                mAdapter.initXData(collectionAll).setLayoutId(R.layout.item_collection)
+                        .onXBind((holder, position, collectionModel) -> ImageLoaderUtils.display(holder.getImageView(R.id.image), collectionModel.getUrl()))
+                        .setOnItemClickListener((view2, position, info) -> CollectionDetailDialog.startFragment(position, getChildFragmentManager()))
+                        .setOnLongClickListener((view, position, info) -> {
+                            CollectionListDialog.newInstance(position, getChildFragmentManager(), "collection");
+                            return true;
+                        })
+        );
 
         textView.setVisibility(collectionAll.isEmpty() ? View.VISIBLE : View.GONE);
         recyclerView.setVisibility(collectionAll.isEmpty() ? View.GONE : View.VISIBLE);
@@ -59,20 +66,10 @@ public class CollectionListFragment extends BaseFragment
     }
 
     @Override
-    public void onItemClick(View view, int position, CollectionModel info) {
-        CollectionDetailDialog.startFragment(position, getChildFragmentManager());
-    }
-
-    @Override
-    public void onLongClick(View view, int position, CollectionModel info) {
-        CollectionListDialog.newInstance(position, getChildFragmentManager(), "collection");
-    }
-
-    @Override
     public void onCollectionDeletedNext(int position) {
-        CollectionUtils.deleted(collectionListAdapter.getData(position).getUrl());
-        collectionListAdapter.remove(position);
-        if (collectionListAdapter.getDatas().isEmpty()) {
+        CollectionUtils.deleted(mAdapter.getData(position).getUrl());
+        mAdapter.remove(position);
+        if (mAdapter.getData().isEmpty()) {
             recyclerView.setVisibility(View.GONE);
             textView.setVisibility(View.VISIBLE);
         }

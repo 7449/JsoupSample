@@ -6,17 +6,16 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 
 import com.framework.base.BaseActivity;
+import com.framework.utils.ImageLoaderUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
 import com.image.R;
-import com.image.adapter.SearchListAdapter;
 import com.image.mvp.model.ImageModel;
 import com.image.mvp.presenter.PresenterManager;
 import com.image.mvp.presenter.SearchListPresenterImpl;
 import com.image.mvp.view.ViewManager;
-import com.socks.library.KLog;
+import com.xadapter.adapter.XRecyclerViewAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +35,8 @@ public class SearchListActivity extends BaseActivity
     private Toolbar toolbar;
     private SwipeRefreshLayout swipeRefreshLayout;
     private LoadMoreRecyclerView recyclerView;
-    private SearchListAdapter adapter;
+
+    private XRecyclerViewAdapter<ImageModel> mAdapter;
 
     private PresenterManager.SearchListPresenter presenter;
     private int page = 1;
@@ -67,21 +67,22 @@ public class SearchListActivity extends BaseActivity
     }
 
     private void initRecyclerView() {
-        adapter = new SearchListAdapter(new ArrayList<>());
+        mAdapter = new XRecyclerViewAdapter<>();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setLoadingMore(() -> {
-            KLog.i(adapter.getTotalPage());
-            if (page == adapter.getTotalPage()) {
+            if (page == mAdapter.getData().get(0).totalPage) {
                 UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.data_empty));
                 return;
             }
             ++page;
             presenter.netWorkRequest(searchType, content, page);
         });
-        adapter.setOnItemClickListener(
-                (view, position, info) -> ImageDetailActivity.startIntent(searchType, info.detailUrl));
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(
+                mAdapter.setLayoutId(R.layout.activity_search)
+                        .onXBind((holder, position, imageModel) -> ImageLoaderUtils.display(holder.getImageView(R.id.image), imageModel.url))
+                        .setOnItemClickListener((view, position, info) -> ImageDetailActivity.startIntent(searchType, info.detailUrl))
+        );
     }
 
     @Override
@@ -105,9 +106,9 @@ public class SearchListActivity extends BaseActivity
     @Override
     public void netWorkSuccess(List<ImageModel> data) {
         if (page == 1) {
-            adapter.removeAll();
+            mAdapter.removeAll();
         }
-        adapter.addAll(data);
+        mAdapter.addAllData(data);
     }
 
     @Override

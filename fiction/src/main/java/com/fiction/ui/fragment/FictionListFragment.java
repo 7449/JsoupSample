@@ -2,16 +2,22 @@ package com.fiction.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import com.fiction.R;
-import com.fiction.adapter.FictionListAdapter;
+import com.fiction.manager.JsoupFictionListManager;
 import com.fiction.mvp.model.FictionModel;
 import com.fiction.mvp.presenter.FictionListPresenterImpl;
 import com.fiction.mvp.view.ViewManager;
+import com.fiction.ui.activity.FictionContentsActivity;
 import com.framework.base.BaseFragment;
+import com.framework.utils.ImageLoaderUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
+import com.xadapter.adapter.multi.MultiAdapter;
+import com.xadapter.adapter.multi.XMultiAdapterListener;
+import com.xadapter.holder.XViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +27,12 @@ import java.util.List;
  */
 
 public class FictionListFragment extends BaseFragment
-        implements ViewManager.FictionListView, SwipeRefreshLayout.OnRefreshListener {
+        implements ViewManager.FictionListView, SwipeRefreshLayout.OnRefreshListener, XMultiAdapterListener<FictionModel> {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private LoadMoreRecyclerView recyclerView;
 
-    private FictionListAdapter adapter;
+    private MultiAdapter<FictionModel> mAdapter;
 
     public static FictionListFragment newInstance(String type, int position) {
         FictionListFragment biQuGeListFragment = new FictionListFragment();
@@ -58,10 +64,12 @@ public class FictionListFragment extends BaseFragment
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(this::onRefresh);
 
-        adapter = new FictionListAdapter(new ArrayList<>(), type);
+        mAdapter = new MultiAdapter<>(new ArrayList<>());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(
+                mAdapter.setXMultiAdapterListener(this)
+        );
         setLoad();
     }
 
@@ -77,8 +85,10 @@ public class FictionListFragment extends BaseFragment
 
     @Override
     public void netWorkSuccess(List<FictionModel> data) {
-        adapter.removeAll();
-        adapter.addAll(data);
+        if (mAdapter.getData() != null) {
+            mAdapter.getData().clear();
+        }
+        mAdapter.addAll(data);
     }
 
     @Override
@@ -97,5 +107,54 @@ public class FictionListFragment extends BaseFragment
     public void hideProgress() {
         if (swipeRefreshLayout != null)
             swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public int multiLayoutId(int viewItemType) {
+        switch (viewItemType) {
+            case JsoupFictionListManager.TYPE_HEADER:
+                return R.layout.item_fiction_list_header;
+            case JsoupFictionListManager.TYPE_TITLE:
+                return R.layout.item_fiction_list_title;
+            default:
+                return R.layout.item_fiction_list_item;
+        }
+    }
+
+    @Override
+    public int getGridLayoutManagerSpanSize(int itemViewType, GridLayoutManager gridManager, int position) {
+        return 0;
+    }
+
+    @Override
+    public boolean getStaggeredGridLayoutManagerFullSpan(int itemViewType) {
+        return itemViewType == JsoupFictionListManager.TYPE_HEADER
+                || itemViewType == JsoupFictionListManager.TYPE_TITLE;
+    }
+
+    @Override
+    public void onXMultiBind(XViewHolder holder, FictionModel fictionModel, int itemViewType, int position) {
+        if (mAdapter.getData() == null) {
+            return;
+        }
+        FictionModel biqugeListModel = mAdapter.getData().get(position);
+        switch (itemViewType) {
+            case JsoupFictionListManager.TYPE_HEADER:
+
+                holder.setTextView(R.id.tv_title, biqugeListModel.title);
+                holder.setTextView(R.id.tv_content, biqugeListModel.message);
+                ImageLoaderUtils.display(holder.getImageView(R.id.image), biqugeListModel.url);
+                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, biqugeListModel.detailUrl, biqugeListModel.title));
+
+                break;
+            case JsoupFictionListManager.TYPE_TITLE:
+                holder.setTextView(R.id.tv_title, biqugeListModel.title);
+                break;
+            case JsoupFictionListManager.TYPE_UPDATE:
+            case JsoupFictionListManager.TYPE_ADD:
+                holder.setTextView(R.id.tv_title, biqugeListModel.title);
+                holder.itemView.setOnClickListener(v -> FictionContentsActivity.getInstance(type, biqugeListModel.detailUrl, biqugeListModel.title));
+                break;
+        }
     }
 }

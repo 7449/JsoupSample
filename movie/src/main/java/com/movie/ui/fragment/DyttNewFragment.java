@@ -3,21 +3,18 @@ package com.movie.ui.fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.framework.base.BaseFragment;
-import com.framework.base.BaseRecyclerAdapter;
 import com.framework.utils.ApkUtils;
 import com.framework.utils.UIUtils;
 import com.movie.R;
-import com.movie.adapter.DyttNewAdapter;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.presenter.DyttNewPresenterImpl;
 import com.movie.mvp.presenter.PresenterManager;
 import com.movie.mvp.view.ViewManager;
 import com.movie.ui.activity.DyttVideoDetailActivity;
+import com.xadapter.adapter.XRecyclerViewAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,13 +25,12 @@ import java.util.List;
 
 public class DyttNewFragment extends BaseFragment
         implements SwipeRefreshLayout.OnRefreshListener,
-        BaseRecyclerAdapter.OnItemClickListener<MovieModel>,
         ViewManager.DyttNewView {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private PresenterManager.DyttNewPresenter presenter;
-    private DyttNewAdapter adapter;
+    private XRecyclerViewAdapter<MovieModel> mAdapter;
 
     public static DyttNewFragment newInstance() {
         return new DyttNewFragment();
@@ -59,11 +55,20 @@ public class DyttNewFragment extends BaseFragment
     }
 
     private void initRecyclerView() {
-        adapter = new DyttNewAdapter(new ArrayList<>());
-        adapter.setOnItemClickListener(this);
+        mAdapter = new XRecyclerViewAdapter<>();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(mAdapter
+                .setLayoutId(R.layout.item_dytt_new)
+                .onXBind((holder, position, movieModel) -> holder.setTextView(R.id.tv_dytt_new, movieModel.title))
+                .setOnItemClickListener((view, position, info) -> {
+                    if (ApkUtils.getXLIntent() != null) {
+                        DyttVideoDetailActivity.startIntent(info.detailUrl);
+                    } else {
+                        UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
+                    }
+                })
+        );
     }
 
     @Override
@@ -78,9 +83,9 @@ public class DyttNewFragment extends BaseFragment
 
     @Override
     public void netWorkSuccess(List<MovieModel> data) {
-        adapter.removeAll();
+        mAdapter.removeAll();
         data.remove(0);
-        adapter.addAll(data);
+        mAdapter.addAllData(data);
     }
 
     @Override
@@ -100,14 +105,5 @@ public class DyttNewFragment extends BaseFragment
     public void hideProgress() {
         if (swipeRefreshLayout != null)
             swipeRefreshLayout.setRefreshing(false);
-    }
-
-    @Override
-    public void onItemClick(View view, int position, MovieModel info) {
-        if (ApkUtils.getXLIntent() != null) {
-            DyttVideoDetailActivity.startIntent(info.detailUrl);
-        } else {
-            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
-        }
     }
 }

@@ -5,17 +5,17 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import com.framework.base.BaseFragment;
+import com.framework.utils.ImageLoaderUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
 import com.image.R;
-import com.image.adapter.ImageListAdapter;
 import com.image.mvp.model.ImageModel;
 import com.image.mvp.presenter.ImageListPresenterImpl;
 import com.image.mvp.presenter.PresenterManager;
 import com.image.mvp.view.ViewManager;
 import com.image.ui.activity.ImageDetailActivity;
+import com.xadapter.adapter.XRecyclerViewAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -30,8 +30,9 @@ public class ImageListFragment extends BaseFragment
     private LoadMoreRecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    private ImageListAdapter adapter;
     private PresenterManager.ImageListPresenter imageListPresenter;
+
+    private XRecyclerViewAdapter<ImageModel> mAdapter;
 
     public static ImageListFragment newInstance(String type, int position) {
         ImageListFragment imageListFragment = new ImageListFragment();
@@ -67,17 +68,19 @@ public class ImageListFragment extends BaseFragment
     }
 
     private void initRecyclerView() {
-        adapter = new ImageListAdapter(new ArrayList<>());
+        mAdapter = new XRecyclerViewAdapter<>();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setLoadingMore(() -> {
             ++page;
             imageListPresenter.netWorkRequest(type, tabPosition, page);
         });
-        adapter.setOnItemClickListener((view, position, info) ->
-                ImageDetailActivity.startIntent(type, info.detailUrl)
+        recyclerView.setAdapter(
+                mAdapter
+                        .setLayoutId(R.layout.item_image_list)
+                        .onXBind((holder, position, imageModel) -> ImageLoaderUtils.display(holder.getImageView(R.id.image), imageModel.url))
+                        .setOnItemClickListener((view, position, info) -> ImageDetailActivity.startIntent(type, info.detailUrl))
         );
-        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -95,9 +98,9 @@ public class ImageListFragment extends BaseFragment
     @Override
     public void netWorkSuccess(List<ImageModel> data) {
         if (page == 1) {
-            adapter.removeAll();
+            mAdapter.removeAll();
         }
-        adapter.addAll(data);
+        mAdapter.addAllData(data);
     }
 
     @Override

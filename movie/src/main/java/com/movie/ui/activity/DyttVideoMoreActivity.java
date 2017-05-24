@@ -4,23 +4,20 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.framework.base.BaseActivity;
-import com.framework.base.BaseRecyclerAdapter;
 import com.framework.utils.ApkUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
 import com.movie.R;
-import com.movie.adapter.DyttVideoMoreAdapter;
 import com.movie.manager.ApiConfig;
 import com.movie.manager.DyttJsoupManager;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.presenter.DyttVideoMorePresenterImpl;
 import com.movie.mvp.presenter.PresenterManager;
 import com.movie.mvp.view.ViewManager;
+import com.xadapter.adapter.XRecyclerViewAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +26,6 @@ import java.util.List;
 
 public class DyttVideoMoreActivity extends BaseActivity
         implements ViewManager.DyttVideoMoreView,
-        BaseRecyclerAdapter.OnItemClickListener<MovieModel>,
         SwipeRefreshLayout.OnRefreshListener, LoadMoreRecyclerView.LoadMoreListener {
     private static final String TYPE = "type";
     private static final String TITLE = "title";
@@ -41,7 +37,7 @@ public class DyttVideoMoreActivity extends BaseActivity
     private SwipeRefreshLayout swipeRefreshLayout;
     private Toolbar toolbar;
     private PresenterManager.DyttVideoMorePresenter presenter;
-    private DyttVideoMoreAdapter adapter;
+    private XRecyclerViewAdapter<MovieModel> mAdapter;
 
     public static void startIntent(int type, int placeType, String title) {
         Bundle bundle = new Bundle();
@@ -61,13 +57,22 @@ public class DyttVideoMoreActivity extends BaseActivity
         placeType = extras.getInt(PLACE);
         type = extras.getInt(TYPE);
         toolbar.setTitle(extras.getString(TITLE));
-        adapter = new DyttVideoMoreAdapter(new ArrayList<>());
-        adapter.setOnItemClickListener(this);
+        mAdapter = new XRecyclerViewAdapter<>();
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setLoadingMore(this);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(
+                mAdapter.setLayoutId(R.layout.item_dytt_more_video)
+                        .onXBind((holder, position, movieModel) -> holder.setTextView(R.id.dytt_item_content, movieModel.title))
+                        .setOnItemClickListener((view, position, info) -> {
+                            if (ApkUtils.getXLIntent() != null) {
+                                DyttVideoDetailActivity.startIntent(info.url);
+                            } else {
+                                UIUtils.snackBar(getView(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
+                            }
+                        })
+        );
 
         presenter = new DyttVideoMorePresenterImpl(this);
 
@@ -105,9 +110,9 @@ public class DyttVideoMoreActivity extends BaseActivity
     @Override
     public void netWorkSuccess(List<MovieModel> data) {
         if (page == 1) {
-            adapter.removeAll();
+            mAdapter.removeAll();
         }
-        adapter.addAll(data);
+        mAdapter.addAllData(data);
     }
 
     @Override
@@ -127,14 +132,6 @@ public class DyttVideoMoreActivity extends BaseActivity
             swipeRefreshLayout.setRefreshing(false);
     }
 
-    @Override
-    public void onItemClick(View view, int position, MovieModel info) {
-        if (ApkUtils.getXLIntent() != null) {
-            DyttVideoDetailActivity.startIntent(info.url);
-        } else {
-            UIUtils.snackBar(getView(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
-        }
-    }
 
     @Override
     public void noMore() {

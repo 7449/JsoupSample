@@ -2,19 +2,23 @@ package com.movie.ui.activity;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.framework.base.BaseActivity;
+import com.framework.utils.ApkUtils;
 import com.framework.utils.UIUtils;
 import com.movie.R;
-import com.movie.adapter.DyttXLMoreAdapter;
 import com.movie.manager.ApiConfig;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.presenter.DyttXLMorePresenterImpl;
 import com.movie.mvp.presenter.PresenterManager;
 import com.movie.mvp.view.ViewManager;
+import com.xadapter.adapter.multi.MultiAdapter;
+import com.xadapter.adapter.multi.XMultiAdapterListener;
+import com.xadapter.holder.XViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +28,7 @@ import java.util.List;
  */
 
 public class DyttXLMoreActivity extends BaseActivity
-        implements SwipeRefreshLayout.OnRefreshListener, ViewManager.DyttXLMoreView {
+        implements SwipeRefreshLayout.OnRefreshListener, ViewManager.DyttXLMoreView, XMultiAdapterListener<MovieModel> {
     private static final String TITLE = "title";
 
     private Toolbar toolbar;
@@ -32,7 +36,8 @@ public class DyttXLMoreActivity extends BaseActivity
     private SwipeRefreshLayout swipeRefreshLayout;
     private PresenterManager.DyttXLMorePresenter presenter;
 
-    private DyttXLMoreAdapter adapter;
+    private MultiAdapter<MovieModel> mAdapter;
+    private static final int TYPE_HEADER = 0;
 
     public static void startIntent(String title) {
         Bundle bundle = new Bundle();
@@ -49,11 +54,13 @@ public class DyttXLMoreActivity extends BaseActivity
         }
         toolbar.setTitle(getIntent().getExtras().getString(TITLE));
 
-        adapter = new DyttXLMoreAdapter(new ArrayList<>());
+        mAdapter = new MultiAdapter<>(new ArrayList<>());
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(
+                mAdapter.setXMultiAdapterListener(this)
+        );
 
         swipeRefreshLayout.post(this::onRefresh);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -78,8 +85,10 @@ public class DyttXLMoreActivity extends BaseActivity
 
     @Override
     public void netWorkSuccess(List<MovieModel> data) {
-        adapter.removeAll();
-        adapter.addAll(data);
+        if (mAdapter.getData() != null) {
+            mAdapter.getData().clear();
+        }
+        mAdapter.addAll(data);
     }
 
     @Override
@@ -99,4 +108,49 @@ public class DyttXLMoreActivity extends BaseActivity
             swipeRefreshLayout.setRefreshing(false);
     }
 
+    @Override
+    public int multiLayoutId(int viewItemType) {
+        switch (viewItemType) {
+            case TYPE_HEADER:
+                return R.layout.item_dytt_more_xl_header;
+            default:
+                return R.layout.item_dytt_more_xl_item;
+        }
+    }
+
+    @Override
+    public int getGridLayoutManagerSpanSize(int itemViewType, GridLayoutManager gridManager, int position) {
+        return 0;
+    }
+
+    @Override
+    public boolean getStaggeredGridLayoutManagerFullSpan(int itemViewType) {
+        return false;
+    }
+
+    @Override
+    public void onXMultiBind(XViewHolder holder, MovieModel movieModel, int itemViewType, int position) {
+        List<MovieModel> list = mAdapter.getData();
+
+        if (list == null) {
+            return;
+        }
+
+        switch (itemViewType) {
+            case TYPE_HEADER:
+                holder.setTextView(R.id.dytt_tv_title, list.get(position).title);
+                holder.itemView.setOnClickListener(v -> DyttVideoMoreActivity.startIntent(list.get(position).itemType, ApiConfig.Type.DYTT_XL_TYPE, list.get(position).title));
+                break;
+            default:
+                holder.setTextView(R.id.dytt_item_content, list.get(position).title);
+                holder.itemView.setOnClickListener(v -> {
+                    if (ApkUtils.getXLIntent() != null) {
+                        DyttVideoDetailActivity.startIntent(list.get(position).url);
+                    } else {
+                        UIUtils.toast(UIUtils.getString(R.string.xl));
+                    }
+                });
+                break;
+        }
+    }
 }

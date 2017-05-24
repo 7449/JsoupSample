@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 
 import com.fiction.R;
-import com.fiction.adapter.SearchListAdapter;
 import com.fiction.db.GreenDaoDbUtils;
 import com.fiction.db.SqlBean;
 import com.fiction.manager.ApiConfig;
@@ -20,18 +19,17 @@ import com.fiction.mvp.presenter.SearchListPresenterImpl;
 import com.fiction.mvp.view.ViewManager;
 import com.fiction.ui.activity.FictionContentsActivity;
 import com.framework.base.BaseFragment;
-import com.framework.base.BaseRecyclerAdapter;
+import com.framework.utils.ImageLoaderUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.FlowText;
 import com.framework.widget.LoadMoreRecyclerView;
 import com.google.android.flexbox.FlexboxLayout;
+import com.xadapter.adapter.XRecyclerViewAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SearchListFragment extends BaseFragment
         implements View.OnClickListener, ViewManager.SearchListView,
-        BaseRecyclerAdapter.OnItemClickListener<FictionModel>,
         LoadMoreRecyclerView.LoadMoreListener,
         View.OnFocusChangeListener,
         DialogInterface.OnClickListener {
@@ -39,13 +37,12 @@ public class SearchListFragment extends BaseFragment
     private PresenterManager.SearchListPresenter presenter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private LoadMoreRecyclerView recyclerView;
-    private SearchListAdapter adapter;
     private EditText editText;
     private int page = 0;
     private String fictionName;
     private AlertDialog alertDialog;
     private String searchType = ApiConfig.Type.ZW_81;
-
+    private XRecyclerViewAdapter<FictionModel> mAdapter;
 
     @Override
     protected void initById() {
@@ -58,11 +55,18 @@ public class SearchListFragment extends BaseFragment
     protected void initActivityCreated() {
         swipeRefreshLayout.setEnabled(false);
         presenter = new SearchListPresenterImpl(this);
-        adapter = new SearchListAdapter(new ArrayList<>());
-        adapter.setOnItemClickListener(this);
+        mAdapter = new XRecyclerViewAdapter<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setLoadingMore(this);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(
+                mAdapter.setLayoutId(R.layout.item_search)
+                        .onXBind((holder, position, fictionModel) -> {
+                            ImageLoaderUtils.display(holder.getImageView(R.id.search_iv_img), fictionModel.url);
+                            holder.setTextView(R.id.search_tv_title, fictionModel.title);
+                            holder.setTextView(R.id.search_tv_content, fictionModel.message);
+                        })
+                        .setOnItemClickListener((view, position, info) -> FictionContentsActivity.getInstance(ApiConfig.Type.ZW_81, info.detailUrl, info.title))
+        );
     }
 
     @Override
@@ -84,9 +88,9 @@ public class SearchListFragment extends BaseFragment
     @Override
     public void netWorkSuccess(List<FictionModel> data) {
         if (page == 0) {
-            adapter.removeAll();
+            mAdapter.removeAll();
         }
-        adapter.addAll(data);
+        mAdapter.addAllData(data);
     }
 
     @Override
@@ -110,11 +114,6 @@ public class SearchListFragment extends BaseFragment
         UIUtils.snackBar(getView(R.id.fa_btn), getString(R.string.empty));
     }
 
-
-    @Override
-    public void onItemClick(View view, int position, FictionModel info) {
-        FictionContentsActivity.getInstance(ApiConfig.Type.ZW_81, info.detailUrl, info.title);
-    }
 
     @Override
     public void onLoadMore() {

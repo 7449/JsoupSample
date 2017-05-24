@@ -7,12 +7,16 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.framework.base.BaseActivity;
+import com.framework.base.BasePagerAdapter;
+import com.framework.utils.ImageLoaderUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.ExtendedViewPager;
+import com.framework.widget.TouchImageView;
 import com.image.R;
-import com.image.adapter.ImageDetailAdapter;
 import com.image.collection.CollectionUtils;
 import com.image.mvp.model.ImageModel;
 import com.image.mvp.presenter.ImageDetailPresenterImpl;
@@ -145,5 +149,22 @@ public class ImageDetailActivity extends BaseActivity implements ViewManager.Ima
     @Override
     public void reverse() {
         Collections.reverse(adapter.getListData());
+    }
+
+
+    private static class ImageDetailAdapter extends BasePagerAdapter<ImageModel> {
+
+
+        ImageDetailAdapter(List<ImageModel> datas) {
+            super(datas);
+        }
+
+        @Override
+        protected Object instantiate(ViewGroup container, int position, ImageModel data) {
+            TouchImageView imageView = new TouchImageView(container.getContext());
+            ImageLoaderUtils.display(imageView, data.url);
+            container.addView(imageView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            return imageView;
+        }
     }
 }
