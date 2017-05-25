@@ -80,4 +80,11 @@ public class CollectionListFragment extends BaseFragment
             textView.setVisibility(View.VISIBLE);
         }
     }
+
+    public void refreshUI() {
+        if (mAdapter != null) {
+            mAdapter.removeAll();
+            mAdapter.addAllData(GreenDaoDbUtils.getCollectionAll());
+        }
+    }
 }

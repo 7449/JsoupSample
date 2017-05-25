@@ -72,10 +72,7 @@ public class ImageListFragment extends BaseFragment<ImageListPresenterImpl>
         mAdapter = new XRecyclerViewAdapter<>();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        recyclerView.setLoadingMore(() -> {
-            ++page;
-            mPresenter.netWorkRequest(type, tabPosition, page);
-        });
+        recyclerView.setLoadingMore(() -> mPresenter.netWorkRequest(type, tabPosition, page));
         recyclerView.setAdapter(
                 mAdapter
                         .setLayoutId(R.layout.item_image_list)
@@ -91,24 +88,25 @@ public class ImageListFragment extends BaseFragment<ImageListPresenterImpl>
 
     @Override
     public void onRefresh() {
-        page = 1;
-        mPresenter.netWorkRequest(type, tabPosition, page);
+        mPresenter.netWorkRequest(type, tabPosition, page = 1);
     }
 
 
     @Override
     public void netWorkSuccess(List<ImageModel> data) {
-        if (page == 1) {
-            mAdapter.removeAll();
+        if (mStatusView != null) {
+            if (page == 1) {
+                mAdapter.removeAll();
+            }
+            ++page;
+            mAdapter.addAllData(data);
         }
-        mAdapter.addAllData(data);
     }
 
     @Override
     public void netWorkError() {
-        if (getActivity() != null) {
-            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
-        }
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
     }
 
     @Override
@@ -125,8 +123,7 @@ public class ImageListFragment extends BaseFragment<ImageListPresenterImpl>
 
     @Override
     public void noMore() {
-        if (getActivity() != null) {
-            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.data_empty));
-        }
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.data_empty));
     }
 }

@@ -37,7 +37,7 @@ ext {
 
     supportVersion = '25.3.0'
     glideVersion = '3.7.0'
-    jsoupNetWorkVersion = '0.0.6'
+    jsoupNetWorkVersion = '0.0.7'
     klogVersion = '1.6.0'
     flowVersion = '1.10@aar'
     greenDaoVersion = '3.2.0'
@@ -58,8 +58,4 @@ ext {
     movieStorePath = 'movie.jks'
     moviePassword = '123456'
     movieKeyAlias = 'movie'
-
-    magneticStorePath = 'magnetic.jks'
-    magneticPassword = '123456'
-    magneticKeyAlias = 'magnetic'
 }

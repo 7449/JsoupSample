@@ -14,6 +14,9 @@ import io.reactivex.jsoup.network.manager.RxJsoupNetWorkListener;
 public abstract class BasePresenterImpl<M, V extends BaseView<M>>
         implements RxJsoupNetWorkListener<M> {
 
+    public static final String KK_URL_TAG = "kk_url";
+    public static final String KK_DATA_TAG = "kk_data";
+
     protected V view;
     private Object tag;
 
@@ -75,6 +78,8 @@ public abstract class BasePresenterImpl<M, V extends BaseView<M>>
             KLog.i("cancel------:" + tag);
             KLog.i(getClass().getSimpleName(), "onDestroyView:" + getClass().getSimpleName());
             RxJsoupNetWork.getInstance().cancel(tag);
+            RxJsoupNetWork.getInstance().cancel(KK_URL_TAG);
+            RxJsoupNetWork.getInstance().cancel(KK_DATA_TAG);
             view = null;
         }
     }

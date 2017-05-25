@@ -6,17 +6,15 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.framework.base.BaseActivity;
 import com.framework.base.mvp.BaseModel;
 import com.image.R;
-import com.image.manager.ApiConfig;
 import com.image.mvp.presenter.MainPresenterImpl;
 import com.image.mvp.view.ViewManager;
-import com.image.ui.fragment.CollectionListFragment;
-import com.image.ui.fragment.TabFragment;
 
 public class MainActivity extends BaseActivity<MainPresenterImpl>
         implements NavigationView.OnNavigationItemSelectedListener, ViewManager.MainView {
@@ -25,8 +23,6 @@ public class MainActivity extends BaseActivity<MainPresenterImpl>
     private NavigationView navigationView;
     private AppBarLayout appBarLayout;
     private AppBarLayout.LayoutParams layoutParams;
-    private String searchType = null;
-
 
     @Override
     protected void initCreate(Bundle savedInstanceState) {
@@ -34,7 +30,7 @@ public class MainActivity extends BaseActivity<MainPresenterImpl>
         navigationView.setNavigationItemSelectedListener(this);
         toolbar.setTitle(getString(R.string.dbmz_title));
         setSupportActionBar(toolbar);
-        replaceFragment(TabFragment.newInstance(searchType = ApiConfig.Type.DOU_BAN_MEI_ZI));
+        mPresenter.switchId(MainPresenterImpl.FIRST_FRAGMENT);
     }
 
     @Override
@@ -47,15 +43,15 @@ public class MainActivity extends BaseActivity<MainPresenterImpl>
 
     @Override
     protected MainPresenterImpl initPresenterImpl() {
-        return null;
+        return new MainPresenterImpl(this);
     }
 
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
+            drawerLayout.closeDrawers();
         } else {
-            super.onBackPressed();
+            mPresenter.onBackPressed();
         }
     }
 
@@ -70,10 +66,8 @@ public class MainActivity extends BaseActivity<MainPresenterImpl>
         toolbar.setTitle(item.getTitle());
         mPresenter.switchId(item.getItemId());
         if (item.getItemId() == R.id.collection) {
-            replaceFragment(CollectionListFragment.newInstance());
             layoutParams.setScrollFlags(0);
         } else {
-            replaceFragment(TabFragment.newInstance(searchType));
             layoutParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
         }
         drawerLayout.closeDrawers();
@@ -81,33 +75,20 @@ public class MainActivity extends BaseActivity<MainPresenterImpl>
     }
 
     @Override
-    public void switchDouban() {
-        searchType = ApiConfig.Type.DOU_BAN_MEI_ZI;
+    public AppCompatActivity getMainActivity() {
+        return this;
     }
 
     @Override
-    public void switchMZitu() {
-        searchType = ApiConfig.Type.M_ZI_TU;
+    public void selectMenuFirst() {
+        MenuItem item = navigationView.getMenu().findItem(R.id.dbmz);
+        item.setChecked(true);
+        toolbar.setTitle(item.getTitle());
     }
 
     @Override
-    public void switchMM() {
-        searchType = ApiConfig.Type.MM;
-    }
-
-    @Override
-    public void switchMeiZiTu() {
-        searchType = ApiConfig.Type.MEIZITU;
-    }
-
-    @Override
-    public void switch7KK() {
-        searchType = ApiConfig.Type.KK;
-    }
-
-    @Override
-    public void switchCollection() {
-        searchType = ApiConfig.Type.COLLECTION;
+    public void onBack() {
+        super.onBackPressed();
     }
 
     @Override

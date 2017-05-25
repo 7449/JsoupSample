@@ -21,7 +21,7 @@ import org.jsoup.nodes.Document;
 
 public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.MainView> implements PresenterManager.MainPresenter {
 
-    private TabFragment zwFragment, kswFragment, bqgFragment;
+    private Fragment zwFragment, kswFragment, bqgFragment;
 
     public static final int FIRST_FRAGMENT = -1;
 
@@ -87,7 +87,7 @@ public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.
         FragmentTransaction transaction = manager.beginTransaction();
         switch (type) {
             case TYPE_ZW_FRAGMENT:
-                zwFragment = (TabFragment) manager.findFragmentByTag(TYPE_ZW_TAG);
+                zwFragment = manager.findFragmentByTag(TYPE_ZW_TAG);
                 hideFragment(transaction);
                 if (null == zwFragment) {
                     zwFragment = TabFragment.newInstance(ApiConfig.Type.ZW_81);
@@ -98,7 +98,7 @@ public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.
                 }
                 break;
             case TYPE_KSW_FRAGMENT:
-                kswFragment = (TabFragment) manager.findFragmentByTag(TYPE_KSW_TAG);
+                kswFragment = manager.findFragmentByTag(TYPE_KSW_TAG);
                 hideFragment(transaction);
                 if (null == kswFragment) {
                     kswFragment = TabFragment.newInstance(ApiConfig.Type.KSW);
@@ -108,7 +108,7 @@ public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.
                 }
                 break;
             case TYPE_BGQ_FRAGMENT:
-                bqgFragment = (TabFragment) manager.findFragmentByTag(TYPE_BQG_TAG);
+                bqgFragment = manager.findFragmentByTag(TYPE_BQG_TAG);
                 hideFragment(transaction);
                 if (null == bqgFragment) {
                     bqgFragment = TabFragment.newInstance(ApiConfig.Type.BI_QU_GE);

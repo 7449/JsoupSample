@@ -49,8 +49,10 @@ public class TabFragment extends BaseFragment {
 
     @Override
     protected void initActivityCreated() {
-        viewPager.setAdapter(new TabAdapter(getChildFragmentManager(), type));
+        TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), type);
+        viewPager.setAdapter(tabAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        viewPager.setOffscreenPageLimit(tabAdapter.getCount());
     }
 
 

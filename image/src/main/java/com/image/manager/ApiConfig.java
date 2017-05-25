@@ -24,7 +24,6 @@ public interface ApiConfig {
         String MM = "MM";
         String MEIZITU = "MeiZiTu";
         String KK = "7kk";
-        String COLLECTION = "收藏";
     }
 
     interface SearchUrl {

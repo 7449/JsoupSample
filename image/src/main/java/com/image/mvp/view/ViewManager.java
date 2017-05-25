@@ -1,5 +1,7 @@
 package com.image.mvp.view;
 
+import android.support.v7.app.AppCompatActivity;
+
 import com.framework.base.mvp.BaseListView;
 import com.framework.base.mvp.BaseModel;
 import com.framework.base.mvp.BaseView;
@@ -14,7 +16,6 @@ import java.util.List;
 public interface ViewManager {
 
     interface ImageDetailView extends BaseView<List<ImageModel>> {
-        void reverse();
     }
 
     interface ImageListView extends BaseListView<List<ImageModel>> {
@@ -26,17 +27,11 @@ public interface ViewManager {
 
     interface MainView extends BaseView<BaseModel> {
 
-        void switchDouban();
+        AppCompatActivity getMainActivity();
 
-        void switchMZitu();
+        void selectMenuFirst();
 
-        void switchMM();
-
-        void switchMeiZiTu();
-
-        void switch7KK();
-
-        void switchCollection();
+        void onBack();
 
     }
 

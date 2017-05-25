@@ -59,8 +59,10 @@ public class TabFragment extends BaseFragment {
                 tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
                 break;
         }
-        viewPager.setAdapter(new TabAdapter(getChildFragmentManager(), type));
+        TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), type);
+        viewPager.setAdapter(tabAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        viewPager.setOffscreenPageLimit(tabAdapter.getCount());
     }
 
     @Override

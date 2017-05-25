@@ -19,6 +19,10 @@ public interface PresenterManager {
 
     interface MainPresenter {
         void switchId(@MenuRes int id);
+
+        void onBackPressed();
+
+        void onMainDestroy();
     }
 
     interface SearchListPresenter {

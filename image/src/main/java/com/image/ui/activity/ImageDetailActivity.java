@@ -23,7 +23,6 @@ import com.image.mvp.presenter.ImageDetailPresenterImpl;
 import com.image.mvp.view.ViewManager;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -52,7 +51,6 @@ public class ImageDetailActivity extends BaseActivity<ImageDetailPresenterImpl> 
         Bundle extras = getIntent().getExtras();
         type = extras.getString(TYPE);
 
-
         adapter = new ImageDetailAdapter(new ArrayList<>());
         viewPager.setAdapter(adapter);
 
@@ -77,14 +75,14 @@ public class ImageDetailActivity extends BaseActivity<ImageDetailPresenterImpl> 
             if (item.getItemId() == R.id.collection) {
                 String imageUrl = adapter.getUrl(viewPager.getCurrentItem());
                 if (TextUtils.isEmpty(imageUrl)) {
-                    UIUtils.snackBar(getView(R.id.ll_layout), getString(R.string.collection_loading));
+                    UIUtils.snackBar(mStatusView, getString(R.string.collection_loading));
                 } else {
                     if (CollectionUtils.isEmpty(imageUrl)) {
                         CollectionUtils.insert(imageUrl);
-                        UIUtils.snackBar(getView(R.id.ll_layout), getString(R.string.collection_ok));
+                        UIUtils.snackBar(mStatusView, getString(R.string.collection_ok));
                     } else {
                         CollectionUtils.deleted(imageUrl);
-                        UIUtils.snackBar(getView(R.id.ll_layout), getString(R.string.collection_deleted));
+                        UIUtils.snackBar(mStatusView, getString(R.string.collection_deleted));
                     }
                     invalidateOptionsMenu();
                 }
@@ -113,9 +111,11 @@ public class ImageDetailActivity extends BaseActivity<ImageDetailPresenterImpl> 
 
     @Override
     public void netWorkSuccess(List<ImageModel> data) {
-        adapter.addAll(data);
-        setTitles(1, adapter.getCount());
-        invalidateOptionsMenu();
+        if (mStatusView != null) {
+            adapter.addAll(data);
+            setTitles(1, adapter.getCount());
+            invalidateOptionsMenu();
+        }
     }
 
     @Override
@@ -131,29 +131,26 @@ public class ImageDetailActivity extends BaseActivity<ImageDetailPresenterImpl> 
 
     @Override
     public void netWorkError() {
-        UIUtils.snackBar(getView(R.id.ll_layout), getString(R.string.network_error));
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
     }
 
     @Override
     public void showProgress() {
-        loadingProgressBar.show();
+        if (loadingProgressBar != null)
+            loadingProgressBar.show();
     }
 
     @Override
     public void hideProgress() {
-        loadingProgressBar.hide();
+        if (loadingProgressBar != null)
+            loadingProgressBar.hide();
     }
 
 
     private void setTitles(int page, int imageSize) {
         toolbar.setTitle(type + "(" + page + "/" + imageSize + ")");
     }
-
-    @Override
-    public void reverse() {
-        Collections.reverse(adapter.getListData());
-    }
-
 
     private static class ImageDetailAdapter extends BasePagerAdapter<ImageModel> {
 
