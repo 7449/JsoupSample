@@ -1,6 +1,6 @@
 package com.movie.mvp.presenter;
 
-import com.framework.base.mvp.PresenterImplCompat;
+import com.framework.base.mvp.BasePresenterImpl;
 import com.movie.manager.DyttJsoupManager;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.view.ViewManager;
@@ -12,7 +12,7 @@ import org.jsoup.nodes.Document;
  */
 
 public class DyttVideoDetailPresenterImpl
-        extends PresenterImplCompat<MovieModel, ViewManager.DyttVideoDetailView>
+        extends BasePresenterImpl<MovieModel, ViewManager.DyttVideoDetailView>
         implements PresenterManager.DyttVideoDetailPresenter {
 
     public DyttVideoDetailPresenterImpl(ViewManager.DyttVideoDetailView view) {

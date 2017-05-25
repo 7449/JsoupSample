@@ -1,6 +1,6 @@
 package com.magnetic.mvp.presenter;
 
-import com.framework.base.mvp.PresenterImplCompat;
+import com.framework.base.mvp.BasePresenterImpl;
 import com.framework.utils.StringUtils;
 import com.magnetic.manager.ApiConfig;
 import com.magnetic.manager.JsoupMagneticManager;
@@ -15,7 +15,7 @@ import java.util.List;
  * by y on 2017/4/28
  */
 
-public class MagneticListPresenterImpl extends PresenterImplCompat<List<MagneticModel>, ViewManager.MagneticListView> implements PresenterManager.MagneticListPresenter {
+public class MagneticListPresenterImpl extends BasePresenterImpl<List<MagneticModel>, ViewManager.MagneticListView> implements PresenterManager.MagneticListPresenter {
 
 
     public MagneticListPresenterImpl(ViewManager.MagneticListView view) {

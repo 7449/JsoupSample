@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.framework.base.BaseFragment;
-import com.framework.base.mvp.PresenterImplCompat;
+import com.framework.base.mvp.BasePresenterImpl;
 import com.framework.utils.ImageLoaderUtils;
 import com.image.R;
 import com.image.collection.CollectionModel;
@@ -41,7 +41,7 @@ public class CollectionListFragment extends BaseFragment
     }
 
     @Override
-    protected PresenterImplCompat initPresenter() {
+    protected BasePresenterImpl initPresenter() {
         return null;
     }
 

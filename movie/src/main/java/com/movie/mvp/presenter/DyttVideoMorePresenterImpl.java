@@ -1,6 +1,6 @@
 package com.movie.mvp.presenter;
 
-import com.framework.base.mvp.PresenterImplCompat;
+import com.framework.base.mvp.BasePresenterImpl;
 import com.framework.utils.UIUtils;
 import com.movie.R;
 import com.movie.manager.ApiConfig;
@@ -16,7 +16,7 @@ import java.util.List;
  * by y on 2017/3/24
  */
 
-public class DyttVideoMorePresenterImpl extends PresenterImplCompat<List<MovieModel>, ViewManager.DyttVideoMoreView>
+public class DyttVideoMorePresenterImpl extends BasePresenterImpl<List<MovieModel>, ViewManager.DyttVideoMoreView>
         implements PresenterManager.DyttVideoMorePresenter {
     private static final String BASE_URL = "http://www.ygdy8.net/html/";
 

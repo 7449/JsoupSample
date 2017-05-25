@@ -79,27 +79,33 @@ public class FictionDetailActivity extends BaseActivity<FictionDetailPresenterIm
 
     @Override
     public void netWorkSuccess(FictionModel data) {
-        onUrl = data.onPage;
-        nextUrl = data.nextPage;
-        toolbar.setTitle(data.title);
-        webView.loadDataUrl(data.message);
-        webView.post(() -> webView.scrollTo(0, 0));
+        if (mStatusView != null) {
+            onUrl = data.onPage;
+            nextUrl = data.nextPage;
+            toolbar.setTitle(data.title);
+            webView.loadDataUrl(data.message);
+            webView.post(() -> webView.scrollTo(0, 0));
+        }
     }
 
     @Override
     public void netWorkError() {
-        UIUtils.snackBar(getView(R.id.rootView), getString(R.string.network_error));
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
     }
 
     @Override
     public void showProgress() {
-        frameLayout.setVisibility(View.GONE);
-        progressBar.show();
+        if (mStatusView != null) {
+            frameLayout.setVisibility(View.GONE);
+            progressBar.show();
+        }
     }
 
     @Override
     public void hideProgress() {
-        progressBar.hide();
+        if (mStatusView != null)
+            progressBar.hide();
     }
 
 

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 
-import com.framework.utils.SPUtils;
 import com.squareup.leakcanary.LeakCanary;
 
 /**
@@ -26,7 +25,6 @@ public class App extends Application {
             return;
         }
         context = getApplicationContext();
-        SPUtils.init(context);
         LeakCanary.install(this);
     }
 }

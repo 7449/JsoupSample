@@ -5,7 +5,7 @@ import com.fiction.manager.ApiConfig;
 import com.fiction.manager.JsoupSearchManager;
 import com.fiction.mvp.model.FictionModel;
 import com.fiction.mvp.view.ViewManager;
-import com.framework.base.mvp.PresenterImplCompat;
+import com.framework.base.mvp.BasePresenterImpl;
 
 import org.jsoup.nodes.Document;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * by y on 2017/1/8.
  */
 
-public class SearchListPresenterImpl extends PresenterImplCompat<List<FictionModel>, ViewManager.SearchListView> implements PresenterManager.SearchListPresenter {
+public class SearchListPresenterImpl extends BasePresenterImpl<List<FictionModel>, ViewManager.SearchListView> implements PresenterManager.SearchListPresenter {
 
 
     public SearchListPresenterImpl(ViewManager.SearchListView view) {

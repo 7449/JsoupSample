@@ -8,7 +8,7 @@ public interface ApiConfig {
 
     String ON_PAGE = "上一章";
     String NEXT_PAGE = "下一章";
-
+    
     //搜索
     String SEARCH_URL = "http://zhannei.baidu.com/cse/search?q=";
     String SEARCH_SUFFIX = "&s=3975864432584690275";

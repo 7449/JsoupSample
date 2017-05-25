@@ -1,6 +1,6 @@
 package com.movie.mvp.presenter;
 
-import com.framework.base.mvp.PresenterImplCompat;
+import com.framework.base.mvp.BasePresenterImpl;
 import com.framework.utils.UIUtils;
 import com.movie.R;
 import com.movie.manager.ApiConfig;
@@ -16,7 +16,7 @@ import java.util.List;
  * by y on 2017/3/24.
  */
 
-public class XiaoPianListPresenterImpl extends PresenterImplCompat<List<MovieModel>, ViewManager.XiaoPianListView> implements PresenterManager.XiaoPianListPresenter {
+public class XiaoPianListPresenterImpl extends BasePresenterImpl<List<MovieModel>, ViewManager.XiaoPianListView> implements PresenterManager.XiaoPianListPresenter {
 
     public XiaoPianListPresenterImpl(ViewManager.XiaoPianListView view) {
         super(view);

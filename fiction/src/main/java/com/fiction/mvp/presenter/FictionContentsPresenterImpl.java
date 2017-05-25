@@ -3,7 +3,7 @@ package com.fiction.mvp.presenter;
 import com.fiction.manager.JsoupFictionListManager;
 import com.fiction.mvp.model.FictionModel;
 import com.fiction.mvp.view.ViewManager;
-import com.framework.base.mvp.PresenterImplCompat;
+import com.framework.base.mvp.BasePresenterImpl;
 
 import org.jsoup.nodes.Document;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * by y on 2017/1/8.
  */
 
-public class FictionContentsPresenterImpl extends PresenterImplCompat<List<FictionModel>, ViewManager.FictionContentsView>
+public class FictionContentsPresenterImpl extends BasePresenterImpl<List<FictionModel>, ViewManager.FictionContentsView>
         implements PresenterManager.FictionContentsPresenter {
 
     public FictionContentsPresenterImpl(ViewManager.FictionContentsView view) {

@@ -74,32 +74,38 @@ public class SearchActivity extends BaseActivity<SearchListPresenterImpl>
 
     @Override
     public void netWorkSuccess(List<FictionModel> data) {
-        if (page == 0) {
-            mAdapter.removeAll();
+        if (mStatusView != null) {
+            if (page == 0) {
+                mAdapter.removeAll();
+            }
+            ++page;
+            mAdapter.addAllData(data);
         }
-        ++page;
-        mAdapter.addAllData(data);
     }
 
     @Override
     public void netWorkError() {
-        UIUtils.snackBar(findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
     }
 
     @Override
     public void showProgress() {
-        swipeRefreshLayout.setRefreshing(true);
+        if (mStatusView != null)
+            swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
     public void hideProgress() {
-        swipeRefreshLayout.setRefreshing(false);
+        if (mStatusView != null)
+            swipeRefreshLayout.setRefreshing(false);
     }
 
 
     @Override
     public void noMore() {
-        UIUtils.snackBar(findViewById(R.id.coordinatorLayout), getString(R.string.data_empty));
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.data_empty));
     }
 
     @Override

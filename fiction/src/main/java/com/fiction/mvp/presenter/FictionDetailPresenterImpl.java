@@ -4,7 +4,7 @@ import com.fiction.manager.ApiConfig;
 import com.fiction.manager.JsoupFictionListManager;
 import com.fiction.mvp.model.FictionModel;
 import com.fiction.mvp.view.ViewManager;
-import com.framework.base.mvp.PresenterImplCompat;
+import com.framework.base.mvp.BasePresenterImpl;
 
 import org.jsoup.nodes.Document;
 
@@ -12,7 +12,7 @@ import org.jsoup.nodes.Document;
  * by y on 2017/1/8.
  */
 
-public class FictionDetailPresenterImpl extends PresenterImplCompat<FictionModel, ViewManager.FictionDetailView> implements PresenterManager.FictionDetailPresenter {
+public class FictionDetailPresenterImpl extends BasePresenterImpl<FictionModel, ViewManager.FictionDetailView> implements PresenterManager.FictionDetailPresenter {
 
     private String type = ApiConfig.Type.ZW_81;
 

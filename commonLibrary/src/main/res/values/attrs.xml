@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StatusLayout">
+        <attr name="status_empty_layout" format="reference" />
+        <attr name="status_error_layout" format="reference" />
+        <attr name="status_success_layout" format="reference" />
+    </declare-styleable>
+</resources>

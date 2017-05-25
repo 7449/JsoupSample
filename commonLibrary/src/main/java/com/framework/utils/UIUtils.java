@@ -1,7 +1,6 @@
 package com.framework.utils;
 
 
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -58,11 +57,5 @@ public class UIUtils {
 
     public static void snackBar(View view, Object object) {
         Snackbar.make(view, object + "", Snackbar.LENGTH_SHORT).show();
-    }
-
-    public static void copy(String content) {
-        ClipboardManager cm = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        //noinspection deprecation
-        cm.setText(content);
     }
 }

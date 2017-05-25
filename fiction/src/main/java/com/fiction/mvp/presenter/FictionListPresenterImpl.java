@@ -5,7 +5,7 @@ import com.fiction.manager.ApiConfig;
 import com.fiction.manager.JsoupFictionListManager;
 import com.fiction.mvp.model.FictionModel;
 import com.fiction.mvp.view.ViewManager;
-import com.framework.base.mvp.PresenterImplCompat;
+import com.framework.base.mvp.BasePresenterImpl;
 import com.framework.utils.UIUtils;
 
 import org.jsoup.nodes.Document;
@@ -16,7 +16,7 @@ import java.util.List;
  * by y on 2017/4/20
  */
 
-public class FictionListPresenterImpl extends PresenterImplCompat<List<FictionModel>, ViewManager.FictionListView> implements PresenterManager.FictionListPresenter {
+public class FictionListPresenterImpl extends BasePresenterImpl<List<FictionModel>, ViewManager.FictionListView> implements PresenterManager.FictionListPresenter {
 
     public FictionListPresenterImpl(ViewManager.FictionListView view) {
         super(view);

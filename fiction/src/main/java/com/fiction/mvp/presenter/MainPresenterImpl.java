@@ -10,7 +10,7 @@ import com.fiction.manager.ApiConfig;
 import com.fiction.mvp.view.ViewManager;
 import com.fiction.ui.fragment.TabFragment;
 import com.framework.base.mvp.BaseModel;
-import com.framework.base.mvp.PresenterImplCompat;
+import com.framework.base.mvp.BasePresenterImpl;
 
 import org.jsoup.nodes.Document;
 
@@ -19,9 +19,9 @@ import org.jsoup.nodes.Document;
  * by y on 2017/3/22
  */
 
-public class MainPresenterImpl extends PresenterImplCompat<BaseModel, ViewManager.MainView> implements PresenterManager.MainPresenter {
+public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.MainView> implements PresenterManager.MainPresenter {
 
-    private Fragment zwFragment, kswFragment, bqgFragment;
+    private TabFragment zwFragment, kswFragment, bqgFragment;
 
     public static final int FIRST_FRAGMENT = -1;
 
@@ -87,17 +87,18 @@ public class MainPresenterImpl extends PresenterImplCompat<BaseModel, ViewManage
         FragmentTransaction transaction = manager.beginTransaction();
         switch (type) {
             case TYPE_ZW_FRAGMENT:
-                zwFragment = manager.findFragmentByTag(TYPE_ZW_TAG);
+                zwFragment = (TabFragment) manager.findFragmentByTag(TYPE_ZW_TAG);
                 hideFragment(transaction);
                 if (null == zwFragment) {
                     zwFragment = TabFragment.newInstance(ApiConfig.Type.ZW_81);
                     transaction.add(R.id.fragment, zwFragment, TYPE_ZW_TAG);
                 } else {
+
                     transaction.show(zwFragment);
                 }
                 break;
             case TYPE_KSW_FRAGMENT:
-                kswFragment = manager.findFragmentByTag(TYPE_KSW_TAG);
+                kswFragment = (TabFragment) manager.findFragmentByTag(TYPE_KSW_TAG);
                 hideFragment(transaction);
                 if (null == kswFragment) {
                     kswFragment = TabFragment.newInstance(ApiConfig.Type.KSW);
@@ -107,7 +108,7 @@ public class MainPresenterImpl extends PresenterImplCompat<BaseModel, ViewManage
                 }
                 break;
             case TYPE_BGQ_FRAGMENT:
-                bqgFragment = manager.findFragmentByTag(TYPE_BQG_TAG);
+                bqgFragment = (TabFragment) manager.findFragmentByTag(TYPE_BQG_TAG);
                 hideFragment(transaction);
                 if (null == bqgFragment) {
                     bqgFragment = TabFragment.newInstance(ApiConfig.Type.BI_QU_GE);

@@ -11,22 +11,29 @@ import io.reactivex.jsoup.network.manager.RxJsoupNetWorkListener;
  * by y on 2017/3/23
  */
 
-public abstract class PresenterImplCompat<M, V extends BaseView<M>>
+public abstract class BasePresenterImpl<M, V extends BaseView<M>>
         implements RxJsoupNetWorkListener<M> {
 
-    protected final V view;
+    protected V view;
+    private Object tag;
 
-    public PresenterImplCompat(V view) {
+    public BasePresenterImpl(V view) {
         this.view = view;
     }
 
     @Override
     public void onNetWorkStart() {
+        if (view == null) {
+            return;
+        }
         view.showProgress();
     }
 
     @Override
     public void onNetWorkError(Throwable e) {
+        if (view == null) {
+            return;
+        }
         KLog.i(e.toString());
         view.hideProgress();
         view.netWorkError();
@@ -34,11 +41,17 @@ public abstract class PresenterImplCompat<M, V extends BaseView<M>>
 
     @Override
     public void onNetWorkComplete() {
+        if (view == null) {
+            return;
+        }
         view.hideProgress();
     }
 
     @Override
     public void onNetWorkSuccess(M data) {
+        if (view == null) {
+            return;
+        }
         if (data instanceof List && view instanceof BaseListView && ((List) data).isEmpty()) {
             ((BaseListView) view).noMore();
         } else {
@@ -47,10 +60,22 @@ public abstract class PresenterImplCompat<M, V extends BaseView<M>>
     }
 
     protected void netWork(String url) {
-        KLog.i(url);
+        RxJsoupNetWork.getInstance().cancel(tag);
         RxJsoupNetWork
                 .getInstance()
-                .getApi(url,
-                        this);
+                .getApi(tag, url, this);
+    }
+
+    public void setTag(Object tag) {
+        this.tag = tag;
+    }
+
+    public void onDestroy() {
+        if (view != null) {
+            KLog.i("cancel------:" + tag);
+            KLog.i(getClass().getSimpleName(), "onDestroyView:" + getClass().getSimpleName());
+            RxJsoupNetWork.getInstance().cancel(tag);
+            view = null;
+        }
     }
 }

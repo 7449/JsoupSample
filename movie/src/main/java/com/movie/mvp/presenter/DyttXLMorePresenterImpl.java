@@ -1,6 +1,6 @@
 package com.movie.mvp.presenter;
 
-import com.framework.base.mvp.PresenterImplCompat;
+import com.framework.base.mvp.BasePresenterImpl;
 import com.movie.manager.DyttJsoupManager;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.view.ViewManager;
@@ -13,7 +13,7 @@ import java.util.List;
  * by y on 2017/3/24
  */
 
-public class DyttXLMorePresenterImpl extends PresenterImplCompat<List<MovieModel>, ViewManager.DyttXLMoreView> implements PresenterManager.DyttXLMorePresenter {
+public class DyttXLMorePresenterImpl extends BasePresenterImpl<List<MovieModel>, ViewManager.DyttXLMoreView> implements PresenterManager.DyttXLMorePresenter {
 
     public DyttXLMorePresenterImpl(ViewManager.DyttXLMoreView view) {
         super(view);

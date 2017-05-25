@@ -1,6 +1,6 @@
 package com.image.mvp.presenter;
 
-import com.framework.base.mvp.PresenterImplCompat;
+import com.framework.base.mvp.BasePresenterImpl;
 import com.image.manager.ApiConfig;
 import com.image.manager.JsoupDoubanManager;
 import com.image.manager.JsoupKKManager;
@@ -20,7 +20,7 @@ import java.util.List;
  * by y on 2017/3/26.
  */
 
-public class ImageListPresenterImpl extends PresenterImplCompat<List<ImageModel>, ViewManager.ImageListView> implements PresenterManager.ImageListPresenter {
+public class ImageListPresenterImpl extends BasePresenterImpl<List<ImageModel>, ViewManager.ImageListView> implements PresenterManager.ImageListPresenter {
 
     private String type = ApiConfig.Type.DOU_BAN_MEI_ZI;
 

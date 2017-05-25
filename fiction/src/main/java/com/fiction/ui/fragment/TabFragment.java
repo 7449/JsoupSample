@@ -11,7 +11,7 @@ import com.fiction.R;
 import com.fiction.manager.ApiConfig;
 import com.fiction.manager.JsoupFictionHomeManager;
 import com.framework.base.BaseFragment;
-import com.framework.base.mvp.PresenterImplCompat;
+import com.framework.base.mvp.BasePresenterImpl;
 import com.framework.utils.UIUtils;
 
 import io.reactivex.jsoup.network.bus.RxBus;
@@ -25,6 +25,7 @@ public class TabFragment extends BaseFragment implements RxBusCallBack<String> {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private TabAdapter tabAdapter;
 
     public static TabFragment newInstance(String type) {
         TabFragment tabFragment = new TabFragment();
@@ -47,15 +48,17 @@ public class TabFragment extends BaseFragment implements RxBusCallBack<String> {
     }
 
     @Override
-    protected PresenterImplCompat initPresenter() {
+    protected BasePresenterImpl initPresenter() {
         return null;
     }
 
     @Override
     protected void initActivityCreated() {
-        viewPager.setAdapter(new TabAdapter(getChildFragmentManager(), type));
+        tabAdapter = new TabAdapter(getChildFragmentManager(), type);
+        viewPager.setAdapter(tabAdapter);
         tabLayout.setupWithViewPager(viewPager);
         RxBus.getInstance().register(ApiConfig.Type.BI_QU_GE, this);
+        viewPager.setOffscreenPageLimit(tabAdapter.getCount());
     }
 
     @Override

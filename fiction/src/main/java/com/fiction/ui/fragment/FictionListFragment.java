@@ -90,16 +90,18 @@ public class FictionListFragment extends BaseFragment<FictionListPresenterImpl>
 
     @Override
     public void netWorkSuccess(List<FictionModel> data) {
-        if (mAdapter.getData() != null) {
-            mAdapter.getData().clear();
+        if (mStatusView != null) {
+            if (mAdapter.getData() != null) {
+                mAdapter.getData().clear();
+            }
+            mAdapter.addAll(data);
         }
-        mAdapter.addAll(data);
     }
 
     @Override
     public void netWorkError() {
-        if (getActivity() != null)
-            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.image.mvp.presenter;
 
 
-import com.framework.base.mvp.PresenterImplCompat;
+import com.framework.base.mvp.BasePresenterImpl;
 import com.image.manager.ApiConfig;
 import com.image.manager.JsoupDoubanManager;
 import com.image.manager.JsoupKKManager;
@@ -22,7 +22,7 @@ import io.reactivex.jsoup.network.manager.RxJsoupNetWorkListener;
 /**
  * by y on 2016/7/28.
  */
-public class ImageDetailPresenterImpl extends PresenterImplCompat<List<ImageModel>, ViewManager.ImageDetailView>
+public class ImageDetailPresenterImpl extends BasePresenterImpl<List<ImageModel>, ViewManager.ImageDetailView>
         implements PresenterManager.ImageDetailPresenter {
 
     private String type = ApiConfig.Type.DOU_BAN_MEI_ZI;

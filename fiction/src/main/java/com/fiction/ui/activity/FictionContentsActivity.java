@@ -1,7 +1,7 @@
 package com.fiction.ui.activity;
 
 import android.os.Bundle;
-import android.support.v4.widget.ContentLoadingProgressBar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -36,8 +36,8 @@ public class FictionContentsActivity extends BaseActivity<FictionContentsPresent
 
     private String type = ApiConfig.Type.ZW_81;
 
-    private ContentLoadingProgressBar progressBar;
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private XRecyclerViewAdapter<FictionModel> mAdapter;
     private Toolbar toolbar;
 
@@ -52,6 +52,7 @@ public class FictionContentsActivity extends BaseActivity<FictionContentsPresent
 
     @Override
     protected void initCreate(Bundle savedInstanceState) {
+        swipeRefreshLayout.setEnabled(false);
         Bundle extras = getIntent().getExtras();
         type = extras.getString(TYPE);
         toolbar.setTitle(extras.getString(TITLE));
@@ -74,7 +75,7 @@ public class FictionContentsActivity extends BaseActivity<FictionContentsPresent
     protected void initById() {
         toolbar = getView(R.id.toolbar);
         recyclerView = getView(R.id.recyclerView);
-        progressBar = getView(R.id.progress_bar);
+        swipeRefreshLayout = getView(R.id.refresh_layout);
     }
 
     @Override
@@ -90,23 +91,28 @@ public class FictionContentsActivity extends BaseActivity<FictionContentsPresent
 
     @Override
     public void netWorkSuccess(List<FictionModel> data) {
-        Collections.reverse(data);
-        mAdapter.addAllData(data);
+        if (mStatusView != null) {
+            Collections.reverse(data);
+            mAdapter.addAllData(data);
+        }
     }
 
     @Override
     public void netWorkError() {
-        UIUtils.snackBar(getView(R.id.rootView), getString(R.string.network_error));
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
     }
 
     @Override
     public void showProgress() {
-        progressBar.show();
+        if (swipeRefreshLayout != null)
+            swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
     public void hideProgress() {
-        progressBar.hide();
+        if (swipeRefreshLayout != null)
+            swipeRefreshLayout.setRefreshing(false);
     }
 
 

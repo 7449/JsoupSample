@@ -1,6 +1,6 @@
 package com.movie.mvp.presenter;
 
-import com.framework.base.mvp.PresenterImplCompat;
+import com.framework.base.mvp.BasePresenterImpl;
 import com.movie.manager.ApiConfig;
 import com.movie.manager.Dytt2018JsoupManager;
 import com.movie.mvp.model.MovieModel;
@@ -14,7 +14,7 @@ import java.util.List;
  * by y on 2017/3/24.
  */
 
-public class Dy2018ListPresenterImpl extends PresenterImplCompat<List<MovieModel>, ViewManager.Dy2018ListView> implements PresenterManager.Dy2018ListPresenter {
+public class Dy2018ListPresenterImpl extends BasePresenterImpl<List<MovieModel>, ViewManager.Dy2018ListView> implements PresenterManager.Dy2018ListPresenter {
 
     public Dy2018ListPresenterImpl(ViewManager.Dy2018ListView view) {
         super(view);

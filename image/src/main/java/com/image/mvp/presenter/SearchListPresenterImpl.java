@@ -2,7 +2,7 @@ package com.image.mvp.presenter;
 
 import android.support.annotation.NonNull;
 
-import com.framework.base.mvp.PresenterImplCompat;
+import com.framework.base.mvp.BasePresenterImpl;
 import com.image.manager.ApiConfig;
 import com.image.manager.JsoupSearchManager;
 import com.image.mvp.model.ImageModel;
@@ -16,7 +16,7 @@ import java.util.List;
  * by y on 2017/4/19.
  */
 
-public class SearchListPresenterImpl extends PresenterImplCompat<List<ImageModel>, ViewManager.SearchListView>
+public class SearchListPresenterImpl extends BasePresenterImpl<List<ImageModel>, ViewManager.SearchListView>
         implements PresenterManager.SearchListPresenter {
 
     public SearchListPresenterImpl(ViewManager.SearchListView view) {
