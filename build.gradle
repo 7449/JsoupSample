@@ -45,6 +45,7 @@ ext {
     circularVersion = '2.0.1@aar'
     leakcanaryVersion = 'leakcanary-android:1.5.1'
     xAdapterVersion = '0.1.8'
+    dialogVersion = '0.9.4.5'
 
     imageStorePath = 'image.jks'
     imagePassword = '123456'

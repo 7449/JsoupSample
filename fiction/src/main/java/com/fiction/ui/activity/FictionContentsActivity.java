@@ -56,7 +56,9 @@ public class FictionContentsActivity extends BaseActivity<FictionContentsPresent
         type = extras.getString(TYPE);
         toolbar.setTitle(extras.getString(TITLE));
         setSupportActionBar(toolbar);
-
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         mAdapter = new XRecyclerViewAdapter<>();
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setAdapter(
@@ -122,7 +124,7 @@ public class FictionContentsActivity extends BaseActivity<FictionContentsPresent
                 mAdapter.notifyDataSetChanged();
                 break;
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

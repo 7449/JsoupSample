@@ -21,7 +21,9 @@ import com.framework.widget.EasyWebView;
  */
 
 public class FictionDetailActivity extends BaseActivity<FictionDetailPresenterImpl>
-        implements ViewManager.FictionDetailView, View.OnClickListener, EasyWebView.WebViewLoadListener {
+        implements
+        ViewManager.FictionDetailView, View.OnClickListener,
+        EasyWebView.WebViewLoadListener {
     private static final String URL = "url";
     private static final String TYPE = "type";
 
@@ -48,6 +50,9 @@ public class FictionDetailActivity extends BaseActivity<FictionDetailPresenterIm
         type = extras.getString(TYPE);
         toolbar.setTitle(getString(R.string.app_name));
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         mPresenter.startDetail(extras.getString(URL), type);
     }
 
@@ -121,5 +126,13 @@ public class FictionDetailActivity extends BaseActivity<FictionDetailPresenterIm
     @Override
     public void loadingSuccess() {
         frameLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (webView != null) {
+            webView.destroy();
+        }
     }
 }
