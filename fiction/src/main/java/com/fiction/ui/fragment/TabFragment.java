@@ -21,7 +21,7 @@ import io.reactivex.jsoup.network.bus.RxBusCallBack;
 /**
  * by y on 2016/7/28.
  */
-public class TabFragment extends BaseFragment {
+public class TabFragment extends BaseFragment implements RxBusCallBack<String> {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -55,46 +55,7 @@ public class TabFragment extends BaseFragment {
     protected void initActivityCreated() {
         viewPager.setAdapter(new TabAdapter(getChildFragmentManager(), type));
         tabLayout.setupWithViewPager(viewPager);
-
-        RxBus.getInstance()
-                .register(
-                        ApiConfig.Type.BI_QU_GE,
-                        new RxBusCallBack<String>() {
-                            @Override
-                            public void onBusNext(String s) {
-                                switch (s) {
-                                    case JsoupFictionHomeManager.TYPE_TITLE_XUAN_HUAN:
-                                        viewPager.setCurrentItem(1);
-                                        break;
-                                    case JsoupFictionHomeManager.TYPE_TITLE_XIU_ZHEN:
-                                        viewPager.setCurrentItem(2);
-                                        break;
-                                    case JsoupFictionHomeManager.TYPE_TITLE_DU_SHI:
-                                        viewPager.setCurrentItem(3);
-                                        break;
-                                    case JsoupFictionHomeManager.TYPE_TITLE_CHUAN_YUE:
-                                        viewPager.setCurrentItem(4);
-                                        break;
-                                    case JsoupFictionHomeManager.TYPE_TITLE_WANG_YOU:
-                                        viewPager.setCurrentItem(5);
-                                        break;
-                                    case JsoupFictionHomeManager.TYPE_TITLE_KE_HUAN:
-                                        viewPager.setCurrentItem(6);
-                                        break;
-                                }
-                            }
-
-                            @Override
-                            public void onBusError(Throwable throwable) {
-
-                            }
-
-                            @Override
-                            public Class<String> busOfType() {
-                                return String.class;
-                            }
-                        });
-
+        RxBus.getInstance().register(ApiConfig.Type.BI_QU_GE, this);
     }
 
     @Override
@@ -106,6 +67,40 @@ public class TabFragment extends BaseFragment {
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_tab;
+    }
+
+    @Override
+    public void onBusNext(String s) {
+        switch (s) {
+            case JsoupFictionHomeManager.TYPE_TITLE_XUAN_HUAN:
+                viewPager.setCurrentItem(1);
+                break;
+            case JsoupFictionHomeManager.TYPE_TITLE_XIU_ZHEN:
+                viewPager.setCurrentItem(2);
+                break;
+            case JsoupFictionHomeManager.TYPE_TITLE_DU_SHI:
+                viewPager.setCurrentItem(3);
+                break;
+            case JsoupFictionHomeManager.TYPE_TITLE_CHUAN_YUE:
+                viewPager.setCurrentItem(4);
+                break;
+            case JsoupFictionHomeManager.TYPE_TITLE_WANG_YOU:
+                viewPager.setCurrentItem(5);
+                break;
+            case JsoupFictionHomeManager.TYPE_TITLE_KE_HUAN:
+                viewPager.setCurrentItem(6);
+                break;
+        }
+    }
+
+    @Override
+    public void onBusError(Throwable throwable) {
+
+    }
+
+    @Override
+    public Class<String> busOfType() {
+        return String.class;
     }
 
     private static class TabAdapter extends FragmentPagerAdapter {
@@ -131,7 +126,7 @@ public class TabFragment extends BaseFragment {
 
         @Override
         public Fragment getItem(int position) {
-            return getFragment(position);
+            return position == 0 ? FictionHomeFragment.newInstance(type) : FictionListFragment.newInstance(type, position);
         }
 
         @Override
@@ -142,17 +137,6 @@ public class TabFragment extends BaseFragment {
         @Override
         public int getCount() {
             return name.length;
-        }
-
-        private Fragment getFragment(int position) {
-            switch (type) {
-                case ApiConfig.Type.ZW_81:
-                case ApiConfig.Type.BI_QU_GE:
-                case ApiConfig.Type.KSW:
-                    return position == 0 ? FictionHomeFragment.newInstance(type) : FictionListFragment.newInstance(type, position);
-                default:
-                    return null;
-            }
         }
 
     }

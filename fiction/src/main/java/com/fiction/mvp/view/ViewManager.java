@@ -1,5 +1,7 @@
 package com.fiction.mvp.view;
 
+import android.support.v7.app.AppCompatActivity;
+
 import com.fiction.mvp.model.FictionModel;
 import com.framework.base.mvp.BaseListView;
 import com.framework.base.mvp.BaseModel;
@@ -25,17 +27,15 @@ public interface ViewManager {
     }
 
     interface SearchListView extends BaseListView<List<FictionModel>> {
-        void fictionNameEmpty();
     }
 
     interface MainView extends BaseView<BaseModel> {
         void switchSearch();
 
-        void switch81();
+        AppCompatActivity getMainActivity();
 
-        void switchKsw();
+        void selectMenuFirst();
 
-        void switchBiQuGe();
-
+        void onBack();
     }
 }

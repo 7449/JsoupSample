@@ -24,11 +24,15 @@ public interface PresenterManager {
     }
 
     interface SearchListPresenter {
-        void startSearch(String fictionName, int page, String searchType);
+        void startSearch(String fictionName, int page);
     }
 
     interface MainPresenter {
         void switchId(@MenuRes int id);
+
+        void onBackPressed();
+
+        void onMainDestroy();
     }
 
 }
