@@ -33,6 +33,7 @@ public interface ViewManager {
 
         void onBack();
 
+        void switchSearch();
     }
 
 }

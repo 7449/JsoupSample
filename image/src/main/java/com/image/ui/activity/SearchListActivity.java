@@ -69,14 +69,13 @@ public class SearchListActivity extends BaseActivity<SearchListPresenterImpl>
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setLoadingMore(() -> {
             if (page == mAdapter.getData().get(0).totalPage) {
-                UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.data_empty));
+                UIUtils.snackBar(mStatusView, getString(R.string.data_empty));
                 return;
             }
-            ++page;
             mPresenter.netWorkRequest(searchType, content, page);
         });
         recyclerView.setAdapter(
-                mAdapter.setLayoutId(R.layout.activity_search)
+                mAdapter.setLayoutId(R.layout.item_image_list)
                         .onXBind((holder, position, imageModel) -> ImageLoaderUtils.display(holder.getImageView(R.id.image), imageModel.url))
                         .setOnItemClickListener((view, position, info) -> ImageDetailActivity.startIntent(searchType, info.detailUrl))
         );
@@ -101,22 +100,26 @@ public class SearchListActivity extends BaseActivity<SearchListPresenterImpl>
 
     @Override
     public void onRefresh() {
-        page = 1;
-        mPresenter.netWorkRequest(searchType, content, page);
+        mPresenter.netWorkRequest(searchType, content, page = 1);
     }
 
     @Override
     public void netWorkSuccess(List<ImageModel> data) {
-        if (page == 1) {
-            mAdapter.removeAll();
+        if (mStatusView != null) {
+            if (page == 1) {
+                mAdapter.removeAll();
+            }
+            ++page;
+            mAdapter.addAllData(data);
         }
-        mAdapter.addAllData(data);
     }
 
     @Override
     public void netWorkError() {
-        UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
     }
+
 
     @Override
     public void showProgress() {
@@ -133,6 +136,7 @@ public class SearchListActivity extends BaseActivity<SearchListPresenterImpl>
 
     @Override
     public void noMore() {
-        UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.data_empty));
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.data_empty));
     }
 }

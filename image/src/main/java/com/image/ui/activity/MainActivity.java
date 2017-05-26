@@ -8,11 +8,15 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.framework.base.BaseActivity;
 import com.framework.base.mvp.BaseModel;
+import com.framework.utils.UIUtils;
 import com.image.R;
+import com.image.manager.ApiConfig;
 import com.image.mvp.presenter.MainPresenterImpl;
 import com.image.mvp.view.ViewManager;
 
@@ -95,6 +99,31 @@ public class MainActivity extends BaseActivity<MainPresenterImpl>
     @Override
     public void onBack() {
         super.onBackPressed();
+    }
+
+    @Override
+    public void switchSearch() {
+        new MaterialDialog
+                .Builder(this)
+                .title(UIUtils.getString(R.string.search_title))
+                .inputRange(1, -1)
+                .input(
+                        UIUtils.getString(R.string.search_dialog_hint),
+                        null,
+                        (dialog, input) -> SearchListActivity.start(ApiConfig.Type.M_ZI_TU, String.valueOf(input)))
+                .show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        mPresenter.switchId(item.getItemId());
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

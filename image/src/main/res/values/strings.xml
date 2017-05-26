@@ -12,5 +12,7 @@
     <string name="empty_collection">没有收藏</string>
     <string name="dialog_collection_message">取消收藏？</string>
     <string name="kk_title">7kk</string>
+    <string name="search_title">搜索</string>
+    <string name="search_dialog_hint">请输入关键词</string>
 
 </resources>

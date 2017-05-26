@@ -69,6 +69,8 @@ public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.
             case R.id.collection:
                 setSelectFragment(TYPE_COLLECTION_FRAGMENT);
                 break;
+            case R.id.search:
+                view.switchSearch();
         }
     }
 
