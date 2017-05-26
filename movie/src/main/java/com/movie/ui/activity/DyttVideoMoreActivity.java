@@ -14,7 +14,6 @@ import com.movie.manager.ApiConfig;
 import com.movie.manager.DyttJsoupManager;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.presenter.DyttVideoMorePresenterImpl;
-import com.movie.mvp.presenter.PresenterManager;
 import com.movie.mvp.view.ViewManager;
 import com.xadapter.adapter.XRecyclerViewAdapter;
 
@@ -97,8 +96,7 @@ public class DyttVideoMoreActivity extends BaseActivity<DyttVideoMorePresenterIm
 
     @Override
     public void onRefresh() {
-        page = 1;
-        mPresenter.netWorkRequest(type, placeType, page);
+        mPresenter.netWorkRequest(type, placeType, page = 1);
     }
 
     @Override
@@ -106,21 +104,24 @@ public class DyttVideoMoreActivity extends BaseActivity<DyttVideoMorePresenterIm
         if (swipeRefreshLayout.isRefreshing()) {
             return;
         }
-        ++page;
         mPresenter.netWorkRequest(type, placeType, page);
     }
 
     @Override
     public void netWorkSuccess(List<MovieModel> data) {
-        if (page == 1) {
-            mAdapter.removeAll();
+        if (mStatusView != null) {
+            if (page == 1) {
+                mAdapter.removeAll();
+            }
+            ++page;
+            mAdapter.addAllData(data);
         }
-        mAdapter.addAllData(data);
     }
 
     @Override
     public void netWorkError() {
-        UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
     }
 
     @Override
@@ -138,6 +139,7 @@ public class DyttVideoMoreActivity extends BaseActivity<DyttVideoMorePresenterIm
 
     @Override
     public void noMore() {
-        UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.data_empty));
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.data_empty));
     }
 }

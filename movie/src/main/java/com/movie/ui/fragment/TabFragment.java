@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 
 import com.framework.base.BaseFragment;
 import com.framework.base.mvp.BasePresenterImpl;
@@ -96,7 +97,7 @@ public class TabFragment extends BaseFragment {
 
         @Override
         public Fragment getItem(int position) {
-            return getFragment(position);
+            return getFragment(position, type);
         }
 
         @Override
@@ -110,20 +111,20 @@ public class TabFragment extends BaseFragment {
         }
 
 
-        private Fragment getFragment(int position) {
+        private Fragment getFragment(int position, String type) {
             switch (type) {
                 case ApiConfig.Type.DYTT:
                     if (position == 0) {
-                        return DyttNewFragment.newInstance();
+                        return DyttNewFragment.newInstance(String.valueOf(TextUtils.concat(type, String.valueOf(position))));
                     } else if (position == 1) {
-                        return DyttChosenFragment.newInstance();
+                        return DyttChosenFragment.newInstance(String.valueOf(TextUtils.concat(type, String.valueOf(position))));
                     }
                 case ApiConfig.Type.DY_2018:
-                    return Dy2018ListFragment.newInstance(position);
+                    return Dy2018ListFragment.newInstance(String.valueOf(TextUtils.concat(type, String.valueOf(position))), position);
                 case ApiConfig.Type.XIAO_PIAN:
-                    return XiaoPianListFragment.newInstance(position);
+                    return XiaoPianListFragment.newInstance(String.valueOf(TextUtils.concat(type, String.valueOf(position))), position);
                 case ApiConfig.Type.PIAO_HUA:
-                    return PiaoHuaListFragment.newInstance(position);
+                    return PiaoHuaListFragment.newInstance(String.valueOf(TextUtils.concat(type, String.valueOf(position))), position);
             }
             return null;
         }

@@ -34,10 +34,11 @@ public class PiaoHuaListFragment extends BaseFragment<PiaoHuaListPresenterImpl>
     private LoadMoreRecyclerView recyclerView;
     private XRecyclerViewAdapter<MovieModel> mAdapter;
 
-    public static PiaoHuaListFragment newInstance(int position) {
+    public static PiaoHuaListFragment newInstance(String s, int position) {
         PiaoHuaListFragment fragment = new PiaoHuaListFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(FRAGMENT_INDEX, position);
+        bundle.putString(FRAGMENT_TYPE, s);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -47,6 +48,7 @@ public class PiaoHuaListFragment extends BaseFragment<PiaoHuaListPresenterImpl>
     protected void initBundle() {
         super.initBundle();
         tabPosition = bundle.getInt(FRAGMENT_INDEX);
+        type = bundle.getString(FRAGMENT_TYPE);
     }
 
     @Override
@@ -99,8 +101,7 @@ public class PiaoHuaListFragment extends BaseFragment<PiaoHuaListPresenterImpl>
 
     @Override
     public void onRefresh() {
-        page = 1;
-        mPresenter.netWorkRequest(tabPosition, page);
+        mPresenter.netWorkRequest(tabPosition, page = 1);
     }
 
     @Override
@@ -108,22 +109,24 @@ public class PiaoHuaListFragment extends BaseFragment<PiaoHuaListPresenterImpl>
         if (swipeRefreshLayout.isRefreshing()) {
             return;
         }
-        ++page;
         mPresenter.netWorkRequest(tabPosition, page);
     }
 
     @Override
     public void netWorkSuccess(List<MovieModel> data) {
-        if (page == 1) {
-            mAdapter.removeAll();
+        if (mStatusView != null) {
+            if (page == 1) {
+                mAdapter.removeAll();
+            }
+            ++page;
+            mAdapter.addAllData(data);
         }
-        mAdapter.addAllData(data);
     }
 
     @Override
     public void netWorkError() {
-        if (getActivity() != null)
-            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
     }
 
     @Override
@@ -140,7 +143,7 @@ public class PiaoHuaListFragment extends BaseFragment<PiaoHuaListPresenterImpl>
 
     @Override
     public void noMore() {
-        if (getActivity() != null)
-            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.data_empty));
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.data_empty));
     }
 }

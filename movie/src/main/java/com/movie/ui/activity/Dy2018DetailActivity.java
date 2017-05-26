@@ -57,22 +57,35 @@ public class Dy2018DetailActivity extends BaseActivity<Dy2018DetailPresenterImpl
 
     @Override
     public void netWorkSuccess(MovieModel data) {
-        toolbar.setTitle(data.title);
-        webView.loadDataUrl(data.message);
+        if (mStatusView != null) {
+            toolbar.setTitle(data.title);
+            webView.loadDataUrl(data.message);
+        }
     }
 
     @Override
     public void netWorkError() {
-        UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
     }
 
     @Override
     public void showProgress() {
-        progressBar.show();
+        if (progressBar != null)
+            progressBar.show();
     }
 
     @Override
     public void hideProgress() {
-        progressBar.hide();
+        if (progressBar != null)
+            progressBar.hide();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (webView != null) {
+            webView.destroy();
+        }
     }
 }

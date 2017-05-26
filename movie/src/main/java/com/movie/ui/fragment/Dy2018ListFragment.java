@@ -32,10 +32,11 @@ public class Dy2018ListFragment extends BaseFragment<Dy2018ListPresenterImpl>
     private LoadMoreRecyclerView recyclerView;
     private XRecyclerViewAdapter<MovieModel> mAdapte;
 
-    public static Dy2018ListFragment newInstance(int position) {
+    public static Dy2018ListFragment newInstance(String s, int position) {
         Dy2018ListFragment fragment = new Dy2018ListFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(FRAGMENT_INDEX, position);
+        bundle.putString(FRAGMENT_TYPE, s);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -44,6 +45,7 @@ public class Dy2018ListFragment extends BaseFragment<Dy2018ListPresenterImpl>
     @Override
     protected void initBundle() {
         super.initBundle();
+        type = bundle.getString(FRAGMENT_TYPE);
         tabPosition = bundle.getInt(FRAGMENT_INDEX);
     }
 
@@ -94,8 +96,7 @@ public class Dy2018ListFragment extends BaseFragment<Dy2018ListPresenterImpl>
 
     @Override
     public void onRefresh() {
-        page = 1;
-        mPresenter.netWorkRequest(tabPosition, page);
+        mPresenter.netWorkRequest(tabPosition, page = 1);
     }
 
     @Override
@@ -103,22 +104,24 @@ public class Dy2018ListFragment extends BaseFragment<Dy2018ListPresenterImpl>
         if (swipeRefreshLayout.isRefreshing()) {
             return;
         }
-        ++page;
         mPresenter.netWorkRequest(tabPosition, page);
     }
 
     @Override
     public void netWorkSuccess(List<MovieModel> data) {
-        if (page == 1) {
-            mAdapte.removeAll();
+        if (mStatusView != null) {
+            if (page == 1) {
+                mAdapte.removeAll();
+            }
+            ++page;
+            mAdapte.addAllData(data);
         }
-        mAdapte.addAllData(data);
     }
 
     @Override
     public void netWorkError() {
-        if (getActivity() != null)
-            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
     }
 
     @Override
@@ -135,7 +138,7 @@ public class Dy2018ListFragment extends BaseFragment<Dy2018ListPresenterImpl>
 
     @Override
     public void noMore() {
-        if (getActivity() != null)
-            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.data_empty));
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.data_empty));
     }
 }

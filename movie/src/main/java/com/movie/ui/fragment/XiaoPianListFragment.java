@@ -32,10 +32,11 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
     private LoadMoreRecyclerView recyclerView;
     private XRecyclerViewAdapter<MovieModel> mAdapter;
 
-    public static XiaoPianListFragment newInstance(int position) {
+    public static XiaoPianListFragment newInstance(String s, int position) {
         XiaoPianListFragment fragment = new XiaoPianListFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(FRAGMENT_INDEX, position);
+        bundle.putString(FRAGMENT_TYPE, s);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -45,6 +46,7 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
     protected void initBundle() {
         super.initBundle();
         tabPosition = bundle.getInt(FRAGMENT_INDEX);
+        type = bundle.getString(FRAGMENT_TYPE);
     }
 
     @Override
@@ -70,14 +72,14 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
         recyclerView.setLoadingMore(this);
         recyclerView.setAdapter(
                 mAdapter.setLayoutId(R.layout.item_xiaopian_main)
-                .onXBind((holder, position, movieModel) -> holder.setTextView(R.id.xiaopian_item_content, movieModel.title))
-                .setOnItemClickListener((view, position, info) -> {
-                    if (ApkUtils.getXLIntent() != null) {
-                        XiaopianDetailActivity.startIntent(info.detailUrl);
-                    } else {
-                        UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
-                    }
-                })
+                        .onXBind((holder, position, movieModel) -> holder.setTextView(R.id.xiaopian_item_content, movieModel.title))
+                        .setOnItemClickListener((view, position, info) -> {
+                            if (ApkUtils.getXLIntent() != null) {
+                                XiaopianDetailActivity.startIntent(info.detailUrl);
+                            } else {
+                                UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
+                            }
+                        })
         );
 
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -93,8 +95,7 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
 
     @Override
     public void onRefresh() {
-        page = 1;
-        mPresenter.netWorkRequest(tabPosition, page);
+        mPresenter.netWorkRequest(tabPosition, page = 1);
     }
 
     @Override
@@ -102,22 +103,24 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
         if (swipeRefreshLayout.isRefreshing()) {
             return;
         }
-        ++page;
         mPresenter.netWorkRequest(tabPosition, page);
     }
 
     @Override
     public void netWorkSuccess(List<MovieModel> data) {
-        if (page == 1) {
-            mAdapter.removeAll();
+        if (mStatusView != null) {
+            if (page == 1) {
+                mAdapter.removeAll();
+            }
+            ++page;
+            mAdapter.addAllData(data);
         }
-        mAdapter.addAllData(data);
     }
 
     @Override
     public void netWorkError() {
-        if (getActivity() != null)
-            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.network_error));
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
     }
 
     @Override
@@ -134,7 +137,7 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
 
     @Override
     public void noMore() {
-        if (getActivity() != null)
-            UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), getString(R.string.data_empty));
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.data_empty));
     }
 }

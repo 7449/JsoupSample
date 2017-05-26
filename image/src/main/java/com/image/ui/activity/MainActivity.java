@@ -87,6 +87,12 @@ public class MainActivity extends BaseActivity<MainPresenterImpl>
     }
 
     @Override
+    protected void onDestroy() {
+        mPresenter.onMainDestroy();
+        super.onDestroy();
+    }
+
+    @Override
     public void onBack() {
         super.onBackPressed();
     }

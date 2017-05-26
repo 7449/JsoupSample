@@ -63,16 +63,27 @@ public class PiaoHuaDetailActivity extends BaseActivity<PiaoHuaDetailPresenterIm
 
     @Override
     public void netWorkError() {
-        UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
     }
 
     @Override
     public void showProgress() {
-        progressBar.show();
+        if (progressBar != null)
+            progressBar.show();
     }
 
     @Override
     public void hideProgress() {
-        progressBar.hide();
+        if (progressBar != null)
+            progressBar.hide();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (webView != null) {
+            webView.destroy();
+        }
     }
 }

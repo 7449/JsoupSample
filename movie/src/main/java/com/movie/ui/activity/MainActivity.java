@@ -5,17 +5,15 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.framework.base.BaseActivity;
 import com.framework.base.mvp.BaseModel;
 import com.movie.R;
-import com.movie.manager.ApiConfig;
 import com.movie.mvp.presenter.MainPresenterImpl;
-import com.movie.mvp.presenter.PresenterManager;
 import com.movie.mvp.view.ViewManager;
-import com.movie.ui.fragment.TabFragment;
 
 public class MainActivity extends BaseActivity<MainPresenterImpl>
         implements NavigationView.OnNavigationItemSelectedListener, ViewManager.MainView {
@@ -27,7 +25,7 @@ public class MainActivity extends BaseActivity<MainPresenterImpl>
     protected void initCreate(Bundle savedInstanceState) {
         navigationView.setNavigationItemSelectedListener(this);
         toolbar.setTitle(getString(R.string.dytt_title));
-        switchDytt();
+        mPresenter.switchId(MainPresenterImpl.FIRST_FRAGMENT);
     }
 
     @Override
@@ -47,7 +45,7 @@ public class MainActivity extends BaseActivity<MainPresenterImpl>
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            mPresenter.onBackPressed();
         }
     }
 
@@ -66,23 +64,26 @@ public class MainActivity extends BaseActivity<MainPresenterImpl>
     }
 
     @Override
-    public void switchDytt() {
-        replaceFragment(TabFragment.newInstance(ApiConfig.Type.DYTT));
+    public AppCompatActivity getMainActivity() {
+        return this;
     }
 
     @Override
-    public void swichDy2018() {
-        replaceFragment(TabFragment.newInstance(ApiConfig.Type.DY_2018));
+    public void selectMenuFirst() {
+        MenuItem item = navigationView.getMenu().findItem(R.id.dytt);
+        item.setChecked(true);
+        toolbar.setTitle(item.getTitle());
     }
 
     @Override
-    public void switchXiaoPian() {
-        replaceFragment(TabFragment.newInstance(ApiConfig.Type.XIAO_PIAN));
+    protected void onDestroy() {
+        mPresenter.onMainDestroy();
+        super.onDestroy();
     }
 
     @Override
-    public void switchPiaoHua() {
-        replaceFragment(TabFragment.newInstance(ApiConfig.Type.PIAO_HUA));
+    public void onBack() {
+        super.onBackPressed();
     }
 
     @Override

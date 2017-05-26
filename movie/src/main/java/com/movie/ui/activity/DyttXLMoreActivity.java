@@ -14,7 +14,6 @@ import com.movie.R;
 import com.movie.manager.ApiConfig;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.presenter.DyttXLMorePresenterImpl;
-import com.movie.mvp.presenter.PresenterManager;
 import com.movie.mvp.view.ViewManager;
 import com.xadapter.adapter.multi.MultiAdapter;
 import com.xadapter.adapter.multi.XMultiAdapterListener;
@@ -88,15 +87,18 @@ public class DyttXLMoreActivity extends BaseActivity<DyttXLMorePresenterImpl>
 
     @Override
     public void netWorkSuccess(List<MovieModel> data) {
-        if (mAdapter.getData() != null) {
-            mAdapter.getData().clear();
+        if (mStatusView != null) {
+            if (mAdapter.getData() != null) {
+                mAdapter.getData().clear();
+            }
+            mAdapter.addAll(data);
         }
-        mAdapter.addAll(data);
     }
 
     @Override
     public void netWorkError() {
-        UIUtils.snackBar(getView(R.id.coordinatorLayout), getString(R.string.network_error));
+        if (mStatusView != null)
+            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
     }
 
     @Override

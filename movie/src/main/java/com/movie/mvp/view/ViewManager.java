@@ -1,5 +1,7 @@
 package com.movie.mvp.view;
 
+import android.support.v7.app.AppCompatActivity;
+
 import com.framework.base.mvp.BaseListView;
 import com.framework.base.mvp.BaseModel;
 import com.framework.base.mvp.BaseView;
@@ -46,13 +48,13 @@ public interface ViewManager {
     }
 
     interface MainView extends BaseView<BaseModel> {
-        void switchDytt();
 
-        void swichDy2018();
+        AppCompatActivity getMainActivity();
 
-        void switchXiaoPian();
+        void selectMenuFirst();
 
-        void switchPiaoHua();
+        void onBack();
+
     }
 
 }
