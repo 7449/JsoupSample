@@ -35,9 +35,6 @@ public class DyttVideoDetailActivity extends BaseActivity<DyttVideoDetailPresent
     @Override
     protected void initCreate(Bundle savedInstanceState) {
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
         mPresenter.netWorkRequest(getIntent().getExtras().getString(URL));
     }
 

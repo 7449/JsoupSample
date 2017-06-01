@@ -32,9 +32,6 @@ public class Dy2018DetailActivity extends BaseActivity<Dy2018DetailPresenterImpl
     @Override
     protected void initCreate(Bundle savedInstanceState) {
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
         mPresenter.netWorkRequest(getIntent().getExtras().getString(URL));
     }
 

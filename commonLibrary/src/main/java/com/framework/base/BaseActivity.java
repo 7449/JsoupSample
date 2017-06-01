@@ -1,8 +1,8 @@
 package com.framework.base;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,13 +38,12 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
             mPresenter.setTag(getClass().getSimpleName());
         }
         initCreate(savedInstanceState);
+        if (getSupportActionBar() != null && !TextUtils.equals(getClass().getSimpleName(), "MainActivity")) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     protected void clickNetWork() {
-    }
-
-    public void replaceFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragment).commit();
     }
 
     protected <T extends View> T getView(int id) {

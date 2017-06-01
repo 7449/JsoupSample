@@ -50,9 +50,6 @@ public class FictionDetailActivity extends BaseActivity<FictionDetailPresenterIm
         type = extras.getString(TYPE);
         toolbar.setTitle(getString(R.string.app_name));
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
         mPresenter.startDetail(extras.getString(URL), type);
     }
 

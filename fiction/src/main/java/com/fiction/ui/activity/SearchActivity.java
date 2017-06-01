@@ -46,9 +46,6 @@ public class SearchActivity extends BaseActivity<SearchListPresenterImpl>
         swipeRefreshLayout.setEnabled(false);
         toolbar.setTitle(fictionName);
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
         mAdapter = new XRecyclerViewAdapter<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setLoadingMore(this);

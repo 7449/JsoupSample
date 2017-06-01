@@ -54,9 +54,6 @@ public class SearchListActivity extends BaseActivity<SearchListPresenterImpl>
             content = extras.getString(SEARCH_CONTENT);
         }
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
         toolbar.setTitle(searchType + " (关键词:" + content + ")");
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(this::onRefresh);

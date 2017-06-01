@@ -46,9 +46,6 @@ public class DyttXLMoreActivity extends BaseActivity<DyttXLMorePresenterImpl>
     @Override
     protected void initCreate(Bundle savedInstanceState) {
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
         toolbar.setTitle(getIntent().getExtras().getString(TITLE));
 
         mAdapter = new MultiAdapter<>(new ArrayList<>());

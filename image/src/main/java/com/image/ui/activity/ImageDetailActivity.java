@@ -55,10 +55,7 @@ public class ImageDetailActivity extends BaseActivity<ImageDetailPresenterImpl> 
         viewPager.setAdapter(adapter);
 
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            setTitles(1, adapter.getCount());
-        }
+        setTitles(1, adapter.getCount());
 
         mPresenter.netWorkRequest(type, extras.getString(URL));
 

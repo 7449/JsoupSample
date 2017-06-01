@@ -48,9 +48,6 @@ public class DyttVideoMoreActivity extends BaseActivity<DyttVideoMorePresenterIm
     @Override
     protected void initCreate(Bundle savedInstanceState) {
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
         Bundle extras = getIntent().getExtras();
         placeType = extras.getInt(PLACE);
         type = extras.getInt(TYPE);
