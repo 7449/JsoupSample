@@ -58,4 +58,8 @@ public class UIUtils {
     public static void snackBar(View view, Object object) {
         Snackbar.make(view, object + "", Snackbar.LENGTH_SHORT).show();
     }
+
+    public static void snackBar(View view, int object) {
+        Snackbar.make(view, object, Snackbar.LENGTH_SHORT).show();
+    }
 }

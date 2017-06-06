@@ -9,6 +9,7 @@ import com.framework.base.BaseActivity;
 import com.framework.utils.ImageLoaderUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
+import com.framework.widget.StatusLayout;
 import com.image.R;
 import com.image.mvp.model.ImageModel;
 import com.image.mvp.presenter.SearchListPresenterImpl;
@@ -24,7 +25,8 @@ import java.util.List;
 public class SearchListActivity extends BaseActivity<SearchListPresenterImpl>
         implements
         SwipeRefreshLayout.OnRefreshListener,
-        ViewManager.SearchListView {
+        ViewManager.SearchListView,
+        LoadMoreRecyclerView.LoadMoreListener {
 
     private static final String SEARCH_TYPE = "search";
     private static final String SEARCH_CONTENT = "content";
@@ -64,13 +66,7 @@ public class SearchListActivity extends BaseActivity<SearchListPresenterImpl>
         mAdapter = new XRecyclerViewAdapter<>();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        recyclerView.setLoadingMore(() -> {
-            if (page == mAdapter.getData().get(0).totalPage) {
-                UIUtils.snackBar(mStatusView, getString(R.string.data_empty));
-                return;
-            }
-            mPresenter.netWorkRequest(searchType, content, page);
-        });
+        recyclerView.setLoadingMore(this);
         recyclerView.setAdapter(
                 mAdapter.setLayoutId(R.layout.item_image_list)
                         .onXBind((holder, position, imageModel) -> ImageLoaderUtils.display(holder.getImageView(R.id.image), imageModel.url))
@@ -96,8 +92,29 @@ public class SearchListActivity extends BaseActivity<SearchListPresenterImpl>
     }
 
     @Override
+    protected void clickNetWork() {
+        super.clickNetWork();
+        if (!swipeRefreshLayout.isRefreshing()) {
+            onRefresh();
+        }
+    }
+
+    @Override
     public void onRefresh() {
+        mStatusView.setStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest(searchType, content, page = 1);
+    }
+
+    @Override
+    public void onLoadMore() {
+        if (swipeRefreshLayout.isRefreshing()) {
+            return;
+        }
+        if (page == mAdapter.getData().get(0).totalPage) {
+            UIUtils.snackBar(mStatusView, getString(R.string.data_empty));
+            return;
+        }
+        mPresenter.netWorkRequest(searchType, content, page);
     }
 
     @Override
@@ -108,15 +125,22 @@ public class SearchListActivity extends BaseActivity<SearchListPresenterImpl>
             }
             ++page;
             mAdapter.addAllData(data);
+            mStatusView.setStatus(StatusLayout.SUCCESS);
         }
     }
 
+
     @Override
     public void netWorkError() {
-        if (mStatusView != null)
-            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
+        if (mStatusView != null) {
+            if (page == 1) {
+                mAdapter.removeAll();
+                mStatusView.setStatus(StatusLayout.ERROR);
+            } else {
+                UIUtils.snackBar(mStatusView, R.string.net_error);
+            }
+        }
     }
-
 
     @Override
     public void showProgress() {
@@ -124,16 +148,22 @@ public class SearchListActivity extends BaseActivity<SearchListPresenterImpl>
             swipeRefreshLayout.setRefreshing(true);
     }
 
+
     @Override
     public void hideProgress() {
         if (swipeRefreshLayout != null)
             swipeRefreshLayout.setRefreshing(false);
     }
 
-
     @Override
     public void noMore() {
-        if (mStatusView != null)
-            UIUtils.snackBar(mStatusView, getString(R.string.data_empty));
+        if (mStatusView != null) {
+            if (page == 1) {
+                mAdapter.removeAll();
+                mStatusView.setStatus(StatusLayout.EMPTY);
+            } else {
+                UIUtils.snackBar(mStatusView, R.string.data_empty);
+            }
+        }
     }
 }

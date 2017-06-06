@@ -40,11 +40,4 @@ public class XiaoPianJsoupManager {
         }
         return listModels;
     }
-
-    public MovieModel getXiaoPianDetail() {
-        MovieModel model = new MovieModel();
-        model.title = document.select("div.title_all").text();
-        model.message = document.select("div#Zoom").html();
-        return model;
-    }
 }

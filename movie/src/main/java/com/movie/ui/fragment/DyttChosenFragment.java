@@ -9,15 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import com.framework.base.BaseFragment;
 import com.framework.utils.ApkUtils;
 import com.framework.utils.UIUtils;
+import com.framework.widget.StatusLayout;
 import com.movie.R;
 import com.movie.manager.ApiConfig;
 import com.movie.manager.DyttJsoupManager;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.presenter.DyttChosenPresenterImpl;
 import com.movie.mvp.view.ViewManager;
-import com.movie.ui.activity.DyttVideoDetailActivity;
 import com.movie.ui.activity.DyttVideoMoreActivity;
 import com.movie.ui.activity.DyttXLMoreActivity;
+import com.movie.ui.activity.VideoDetailActivity;
 import com.xadapter.adapter.multi.MultiAdapter;
 import com.xadapter.adapter.multi.XMultiAdapterListener;
 import com.xadapter.holder.XViewHolder;
@@ -70,6 +71,7 @@ public class DyttChosenFragment extends BaseFragment<DyttChosenPresenterImpl>
         initRecyclerView();
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(this::onRefresh);
+        swipeRefreshLayout.setEnabled(false);
         setLoad();
     }
 
@@ -88,7 +90,16 @@ public class DyttChosenFragment extends BaseFragment<DyttChosenPresenterImpl>
     }
 
     @Override
+    protected void clickNetWork() {
+        super.clickNetWork();
+        if (!swipeRefreshLayout.isRefreshing()) {
+            onRefresh();
+        }
+    }
+
+    @Override
     public void onRefresh() {
+        mStatusView.setStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest();
     }
 
@@ -99,13 +110,16 @@ public class DyttChosenFragment extends BaseFragment<DyttChosenPresenterImpl>
                 mAdapter.getData().clear();
             }
             mAdapter.addAll(data);
+            mStatusView.setStatus(StatusLayout.SUCCESS);
         }
     }
 
     @Override
     public void netWorkError() {
-        if (mStatusView != null)
+        if (mStatusView != null) {
+            mStatusView.setStatus(StatusLayout.ERROR);
             UIUtils.snackBar(mStatusView, getString(R.string.network_error));
+        }
     }
 
     @Override
@@ -168,7 +182,7 @@ public class DyttChosenFragment extends BaseFragment<DyttChosenPresenterImpl>
                 holder.setTextView(R.id.dytt_item_content, list.get(position).title);
                 holder.itemView.setOnClickListener(v -> {
                     if (ApkUtils.getXLIntent() != null) {
-                        DyttVideoDetailActivity.startIntent(list.get(position).url);
+                        VideoDetailActivity.startIntent(list.get(position).url);
                     } else {
                         UIUtils.toast(UIUtils.getString(R.string.xl));
                     }

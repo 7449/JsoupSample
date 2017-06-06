@@ -15,6 +15,7 @@ import com.fiction.mvp.presenter.FictionContentsPresenterImpl;
 import com.fiction.mvp.view.ViewManager;
 import com.framework.base.BaseActivity;
 import com.framework.utils.UIUtils;
+import com.framework.widget.StatusLayout;
 import com.xadapter.OnXBindListener;
 import com.xadapter.adapter.XRecyclerViewAdapter;
 import com.xadapter.holder.XViewHolder;
@@ -40,6 +41,7 @@ public class FictionContentsActivity extends BaseActivity<FictionContentsPresent
     private SwipeRefreshLayout swipeRefreshLayout;
     private XRecyclerViewAdapter<FictionModel> mAdapter;
     private Toolbar toolbar;
+    private Bundle extras;
 
     public static void getInstance(String type, String url, String title) {
         Bundle bundle = new Bundle();
@@ -53,7 +55,7 @@ public class FictionContentsActivity extends BaseActivity<FictionContentsPresent
     @Override
     protected void initCreate(Bundle savedInstanceState) {
         swipeRefreshLayout.setEnabled(false);
-        Bundle extras = getIntent().getExtras();
+        extras = getIntent().getExtras();
         type = extras.getString(TYPE);
         toolbar.setTitle(extras.getString(TITLE));
         setSupportActionBar(toolbar);
@@ -66,6 +68,14 @@ public class FictionContentsActivity extends BaseActivity<FictionContentsPresent
                         .setOnItemClickListener((view, position, info) -> FictionDetailActivity.getInstance(type, info.detailUrl))
         );
         mPresenter.startContents(extras.getString(URL), type);
+    }
+
+    @Override
+    protected void clickNetWork() {
+        super.clickNetWork();
+        if (!swipeRefreshLayout.isRefreshing()) {
+            mPresenter.startContents(extras.getString(URL), type);
+        }
     }
 
     @Override
@@ -89,6 +99,7 @@ public class FictionContentsActivity extends BaseActivity<FictionContentsPresent
     @Override
     public void netWorkSuccess(List<FictionModel> data) {
         if (mStatusView != null) {
+            mStatusView.setStatus(StatusLayout.SUCCESS);
             Collections.reverse(data);
             mAdapter.addAllData(data);
         }
@@ -96,8 +107,11 @@ public class FictionContentsActivity extends BaseActivity<FictionContentsPresent
 
     @Override
     public void netWorkError() {
-        if (mStatusView != null)
+        if (mStatusView != null) {
+            mAdapter.removeAll();
+            mStatusView.setStatus(StatusLayout.ERROR);
             UIUtils.snackBar(mStatusView, getString(R.string.network_error));
+        }
     }
 
     @Override

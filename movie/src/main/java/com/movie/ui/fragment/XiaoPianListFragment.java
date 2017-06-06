@@ -8,11 +8,12 @@ import com.framework.base.BaseFragment;
 import com.framework.utils.ApkUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
+import com.framework.widget.StatusLayout;
 import com.movie.R;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.presenter.XiaoPianListPresenterImpl;
 import com.movie.mvp.view.ViewManager;
-import com.movie.ui.activity.XiaopianDetailActivity;
+import com.movie.ui.activity.VideoDetailActivity;
 import com.xadapter.adapter.XRecyclerViewAdapter;
 
 import java.util.List;
@@ -75,7 +76,7 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
                         .onXBind((holder, position, movieModel) -> holder.setTextView(R.id.xiaopian_item_content, movieModel.title))
                         .setOnItemClickListener((view, position, info) -> {
                             if (ApkUtils.getXLIntent() != null) {
-                                XiaopianDetailActivity.startIntent(info.detailUrl);
+                                VideoDetailActivity.startIntent(info.detailUrl);
                             } else {
                                 UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
                             }
@@ -89,12 +90,21 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
     }
 
     @Override
+    protected void clickNetWork() {
+        super.clickNetWork();
+        if (!swipeRefreshLayout.isRefreshing()) {
+            onRefresh();
+        }
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_xiao_pian;
     }
 
     @Override
     public void onRefresh() {
+        mStatusView.setStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest(tabPosition, page = 1);
     }
 
@@ -114,13 +124,20 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
             }
             ++page;
             mAdapter.addAllData(data);
+            mStatusView.setStatus(StatusLayout.SUCCESS);
         }
     }
 
     @Override
     public void netWorkError() {
-        if (mStatusView != null)
-            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
+        if (mStatusView != null) {
+            if (page == 1) {
+                mAdapter.removeAll();
+                mStatusView.setStatus(StatusLayout.ERROR);
+            } else {
+                UIUtils.snackBar(mStatusView, R.string.net_error);
+            }
+        }
     }
 
     @Override
@@ -137,7 +154,13 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
 
     @Override
     public void noMore() {
-        if (mStatusView != null)
-            UIUtils.snackBar(mStatusView, getString(R.string.data_empty));
+        if (mStatusView != null) {
+            if (page == 1) {
+                mAdapter.removeAll();
+                mStatusView.setStatus(StatusLayout.EMPTY);
+            } else {
+                UIUtils.snackBar(mStatusView, R.string.data_empty);
+            }
+        }
     }
 }

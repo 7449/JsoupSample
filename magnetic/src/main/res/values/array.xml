@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="list_array">
+        <item>蚂蚁</item>
+        <item>樱桃</item>
+        <item>尼玛</item>
+        <item>蜘蛛</item>
+    </string-array>
+
+</resources>

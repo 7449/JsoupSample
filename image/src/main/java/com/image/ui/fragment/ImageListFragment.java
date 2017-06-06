@@ -8,6 +8,7 @@ import com.framework.base.BaseFragment;
 import com.framework.utils.ImageLoaderUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
+import com.framework.widget.StatusLayout;
 import com.image.R;
 import com.image.mvp.model.ImageModel;
 import com.image.mvp.presenter.ImageListPresenterImpl;
@@ -22,7 +23,7 @@ import java.util.List;
  * by y on 2016/7/28.
  */
 public class ImageListFragment extends BaseFragment<ImageListPresenterImpl>
-        implements SwipeRefreshLayout.OnRefreshListener, ViewManager.ImageListView {
+        implements SwipeRefreshLayout.OnRefreshListener, ViewManager.ImageListView, LoadMoreRecyclerView.LoadMoreListener {
 
     protected int page = 1;
 
@@ -72,7 +73,7 @@ public class ImageListFragment extends BaseFragment<ImageListPresenterImpl>
         mAdapter = new XRecyclerViewAdapter<>();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        recyclerView.setLoadingMore(() -> mPresenter.netWorkRequest(type, tabPosition, page));
+        recyclerView.setLoadingMore(this);
         recyclerView.setAdapter(
                 mAdapter
                         .setLayoutId(R.layout.item_image_list)
@@ -87,10 +88,27 @@ public class ImageListFragment extends BaseFragment<ImageListPresenterImpl>
     }
 
     @Override
+    protected void clickNetWork() {
+        super.clickNetWork();
+        if (!swipeRefreshLayout.isRefreshing()) {
+            onRefresh();
+        }
+    }
+
+    @Override
     public void onRefresh() {
+        mStatusView.setStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest(type, tabPosition, page = 1);
     }
 
+
+    @Override
+    public void onLoadMore() {
+        if (swipeRefreshLayout.isRefreshing()) {
+            return;
+        }
+        mPresenter.netWorkRequest(type, tabPosition, page);
+    }
 
     @Override
     public void netWorkSuccess(List<ImageModel> data) {
@@ -100,13 +118,20 @@ public class ImageListFragment extends BaseFragment<ImageListPresenterImpl>
             }
             ++page;
             mAdapter.addAllData(data);
+            mStatusView.setStatus(StatusLayout.SUCCESS);
         }
     }
 
     @Override
     public void netWorkError() {
-        if (mStatusView != null)
-            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
+        if (mStatusView != null) {
+            if (page == 1) {
+                mAdapter.removeAll();
+                mStatusView.setStatus(StatusLayout.ERROR);
+            } else {
+                UIUtils.snackBar(mStatusView, R.string.net_error);
+            }
+        }
     }
 
     @Override
@@ -121,9 +146,16 @@ public class ImageListFragment extends BaseFragment<ImageListPresenterImpl>
             swipeRefreshLayout.setRefreshing(false);
     }
 
+
     @Override
     public void noMore() {
-        if (mStatusView != null)
-            UIUtils.snackBar(mStatusView, getString(R.string.data_empty));
+        if (mStatusView != null) {
+            if (page == 1) {
+                mAdapter.removeAll();
+                mStatusView.setStatus(StatusLayout.EMPTY);
+            } else {
+                UIUtils.snackBar(mStatusView, R.string.data_empty);
+            }
+        }
     }
 }

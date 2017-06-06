@@ -63,6 +63,7 @@ public abstract class BasePresenterImpl<M, V extends BaseView<M>>
     }
 
     protected void netWork(String url) {
+        KLog.i(url);
         RxJsoupNetWork.getInstance().cancel(tag);
         RxJsoupNetWork
                 .getInstance()

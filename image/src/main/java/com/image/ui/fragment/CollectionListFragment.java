@@ -5,15 +5,17 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.framework.base.BaseFragment;
 import com.framework.base.mvp.BasePresenterImpl;
 import com.framework.utils.ImageLoaderUtils;
+import com.framework.utils.UIUtils;
 import com.image.R;
 import com.image.collection.CollectionModel;
 import com.image.collection.CollectionUtils;
 import com.image.collection.GreenDaoDbUtils;
 import com.image.ui.dialog.CollectionDetailDialog;
-import com.image.ui.dialog.CollectionListDialog;
+import com.xadapter.OnItemLongClickListener;
 import com.xadapter.adapter.XRecyclerViewAdapter;
 
 import java.util.List;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 
 public class CollectionListFragment extends BaseFragment
-        implements CollectionListDialog.CollectionListener {
+        implements OnItemLongClickListener<CollectionModel> {
 
     private RecyclerView recyclerView;
     private TextView textView;
@@ -56,14 +58,14 @@ public class CollectionListFragment extends BaseFragment
                 mAdapter.initXData(collectionAll).setLayoutId(R.layout.item_collection)
                         .onXBind((holder, position, collectionModel) -> ImageLoaderUtils.display(holder.getImageView(R.id.image), collectionModel.getUrl()))
                         .setOnItemClickListener((view2, position, info) -> CollectionDetailDialog.startFragment(position, getChildFragmentManager()))
-                        .setOnLongClickListener((view, position, info) -> {
-                            CollectionListDialog.newInstance(position, getChildFragmentManager(), "collection");
-                            return true;
-                        })
+                        .setOnLongClickListener(this)
         );
+        notifyDataSetChangedView(collectionAll.isEmpty());
+    }
 
-        textView.setVisibility(collectionAll.isEmpty() ? View.VISIBLE : View.GONE);
-        recyclerView.setVisibility(collectionAll.isEmpty() ? View.GONE : View.VISIBLE);
+    private void notifyDataSetChangedView(boolean isEmpty) {
+        textView.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
+        recyclerView.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
     }
 
     @Override
@@ -71,20 +73,31 @@ public class CollectionListFragment extends BaseFragment
         return R.layout.fragment_collection;
     }
 
-    @Override
-    public void onCollectionDeletedNext(int position) {
-        CollectionUtils.deleted(mAdapter.getData(position).getUrl());
-        mAdapter.remove(position);
-        if (mAdapter.getData().isEmpty()) {
-            recyclerView.setVisibility(View.GONE);
-            textView.setVisibility(View.VISIBLE);
-        }
-    }
 
     public void refreshUI() {
         if (mAdapter != null) {
             mAdapter.removeAll();
-            mAdapter.addAllData(GreenDaoDbUtils.getCollectionAll());
+            List<CollectionModel> collectionAll = GreenDaoDbUtils.getCollectionAll();
+            mAdapter.addAllData(collectionAll);
+            notifyDataSetChangedView(collectionAll.isEmpty());
         }
+    }
+
+    @Override
+    public boolean onLongClick(View view, int position, CollectionModel info) {
+        new MaterialDialog
+                .Builder(getActivity())
+                .title(UIUtils.getString(R.string.collection_title))
+                .negativeText(R.string.collection_deleted)
+                .onNegative((dialog, which) -> {
+                    CollectionUtils.deleted(mAdapter.getData(position).getUrl());
+                    mAdapter.remove(position);
+                    if (mAdapter.getData().isEmpty()) {
+                        recyclerView.setVisibility(View.GONE);
+                        textView.setVisibility(View.VISIBLE);
+                    }
+                })
+                .show();
+        return true;
     }
 }

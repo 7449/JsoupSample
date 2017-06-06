@@ -58,4 +58,8 @@ ext {
     movieStorePath = 'movie.jks'
     moviePassword = '123456'
     movieKeyAlias = 'movie'
+
+    magneticStorePath = 'magnetic.jks'
+    magneticPassword = '123456'
+    magneticKeyAlias = 'magnetic'
 }

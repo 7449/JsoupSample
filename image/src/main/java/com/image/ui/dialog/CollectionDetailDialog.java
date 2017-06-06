@@ -65,6 +65,14 @@ public class CollectionDetailDialog extends BaseDialogFragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mRootView != null) {
+            mRootView = null;
+        }
+    }
+
+    @Override
     protected boolean getCancelable() {
         return true;
     }

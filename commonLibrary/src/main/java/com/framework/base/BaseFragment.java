@@ -104,10 +104,15 @@ public abstract class BaseFragment<P extends BasePresenterImpl> extends Fragment
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if (mStatusView != null) {
+            mStatusView.onDestroyView();
+        }
         if (mPresenter != null) {
             mPresenter.onDestroy();
             mPresenter = null;
         }
     }
+
+
 }
 

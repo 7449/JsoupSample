@@ -28,7 +28,7 @@ public class MainActivity extends BaseActivity<MainPresenterImpl>
     @Override
     protected void initCreate(Bundle savedInstanceState) {
         navigationView.setNavigationItemSelectedListener(this);
-        toolbar.setTitle(getString(R.string.title_81));
+        toolbar.setTitle(R.string.title_81);
         setSupportActionBar(toolbar);
         mPresenter.switchId(MainPresenterImpl.FIRST_FRAGMENT);
     }

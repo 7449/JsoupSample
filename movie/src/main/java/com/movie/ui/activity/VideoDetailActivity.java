@@ -7,16 +7,17 @@ import android.support.v7.widget.Toolbar;
 import com.framework.base.BaseActivity;
 import com.framework.utils.UIUtils;
 import com.framework.widget.EasyWebView;
+import com.framework.widget.StatusLayout;
 import com.movie.R;
 import com.movie.mvp.model.MovieModel;
-import com.movie.mvp.presenter.Dy2018DetailPresenterImpl;
+import com.movie.mvp.presenter.VideoDetailPresenterImpl;
 import com.movie.mvp.view.ViewManager;
 
 /**
- * by y on 2017/3/24.
+ * by y on 2017/6/6.
  */
 
-public class Dy2018DetailActivity extends BaseActivity<Dy2018DetailPresenterImpl> implements ViewManager.Dy2018DetailView {
+public class VideoDetailActivity extends BaseActivity<VideoDetailPresenterImpl> implements ViewManager.Dy2018DetailView {
 
     private static final String URL = "url";
     private Toolbar toolbar;
@@ -26,12 +27,19 @@ public class Dy2018DetailActivity extends BaseActivity<Dy2018DetailPresenterImpl
     public static void startIntent(String url) {
         Bundle bundle = new Bundle();
         bundle.putString(URL, url);
-        UIUtils.startActivity(Dy2018DetailActivity.class, bundle);
+        UIUtils.startActivity(VideoDetailActivity.class, bundle);
     }
 
     @Override
     protected void initCreate(Bundle savedInstanceState) {
         setSupportActionBar(toolbar);
+        mPresenter.netWorkRequest(getIntent().getExtras().getString(URL));
+    }
+
+    @Override
+    protected void clickNetWork() {
+        super.clickNetWork();
+        mStatusView.setStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest(getIntent().getExtras().getString(URL));
     }
 
@@ -43,13 +51,13 @@ public class Dy2018DetailActivity extends BaseActivity<Dy2018DetailPresenterImpl
     }
 
     @Override
-    protected Dy2018DetailPresenterImpl initPresenterImpl() {
-        return new Dy2018DetailPresenterImpl(this);
+    protected VideoDetailPresenterImpl initPresenterImpl() {
+        return new VideoDetailPresenterImpl(this);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_dy2018_detail;
+        return R.layout.activity_video_detail;
     }
 
     @Override
@@ -57,13 +65,16 @@ public class Dy2018DetailActivity extends BaseActivity<Dy2018DetailPresenterImpl
         if (mStatusView != null) {
             toolbar.setTitle(data.title);
             webView.loadDataUrl(data.message);
+            mStatusView.setStatus(StatusLayout.SUCCESS);
         }
     }
 
     @Override
     public void netWorkError() {
-        if (mStatusView != null)
+        if (mStatusView != null) {
+            mStatusView.setStatus(StatusLayout.ERROR);
             UIUtils.snackBar(mStatusView, getString(R.string.network_error));
+        }
     }
 
     @Override
@@ -86,3 +97,4 @@ public class Dy2018DetailActivity extends BaseActivity<Dy2018DetailPresenterImpl
         }
     }
 }
+

@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import com.framework.R;
 import com.framework.base.mvp.BasePresenterImpl;
 import com.framework.widget.StatusLayout;
+import com.socks.library.KLog;
 
 /**
  * by y on 2016/7/26.
@@ -24,6 +25,7 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        KLog.i(getClass().getSimpleName());
         mStatusView = new StatusLayout(this);
         mStatusView.setSuccessView(getLayoutId(), new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         mStatusView.setEmptyView(R.layout.layout_empty_view);
@@ -70,6 +72,9 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (mStatusView != null) {
+            mStatusView.onDestroyView();
+        }
         if (mPresenter != null) {
             mPresenter.onDestroy();
             mPresenter = null;

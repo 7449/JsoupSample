@@ -10,11 +10,12 @@ import com.framework.utils.ApkUtils;
 import com.framework.utils.ImageLoaderUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
+import com.framework.widget.StatusLayout;
 import com.movie.R;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.presenter.PiaoHuaListPresenterImpl;
 import com.movie.mvp.view.ViewManager;
-import com.movie.ui.activity.PiaoHuaDetailActivity;
+import com.movie.ui.activity.VideoDetailActivity;
 import com.xadapter.adapter.XRecyclerViewAdapter;
 
 import java.util.List;
@@ -81,7 +82,7 @@ public class PiaoHuaListFragment extends BaseFragment<PiaoHuaListPresenterImpl>
                         })
                         .setOnItemClickListener((view, position, info) -> {
                             if (ApkUtils.getXLIntent() != null) {
-                                PiaoHuaDetailActivity.startIntent(info.detailUrl);
+                                VideoDetailActivity.startIntent(info.detailUrl);
                             } else {
                                 UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
                             }
@@ -100,7 +101,16 @@ public class PiaoHuaListFragment extends BaseFragment<PiaoHuaListPresenterImpl>
     }
 
     @Override
+    protected void clickNetWork() {
+        super.clickNetWork();
+        if (!swipeRefreshLayout.isRefreshing()) {
+            onRefresh();
+        }
+    }
+
+    @Override
     public void onRefresh() {
+        mStatusView.setStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest(tabPosition, page = 1);
     }
 
@@ -120,13 +130,20 @@ public class PiaoHuaListFragment extends BaseFragment<PiaoHuaListPresenterImpl>
             }
             ++page;
             mAdapter.addAllData(data);
+            mStatusView.setStatus(StatusLayout.SUCCESS);
         }
     }
 
     @Override
     public void netWorkError() {
-        if (mStatusView != null)
-            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
+        if (mStatusView != null) {
+            if (page == 1) {
+                mAdapter.removeAll();
+                mStatusView.setStatus(StatusLayout.ERROR);
+            } else {
+                UIUtils.snackBar(mStatusView, R.string.net_error);
+            }
+        }
     }
 
     @Override
@@ -143,7 +160,13 @@ public class PiaoHuaListFragment extends BaseFragment<PiaoHuaListPresenterImpl>
 
     @Override
     public void noMore() {
-        if (mStatusView != null)
-            UIUtils.snackBar(mStatusView, getString(R.string.data_empty));
+        if (mStatusView != null) {
+            if (page == 1) {
+                mAdapter.removeAll();
+                mStatusView.setStatus(StatusLayout.EMPTY);
+            } else {
+                UIUtils.snackBar(mStatusView, R.string.data_empty);
+            }
+        }
     }
 }

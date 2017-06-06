@@ -91,17 +91,6 @@ public class DyttJsoupManager {
 
 
     /**
-     * 获取dytt详情
-     */
-    public MovieModel getDyttVideoDetail() {
-        MovieModel model = new MovieModel();
-        model.title = document.select("div.title_all").eq(4).text();
-        Elements select = document.select("div#Zoom");
-        model.message = select.html();
-        return model;
-    }
-
-    /**
      * 最新电影 华语电视剧 欧美电视剧 迅雷综艺节目 最新动漫   更多
      */
     public List<MovieModel> getDyttMoreVideoList() {

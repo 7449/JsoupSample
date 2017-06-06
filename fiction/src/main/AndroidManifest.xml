@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.fiction">
 
-    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name="com.framework.App"
         android:allowBackup="true"

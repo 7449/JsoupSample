@@ -7,7 +7,7 @@ import android.support.annotation.MenuRes;
  */
 
 public interface PresenterManager {
-    interface Dy2018DetailPresenter {
+    interface VideoDetailPresenter {
         void netWorkRequest(String url);
     }
 
@@ -23,10 +23,6 @@ public interface PresenterManager {
         void netWorkRequest();
     }
 
-    interface DyttVideoDetailPresenter {
-        void netWorkRequest(String url);
-    }
-
     interface DyttVideoMorePresenter {
         void netWorkRequest(int type, int placeType, int page);
     }
@@ -35,16 +31,8 @@ public interface PresenterManager {
         void netWorkRequest(String url);
     }
 
-    interface PiaoHuaDetailPresenter {
-        void netWorkRequest(String url);
-    }
-
     interface PiaoHuaListPresenter {
         void netWorkRequest(int position, int page);
-    }
-
-    interface XiaoPianDetailPresenter {
-        void netWorkRequest(String url);
     }
 
     interface XiaoPianListPresenter {

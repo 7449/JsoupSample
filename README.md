@@ -3,6 +3,21 @@ jsoupSample
 
 使用`Jsoup`抓取一些网站的数据，抓取数据的网站已经列在下面，如果有侵权嫌疑，请及时联系我删除相关数据
 
+
+
+# android SDK 内存泄露
+
+如图所示,这个Bug是Android输入法的Bug,输入法内存泄漏了.....
+
+![](https://github.com/7449/JsoupSample/blob/master/screenshot/androidBug.png)
+
+
+详情见：
+
+[InputMethodManager内存泄露现象及解决](http://blog.csdn.net/sodino/article/details/32188809)<br>
+[Android InputMethodManager 导致的内存泄露及解决方案](https://zhuanlan.zhihu.com/p/20828861?refer=zmywly8866)
+
+
 * fiction
 
 	>浏览小说
@@ -31,12 +46,24 @@ jsoupSample
 	
 	[豆瓣美女](http://www.dbmeinv.com/)<br>
 	[妹子图](http://www.mzitu.com/)<br>
-	[MM](http://www.mmjpg.com/)</br>
-	[MEIZITU](http://www.meizitu.com/)</br>
+	[MM](http://www.mmjpg.com/)<br>
+	[MEIZITU](http://www.meizitu.com/)<br>
 	[7kk](http://m.7kk.com/)<br>
 
 ![](https://github.com/7449/JsoupSample/blob/master/screenshot/image.gif)
 ![](https://github.com/7449/JsoupSample/blob/master/screenshot/image_search.gif)
+
+* magnetic (暂开发...)
+
+    >磁力链接抓取
+    
+    [BT蚂蚁](http://www.btans.com)<br>
+    [BT樱桃](http://www.btcherry.info)<br>
+    [尼玛搜](https://www.nimasou.info)<br>
+    [BT蜘蛛](http://www.zhizhucili.cc)<br>
+    
+    
+   
 	
 整个框架围绕着`framework`这个`modules`展开。
 

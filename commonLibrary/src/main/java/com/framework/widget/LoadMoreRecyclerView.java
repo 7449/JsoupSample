@@ -99,7 +99,7 @@ public class LoadMoreRecyclerView extends RecyclerView {
         return max;
     }
 
-    public enum LAYOUT_MANAGER_TYPE {
+    private enum LAYOUT_MANAGER_TYPE {
         LINEAR,
         GRID,
         STAGGERED_GRID

@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.framework.base.BaseFragment;
@@ -62,7 +62,7 @@ public class TabFragment extends BaseFragment {
     }
 
 
-    private static class TabAdapter extends FragmentPagerAdapter {
+    private static class TabAdapter extends FragmentStatePagerAdapter {
 
         private String[] name;
         private String type;

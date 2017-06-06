@@ -15,6 +15,7 @@ import com.framework.base.BaseFragment;
 import com.framework.utils.ImageLoaderUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
+import com.framework.widget.StatusLayout;
 import com.xadapter.adapter.multi.MultiAdapter;
 import com.xadapter.adapter.multi.XMultiAdapterListener;
 import com.xadapter.holder.XViewHolder;
@@ -68,7 +69,7 @@ public class FictionListFragment extends BaseFragment<FictionListPresenterImpl>
         }
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(this::onRefresh);
-
+        swipeRefreshLayout.setEnabled(false);
         mAdapter = new MultiAdapter<>(new ArrayList<>());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -84,7 +85,16 @@ public class FictionListFragment extends BaseFragment<FictionListPresenterImpl>
     }
 
     @Override
+    protected void clickNetWork() {
+        super.clickNetWork();
+        if (!swipeRefreshLayout.isRefreshing()) {
+            onRefresh();
+        }
+    }
+
+    @Override
     public void onRefresh() {
+        mStatusView.setStatus(StatusLayout.SUCCESS);
         mPresenter.netWork(type, tabPosition);
     }
 
@@ -95,13 +105,17 @@ public class FictionListFragment extends BaseFragment<FictionListPresenterImpl>
                 mAdapter.getData().clear();
             }
             mAdapter.addAll(data);
+            mStatusView.setStatus(StatusLayout.SUCCESS);
         }
     }
 
     @Override
     public void netWorkError() {
-        if (mStatusView != null)
+        if (mStatusView != null) {
+            mAdapter.clearAll();
+            mStatusView.setStatus(StatusLayout.ERROR);
             UIUtils.snackBar(mStatusView, getString(R.string.network_error));
+        }
     }
 
     @Override

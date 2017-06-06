@@ -8,11 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import com.framework.base.BaseFragment;
 import com.framework.utils.ApkUtils;
 import com.framework.utils.UIUtils;
+import com.framework.widget.StatusLayout;
 import com.movie.R;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.presenter.DyttNewPresenterImpl;
 import com.movie.mvp.view.ViewManager;
-import com.movie.ui.activity.DyttVideoDetailActivity;
+import com.movie.ui.activity.VideoDetailActivity;
 import com.xadapter.adapter.XRecyclerViewAdapter;
 
 import java.util.List;
@@ -64,6 +65,7 @@ public class DyttNewFragment extends BaseFragment<DyttNewPresenterImpl>
         initRecyclerView();
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(this::onRefresh);
+        swipeRefreshLayout.setEnabled(false);
         setLoad();
     }
 
@@ -76,7 +78,7 @@ public class DyttNewFragment extends BaseFragment<DyttNewPresenterImpl>
                 .onXBind((holder, position, movieModel) -> holder.setTextView(R.id.tv_dytt_new, movieModel.title))
                 .setOnItemClickListener((view, position, info) -> {
                     if (ApkUtils.getXLIntent() != null) {
-                        DyttVideoDetailActivity.startIntent(info.detailUrl);
+                        VideoDetailActivity.startIntent(info.detailUrl);
                     } else {
                         UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
                     }
@@ -90,7 +92,16 @@ public class DyttNewFragment extends BaseFragment<DyttNewPresenterImpl>
     }
 
     @Override
+    protected void clickNetWork() {
+        super.clickNetWork();
+        if (!swipeRefreshLayout.isRefreshing()) {
+            onRefresh();
+        }
+    }
+
+    @Override
     public void onRefresh() {
+        mStatusView.setStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest();
     }
 
@@ -100,13 +111,16 @@ public class DyttNewFragment extends BaseFragment<DyttNewPresenterImpl>
             mAdapter.removeAll();
             data.remove(0);
             mAdapter.addAllData(data);
+            mStatusView.setStatus(StatusLayout.SUCCESS);
         }
     }
 
     @Override
     public void netWorkError() {
-        if (mStatusView != null)
+        if (mStatusView != null) {
+            mStatusView.setStatus(StatusLayout.ERROR);
             UIUtils.snackBar(mStatusView, getString(R.string.network_error));
+        }
     }
 
     @Override

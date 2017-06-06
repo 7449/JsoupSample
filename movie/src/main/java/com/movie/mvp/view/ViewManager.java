@@ -23,9 +23,6 @@ public interface ViewManager {
     interface DyttChosenView extends BaseView<List<MovieModel>> {
     }
 
-    interface DyttVideoDetailView extends BaseView<MovieModel> {
-    }
-
     interface DyttNewView extends BaseView<List<MovieModel>> {
     }
 
@@ -36,12 +33,6 @@ public interface ViewManager {
     }
 
     interface PiaoHuaListView extends BaseListView<List<MovieModel>> {
-    }
-
-    interface PiaoHuaDetailView extends BaseView<MovieModel> {
-    }
-
-    interface XiaoPianDetailView extends BaseView<MovieModel> {
     }
 
     interface XiaoPianListView extends BaseListView<List<MovieModel>> {

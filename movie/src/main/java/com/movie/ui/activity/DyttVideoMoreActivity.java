@@ -9,6 +9,7 @@ import com.framework.base.BaseActivity;
 import com.framework.utils.ApkUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
+import com.framework.widget.StatusLayout;
 import com.movie.R;
 import com.movie.manager.ApiConfig;
 import com.movie.manager.DyttJsoupManager;
@@ -62,7 +63,7 @@ public class DyttVideoMoreActivity extends BaseActivity<DyttVideoMorePresenterIm
                         .onXBind((holder, position, movieModel) -> holder.setTextView(R.id.dytt_item_content, movieModel.title))
                         .setOnItemClickListener((view, position, info) -> {
                             if (ApkUtils.getXLIntent() != null) {
-                                DyttVideoDetailActivity.startIntent(info.url);
+                                VideoDetailActivity.startIntent(info.url);
                             } else {
                                 UIUtils.snackBar(getView(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
                             }
@@ -92,7 +93,16 @@ public class DyttVideoMoreActivity extends BaseActivity<DyttVideoMorePresenterIm
     }
 
     @Override
+    protected void clickNetWork() {
+        super.clickNetWork();
+        if (!swipeRefreshLayout.isRefreshing()) {
+            onRefresh();
+        }
+    }
+
+    @Override
     public void onRefresh() {
+        mStatusView.setStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest(type, placeType, page = 1);
     }
 
@@ -112,13 +122,20 @@ public class DyttVideoMoreActivity extends BaseActivity<DyttVideoMorePresenterIm
             }
             ++page;
             mAdapter.addAllData(data);
+            mStatusView.setStatus(StatusLayout.SUCCESS);
         }
     }
 
     @Override
     public void netWorkError() {
-        if (mStatusView != null)
-            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
+        if (mStatusView != null) {
+            if (page == 1) {
+                mAdapter.removeAll();
+                mStatusView.setStatus(StatusLayout.ERROR);
+            } else {
+                UIUtils.snackBar(mStatusView, R.string.net_error);
+            }
+        }
     }
 
     @Override
@@ -136,7 +153,13 @@ public class DyttVideoMoreActivity extends BaseActivity<DyttVideoMorePresenterIm
 
     @Override
     public void noMore() {
-        if (mStatusView != null)
-            UIUtils.snackBar(mStatusView, getString(R.string.data_empty));
+        if (mStatusView != null) {
+            if (page == 1) {
+                mAdapter.removeAll();
+                mStatusView.setStatus(StatusLayout.EMPTY);
+            } else {
+                UIUtils.snackBar(mStatusView, R.string.data_empty);
+            }
+        }
     }
 }
