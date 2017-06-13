@@ -79,7 +79,7 @@ public class Dy2018ListFragment extends BaseFragment<Dy2018ListPresenterImpl>
                             if (ApkUtils.getXLIntent() != null) {
                                 VideoDetailActivity.startIntent(info.detailUrl);
                             } else {
-                                UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
+                                UIUtils.snackBar(mStatusView, UIUtils.getString(R.string.xl));
                             }
                         })
         );
@@ -105,7 +105,6 @@ public class Dy2018ListFragment extends BaseFragment<Dy2018ListPresenterImpl>
 
     @Override
     public void onRefresh() {
-        mStatusView.setStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest(tabPosition, page = 1);
     }
 
@@ -125,17 +124,13 @@ public class Dy2018ListFragment extends BaseFragment<Dy2018ListPresenterImpl>
             }
             ++page;
             mAdapte.addAllData(data);
-            mStatusView.setStatus(StatusLayout.SUCCESS);
         }
     }
 
     @Override
     public void netWorkError() {
         if (mStatusView != null) {
-            if (page == 1) {
-                mAdapte.removeAll();
-                mStatusView.setStatus(StatusLayout.ERROR);
-            } else {
+            if (page != 1) {
                 UIUtils.snackBar(mStatusView, R.string.net_error);
             }
         }

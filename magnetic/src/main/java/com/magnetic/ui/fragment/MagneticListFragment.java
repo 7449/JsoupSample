@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.framework.base.BaseFragment;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
-import com.framework.widget.StatusLayout;
 import com.magnetic.R;
 import com.magnetic.mvp.model.MagneticModel;
 import com.magnetic.mvp.presenter.MagneticListPresenterImpl;
@@ -27,13 +26,11 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
         SwipeRefreshLayout.OnRefreshListener,
         LoadMoreRecyclerView.LoadMoreListener {
 
+    public static final String ZHIZHU_TAG = "zhizhu";
+    protected int page = 0;
     private SwipeRefreshLayout swipeRefreshLayout;
     private LoadMoreRecyclerView recyclerView;
-
-    protected int page = 0;
     private XRecyclerViewAdapter<MagneticModel> mAdapter;
-
-    public static final String ZHIZHU_TAG = "zhizhu";
 
     public static MagneticListFragment newInstance(String search, int position) {
         MagneticListFragment magneticListFragment = new MagneticListFragment();
@@ -86,7 +83,7 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
                                     mPresenter.netWorkZhiZhuMagnetic(info.url);
                                     break;
                                 default:
-                                    UIUtils.toast(info.url);
+//                                    UIUtils.toast(info.url);
                                     break;
                             }
                         })
@@ -113,7 +110,6 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
 
     @Override
     public void onRefresh() {
-        mStatusView.setStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest(type, tabPosition, page = 0);
     }
 
@@ -133,17 +129,13 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
             }
             ++page;
             mAdapter.addAllData(data);
-            mStatusView.setStatus(StatusLayout.SUCCESS);
         }
     }
 
     @Override
     public void netWorkError() {
         if (mStatusView != null) {
-            if (page == 0) {
-                mAdapter.removeAll();
-                mStatusView.setStatus(StatusLayout.ERROR);
-            } else {
+            if (page != 0) {
                 UIUtils.snackBar(mStatusView, R.string.net_error);
             }
         }
@@ -165,10 +157,7 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
     @Override
     public void noMore() {
         if (mStatusView != null) {
-            if (page == 0) {
-                mAdapter.removeAll();
-                mStatusView.setStatus(StatusLayout.EMPTY);
-            } else {
+            if (page != 0) {
                 UIUtils.snackBar(mStatusView, R.string.data_empty);
             }
         }

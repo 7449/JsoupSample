@@ -27,15 +27,14 @@ public class CollectionDetailDialog extends BaseDialogFragment {
     private int position = 0;
     private Toolbar toolbar;
 
-    public CollectionDetailDialog init(int position) {
-        this.position = position;
-        return this;
-    }
-
     public static void startFragment(int position, FragmentManager fragmentManager) {
         new CollectionDetailDialog().init(position).show(fragmentManager, "collectionDetail");
     }
 
+    public CollectionDetailDialog init(int position) {
+        this.position = position;
+        return this;
+    }
 
     @Override
     public AlertDialog getDialog() {
@@ -77,6 +76,11 @@ public class CollectionDetailDialog extends BaseDialogFragment {
         return true;
     }
 
+    private void setTitles(int page, int imageSize) {
+        if (toolbar != null)
+            toolbar.setTitle(getString(R.string.collection_title) + "(" + page + "/" + imageSize + ")");
+    }
+
     private static class CollectionDetailAdapter extends PagerAdapter {
 
         private List<CollectionModel> list;
@@ -108,10 +112,5 @@ public class CollectionDetailDialog extends BaseDialogFragment {
             container.addView(imageView);
             return imageView;
         }
-    }
-
-    private void setTitles(int page, int imageSize) {
-        if (toolbar != null)
-            toolbar.setTitle(getString(R.string.collection_title) + "(" + page + "/" + imageSize + ")");
     }
 }

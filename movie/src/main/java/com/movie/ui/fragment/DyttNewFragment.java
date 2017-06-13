@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import com.framework.base.BaseFragment;
 import com.framework.utils.ApkUtils;
 import com.framework.utils.UIUtils;
-import com.framework.widget.StatusLayout;
 import com.movie.R;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.presenter.DyttNewPresenterImpl;
@@ -80,7 +79,7 @@ public class DyttNewFragment extends BaseFragment<DyttNewPresenterImpl>
                     if (ApkUtils.getXLIntent() != null) {
                         VideoDetailActivity.startIntent(info.detailUrl);
                     } else {
-                        UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
+                        UIUtils.snackBar(mStatusView, UIUtils.getString(R.string.xl));
                     }
                 })
         );
@@ -101,7 +100,6 @@ public class DyttNewFragment extends BaseFragment<DyttNewPresenterImpl>
 
     @Override
     public void onRefresh() {
-        mStatusView.setStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest();
     }
 
@@ -111,14 +109,12 @@ public class DyttNewFragment extends BaseFragment<DyttNewPresenterImpl>
             mAdapter.removeAll();
             data.remove(0);
             mAdapter.addAllData(data);
-            mStatusView.setStatus(StatusLayout.SUCCESS);
         }
     }
 
     @Override
     public void netWorkError() {
         if (mStatusView != null) {
-            mStatusView.setStatus(StatusLayout.ERROR);
             UIUtils.snackBar(mStatusView, getString(R.string.network_error));
         }
     }

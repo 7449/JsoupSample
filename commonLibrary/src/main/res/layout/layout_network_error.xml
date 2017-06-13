@@ -6,5 +6,5 @@
     android:drawableTop="@drawable/ic_network_error"
     android:gravity="center"
     android:text="@string/net_error"
-    android:textColor="@color/colorAccent"/>
+    android:textColor="@color/colorAccent" />
 

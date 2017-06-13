@@ -27,23 +27,27 @@ public class StatusLayout extends FrameLayout {
     public static final int SUCCESS = 1;
     public static final int ERROR = 2;
     public static final int EMPTY = 3;
-
-    @IntDef({
-            StatusLayout.SUCCESS,
-            StatusLayout.EMPTY,
-            StatusLayout.ERROR})
-    @Retention(RetentionPolicy.SOURCE)
-    @interface StatusMode {
-    }
-
-
+    private static final int NO_LAYOUT = 0X00;
     private int mStatus;
 
     private View errorView;
     private View emptyView;
     private View successView;
 
-    private static final int NO_LAYOUT = 0X00;
+    public StatusLayout(Context context) {
+        super(context);
+        init(null);
+    }
+
+    public StatusLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(attrs);
+    }
+
+    public StatusLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init(attrs);
+    }
 
     public View getViewLayout(@LayoutRes int id) {
         return LayoutInflater.from(getContext()).inflate(id, this, false);
@@ -69,22 +73,6 @@ public class StatusLayout extends FrameLayout {
         typedArray.recycle();
     }
 
-    public StatusLayout(Context context) {
-        super(context);
-        init(null);
-    }
-
-    public StatusLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(attrs);
-    }
-
-    public StatusLayout(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(attrs);
-    }
-
-
     public void onDestroyView() {
 //        for (int i = 0; i < getChildCount(); i++) {
 //            View view = getChildAt(i);
@@ -99,7 +87,6 @@ public class StatusLayout extends FrameLayout {
             }
         }
     }
-
 
     private List<View> getAllChildViews(View view) {
         List<View> listView = new ArrayList<>();
@@ -116,78 +103,6 @@ public class StatusLayout extends FrameLayout {
 
     public int getStatus() {
         return mStatus;
-    }
-
-    public void setErrorView(@NonNull View errorView) {
-        this.errorView = errorView;
-        addView(errorView, getParams());
-    }
-
-    public void setErrorView(@LayoutRes int errorViewId) {
-        this.errorView = getViewLayout(errorViewId);
-        addView(errorView, getParams());
-    }
-
-    public void setErrorView(@NonNull View errorView, @NonNull LayoutParams params) {
-        this.errorView = errorView;
-        addView(errorView, params);
-    }
-
-    public void setErrorView(@LayoutRes int errorViewId, @NonNull LayoutParams params) {
-        this.errorView = getViewLayout(errorViewId);
-        addView(errorView, params);
-    }
-
-    public void setEmptyView(@NonNull View emptyView) {
-        this.emptyView = emptyView;
-        addView(emptyView, getParams());
-    }
-
-    public void setEmptyView(@LayoutRes int emptyViewId) {
-        this.emptyView = getViewLayout(emptyViewId);
-        addView(emptyView, getParams());
-    }
-
-    public void setEmptyView(@NonNull View emptyView, @NonNull LayoutParams params) {
-        this.emptyView = emptyView;
-        addView(emptyView, params);
-    }
-
-    public void setEmptyView(@LayoutRes int emptyViewId, @NonNull LayoutParams params) {
-        this.emptyView = getViewLayout(emptyViewId);
-        addView(emptyView, params);
-    }
-
-    public void setSuccessView(@NonNull View successView) {
-        this.successView = successView;
-        addView(successView, getParams());
-    }
-
-    public void setSuccessView(@LayoutRes int successViewId) {
-        this.successView = getViewLayout(successViewId);
-        addView(successView, getParams());
-    }
-
-    public void setSuccessView(@NonNull View successView, @NonNull LayoutParams params) {
-        this.successView = successView;
-        addView(successView, params);
-    }
-
-    public void setSuccessView(@LayoutRes int successViewId, @NonNull LayoutParams params) {
-        this.successView = getViewLayout(successViewId);
-        addView(successView, params);
-    }
-
-    public View getSuccessView() {
-        return successView;
-    }
-
-    public View getErrorView() {
-        return errorView;
-    }
-
-    public View getEmptyView() {
-        return emptyView;
     }
 
     public void setStatus(@StatusMode int status) {
@@ -211,7 +126,83 @@ public class StatusLayout extends FrameLayout {
         }
     }
 
+    public void setErrorView(@NonNull View errorView) {
+        setErrorView(errorView, getParams());
+    }
+
+    public void setErrorView(@LayoutRes int errorViewId) {
+        setErrorView(getViewLayout(errorViewId), getParams());
+    }
+
+    public void setErrorView(@LayoutRes int errorViewId, @NonNull LayoutParams params) {
+        setErrorView(getViewLayout(errorViewId), params);
+    }
+
+    public void setErrorView(@NonNull View errorView, @NonNull LayoutParams params) {
+        this.errorView = errorView;
+        errorView.setVisibility(GONE);
+        addView(errorView, params);
+    }
+
+    public void setEmptyView(@NonNull View emptyView) {
+        setEmptyView(emptyView, getParams());
+    }
+
+    public void setEmptyView(@LayoutRes int emptyViewId) {
+        setEmptyView(getViewLayout(emptyViewId), getParams());
+    }
+
+    public void setEmptyView(@LayoutRes int emptyViewId, @NonNull LayoutParams params) {
+        setEmptyView(getViewLayout(emptyViewId), params);
+    }
+
+    public void setEmptyView(@NonNull View emptyView, @NonNull LayoutParams params) {
+        this.emptyView = emptyView;
+        emptyView.setVisibility(GONE);
+        addView(emptyView, params);
+    }
+
+    public void setSuccessView(@NonNull View successView) {
+        setSuccessView(successView, getParams());
+    }
+
+    public void setSuccessView(@LayoutRes int successViewId) {
+        setSuccessView(getViewLayout(successViewId), getParams());
+    }
+
+    public void setSuccessView(@LayoutRes int successViewId, @NonNull LayoutParams params) {
+        setSuccessView(getViewLayout(successViewId), params);
+    }
+
+    public void setSuccessView(@NonNull View successView, @NonNull LayoutParams params) {
+        this.successView = successView;
+        addView(successView, params);
+    }
+
+    public View getSuccessView() {
+        return successView;
+    }
+
+
+    public View getErrorView() {
+        return errorView;
+    }
+
+
+    public View getEmptyView() {
+        return emptyView;
+    }
+
+
     private LayoutParams getParams() {
         return new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
+    }
+
+    @IntDef({
+            StatusLayout.SUCCESS,
+            StatusLayout.EMPTY,
+            StatusLayout.ERROR})
+    @Retention(RetentionPolicy.SOURCE)
+    @interface StatusMode {
     }
 }

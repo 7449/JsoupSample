@@ -57,6 +57,7 @@ public class TabFragment extends BaseFragment {
             case ApiConfig.Type.DY_2018:
             case ApiConfig.Type.XIAO_PIAN:
             case ApiConfig.Type.PIAO_HUA:
+            case ApiConfig.Type.K_567:
                 tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
                 break;
         }
@@ -92,6 +93,9 @@ public class TabFragment extends BaseFragment {
                 case ApiConfig.Type.PIAO_HUA:
                     name = UIUtils.getStringArray(R.array.piao_hua_tab);
                     break;
+                case ApiConfig.Type.K_567:
+                    name = UIUtils.getStringArray(R.array.k567_tab);
+                    break;
             }
         }
 
@@ -125,6 +129,8 @@ public class TabFragment extends BaseFragment {
                     return XiaoPianListFragment.newInstance(String.valueOf(TextUtils.concat(type, String.valueOf(position))), position);
                 case ApiConfig.Type.PIAO_HUA:
                     return PiaoHuaListFragment.newInstance(String.valueOf(TextUtils.concat(type, String.valueOf(position))), position);
+                case ApiConfig.Type.K_567:
+                    return K567ListFragment.newInstance(String.valueOf(TextUtils.concat(type, String.valueOf(position))), position);
             }
             return null;
         }

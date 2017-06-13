@@ -21,27 +21,20 @@ import org.jsoup.nodes.Document;
 
 public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.MainView> implements PresenterManager.MainPresenter {
 
-    private Fragment dbFragment, mztFragment, mmFragment, meizituFragment, kkFragment, collectionFragment;
-
     public static final int FIRST_FRAGMENT = -1;
-
     private static final int TYPE_DB_FRAGMENT = 0;
     private static final String TYPE_DB_TAG = "DB";
-
     private static final int TYPE_MZT_FRAGMENT = 1;
     private static final String TYPE_MZT_TAG = "MZT";
-
     private static final int TYPE_MM_FRAGMENT = 2;
     private static final String TYPE_MM_TAG = "MM";
-
     private static final int TYPE_MEIZITU_FRAGMENT = 3;
     private static final String TYPE_MEIZITU_TAG = "MEIZITU";
-
     private static final int TYPE_KK_FRAGMENT = 4;
     private static final String TYPE_KK_TAG = "KK";
-
     private static final int TYPE_COLLECTION_FRAGMENT = 5;
     private static final String TYPE_COLLECTION_TAG = "COLLECTION";
+    private Fragment dbFragment, mztFragment, mmFragment, meizituFragment, kkFragment, collectionFragment;
 
     public MainPresenterImpl(ViewManager.MainView view) {
         super(view);

@@ -18,5 +18,10 @@
             android:id="@+id/piaohua"
             android:icon="@mipmap/ic_launcher"
             android:title="@string/piaohua" />
+        <item
+            android:id="@+id/k567"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/k567"
+            android:visible="false" />
     </group>
 </menu>

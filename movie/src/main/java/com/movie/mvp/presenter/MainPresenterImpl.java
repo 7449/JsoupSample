@@ -20,21 +20,18 @@ import org.jsoup.nodes.Document;
  */
 
 public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.MainView> implements PresenterManager.MainPresenter {
-    private Fragment dyttFragment, dy2018Fragment, xpFragment, phFragment;
-
     public static final int FIRST_FRAGMENT = -1;
-
     private static final int TYPE_DYTT_FRAGMENT = 0;
     private static final String TYPE_DYTT_TAG = "DYTT";
-
     private static final int TYPE_DY2018_FRAGMENT = 1;
     private static final String TYPE_DY2018_TAG = "DY2018";
-
     private static final int TYPE_XP_FRAGMENT = 2;
     private static final String TYPE_XP_TAG = "XP";
-
     private static final int TYPE_PH_FRAGMENT = 3;
     private static final String TYPE_PH_TAG = "PH";
+    private static final int TYPE_K567_FRAGMENT = 4;
+    private static final String TYPE_K567_TAG = "k567";
+    private Fragment dyttFragment, dy2018Fragment, xpFragment, phFragment, k567Fragment;
 
     public MainPresenterImpl(ViewManager.MainView view) {
         super(view);
@@ -55,6 +52,9 @@ public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.
                 break;
             case R.id.piaohua:
                 setSelectFragment(TYPE_PH_FRAGMENT);
+                break;
+            case R.id.k567:
+                setSelectFragment(TYPE_K567_FRAGMENT);
                 break;
         }
     }
@@ -83,6 +83,9 @@ public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.
         }
         if (null != phFragment) {
             phFragment = null;
+        }
+        if (null != k567Fragment) {
+            k567Fragment = null;
         }
     }
 
@@ -130,6 +133,16 @@ public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.
                     transaction.show(phFragment);
                 }
                 break;
+            case TYPE_K567_FRAGMENT:
+                k567Fragment = manager.findFragmentByTag(TYPE_K567_TAG);
+                hideFragment(transaction);
+                if (null == k567Fragment) {
+                    k567Fragment = TabFragment.newInstance(ApiConfig.Type.K_567);
+                    transaction.add(R.id.fragment, k567Fragment, TYPE_K567_TAG);
+                } else {
+                    transaction.show(k567Fragment);
+                }
+                break;
         }
         transaction.commit();
     }
@@ -147,6 +160,9 @@ public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.
         }
         if (null != phFragment) {
             transaction.hide(phFragment);
+        }
+        if (null != k567Fragment) {
+            transaction.hide(k567Fragment);
         }
     }
 

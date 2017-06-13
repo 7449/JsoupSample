@@ -21,18 +21,14 @@ import org.jsoup.nodes.Document;
 
 public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.MainView> implements PresenterManager.MainPresenter {
 
-    private Fragment zwFragment, kswFragment, bqgFragment;
-
     public static final int FIRST_FRAGMENT = -1;
-
     private static final int TYPE_ZW_FRAGMENT = 0;
     private static final String TYPE_ZW_TAG = "ZW";
-
     private static final int TYPE_KSW_FRAGMENT = 1;
     private static final String TYPE_KSW_TAG = "KSW";
-
     private static final int TYPE_BGQ_FRAGMENT = 2;
     private static final String TYPE_BQG_TAG = "BQG";
+    private Fragment zwFragment, kswFragment, bqgFragment;
 
 
     public MainPresenterImpl(ViewManager.MainView view) {

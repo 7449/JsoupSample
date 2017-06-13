@@ -1,5 +1,7 @@
 package com.framework.base.mvp;
 
+import com.framework.widget.Constant;
+import com.framework.widget.StatusLayout;
 import com.socks.library.KLog;
 
 import java.util.List;
@@ -20,45 +22,55 @@ public abstract class BasePresenterImpl<M, V extends BaseView<M>>
     protected V view;
     private Object tag;
 
+    private StatusLayout mStatusView;
+
     public BasePresenterImpl(V view) {
         this.view = view;
     }
 
     @Override
     public void onNetWorkStart() {
-        if (view == null) {
-            return;
+        if (mStatusView != null) {
+            mStatusView.setStatus(StatusLayout.SUCCESS);
         }
-        view.showProgress();
+        if (view != null) {
+            view.showProgress();
+        }
     }
 
     @Override
     public void onNetWorkError(Throwable e) {
-        if (view == null) {
-            return;
+        if (mStatusView != null) {
+            mStatusView.setStatus(StatusLayout.ERROR);
         }
         KLog.i(e.toString());
-        view.hideProgress();
-        view.netWorkError();
+        if (view != null) {
+            view.hideProgress();
+            view.netWorkError();
+        }
     }
 
     @Override
     public void onNetWorkComplete() {
-        if (view == null) {
-            return;
+        if (view != null) {
+            view.hideProgress();
         }
-        view.hideProgress();
     }
 
     @Override
     public void onNetWorkSuccess(M data) {
-        if (view == null) {
-            return;
-        }
-        if (data instanceof List && view instanceof BaseListView && ((List) data).isEmpty()) {
-            ((BaseListView) view).noMore();
-        } else {
-            view.netWorkSuccess(data);
+        if (view != null) {
+            if (data instanceof List && view instanceof BaseListView && ((List) data).isEmpty()) {
+                if (mStatusView != null) {
+                    mStatusView.setStatus(StatusLayout.EMPTY);
+                }
+                ((BaseListView) view).noMore();
+            } else {
+                if (mStatusView != null) {
+                    mStatusView.setStatus(StatusLayout.SUCCESS);
+                }
+                view.netWorkSuccess(data);
+            }
         }
     }
 
@@ -74,14 +86,21 @@ public abstract class BasePresenterImpl<M, V extends BaseView<M>>
         this.tag = tag;
     }
 
-    public void onDestroy() {
-        if (view != null) {
-            KLog.i("cancel------:" + tag);
-            KLog.i(getClass().getSimpleName(), "onDestroyView:" + getClass().getSimpleName());
-            RxJsoupNetWork.getInstance().cancel(tag);
-            RxJsoupNetWork.getInstance().cancel(KK_URL_TAG);
-            RxJsoupNetWork.getInstance().cancel(KK_DATA_TAG);
-            view = null;
+    public void setRootView(StatusLayout statusLayout) {
+        if (mStatusView == null) {
+            this.mStatusView = statusLayout;
         }
+    }
+
+    public void onDestroy(int state) {
+        switch (state) {
+            case Constant.TYPE_NO_FINISH:
+                RxJsoupNetWork.getInstance().cancel(tag);
+                break;
+        }
+        RxJsoupNetWork.getInstance().cancel(KK_URL_TAG);
+        RxJsoupNetWork.getInstance().cancel(KK_DATA_TAG);
+        if (view != null)
+            view = null;
     }
 }

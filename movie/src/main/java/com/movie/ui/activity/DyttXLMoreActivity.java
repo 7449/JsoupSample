@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import com.framework.base.BaseActivity;
 import com.framework.utils.ApkUtils;
 import com.framework.utils.UIUtils;
-import com.framework.widget.StatusLayout;
 import com.movie.R;
 import com.movie.manager.ApiConfig;
 import com.movie.mvp.model.MovieModel;
@@ -30,13 +29,11 @@ import java.util.List;
 public class DyttXLMoreActivity extends BaseActivity<DyttXLMorePresenterImpl>
         implements SwipeRefreshLayout.OnRefreshListener, ViewManager.DyttXLMoreView, XMultiAdapterListener<MovieModel> {
     private static final String TITLE = "title";
-
+    private static final int TYPE_HEADER = 0;
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
-
     private MultiAdapter<MovieModel> mAdapter;
-    private static final int TYPE_HEADER = 0;
 
     public static void startIntent(String title) {
         Bundle bundle = new Bundle();
@@ -89,7 +86,6 @@ public class DyttXLMoreActivity extends BaseActivity<DyttXLMorePresenterImpl>
 
     @Override
     public void onRefresh() {
-        mStatusView.setStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest(ApiConfig.DYTT_XL);
     }
 
@@ -100,14 +96,12 @@ public class DyttXLMoreActivity extends BaseActivity<DyttXLMorePresenterImpl>
                 mAdapter.getData().clear();
             }
             mAdapter.addAll(data);
-            mStatusView.setStatus(StatusLayout.SUCCESS);
         }
     }
 
     @Override
     public void netWorkError() {
         if (mStatusView != null) {
-            mStatusView.setStatus(StatusLayout.ERROR);
             UIUtils.snackBar(mStatusView, getString(R.string.network_error));
         }
     }

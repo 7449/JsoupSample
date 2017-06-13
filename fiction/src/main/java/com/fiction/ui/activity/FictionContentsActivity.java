@@ -15,7 +15,6 @@ import com.fiction.mvp.presenter.FictionContentsPresenterImpl;
 import com.fiction.mvp.view.ViewManager;
 import com.framework.base.BaseActivity;
 import com.framework.utils.UIUtils;
-import com.framework.widget.StatusLayout;
 import com.xadapter.OnXBindListener;
 import com.xadapter.adapter.XRecyclerViewAdapter;
 import com.xadapter.holder.XViewHolder;
@@ -99,7 +98,6 @@ public class FictionContentsActivity extends BaseActivity<FictionContentsPresent
     @Override
     public void netWorkSuccess(List<FictionModel> data) {
         if (mStatusView != null) {
-            mStatusView.setStatus(StatusLayout.SUCCESS);
             Collections.reverse(data);
             mAdapter.addAllData(data);
         }
@@ -109,7 +107,6 @@ public class FictionContentsActivity extends BaseActivity<FictionContentsPresent
     public void netWorkError() {
         if (mStatusView != null) {
             mAdapter.removeAll();
-            mStatusView.setStatus(StatusLayout.ERROR);
             UIUtils.snackBar(mStatusView, getString(R.string.network_error));
         }
     }

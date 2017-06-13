@@ -15,6 +15,7 @@ public interface PresenterManager {
 
     interface MagneticListPresenter {
         void netWorkRequest(@NonNull String search, int tabPosition, int page);
+
         void netWorkZhiZhuMagnetic(@NonNull String url);
     }
 

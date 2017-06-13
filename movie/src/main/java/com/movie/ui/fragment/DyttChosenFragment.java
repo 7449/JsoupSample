@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import com.framework.base.BaseFragment;
 import com.framework.utils.ApkUtils;
 import com.framework.utils.UIUtils;
-import com.framework.widget.StatusLayout;
 import com.movie.R;
 import com.movie.manager.ApiConfig;
 import com.movie.manager.DyttJsoupManager;
@@ -32,11 +31,10 @@ import java.util.List;
 
 public class DyttChosenFragment extends BaseFragment<DyttChosenPresenterImpl>
         implements SwipeRefreshLayout.OnRefreshListener, ViewManager.DyttChosenView, XMultiAdapterListener<MovieModel> {
+    private static final int TYPE_HEADER = 0;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private MultiAdapter<MovieModel> mAdapter;
-    private static final int TYPE_HEADER = 0;
-
 
     public static DyttChosenFragment newInstance(String s) {
         DyttChosenFragment dyttNewFragment = new DyttChosenFragment();
@@ -99,7 +97,6 @@ public class DyttChosenFragment extends BaseFragment<DyttChosenPresenterImpl>
 
     @Override
     public void onRefresh() {
-        mStatusView.setStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest();
     }
 
@@ -110,14 +107,12 @@ public class DyttChosenFragment extends BaseFragment<DyttChosenPresenterImpl>
                 mAdapter.getData().clear();
             }
             mAdapter.addAll(data);
-            mStatusView.setStatus(StatusLayout.SUCCESS);
         }
     }
 
     @Override
     public void netWorkError() {
         if (mStatusView != null) {
-            mStatusView.setStatus(StatusLayout.ERROR);
             UIUtils.snackBar(mStatusView, getString(R.string.network_error));
         }
     }

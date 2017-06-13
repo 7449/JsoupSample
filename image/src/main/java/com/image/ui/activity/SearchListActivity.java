@@ -9,7 +9,6 @@ import com.framework.base.BaseActivity;
 import com.framework.utils.ImageLoaderUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
-import com.framework.widget.StatusLayout;
 import com.image.R;
 import com.image.mvp.model.ImageModel;
 import com.image.mvp.presenter.SearchListPresenterImpl;
@@ -101,7 +100,6 @@ public class SearchListActivity extends BaseActivity<SearchListPresenterImpl>
 
     @Override
     public void onRefresh() {
-        mStatusView.setStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest(searchType, content, page = 1);
     }
 
@@ -125,7 +123,6 @@ public class SearchListActivity extends BaseActivity<SearchListPresenterImpl>
             }
             ++page;
             mAdapter.addAllData(data);
-            mStatusView.setStatus(StatusLayout.SUCCESS);
         }
     }
 
@@ -133,10 +130,7 @@ public class SearchListActivity extends BaseActivity<SearchListPresenterImpl>
     @Override
     public void netWorkError() {
         if (mStatusView != null) {
-            if (page == 1) {
-                mAdapter.removeAll();
-                mStatusView.setStatus(StatusLayout.ERROR);
-            } else {
+            if (page != 1) {
                 UIUtils.snackBar(mStatusView, R.string.net_error);
             }
         }
@@ -158,10 +152,7 @@ public class SearchListActivity extends BaseActivity<SearchListPresenterImpl>
     @Override
     public void noMore() {
         if (mStatusView != null) {
-            if (page == 1) {
-                mAdapter.removeAll();
-                mStatusView.setStatus(StatusLayout.EMPTY);
-            } else {
+            if (page != 1) {
                 UIUtils.snackBar(mStatusView, R.string.data_empty);
             }
         }

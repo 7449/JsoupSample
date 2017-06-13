@@ -10,12 +10,14 @@ public interface ApiConfig {
     String DYTT_XL = "http://www.ygdy8.net/html/gndy/index.html";
     String XIAO_PIAN_URL = "http://www.xiaopian.com/html/";
     String PIAO_HUA_URL = "http://www.piaohua.com/html/";
+    String K_567_URL = "http://www.567k.info/?";
 
     interface Type {
         String DYTT = "dytt";
         String DY_2018 = "dy2018";
         String XIAO_PIAN = "xiaopian";
         String PIAO_HUA = "piaohua";
+        String K_567 = "k567";
 
         int DYTT_XL_TYPE = 0;
         int DYTT_CHOSEN_TYPE = 1;

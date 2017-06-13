@@ -1,5 +1,6 @@
 package com.framework.utils;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -29,6 +30,15 @@ public class MatcherUtils {
         } else {
             return Integer.valueOf(split[0]);
         }
+    }
+
+    public static String get567KDetailUlr(String s) {
+        String url = null;
+        Matcher matcher = Pattern.compile("http://(.)*.").matcher(s);
+        if (matcher.find()) {
+            url = matcher.group();
+        }
+        return url;
     }
 
 }

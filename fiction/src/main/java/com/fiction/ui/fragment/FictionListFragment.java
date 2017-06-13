@@ -15,7 +15,6 @@ import com.framework.base.BaseFragment;
 import com.framework.utils.ImageLoaderUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
-import com.framework.widget.StatusLayout;
 import com.xadapter.adapter.multi.MultiAdapter;
 import com.xadapter.adapter.multi.XMultiAdapterListener;
 import com.xadapter.holder.XViewHolder;
@@ -94,7 +93,6 @@ public class FictionListFragment extends BaseFragment<FictionListPresenterImpl>
 
     @Override
     public void onRefresh() {
-        mStatusView.setStatus(StatusLayout.SUCCESS);
         mPresenter.netWork(type, tabPosition);
     }
 
@@ -105,7 +103,6 @@ public class FictionListFragment extends BaseFragment<FictionListPresenterImpl>
                 mAdapter.getData().clear();
             }
             mAdapter.addAll(data);
-            mStatusView.setStatus(StatusLayout.SUCCESS);
         }
     }
 
@@ -113,7 +110,6 @@ public class FictionListFragment extends BaseFragment<FictionListPresenterImpl>
     public void netWorkError() {
         if (mStatusView != null) {
             mAdapter.clearAll();
-            mStatusView.setStatus(StatusLayout.ERROR);
             UIUtils.snackBar(mStatusView, getString(R.string.network_error));
         }
     }

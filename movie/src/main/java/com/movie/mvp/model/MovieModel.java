@@ -10,6 +10,7 @@ import com.xadapter.adapter.multi.MultiCallBack;
 public class MovieModel extends BaseModel implements MultiCallBack {
     public int type;
     public int itemType;
+    public String playUrl;
 
     @Override
     public int getItemType() {

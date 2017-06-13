@@ -1,6 +1,7 @@
 package com.movie.mvp.presenter;
 
 import android.support.annotation.MenuRes;
+import android.support.annotation.NonNull;
 
 /**
  * by y on 2017/5/23.
@@ -37,6 +38,14 @@ public interface PresenterManager {
 
     interface XiaoPianListPresenter {
         void netWorkRequest(int type, int page);
+    }
+
+    interface K567ListPresenter {
+        void netWorkRequest(int type, int page);
+    }
+
+    interface K567DetailPresenter {
+        void netWorkRequest(@NonNull String url);
     }
 
     interface MainPresenter {

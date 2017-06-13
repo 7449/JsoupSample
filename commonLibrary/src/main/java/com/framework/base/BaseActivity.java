@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 
 import com.framework.R;
 import com.framework.base.mvp.BasePresenterImpl;
+import com.framework.widget.Constant;
 import com.framework.widget.StatusLayout;
 import com.socks.library.KLog;
 
@@ -21,6 +22,7 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
 
     protected P mPresenter;
     protected StatusLayout mStatusView;
+    protected int state = Constant.TYPE_NO_FINISH;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,6 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
         mStatusView.setSuccessView(getLayoutId(), new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         mStatusView.setEmptyView(R.layout.layout_empty_view);
         mStatusView.setErrorView(R.layout.layout_network_error);
-        mStatusView.setStatus(StatusLayout.SUCCESS);
         mStatusView.getEmptyView().setOnClickListener(v -> clickNetWork());
         mStatusView.getErrorView().setOnClickListener(v -> clickNetWork());
         setContentView(mStatusView);
@@ -38,6 +39,7 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
         mPresenter = initPresenterImpl();
         if (mPresenter != null) {
             mPresenter.setTag(getClass().getSimpleName());
+            mPresenter.setRootView(mStatusView);
         }
         initCreate(savedInstanceState);
         if (getSupportActionBar() != null && !TextUtils.equals(getClass().getSimpleName(), "MainActivity")) {
@@ -76,7 +78,7 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
             mStatusView.onDestroyView();
         }
         if (mPresenter != null) {
-            mPresenter.onDestroy();
+            mPresenter.onDestroy(state);
             mPresenter = null;
         }
     }

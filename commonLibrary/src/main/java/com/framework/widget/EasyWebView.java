@@ -19,10 +19,6 @@ public class EasyWebView extends WebView {
     private ProgressBar progressbar;
     private WebViewLoadListener loadListener;
 
-    public void setLoadListener(WebViewLoadListener loadListener) {
-        this.loadListener = loadListener;
-    }
-
     public EasyWebView(Context context) {
         super(context);
         init();
@@ -36,6 +32,10 @@ public class EasyWebView extends WebView {
     public EasyWebView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
+    }
+
+    public void setLoadListener(WebViewLoadListener loadListener) {
+        this.loadListener = loadListener;
     }
 
     @SuppressLint("SetJavaScriptEnabled")

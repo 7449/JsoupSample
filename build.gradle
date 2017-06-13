@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.2'
+        classpath 'com.android.tools.build:gradle:2.3.3'
         classpath 'me.tatarka:gradle-retrolambda:3.5.0'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.1'
     }
@@ -46,6 +46,7 @@ ext {
     leakcanaryVersion = 'leakcanary-android:1.5.1'
     xAdapterVersion = '0.1.8'
     dialogVersion = '0.9.4.5'
+    jiecaoVideoVersion = '5.5.4'
 
     imageStorePath = 'image.jks'
     imagePassword = '123456'

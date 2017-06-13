@@ -14,7 +14,6 @@ import com.framework.base.BaseActivity;
 import com.framework.utils.ImageLoaderUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
-import com.framework.widget.StatusLayout;
 import com.xadapter.adapter.XRecyclerViewAdapter;
 
 import java.util.List;
@@ -66,7 +65,6 @@ public class SearchActivity extends BaseActivity<SearchListPresenterImpl>
     protected void clickNetWork() {
         super.clickNetWork();
         if (!swipeRefreshLayout.isRefreshing()) {
-            mStatusView.setStatus(StatusLayout.SUCCESS);
             mPresenter.startSearch(fictionName, page = 0);
         }
     }
@@ -93,10 +91,7 @@ public class SearchActivity extends BaseActivity<SearchListPresenterImpl>
     @Override
     public void netWorkError() {
         if (mStatusView != null) {
-            if (page == 0) {
-                mAdapter.removeAll();
-                mStatusView.setStatus(StatusLayout.ERROR);
-            } else {
+            if (page != 0) {
                 UIUtils.snackBar(mStatusView, R.string.net_error);
             }
         }
@@ -118,9 +113,7 @@ public class SearchActivity extends BaseActivity<SearchListPresenterImpl>
     @Override
     public void noMore() {
         if (mStatusView != null) {
-            if (page == 0) {
-                mStatusView.setStatus(StatusLayout.EMPTY);
-            } else {
+            if (page != 0) {
                 UIUtils.snackBar(mStatusView, R.string.data_empty);
             }
         }

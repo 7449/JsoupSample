@@ -8,7 +8,6 @@ import com.framework.base.BaseFragment;
 import com.framework.utils.ApkUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
-import com.framework.widget.StatusLayout;
 import com.movie.R;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.presenter.XiaoPianListPresenterImpl;
@@ -78,7 +77,7 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
                             if (ApkUtils.getXLIntent() != null) {
                                 VideoDetailActivity.startIntent(info.detailUrl);
                             } else {
-                                UIUtils.snackBar(getActivity().findViewById(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
+                                UIUtils.snackBar(mStatusView, UIUtils.getString(R.string.xl));
                             }
                         })
         );
@@ -104,7 +103,6 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
 
     @Override
     public void onRefresh() {
-        mStatusView.setStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest(tabPosition, page = 1);
     }
 
@@ -124,17 +122,13 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
             }
             ++page;
             mAdapter.addAllData(data);
-            mStatusView.setStatus(StatusLayout.SUCCESS);
         }
     }
 
     @Override
     public void netWorkError() {
         if (mStatusView != null) {
-            if (page == 1) {
-                mAdapter.removeAll();
-                mStatusView.setStatus(StatusLayout.ERROR);
-            } else {
+            if (page != 1) {
                 UIUtils.snackBar(mStatusView, R.string.net_error);
             }
         }
@@ -155,10 +149,7 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
     @Override
     public void noMore() {
         if (mStatusView != null) {
-            if (page == 1) {
-                mAdapter.removeAll();
-                mStatusView.setStatus(StatusLayout.EMPTY);
-            } else {
+            if (page != 1) {
                 UIUtils.snackBar(mStatusView, R.string.data_empty);
             }
         }

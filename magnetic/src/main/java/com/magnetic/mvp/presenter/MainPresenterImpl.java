@@ -21,9 +21,8 @@ import io.reactivex.jsoup.network.bus.RxBus;
 
 public class MainPresenterImpl extends BasePresenterImpl<MagneticModel, ViewManager.MainView> implements PresenterManager.MainPresenter {
 
-    private Fragment listFragment;
-
     private static final String TYPE_LIST_TAG = "LIST";
+    private Fragment listFragment;
 
     public MainPresenterImpl(ViewManager.MainView view) {
         super(view);

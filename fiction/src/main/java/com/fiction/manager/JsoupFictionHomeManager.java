@@ -23,18 +23,15 @@ public class JsoupFictionHomeManager {
     public static final int TYPE_RECENT = 3;   //最近更新小说列表
     public static final int TYPE_ADD = 4;   //最新入库小说
     public static final int TYPE_TITLE = 5;
-
-    private static final String TYPE_TITLE_HOT = "热门小说:";
-    private static final String TYPE_TITLE_RETCENT = "最近更新:";
-    private static final String TYPE_TITLE_ADD = "最新入库:";
-
     public static final String TYPE_TITLE_XUAN_HUAN = "玄幻:";
     public static final String TYPE_TITLE_XIU_ZHEN = "修真:";
     public static final String TYPE_TITLE_DU_SHI = "都市:";
     public static final String TYPE_TITLE_CHUAN_YUE = "穿越:";
     public static final String TYPE_TITLE_WANG_YOU = "网游:";
     public static final String TYPE_TITLE_KE_HUAN = "科幻:";
-
+    private static final String TYPE_TITLE_HOT = "热门小说:";
+    private static final String TYPE_TITLE_RETCENT = "最近更新:";
+    private static final String TYPE_TITLE_ADD = "最新入库:";
     private Document document;
 
     private JsoupFictionHomeManager(Document document) {

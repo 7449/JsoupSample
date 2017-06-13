@@ -38,6 +38,12 @@ public interface ViewManager {
     interface XiaoPianListView extends BaseListView<List<MovieModel>> {
     }
 
+    interface K567ListView extends BaseListView<List<MovieModel>> {
+    }
+
+    interface K567DetailView extends BaseView<List<MovieModel>> {
+    }
+
     interface MainView extends BaseView<BaseModel> {
 
         AppCompatActivity getMainActivity();
