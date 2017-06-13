@@ -100,17 +100,17 @@
 
 
     <string-array name="k567_tab">
-        <item>网站首页</item>
-        <item>网友自拍</item>
-        <item>高清无码</item>
-        <item>日韩有码</item>
-        <item>国语素人</item>
-        <item>欧美性爱</item>
-        <item>人妻熟女</item>
-        <item>淫荡欲望</item>
-        <item>老师护士</item>
-        <item>制服诱惑</item>
-        <item>超清长片</item>
+        <item>首页</item>
+        <item>自拍</item>
+        <item>高清</item>
+        <item>日韩</item>
+        <item>国语</item>
+        <item>欧美</item>
+        <item>*熟</item>
+        <item>欲望</item>
+        <item>师士</item>
+        <item>制服</item>
+        <item>超清</item>
     </string-array>
     <string name="k567_suffix">page=%s</string>
 </resources>
