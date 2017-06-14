@@ -64,7 +64,7 @@ public class DyttVideoMoreActivity extends BaseActivity<DyttVideoMorePresenterIm
                             if (ApkUtils.getXLIntent() != null) {
                                 VideoDetailActivity.startIntent(info.url);
                             } else {
-                                UIUtils.snackBar(getView(R.id.coordinatorLayout), UIUtils.getString(R.string.xl));
+                                UIUtils.snackBar(mStatusView, UIUtils.getString(R.string.xl));
                             }
                         })
         );
