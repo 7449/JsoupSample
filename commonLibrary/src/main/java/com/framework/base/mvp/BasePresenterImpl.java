@@ -1,7 +1,6 @@
 package com.framework.base.mvp;
 
 import com.framework.widget.Constant;
-import com.framework.widget.StatusLayout;
 import com.socks.library.KLog;
 
 import java.util.List;
@@ -22,7 +21,6 @@ public abstract class BasePresenterImpl<M, V extends BaseView<M>>
     protected V view;
     private Object tag;
 
-    private StatusLayout mStatusView;
 
     public BasePresenterImpl(V view) {
         this.view = view;
@@ -30,9 +28,6 @@ public abstract class BasePresenterImpl<M, V extends BaseView<M>>
 
     @Override
     public void onNetWorkStart() {
-        if (mStatusView != null) {
-            mStatusView.setStatus(StatusLayout.SUCCESS);
-        }
         if (view != null) {
             view.showProgress();
         }
@@ -40,9 +35,6 @@ public abstract class BasePresenterImpl<M, V extends BaseView<M>>
 
     @Override
     public void onNetWorkError(Throwable e) {
-        if (mStatusView != null) {
-            mStatusView.setStatus(StatusLayout.ERROR);
-        }
         KLog.i(e.toString());
         if (view != null) {
             view.hideProgress();
@@ -61,14 +53,8 @@ public abstract class BasePresenterImpl<M, V extends BaseView<M>>
     public void onNetWorkSuccess(M data) {
         if (view != null) {
             if (data instanceof List && view instanceof BaseListView && ((List) data).isEmpty()) {
-                if (mStatusView != null) {
-                    mStatusView.setStatus(StatusLayout.EMPTY);
-                }
                 ((BaseListView) view).noMore();
             } else {
-                if (mStatusView != null) {
-                    mStatusView.setStatus(StatusLayout.SUCCESS);
-                }
                 view.netWorkSuccess(data);
             }
         }
@@ -84,12 +70,6 @@ public abstract class BasePresenterImpl<M, V extends BaseView<M>>
 
     public void setTag(Object tag) {
         this.tag = tag;
-    }
-
-    public void setRootView(StatusLayout statusLayout) {
-        if (mStatusView == null) {
-            this.mStatusView = statusLayout;
-        }
     }
 
     public void onDestroy(int state) {

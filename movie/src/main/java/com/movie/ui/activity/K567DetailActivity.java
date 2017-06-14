@@ -117,6 +117,7 @@ public class K567DetailActivity extends BaseActivity<K567DetailPresenterImpl>
 
     @Override
     public void onRefresh() {
+        setStatusViewStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest(url);
     }
 
@@ -130,7 +131,6 @@ public class K567DetailActivity extends BaseActivity<K567DetailPresenterImpl>
             } else {
                 mAdapter.removeAll();
                 mAdapter.addAllData(data);
-                mStatusView.setStatus(StatusLayout.SUCCESS);
                 jcVideoPlayerStandard.setVisibility(View.VISIBLE);
                 KLog.i(data.get(0).playUrl);
                 jcVideoPlayerStandard.setUp(data.get(0).playUrl, JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, title);
@@ -143,6 +143,7 @@ public class K567DetailActivity extends BaseActivity<K567DetailPresenterImpl>
     public void netWorkError() {
         if (mStatusView != null) {
             mAdapter.removeAll();
+            setStatusViewStatus(StatusLayout.ERROR);
         }
     }
 

@@ -9,6 +9,7 @@ import com.framework.base.BaseActivity;
 import com.framework.utils.ApkUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
+import com.framework.widget.StatusLayout;
 import com.movie.R;
 import com.movie.manager.ApiConfig;
 import com.movie.manager.DyttJsoupManager;
@@ -101,6 +102,7 @@ public class DyttVideoMoreActivity extends BaseActivity<DyttVideoMorePresenterIm
 
     @Override
     public void onRefresh() {
+        setStatusViewStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest(type, placeType, page = 1);
     }
 
@@ -125,8 +127,13 @@ public class DyttVideoMoreActivity extends BaseActivity<DyttVideoMorePresenterIm
 
     @Override
     public void netWorkError() {
-        if (mStatusView != null && page != 1) {
-            UIUtils.snackBar(mStatusView, R.string.net_error);
+        if (mStatusView != null) {
+            if (page == 1) {
+                setStatusViewStatus(StatusLayout.ERROR);
+                mAdapter.removeAll();
+            } else {
+                UIUtils.snackBar(mStatusView, R.string.net_error);
+            }
         }
     }
 
@@ -145,8 +152,13 @@ public class DyttVideoMoreActivity extends BaseActivity<DyttVideoMorePresenterIm
 
     @Override
     public void noMore() {
-        if (mStatusView != null && page != 1) {
-            UIUtils.snackBar(mStatusView, R.string.data_empty);
+        if (mStatusView != null) {
+            if (page == 1) {
+                setStatusViewStatus(StatusLayout.EMPTY);
+                mAdapter.removeAll();
+            } else {
+                UIUtils.snackBar(mStatusView, R.string.data_empty);
+            }
         }
     }
 }

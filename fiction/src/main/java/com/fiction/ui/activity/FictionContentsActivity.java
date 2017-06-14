@@ -15,6 +15,7 @@ import com.fiction.mvp.presenter.FictionContentsPresenterImpl;
 import com.fiction.mvp.view.ViewManager;
 import com.framework.base.BaseActivity;
 import com.framework.utils.UIUtils;
+import com.framework.widget.StatusLayout;
 import com.xadapter.OnXBindListener;
 import com.xadapter.adapter.XRecyclerViewAdapter;
 import com.xadapter.holder.XViewHolder;
@@ -66,15 +67,20 @@ public class FictionContentsActivity extends BaseActivity<FictionContentsPresent
                         .onXBind(this)
                         .setOnItemClickListener((view, position, info) -> FictionDetailActivity.getInstance(type, info.detailUrl))
         );
-        mPresenter.startContents(extras.getString(URL), type);
+        startNetWork();
     }
 
     @Override
     protected void clickNetWork() {
         super.clickNetWork();
         if (!swipeRefreshLayout.isRefreshing()) {
-            mPresenter.startContents(extras.getString(URL), type);
+            startNetWork();
         }
+    }
+
+    private void startNetWork() {
+        setStatusViewStatus(StatusLayout.SUCCESS);
+        mPresenter.startContents(extras.getString(URL), type);
     }
 
     @Override
@@ -107,7 +113,7 @@ public class FictionContentsActivity extends BaseActivity<FictionContentsPresent
     public void netWorkError() {
         if (mStatusView != null) {
             mAdapter.removeAll();
-            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
+            setStatusViewStatus(StatusLayout.ERROR);
         }
     }
 

@@ -13,8 +13,8 @@ import com.fiction.mvp.view.ViewManager;
 import com.fiction.ui.activity.FictionContentsActivity;
 import com.framework.base.BaseFragment;
 import com.framework.utils.ImageLoaderUtils;
-import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
+import com.framework.widget.StatusLayout;
 import com.xadapter.adapter.multi.MultiAdapter;
 import com.xadapter.adapter.multi.XMultiAdapterListener;
 import com.xadapter.holder.XViewHolder;
@@ -93,15 +93,14 @@ public class FictionListFragment extends BaseFragment<FictionListPresenterImpl>
 
     @Override
     public void onRefresh() {
+        setStatusViewStatus(StatusLayout.SUCCESS);
         mPresenter.netWork(type, tabPosition);
     }
 
     @Override
     public void netWorkSuccess(List<FictionModel> data) {
         if (mStatusView != null) {
-            if (mAdapter.getData() != null) {
-                mAdapter.getData().clear();
-            }
+            mAdapter.clearAll();
             mAdapter.addAll(data);
         }
     }
@@ -110,7 +109,7 @@ public class FictionListFragment extends BaseFragment<FictionListPresenterImpl>
     public void netWorkError() {
         if (mStatusView != null) {
             mAdapter.clearAll();
-            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
+            setStatusViewStatus(StatusLayout.ERROR);
         }
     }
 

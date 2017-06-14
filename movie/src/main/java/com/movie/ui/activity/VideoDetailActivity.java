@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import com.framework.base.BaseActivity;
 import com.framework.utils.UIUtils;
 import com.framework.widget.EasyWebView;
+import com.framework.widget.StatusLayout;
 import com.movie.R;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.presenter.VideoDetailPresenterImpl;
@@ -32,12 +33,17 @@ public class VideoDetailActivity extends BaseActivity<VideoDetailPresenterImpl> 
     @Override
     protected void initCreate(Bundle savedInstanceState) {
         setSupportActionBar(toolbar);
-        mPresenter.netWorkRequest(getIntent().getExtras().getString(URL));
+        startNetWork();
     }
 
     @Override
     protected void clickNetWork() {
         super.clickNetWork();
+        startNetWork();
+    }
+
+    private void startNetWork() {
+        setStatusViewStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest(getIntent().getExtras().getString(URL));
     }
 
@@ -69,7 +75,7 @@ public class VideoDetailActivity extends BaseActivity<VideoDetailPresenterImpl> 
     @Override
     public void netWorkError() {
         if (mStatusView != null) {
-            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
+            setStatusViewStatus(StatusLayout.ERROR);
         }
     }
 

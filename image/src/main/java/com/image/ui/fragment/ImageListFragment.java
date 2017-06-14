@@ -8,6 +8,7 @@ import com.framework.base.BaseFragment;
 import com.framework.utils.ImageLoaderUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
+import com.framework.widget.StatusLayout;
 import com.image.R;
 import com.image.mvp.model.ImageModel;
 import com.image.mvp.presenter.ImageListPresenterImpl;
@@ -96,6 +97,7 @@ public class ImageListFragment extends BaseFragment<ImageListPresenterImpl>
 
     @Override
     public void onRefresh() {
+        setStatusViewStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest(type, tabPosition, page = 1);
     }
 
@@ -124,6 +126,9 @@ public class ImageListFragment extends BaseFragment<ImageListPresenterImpl>
         if (mStatusView != null) {
             if (page != 1) {
                 UIUtils.snackBar(mStatusView, R.string.net_error);
+            } else {
+                mAdapter.removeAll();
+                setStatusViewStatus(StatusLayout.ERROR);
             }
         }
     }
@@ -146,6 +151,9 @@ public class ImageListFragment extends BaseFragment<ImageListPresenterImpl>
         if (mStatusView != null) {
             if (page != 1) {
                 UIUtils.snackBar(mStatusView, R.string.data_empty);
+            } else {
+                mAdapter.removeAll();
+                setStatusViewStatus(StatusLayout.EMPTY);
             }
         }
     }

@@ -15,6 +15,7 @@ import com.fiction.mvp.view.ViewManager;
 import com.framework.base.BaseActivity;
 import com.framework.utils.UIUtils;
 import com.framework.widget.EasyWebView;
+import com.framework.widget.StatusLayout;
 
 /**
  * by y on 2017/4/6.
@@ -33,6 +34,7 @@ public class FictionDetailActivity extends BaseActivity<FictionDetailPresenterIm
     private ContentLoadingProgressBar progressBar;
     private String onUrl = null;
     private String nextUrl = null;
+    private String tempUrl = null;
     private EasyWebView webView;
     private FrameLayout frameLayout;
 
@@ -50,7 +52,7 @@ public class FictionDetailActivity extends BaseActivity<FictionDetailPresenterIm
         type = extras.getString(TYPE);
         toolbar.setTitle(getString(R.string.app_name));
         setSupportActionBar(toolbar);
-        mPresenter.startDetail(extras.getString(URL), type);
+        startNetWork(extras.getString(URL), type);
     }
 
     @Override
@@ -68,15 +70,22 @@ public class FictionDetailActivity extends BaseActivity<FictionDetailPresenterIm
         return new FictionDetailPresenterImpl(this);
     }
 
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_fiction_list_detail;
     }
 
     @Override
+    protected void clickNetWork() {
+        super.clickNetWork();
+        toolbar.setTitle("network error");
+        startNetWork(tempUrl, type);
+    }
+
+    @Override
     public void netWorkSuccess(FictionModel data) {
         if (mStatusView != null) {
+            webView.setVisibility(View.VISIBLE);
             onUrl = data.onPage;
             nextUrl = data.nextPage;
             toolbar.setTitle(data.title);
@@ -87,8 +96,10 @@ public class FictionDetailActivity extends BaseActivity<FictionDetailPresenterIm
 
     @Override
     public void netWorkError() {
-        if (mStatusView != null)
-            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
+        if (mStatusView != null) {
+            setStatusViewStatus(StatusLayout.ERROR);
+            webView.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -105,26 +116,26 @@ public class FictionDetailActivity extends BaseActivity<FictionDetailPresenterIm
             progressBar.hide();
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_next:
                 if (!TextUtils.isEmpty(nextUrl)) {
-                    mPresenter.startDetail(nextUrl, type);
+                    startNetWork(nextUrl, type);
                 } else {
                     UIUtils.toast(UIUtils.getString(R.string.on_empty));
                 }
                 break;
             case R.id.btn_on:
                 if (!TextUtils.isEmpty(onUrl)) {
-                    mPresenter.startDetail(onUrl, type);
+                    startNetWork(onUrl, type);
                 } else {
                     UIUtils.toast(UIUtils.getString(R.string.on_empty));
                 }
                 break;
         }
     }
+
 
     @Override
     public void loadingSuccess() {
@@ -137,5 +148,11 @@ public class FictionDetailActivity extends BaseActivity<FictionDetailPresenterIm
         if (webView != null) {
             webView.destroy();
         }
+    }
+
+    private void startNetWork(String string, String type) {
+        setStatusViewStatus(StatusLayout.SUCCESS);
+        tempUrl = string;
+        mPresenter.startDetail(string, type);
     }
 }

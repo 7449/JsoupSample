@@ -110,20 +110,8 @@ public class StatusLayout extends FrameLayout {
             return;
         }
         mStatus = status;
-        switch (status) {
-            case ERROR:
-                emptyView.setVisibility(GONE);
-                errorView.setVisibility(VISIBLE);
-                break;
-            case EMPTY:
-                errorView.setVisibility(GONE);
-                emptyView.setVisibility(VISIBLE);
-                break;
-            case SUCCESS:
-                errorView.setVisibility(GONE);
-                emptyView.setVisibility(GONE);
-                break;
-        }
+        emptyView.setVisibility(status == EMPTY ? VISIBLE : GONE);
+        errorView.setVisibility(status == ERROR ? VISIBLE : GONE);
     }
 
     public void setErrorView(@NonNull View errorView) {

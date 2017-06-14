@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import com.framework.base.BaseFragment;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
+import com.framework.widget.StatusLayout;
 import com.movie.R;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.presenter.K567ListPresenterImpl;
@@ -100,6 +101,7 @@ public class K567ListFragment extends BaseFragment<K567ListPresenterImpl>
 
     @Override
     public void onRefresh() {
+        setStatusViewStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest(tabPosition, page = 1);
     }
 
@@ -127,6 +129,9 @@ public class K567ListFragment extends BaseFragment<K567ListPresenterImpl>
         if (mStatusView != null) {
             if (page != 1) {
                 UIUtils.snackBar(mStatusView, R.string.net_error);
+            } else {
+                mAdapter.removeAll();
+                setStatusViewStatus(StatusLayout.ERROR);
             }
         }
     }
@@ -148,6 +153,9 @@ public class K567ListFragment extends BaseFragment<K567ListPresenterImpl>
         if (mStatusView != null) {
             if (page != 1) {
                 UIUtils.snackBar(mStatusView, R.string.data_empty);
+            } else {
+                mAdapter.removeAll();
+                setStatusViewStatus(StatusLayout.EMPTY);
             }
         }
     }

@@ -34,12 +34,12 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
         mStatusView.setErrorView(R.layout.layout_network_error);
         mStatusView.getEmptyView().setOnClickListener(v -> clickNetWork());
         mStatusView.getErrorView().setOnClickListener(v -> clickNetWork());
+        setStatusViewStatus(StatusLayout.SUCCESS);
         setContentView(mStatusView);
         initById();
         mPresenter = initPresenterImpl();
         if (mPresenter != null) {
             mPresenter.setTag(getClass().getSimpleName());
-            mPresenter.setRootView(mStatusView);
         }
         initCreate(savedInstanceState);
         if (getSupportActionBar() != null && !TextUtils.equals(getClass().getSimpleName(), "MainActivity")) {
@@ -80,6 +80,12 @@ public abstract class BaseActivity<P extends BasePresenterImpl> extends AppCompa
         if (mPresenter != null) {
             mPresenter.onDestroy(state);
             mPresenter = null;
+        }
+    }
+
+    public void setStatusViewStatus(int status) {
+        if (mStatusView != null) {
+            mStatusView.setStatus(status);
         }
     }
 }

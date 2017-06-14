@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import com.framework.base.BaseActivity;
 import com.framework.utils.ApkUtils;
 import com.framework.utils.UIUtils;
+import com.framework.widget.StatusLayout;
 import com.movie.R;
 import com.movie.manager.ApiConfig;
 import com.movie.mvp.model.MovieModel;
@@ -86,6 +87,7 @@ public class DyttXLMoreActivity extends BaseActivity<DyttXLMorePresenterImpl>
 
     @Override
     public void onRefresh() {
+        setStatusViewStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest(ApiConfig.DYTT_XL);
     }
 
@@ -102,7 +104,7 @@ public class DyttXLMoreActivity extends BaseActivity<DyttXLMorePresenterImpl>
     @Override
     public void netWorkError() {
         if (mStatusView != null) {
-            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
+            setStatusViewStatus(StatusLayout.ERROR);
         }
     }
 

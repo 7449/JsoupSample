@@ -105,6 +105,7 @@ public class Dy2018ListFragment extends BaseFragment<Dy2018ListPresenterImpl>
 
     @Override
     public void onRefresh() {
+        setStatusViewStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest(tabPosition, page = 1);
     }
 
@@ -132,6 +133,9 @@ public class Dy2018ListFragment extends BaseFragment<Dy2018ListPresenterImpl>
         if (mStatusView != null) {
             if (page != 1) {
                 UIUtils.snackBar(mStatusView, R.string.net_error);
+            } else {
+                mAdapte.removeAll();
+                setStatusViewStatus(StatusLayout.ERROR);
             }
         }
     }

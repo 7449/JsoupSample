@@ -45,6 +45,7 @@ public abstract class BaseFragment<P extends BasePresenterImpl> extends Fragment
             mStatusView.setSuccessView(getLayoutId(), new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             mStatusView.setEmptyView(R.layout.layout_empty_view);
             mStatusView.setErrorView(R.layout.layout_network_error);
+            setStatusViewStatus(StatusLayout.SUCCESS);
             isPrepared = true;
         }
         initById();
@@ -56,7 +57,6 @@ public abstract class BaseFragment<P extends BasePresenterImpl> extends Fragment
         super.onActivityCreated(savedInstanceState);
         mPresenter = initPresenter();
         if (mPresenter != null) {
-            mPresenter.setRootView(mStatusView);
             mPresenter.setTag(TextUtils.concat(type, String.valueOf(tabPosition)));
         }
         initActivityCreated();
@@ -111,6 +111,12 @@ public abstract class BaseFragment<P extends BasePresenterImpl> extends Fragment
         super.onDestroyView();
         if (mStatusView != null) {
             mStatusView.onDestroyView();
+        }
+    }
+
+    public void setStatusViewStatus(int status) {
+        if (mStatusView != null) {
+            mStatusView.setStatus(status);
         }
     }
 }

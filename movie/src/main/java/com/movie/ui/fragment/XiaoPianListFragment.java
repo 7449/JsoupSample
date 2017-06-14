@@ -8,6 +8,7 @@ import com.framework.base.BaseFragment;
 import com.framework.utils.ApkUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
+import com.framework.widget.StatusLayout;
 import com.movie.R;
 import com.movie.mvp.model.MovieModel;
 import com.movie.mvp.presenter.XiaoPianListPresenterImpl;
@@ -103,6 +104,7 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
 
     @Override
     public void onRefresh() {
+        setStatusViewStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest(tabPosition, page = 1);
     }
 
@@ -130,6 +132,9 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
         if (mStatusView != null) {
             if (page != 1) {
                 UIUtils.snackBar(mStatusView, R.string.net_error);
+            } else {
+                mAdapter.removeAll();
+                setStatusViewStatus(StatusLayout.ERROR);
             }
         }
     }
@@ -151,6 +156,9 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
         if (mStatusView != null) {
             if (page != 1) {
                 UIUtils.snackBar(mStatusView, R.string.data_empty);
+            } else {
+                mAdapter.removeAll();
+                setStatusViewStatus(StatusLayout.EMPTY);
             }
         }
     }

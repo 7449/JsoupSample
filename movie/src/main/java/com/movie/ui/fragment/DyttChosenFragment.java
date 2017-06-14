@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import com.framework.base.BaseFragment;
 import com.framework.utils.ApkUtils;
 import com.framework.utils.UIUtils;
+import com.framework.widget.StatusLayout;
 import com.movie.R;
 import com.movie.manager.ApiConfig;
 import com.movie.manager.DyttJsoupManager;
@@ -97,6 +98,7 @@ public class DyttChosenFragment extends BaseFragment<DyttChosenPresenterImpl>
 
     @Override
     public void onRefresh() {
+        setStatusViewStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest();
     }
 
@@ -113,7 +115,7 @@ public class DyttChosenFragment extends BaseFragment<DyttChosenPresenterImpl>
     @Override
     public void netWorkError() {
         if (mStatusView != null) {
-            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
+            setStatusViewStatus(StatusLayout.ERROR);
         }
     }
 

@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.framework.base.BaseFragment;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
+import com.framework.widget.StatusLayout;
 import com.magnetic.R;
 import com.magnetic.mvp.model.MagneticModel;
 import com.magnetic.mvp.presenter.MagneticListPresenterImpl;
@@ -110,6 +111,7 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
 
     @Override
     public void onRefresh() {
+        setStatusViewStatus(StatusLayout.SUCCESS);
         mPresenter.netWorkRequest(type, tabPosition, page = 0);
     }
 
@@ -137,6 +139,9 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
         if (mStatusView != null) {
             if (page != 0) {
                 UIUtils.snackBar(mStatusView, R.string.net_error);
+            } else {
+                mAdapter.removeAll();
+                setStatusViewStatus(StatusLayout.ERROR);
             }
         }
     }
@@ -159,6 +164,9 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
         if (mStatusView != null) {
             if (page != 0) {
                 UIUtils.snackBar(mStatusView, R.string.data_empty);
+            } else {
+                mAdapter.removeAll();
+                setStatusViewStatus(StatusLayout.EMPTY);
             }
         }
     }
