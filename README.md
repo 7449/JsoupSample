@@ -119,6 +119,10 @@ jsoupSample
 > [GreenDao](https://github.com/greenrobot/greenDAO)
 
     数据库操作
-    
+
+> [jiecaoVideo](https://github.com/lipangit/JieCaoVideoPlayer)
+    	
+	视频播放
+
 > [RxJava](https://github.com/ReactiveX/RxJava)
 > [RxAndroid](https://github.com/ReactiveX/RxAndroid)
