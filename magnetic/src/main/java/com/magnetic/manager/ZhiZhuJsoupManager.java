@@ -3,7 +3,6 @@ package com.magnetic.manager;
 import android.support.annotation.NonNull;
 
 import com.magnetic.mvp.model.MagneticModel;
-import com.socks.library.KLog;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -30,8 +29,7 @@ public class ZhiZhuJsoupManager {
     public List<MagneticModel> getList() {
         List<MagneticModel> listModels = new ArrayList<>();
         MagneticModel magneticModel;
-        Elements a = document.select("dt");
-        KLog.i(a);
+        Elements a = document.select("div.list").select("a[href]:not(.desc):not(.asc)");
         for (Element element : a) {
             magneticModel = new MagneticModel();
             magneticModel.title = element.text();

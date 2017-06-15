@@ -14,7 +14,7 @@ public interface ApiConfig {
 
     String NI_MA_URL = "https://www.nimasou.info/l/%s-first-asc-%s";
 
-    String ZHI_ZHU_URL = "http://www.zhizhucili.cc/so/%s-first-asc-%s";
+    String ZHI_ZHU_URL = "http://www.zzcili.com/so/%s-first-asc-%s";
 
     interface Type {
     }
