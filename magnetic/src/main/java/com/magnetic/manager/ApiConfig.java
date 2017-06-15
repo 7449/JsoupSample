@@ -16,6 +16,10 @@ public interface ApiConfig {
 
     String ZHI_ZHU_URL = "http://www.zzcili.com/so/%s-first-asc-%s";
 
+    String D_S_URL = "http://www.diaosisou.net/list/%s/%s/time_d";
+
+    String CILILIAN_URL = "http://cililian.me/list/%s/%s/time.html";
+
     interface Type {
     }
 }

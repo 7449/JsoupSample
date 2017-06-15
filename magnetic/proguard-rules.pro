@@ -50,6 +50,19 @@ public static java.lang.String TABLENAME;
 -keep class **$Properties
 -dontwarn org.greenrobot.greendao.database.**
 
+### squareup
+
+-keep class com.squareup.**{*;}
+
+
+### jiecao
+
+-keep class fm.jiecao.jcvideoplayer_lib.**{*;}
+
+### xadapter
+
+-keep class com.xadapter.**{*;}
+
 
 ##---------------------------------默认保留区---------------------------------
 -keep public class * extends android.app.Activity

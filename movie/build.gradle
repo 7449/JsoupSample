@@ -42,5 +42,4 @@ android {
 
 dependencies {
     compile project(':commonLibrary')
-    compile "fm.jiecao:jiecaovideoplayer:$jiecaoVideoVersion"
 }

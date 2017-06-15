@@ -6,6 +6,8 @@ import com.framework.base.mvp.BasePresenterImpl;
 import com.framework.utils.UIUtils;
 import com.magnetic.R;
 import com.magnetic.manager.ApiConfig;
+import com.magnetic.manager.CiLiLianJsoupManager;
+import com.magnetic.manager.DSJsoupManager;
 import com.magnetic.manager.MaYiJsoupManager;
 import com.magnetic.manager.NiMaJsoupManager;
 import com.magnetic.manager.YingTaoJsoupManager;
@@ -51,6 +53,12 @@ public class MagneticListPresenterImpl extends BasePresenterImpl<List<MagneticMo
             case 3:
                 url = String.format(ApiConfig.ZHI_ZHU_URL, search, page + 1);
                 break;
+            case 4:
+                url = String.format(ApiConfig.D_S_URL, search, page + 1);
+                break;
+            case 5:
+                url = String.format(ApiConfig.CILILIAN_URL, search, page + 1);
+                break;
             default:
                 break;
         }
@@ -59,6 +67,7 @@ public class MagneticListPresenterImpl extends BasePresenterImpl<List<MagneticMo
 
     @Override
     public void netWorkZhiZhuMagnetic(@NonNull String url) {
+        cancelZhiZhuDetailNetWork();
         RxJsoupNetWork
                 .getInstance()
                 .getApi(MagneticListFragment.ZHIZHU_TAG, url,
@@ -77,7 +86,7 @@ public class MagneticListPresenterImpl extends BasePresenterImpl<List<MagneticMo
                                     view.hideProgress();
                                 }
                                 UIUtils.toast(UIUtils.getString(R.string.network_error));
-                                RxJsoupNetWork.getInstance().cancel(MagneticListFragment.ZHIZHU_TAG);
+                                cancelZhiZhuDetailNetWork();
                             }
 
                             @Override
@@ -85,7 +94,7 @@ public class MagneticListPresenterImpl extends BasePresenterImpl<List<MagneticMo
                                 if (view != null) {
                                     view.hideProgress();
                                 }
-                                RxJsoupNetWork.getInstance().cancel(MagneticListFragment.ZHIZHU_TAG);
+                                cancelZhiZhuDetailNetWork();
                             }
 
                             @Override
@@ -103,6 +112,11 @@ public class MagneticListPresenterImpl extends BasePresenterImpl<List<MagneticMo
                         });
     }
 
+    public void cancelZhiZhuDetailNetWork() {
+        RxJsoupNetWork
+                .getInstance().cancel(MagneticListFragment.ZHIZHU_TAG);
+    }
+
     @Override
     public List<MagneticModel> getT(Document document) {
         switch (position) {
@@ -114,6 +128,10 @@ public class MagneticListPresenterImpl extends BasePresenterImpl<List<MagneticMo
                 return NiMaJsoupManager.get(document).getList();
             case 3:
                 return ZhiZhuJsoupManager.get(document).getList();
+            case 4:
+                return DSJsoupManager.get(document).getList();
+            case 5:
+                return CiLiLianJsoupManager.get(document).getList();
             default:
                 return new ArrayList<>();
         }

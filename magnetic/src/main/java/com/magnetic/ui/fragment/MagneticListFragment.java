@@ -1,10 +1,14 @@
 package com.magnetic.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.framework.base.BaseFragment;
+import com.framework.utils.ApkUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
 import com.framework.widget.StatusLayout;
@@ -15,8 +19,6 @@ import com.magnetic.mvp.view.ViewManager;
 import com.xadapter.adapter.XRecyclerViewAdapter;
 
 import java.util.List;
-
-import io.reactivex.jsoup.network.manager.RxJsoupNetWork;
 
 /**
  * by y on 2017/6/6.
@@ -74,17 +76,14 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
         recyclerView.setAdapter(
                 mAdapter
                         .setLayoutId(R.layout.item_magnetic_list)
-                        .onXBind((holder, position, magneticModel) -> {
-                            holder.setTextView(R.id.tv_magnetic_name, magneticModel.title);
-//                                holder.setTextView(R.id.tv_magnetic_name, magneticModel.title);
-                        })
+                        .onXBind((holder, position, magneticModel) -> holder.setTextView(R.id.tv_magnetic_name, magneticModel.title))
                         .setOnItemClickListener((view, position, info) -> {
                             switch (tabPosition) {
                                 case 3:
                                     mPresenter.netWorkZhiZhuMagnetic(info.url);
                                     break;
                                 default:
-//                                    UIUtils.toast(info.url);
+                                    onStartMagnetic(info.url);
                                     break;
                             }
                         })
@@ -173,12 +172,39 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
 
     @Override
     public void zhizhuMagnetic(MagneticModel magneticModel) {
-        UIUtils.toast(magneticModel.url);
+        onStartMagnetic(magneticModel.url);
     }
 
     @Override
     public void onDestroyView() {
-        RxJsoupNetWork.getInstance().cancel(MagneticListFragment.ZHIZHU_TAG);
+        if (mPresenter != null)
+            mPresenter.cancelZhiZhuDetailNetWork();
         super.onDestroyView();
+    }
+
+    private void onStartMagnetic(String url) {
+        if (TextUtils.isEmpty(url)) {
+            UIUtils.snackBar(mStatusView, R.string.url_null);
+            return;
+        }
+        new MaterialDialog
+                .Builder(getActivity())
+                .title(R.string.magnetic_title)
+                .positiveText(R.string.xl)
+                .negativeText(R.string.copy)
+                .onPositive((dialog, which) -> {
+                    Intent xlIntent = ApkUtils.getXLIntent();
+                    if (xlIntent == null) {
+                        UIUtils.toast(UIUtils.getString(R.string.xl_null));
+                        return;
+                    }
+                    UIUtils.copy(url);
+                    startActivity(xlIntent);
+                })
+                .onNegative((dialog, which) -> {
+                    UIUtils.copy(url);
+                    UIUtils.snackBar(mStatusView, R.string.copy_success);
+                })
+                .show();
     }
 }
