@@ -172,4 +172,12 @@ public class K567DetailActivity extends BaseActivity<K567DetailPresenterImpl>
         super.onPause();
         JCVideoPlayer.releaseAllVideos();
     }
+
+    @Override
+    protected void onDestroy() {
+        if (jcVideoPlayerStandard != null) {
+            jcVideoPlayerStandard = null;
+        }
+        super.onDestroy();
+    }
 }

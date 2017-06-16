@@ -25,8 +25,43 @@ public class K567ListPresenterImpl extends BasePresenterImpl<List<MovieModel>, V
 
     @Override
     public void netWorkRequest(int type, int page) {
-        String s = UIUtils.getString(R.string.k567_suffix);
-        String format = String.format(ApiConfig.K_567_URL + s, page);
+        int temp = 0;
+        switch (type) {
+            case 0:
+                temp = page;
+                break;
+            case 1:
+                temp = page + 2;
+                break;
+            case 2:
+                temp = page + 9;
+                break;
+            case 3:
+                temp = page + 14;
+                break;
+            case 4:
+                temp = page + 19;
+                break;
+            case 5:
+                temp = page + 25;
+                break;
+            case 6:
+                temp = page + 36;
+                break;
+            case 7:
+                temp = page + 47;
+                break;
+            case 8:
+                temp = page + 58;
+                break;
+            case 9:
+                temp = page + 79;
+                break;
+            case 10:
+                temp = page + 129;
+                break;
+        }
+        String format = String.format(ApiConfig.K_567_URL + UIUtils.getString(R.string.k567_suffix), temp);
         netWork(format);
     }
 

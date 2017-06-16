@@ -3,8 +3,10 @@ package com.movie.ui.fragment;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.text.Html;
 
 import com.framework.base.BaseFragment;
+import com.framework.utils.ImageLoaderUtils;
 import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
 import com.framework.widget.StatusLayout;
@@ -74,8 +76,8 @@ public class K567ListFragment extends BaseFragment<K567ListPresenterImpl>
         recyclerView.setAdapter(
                 mAdapter.setLayoutId(R.layout.item_k567)
                         .onXBind((holder, position, movieModel) -> {
-//                            holder.setTextView(R.id.k567_item_tv, Html.fromHtml(movieModel.title));
-//                            ImageLoaderUtils.display(holder.getImageView(R.id.k567_item_iv), movieModel.url);
+                            holder.setTextView(R.id.k567_item_tv, Html.fromHtml(movieModel.title));
+                            ImageLoaderUtils.display(holder.getImageView(R.id.k567_item_iv), movieModel.url);
                         })
                         .setOnItemClickListener((view, position, info) -> K567DetailActivity.startIntent(info.title, info.detailUrl, info.url))
         );
