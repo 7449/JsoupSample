@@ -13,18 +13,26 @@ import android.view.MenuItem;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.fiction.R;
 import com.fiction.manager.DBManager;
+import com.fiction.mvp.model.MarkModel;
 import com.fiction.mvp.presenter.MainPresenterImpl;
 import com.fiction.mvp.view.ViewManager;
 import com.framework.base.BaseActivity;
 import com.framework.base.mvp.BaseModel;
 import com.framework.utils.UIUtils;
+import com.xadapter.OnXBindListener;
+import com.xadapter.adapter.XRecyclerViewAdapter;
+import com.xadapter.holder.XViewHolder;
+
+import java.util.List;
 
 
 public class MainActivity extends BaseActivity<MainPresenterImpl>
-        implements NavigationView.OnNavigationItemSelectedListener, ViewManager.MainView {
+        implements NavigationView.OnNavigationItemSelectedListener, ViewManager.MainView, OnXBindListener<MarkModel> {
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private XRecyclerViewAdapter<MarkModel> adapter;
+    private MaterialDialog markDialog;
 
     @Override
     protected void onDestroy() {
@@ -84,13 +92,51 @@ public class MainActivity extends BaseActivity<MainPresenterImpl>
                 .input(
                         UIUtils.getString(R.string.search_dialog_hint),
                         null,
-                        (dialog, input) -> SearchActivity.getInstance(String.valueOf(input)))
+                        (dialog, input) -> {
+                            if (DBManager.isEmpty(String.valueOf(input))) {
+                                DBManager.insert(String.valueOf(input));
+                            }
+                            SearchActivity.getInstance(String.valueOf(input));
+                        })
                 .show();
     }
 
     @Override
     public void switchMark() {
-        DBManager.isEmpty("");
+        List<MarkModel> fictionMarkAll = DBManager.getFictionMarkAll();
+        if (fictionMarkAll == null || fictionMarkAll.isEmpty()) {
+            UIUtils.snackBar(findViewById(R.id.coordinatorLayout), R.string.mark_null);
+        } else {
+            if (adapter == null) {
+                adapter = new XRecyclerViewAdapter<>();
+            }
+            markDialog = new MaterialDialog
+                    .Builder(this)
+                    .title(R.string.mark_title)
+                    .adapter(
+                            adapter
+                                    .initXData(fictionMarkAll)
+                                    .setLayoutId(R.layout.item_mark)
+                                    .onXBind(this)
+                                    .setOnItemClickListener((view, position, info) -> SearchActivity.getInstance(String.valueOf(info.getFictionName())))
+                            , null)
+                    .show();
+        }
+    }
+
+    @Override
+    public void onXBind(XViewHolder holder, int position, MarkModel markModel) {
+        holder.setTextView(R.id.tv_name, markModel.getFictionName());
+        holder.getView(R.id.iv_delete).setOnClickListener(v -> {
+            DBManager.clear(markModel.getFictionName());
+            adapter.remove(position);
+            if (DBManager.getFictionMarkAll() == null || DBManager.getFictionMarkAll().isEmpty()) {
+                if (markDialog != null) {
+                    markDialog.dismiss();
+                    UIUtils.snackBar(findViewById(R.id.coordinatorLayout), R.string.mark_null);
+                }
+            }
+        });
     }
 
     @Override

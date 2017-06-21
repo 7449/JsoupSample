@@ -11,7 +11,7 @@ public interface ApiConfig {
 
     //搜索
     String SEARCH_URL = "http://zhannei.baidu.com/cse/search?q=";
-    String SEARCH_SUFFIX = "&s=3975864432584690275";
+    String SEARCH_SUFFIX = "&s=17512219138159063592";
 
     //81中文网
     String ZW81_URL = "http://www.81zw.com/";
