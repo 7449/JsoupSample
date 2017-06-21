@@ -10,4 +10,5 @@
     <string name="title_bi_qu_ge">笔趣阁</string>
     <string name="title_ksw">零点看书</string>
     <string name="search_dialog_hint">请输入小说名</string>
+    <string name="mark_title">记录</string>
 </resources>

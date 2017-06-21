@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.fiction.R;
+import com.fiction.manager.DBManager;
 import com.fiction.mvp.presenter.MainPresenterImpl;
 import com.fiction.mvp.view.ViewManager;
 import com.framework.base.BaseActivity;
@@ -24,6 +25,12 @@ public class MainActivity extends BaseActivity<MainPresenterImpl>
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+
+    @Override
+    protected void onDestroy() {
+        mPresenter.onMainDestroy();
+        super.onDestroy();
+    }
 
     @Override
     protected void initCreate(Bundle savedInstanceState) {
@@ -82,6 +89,11 @@ public class MainActivity extends BaseActivity<MainPresenterImpl>
     }
 
     @Override
+    public void switchMark() {
+        DBManager.isEmpty("");
+    }
+
+    @Override
     public AppCompatActivity getMainActivity() {
         return this;
     }
@@ -96,12 +108,6 @@ public class MainActivity extends BaseActivity<MainPresenterImpl>
     @Override
     public void onBack() {
         super.onBackPressed();
-    }
-
-    @Override
-    protected void onDestroy() {
-        mPresenter.onMainDestroy();
-        super.onDestroy();
     }
 
     @Override

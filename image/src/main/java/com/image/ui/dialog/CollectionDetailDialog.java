@@ -13,8 +13,8 @@ import com.framework.utils.ImageLoaderUtils;
 import com.framework.widget.ExtendedViewPager;
 import com.framework.widget.TouchImageView;
 import com.image.R;
-import com.image.collection.CollectionModel;
-import com.image.collection.GreenDaoDbUtils;
+import com.image.manager.DBManager;
+import com.image.mvp.model.CollectionModel;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class CollectionDetailDialog extends BaseDialogFragment {
 
         ExtendedViewPager viewPager = getView(R.id.viewPager);
         toolbar = getView(R.id.toolbar);
-        CollectionDetailAdapter adapter = new CollectionDetailAdapter(GreenDaoDbUtils.getCollectionAll());
+        CollectionDetailAdapter adapter = new CollectionDetailAdapter(DBManager.getCollectionAll());
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(position, false);
 

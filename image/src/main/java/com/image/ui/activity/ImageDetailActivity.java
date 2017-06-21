@@ -17,7 +17,7 @@ import com.framework.utils.UIUtils;
 import com.framework.widget.ExtendedViewPager;
 import com.framework.widget.TouchImageView;
 import com.image.R;
-import com.image.collection.CollectionUtils;
+import com.image.manager.DBManager;
 import com.image.mvp.model.ImageModel;
 import com.image.mvp.presenter.ImageDetailPresenterImpl;
 import com.image.mvp.view.ViewManager;
@@ -74,11 +74,11 @@ public class ImageDetailActivity extends BaseActivity<ImageDetailPresenterImpl> 
                 if (TextUtils.isEmpty(imageUrl)) {
                     UIUtils.snackBar(mStatusView, getString(R.string.collection_loading));
                 } else {
-                    if (CollectionUtils.isEmpty(imageUrl)) {
-                        CollectionUtils.insert(imageUrl);
+                    if (DBManager.isEmpty(imageUrl)) {
+                        DBManager.insert(imageUrl);
                         UIUtils.snackBar(mStatusView, getString(R.string.collection_ok));
                     } else {
-                        CollectionUtils.deleted(imageUrl);
+                        DBManager.clear(imageUrl);
                         UIUtils.snackBar(mStatusView, getString(R.string.collection_deleted));
                     }
                     invalidateOptionsMenu();
@@ -121,7 +121,7 @@ public class ImageDetailActivity extends BaseActivity<ImageDetailPresenterImpl> 
         MenuItem item = menu.findItem(R.id.collection);
         String url = adapter.getUrl(viewPager.getCurrentItem());
         if (!TextUtils.isEmpty(url)) {
-            item.setIcon(CollectionUtils.isEmpty(adapter.getUrl(viewPager.getCurrentItem())) ? R.drawable.ic_favorite_border_24dp : R.drawable.ic_favorite_24dp);
+            item.setIcon(DBManager.isEmpty(adapter.getUrl(viewPager.getCurrentItem())) ? R.drawable.ic_favorite_border_24dp : R.drawable.ic_favorite_24dp);
         }
         return super.onCreateOptionsMenu(menu);
     }

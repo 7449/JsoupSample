@@ -41,6 +41,9 @@ public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.
             case R.id.search:
                 view.switchSearch();
                 break;
+            case R.id.mark:
+                view.switchMark();
+                break;
             case FIRST_FRAGMENT:
             case R.id.fiction_81:
                 setSelectFragment(TYPE_ZW_FRAGMENT);

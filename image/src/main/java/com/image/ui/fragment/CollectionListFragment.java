@@ -11,9 +11,8 @@ import com.framework.base.mvp.BasePresenterImpl;
 import com.framework.utils.ImageLoaderUtils;
 import com.framework.utils.UIUtils;
 import com.image.R;
-import com.image.collection.CollectionModel;
-import com.image.collection.CollectionUtils;
-import com.image.collection.GreenDaoDbUtils;
+import com.image.manager.DBManager;
+import com.image.mvp.model.CollectionModel;
 import com.image.ui.dialog.CollectionDetailDialog;
 import com.xadapter.OnItemLongClickListener;
 import com.xadapter.adapter.XRecyclerViewAdapter;
@@ -52,7 +51,7 @@ public class CollectionListFragment extends BaseFragment
         mAdapter = new XRecyclerViewAdapter<>();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        List<CollectionModel> collectionAll = GreenDaoDbUtils.getCollectionAll();
+        List<CollectionModel> collectionAll = DBManager.getCollectionAll();
 
         recyclerView.setAdapter(
                 mAdapter.initXData(collectionAll).setLayoutId(R.layout.item_collection)
@@ -77,7 +76,7 @@ public class CollectionListFragment extends BaseFragment
     public void refreshUI() {
         if (mAdapter != null) {
             mAdapter.removeAll();
-            List<CollectionModel> collectionAll = GreenDaoDbUtils.getCollectionAll();
+            List<CollectionModel> collectionAll = DBManager.getCollectionAll();
             mAdapter.addAllData(collectionAll);
             notifyDataSetChangedView(collectionAll.isEmpty());
         }
@@ -90,7 +89,7 @@ public class CollectionListFragment extends BaseFragment
                 .title(UIUtils.getString(R.string.collection_title))
                 .negativeText(R.string.collection_deleted)
                 .onNegative((dialog, which) -> {
-                    CollectionUtils.deleted(mAdapter.getData(position).getUrl());
+                    DBManager.clear(mAdapter.getData(position).getUrl());
                     mAdapter.remove(position);
                     if (mAdapter.getData().isEmpty()) {
                         recyclerView.setVisibility(View.GONE);

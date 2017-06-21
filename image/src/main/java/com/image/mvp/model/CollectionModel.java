@@ -1,8 +1,8 @@
-package com.image.collection;
+package com.image.mvp.model;
 
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Generated;
 
 
 @Entity
@@ -26,6 +26,4 @@ public class CollectionModel {
     public void setUrl(String url) {
         this.url = url;
     }
-
-
 }

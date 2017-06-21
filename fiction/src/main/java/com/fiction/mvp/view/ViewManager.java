@@ -32,6 +32,8 @@ public interface ViewManager {
     interface MainView extends BaseView<BaseModel> {
         void switchSearch();
 
+        void switchMark();
+
         AppCompatActivity getMainActivity();
 
         void selectMenuFirst();
