@@ -57,7 +57,7 @@ public class SearchActivity extends BaseActivity<SearchListPresenterImpl>
                             holder.setTextView(R.id.search_tv_title, fictionModel.title);
                             holder.setTextView(R.id.search_tv_content, fictionModel.message);
                         })
-                        .setOnItemClickListener((view, position, info) -> FictionContentsActivity.getInstance(ApiConfig.Type.ZW_81, info.detailUrl, info.title))
+                        .setOnItemClickListener((view, position, info) -> FictionContentsActivity.getInstance(ApiConfig.Type.BI_QU_GE, info.detailUrl, info.title))
         );
         startNetWork();
     }

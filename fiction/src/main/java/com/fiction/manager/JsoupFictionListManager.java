@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.fiction.mvp.model.FictionModel;
+import com.socks.library.KLog;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -133,6 +134,7 @@ public class JsoupFictionListManager {
         FictionModel detailModel = new FictionModel();
         Elements select = document.select(divClass).select("a[href$=.html]");
         if (select.size() == 1) {
+            KLog.i(select);
             if (TextUtils.equals(select.text(), ApiConfig.NEXT_PAGE)) {
                 detailModel.nextPage = select.attr("abs:href");
             } else {
