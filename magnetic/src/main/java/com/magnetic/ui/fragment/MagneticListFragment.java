@@ -190,6 +190,7 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
         new MaterialDialog
                 .Builder(getActivity())
                 .title(R.string.magnetic_title)
+                .content(url)
                 .positiveText(R.string.xl)
                 .negativeText(R.string.copy)
                 .onPositive((dialog, which) -> {
