@@ -31,10 +31,12 @@ public class ZhiZhuJsoupManager {
         MagneticModel magneticModel;
         Elements a = document.select("div.list").select("a[href]:not(.desc):not(.asc)");
         for (Element element : a) {
-            magneticModel = new MagneticModel();
-            magneticModel.title = element.text();
-            magneticModel.url = element.select("a[href]").attr("abs:href");
-            listModels.add(magneticModel);
+            if (!element.text().equals("点击搜索")) {
+                magneticModel = new MagneticModel();
+                magneticModel.title = element.text();
+                magneticModel.url = element.select("a[href]").attr("abs:href");
+                listModels.add(magneticModel);
+            }
         }
         return listModels;
     }
