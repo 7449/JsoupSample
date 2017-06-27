@@ -9,4 +9,6 @@
     <string name="copy">只复制</string>
     <string name="xl_null">没有安装迅雷</string>
     <string name="copy_success">磁力已经粘贴到复制板</string>
+    <string name="search_content">搜索记录</string>
+    <string name="mark_null">没有搜索记录</string>
 </resources>

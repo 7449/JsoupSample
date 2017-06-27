@@ -10,13 +10,22 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.framework.base.BaseActivity;
 import com.framework.utils.UIUtils;
 import com.magnetic.R;
+import com.magnetic.manager.DBManager;
 import com.magnetic.mvp.model.MagneticModel;
+import com.magnetic.mvp.model.SearchModel;
 import com.magnetic.mvp.presenter.MainPresenterImpl;
 import com.magnetic.mvp.view.ViewManager;
+import com.xadapter.OnXBindListener;
+import com.xadapter.adapter.XRecyclerViewAdapter;
+import com.xadapter.holder.XViewHolder;
 
-public class MainActivity extends BaseActivity<MainPresenterImpl> implements ViewManager.MainView {
+import java.util.List;
+
+public class MainActivity extends BaseActivity<MainPresenterImpl> implements ViewManager.MainView, OnXBindListener<SearchModel> {
 
     private Toolbar mToolbar;
+    private XRecyclerViewAdapter<SearchModel> adapter;
+    private MaterialDialog markDialog;
 
     @Override
     protected void initCreate(Bundle savedInstanceState) {
@@ -56,8 +65,34 @@ public class MainActivity extends BaseActivity<MainPresenterImpl> implements Vie
                         .input(
                                 UIUtils.getString(R.string.search_dialog_hint),
                                 null,
-                                (dialog, input) -> mPresenter.startSearch(String.valueOf(input)))
+                                ((dialog, input) -> {
+                                    if (DBManager.isEmpty(String.valueOf(input))) {
+                                        DBManager.insert(String.valueOf(input));
+                                    }
+                                    mPresenter.startSearch(String.valueOf(input));
+                                }))
                         .show();
+                break;
+            case R.id.mark:
+                List<SearchModel> fictionMarkAll = DBManager.getSearchContent();
+                if (fictionMarkAll == null || fictionMarkAll.isEmpty()) {
+                    UIUtils.snackBar(mStatusView, R.string.mark_null);
+                } else {
+                    if (adapter == null) {
+                        adapter = new XRecyclerViewAdapter<>();
+                    }
+                    markDialog = new MaterialDialog
+                            .Builder(this)
+                            .title(R.string.search_content)
+                            .adapter(
+                                    adapter
+                                            .initXData(fictionMarkAll)
+                                            .setLayoutId(R.layout.item_mark)
+                                            .onXBind(this)
+                                            .setOnItemClickListener((view, position, info) -> mPresenter.startSearch(String.valueOf(info.getSearchContent())))
+                                    , null)
+                            .show();
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -92,5 +127,20 @@ public class MainActivity extends BaseActivity<MainPresenterImpl> implements Vie
     @Override
     public FragmentActivity getMainActivity() {
         return this;
+    }
+
+    @Override
+    public void onXBind(XViewHolder holder, int position, SearchModel searchModel) {
+        holder.setTextView(R.id.tv_name, searchModel.getSearchContent());
+        holder.getView(R.id.iv_delete).setOnClickListener(v -> {
+            DBManager.clear(searchModel.getSearchContent());
+            adapter.remove(position);
+            if (DBManager.getSearchContent() == null || DBManager.getSearchContent().isEmpty()) {
+                if (markDialog != null) {
+                    markDialog.dismiss();
+                    UIUtils.snackBar(mStatusView, R.string.mark_null);
+                }
+            }
+        });
     }
 }
