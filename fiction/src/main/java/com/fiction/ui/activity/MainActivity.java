@@ -118,7 +118,10 @@ public class MainActivity extends BaseActivity<MainPresenterImpl>
                                     .initXData(fictionMarkAll)
                                     .setLayoutId(R.layout.item_mark)
                                     .onXBind(this)
-                                    .setOnItemClickListener((view, position, info) -> SearchActivity.getInstance(String.valueOf(info.getFictionName())))
+                                    .setOnItemClickListener((view, position, info) -> {
+                                        markDialog.dismiss();
+                                        SearchActivity.getInstance(String.valueOf(info.getFictionName()));
+                                    })
                             , null)
                     .show();
         }

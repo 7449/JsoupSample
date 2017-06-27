@@ -109,7 +109,6 @@ public class DyttNewFragment extends BaseFragment<DyttNewPresenterImpl>
     public void netWorkSuccess(List<MovieModel> data) {
         if (mStatusView != null) {
             mAdapter.removeAll();
-            data.remove(0);
             mAdapter.addAllData(data);
         }
     }

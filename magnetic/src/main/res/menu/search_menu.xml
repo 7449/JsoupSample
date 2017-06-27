@@ -4,7 +4,7 @@
     <item
         android:id="@+id/mark"
         android:icon="@drawable/ic_bookmark"
-        android:title="@string/search_content"
+        android:title="@string/mark_title"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/search"

@@ -52,8 +52,24 @@ public abstract class BasePresenterImpl<M, V extends BaseView<M>>
     @Override
     public void onNetWorkSuccess(M data) {
         if (view != null) {
-            if (data instanceof List && view instanceof BaseListView && ((List) data).isEmpty()) {
-                ((BaseListView) view).noMore();
+            if (data instanceof List) {
+                if (view instanceof BaseListView) {
+                    if (((List) data).isEmpty()) {
+                        KLog.i("data  isEmpty == true, view instanceof BaseListView");
+                        ((BaseListView) view).noMore();
+                    } else {
+                        KLog.i("view instanceof BaseListView,Success");
+                        view.netWorkSuccess(data);
+                    }
+                    return;
+                }
+                if (((List) data).isEmpty()) {
+                    KLog.i("data  isEmpty == true, view instanceof BaseView");
+                    view.netWorkError();
+                } else {
+                    KLog.i("view instanceof BaseView,Success");
+                    view.netWorkSuccess(data);
+                }
             } else {
                 view.netWorkSuccess(data);
             }

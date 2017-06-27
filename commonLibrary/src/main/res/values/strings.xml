@@ -6,4 +6,6 @@
     <string name="data_empty">没有数据了</string>
     <string name="empty_view_tips">没有数据,点击重试</string>
     <string name="net_error">网络错误,点击重试</string>
+    <string name="mark_title">记录</string>
+    <string name="mark_null">没有搜索记录</string>
 </resources>

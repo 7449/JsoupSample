@@ -1,9 +1,0 @@
-<resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="card_view_margin">6dp</dimen>
-    <dimen name="padding">5dp</dimen>
-    <dimen name="margin">5dp</dimen>
-    <dimen name="fiction_detail_margin">5dp</dimen>
-    <dimen name="fiction_image_width">100dp</dimen>
-    <dimen name="fiction_image_height">100dp</dimen>
-</resources>

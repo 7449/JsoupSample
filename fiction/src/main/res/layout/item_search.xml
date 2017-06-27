@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/card_view_margin">
+    android:layout_margin="@dimen/fiction_card_view_margin">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/search_iv_img"
-            android:padding="@dimen/padding"
+            android:padding="@dimen/fiction_padding"
             android:textColor="@color/colorAccent" />
 
         <TextView
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/search_tv_title"
             android:layout_toRightOf="@+id/search_iv_img"
-            android:padding="@dimen/padding" />
+            android:padding="@dimen/fiction_padding" />
     </RelativeLayout>
 
 

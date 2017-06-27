@@ -30,22 +30,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/btn_rootView"
-                android:layout_marginLeft="@dimen/margin"
-                android:layout_marginRight="@dimen/margin" />
+                android:layout_marginLeft="@dimen/fiction_margin"
+                android:layout_marginRight="@dimen/fiction_margin" />
 
             <FrameLayout
                 android:id="@+id/btn_rootView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_margin="@dimen/margin"
+                android:layout_margin="@dimen/fiction_margin"
                 android:visibility="gone">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|right"
-                    android:layout_margin="@dimen/margin">
+                    android:layout_margin="@dimen/fiction_margin">
 
                     <Button
                         android:id="@+id/btn_next"
@@ -62,7 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:layout_margin="@dimen/margin">
+                    android:layout_margin="@dimen/fiction_margin">
 
                     <Button
                         android:id="@+id/btn_on"

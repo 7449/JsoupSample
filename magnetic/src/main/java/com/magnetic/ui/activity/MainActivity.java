@@ -83,13 +83,17 @@ public class MainActivity extends BaseActivity<MainPresenterImpl> implements Vie
                     }
                     markDialog = new MaterialDialog
                             .Builder(this)
-                            .title(R.string.search_content)
+                            .title(R.string.mark_title)
                             .adapter(
                                     adapter
                                             .initXData(fictionMarkAll)
                                             .setLayoutId(R.layout.item_mark)
                                             .onXBind(this)
-                                            .setOnItemClickListener((view, position, info) -> mPresenter.startSearch(String.valueOf(info.getSearchContent())))
+                                            .setOnItemClickListener((view, position, info) -> {
+                                                        markDialog.dismiss();
+                                                        mPresenter.startSearch(String.valueOf(info.getSearchContent()));
+                                                    }
+                                            )
                                     , null)
                             .show();
                 }

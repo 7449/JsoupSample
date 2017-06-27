@@ -123,14 +123,14 @@ public class FictionDetailActivity extends BaseActivity<FictionDetailPresenterIm
                 if (!TextUtils.isEmpty(nextUrl)) {
                     startNetWork(nextUrl, type);
                 } else {
-                    UIUtils.toast(UIUtils.getString(R.string.on_empty));
+                    UIUtils.toast(UIUtils.getString(R.string.data_empty));
                 }
                 break;
             case R.id.btn_on:
                 if (!TextUtils.isEmpty(onUrl)) {
                     startNetWork(onUrl, type);
                 } else {
-                    UIUtils.toast(UIUtils.getString(R.string.on_empty));
+                    UIUtils.toast(UIUtils.getString(R.string.data_empty));
                 }
                 break;
         }

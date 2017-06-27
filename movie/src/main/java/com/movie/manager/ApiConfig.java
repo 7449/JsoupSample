@@ -5,7 +5,7 @@ package com.movie.manager;
  */
 public interface ApiConfig {
 
-    String DYTT_URL = "http://www.dytt8.net/index.htm";
+    String DYTT_URL = "http://www.dytt8.net/index2.htm";
     String DY_2018_URL = "http://www.dy2018.com/";
     String DYTT_XL = "http://www.ygdy8.net/html/gndy/index.html";
     String XIAO_PIAN_URL = "http://www.xiaopian.com/html/";
