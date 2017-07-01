@@ -80,7 +80,7 @@ public class DyttNewFragment extends BaseFragment<DyttNewPresenterImpl>
                     if (ApkUtils.getXLIntent() != null) {
                         VideoDetailActivity.startIntent(info.detailUrl);
                     } else {
-                        UIUtils.snackBar(mStatusView, UIUtils.getString(R.string.xl));
+                        UIUtils.snackBar(coordinatorLayout, R.string.xl);
                     }
                 })
         );
@@ -107,7 +107,7 @@ public class DyttNewFragment extends BaseFragment<DyttNewPresenterImpl>
 
     @Override
     public void netWorkSuccess(List<MovieModel> data) {
-        if (mStatusView != null) {
+        if (isStatusViewNoNull()) {
             mAdapter.removeAll();
             mAdapter.addAllData(data);
         }
@@ -115,7 +115,7 @@ public class DyttNewFragment extends BaseFragment<DyttNewPresenterImpl>
 
     @Override
     public void netWorkError() {
-        if (mStatusView != null) {
+        if (isStatusViewNoNull()) {
             setStatusViewStatus(StatusLayout.ERROR);
         }
     }

@@ -104,7 +104,7 @@ public class DyttChosenFragment extends BaseFragment<DyttChosenPresenterImpl>
 
     @Override
     public void netWorkSuccess(List<MovieModel> data) {
-        if (mStatusView != null) {
+        if (isStatusViewNoNull()) {
             if (mAdapter.getData() != null) {
                 mAdapter.getData().clear();
             }
@@ -114,7 +114,7 @@ public class DyttChosenFragment extends BaseFragment<DyttChosenPresenterImpl>
 
     @Override
     public void netWorkError() {
-        if (mStatusView != null) {
+        if (isStatusViewNoNull()) {
             setStatusViewStatus(StatusLayout.ERROR);
         }
     }
@@ -181,7 +181,7 @@ public class DyttChosenFragment extends BaseFragment<DyttChosenPresenterImpl>
                     if (ApkUtils.getXLIntent() != null) {
                         VideoDetailActivity.startIntent(list.get(position).url);
                     } else {
-                        UIUtils.toast(UIUtils.getString(R.string.xl));
+                        UIUtils.toast(R.string.xl);
                     }
                 });
                 break;

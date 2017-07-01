@@ -29,16 +29,14 @@ import io.reactivex.observers.DisposableObserver;
 public class ImageDetailPresenterImpl extends BasePresenterImpl<List<ImageModel>, ViewManager.ImageDetailView>
         implements PresenterManager.ImageDetailPresenter {
 
-    private String type = ApiConfig.Type.DOU_BAN_MEI_ZI;
 
     public ImageDetailPresenterImpl(ViewManager.ImageDetailView view) {
         super(view);
     }
 
     @Override
-    public void netWorkRequest(String type, String url) {
-        this.type = type;
-        switch (type) {
+    public void netWorkRequest(String url) {
+        switch (view.getType()) {
             case ApiConfig.Type.MM:
                 netWork(url + "/1");
                 break;
@@ -121,7 +119,10 @@ public class ImageDetailPresenterImpl extends BasePresenterImpl<List<ImageModel>
 
     @Override
     public List<ImageModel> getT(Document document) {
-        switch (type) {
+        if (view == null) {
+            return new ArrayList<>();
+        }
+        switch (view.getType()) {
             case ApiConfig.Type.DOU_BAN_MEI_ZI:
                 return JsoupDoubanManager.get(document).getImageDetail();
             case ApiConfig.Type.M_ZI_TU:

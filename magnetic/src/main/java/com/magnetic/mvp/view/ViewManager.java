@@ -18,6 +18,7 @@ public interface ViewManager {
     }
 
     interface MagneticListView extends BaseListView<List<MagneticModel>> {
+        int getTabPosition();
 
         void zhizhuMagnetic(MagneticModel magneticModel);
     }

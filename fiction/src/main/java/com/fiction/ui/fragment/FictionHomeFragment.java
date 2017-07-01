@@ -102,7 +102,7 @@ public class FictionHomeFragment extends BaseFragment<FictionHomePresenterImpl>
 
     @Override
     public void netWorkSuccess(List<FictionModel> data) {
-        if (mStatusView != null) {
+        if (isStatusViewNoNull()) {
             mAdapter.clearAll();
             mAdapter.addAll(data);
         }
@@ -110,7 +110,7 @@ public class FictionHomeFragment extends BaseFragment<FictionHomePresenterImpl>
 
     @Override
     public void netWorkError() {
-        if (mStatusView != null) {
+        if (isStatusViewNoNull()) {
             mAdapter.clearAll();
             setStatusViewStatus(StatusLayout.ERROR);
         }

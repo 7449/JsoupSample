@@ -78,7 +78,7 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
                             if (ApkUtils.getXLIntent() != null) {
                                 VideoDetailActivity.startIntent(info.detailUrl);
                             } else {
-                                UIUtils.snackBar(mStatusView, UIUtils.getString(R.string.xl));
+                                UIUtils.snackBar(coordinatorLayout, R.string.xl);
                             }
                         })
         );
@@ -118,7 +118,7 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
 
     @Override
     public void netWorkSuccess(List<MovieModel> data) {
-        if (mStatusView != null) {
+        if (isStatusViewNoNull()) {
             if (page == 1) {
                 mAdapter.removeAll();
             }
@@ -129,9 +129,9 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
 
     @Override
     public void netWorkError() {
-        if (mStatusView != null) {
+        if (isStatusViewNoNull()) {
             if (page != 1) {
-                UIUtils.snackBar(mStatusView, R.string.net_error);
+                UIUtils.snackBar(coordinatorLayout, R.string.net_error);
             } else {
                 mAdapter.removeAll();
                 setStatusViewStatus(StatusLayout.ERROR);
@@ -153,9 +153,9 @@ public class XiaoPianListFragment extends BaseFragment<XiaoPianListPresenterImpl
 
     @Override
     public void noMore() {
-        if (mStatusView != null) {
+        if (isStatusViewNoNull()) {
             if (page != 1) {
-                UIUtils.snackBar(mStatusView, R.string.data_empty);
+                UIUtils.snackBar(coordinatorLayout, R.string.data_empty);
             } else {
                 mAdapter.removeAll();
                 setStatusViewStatus(StatusLayout.EMPTY);

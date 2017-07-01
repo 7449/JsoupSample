@@ -12,7 +12,7 @@ public interface PresenterManager {
     }
 
     interface FictionDetailPresenter {
-        void startDetail(String url, String type);
+        void startDetail(String url);
     }
 
     interface FictionHomePresenter {

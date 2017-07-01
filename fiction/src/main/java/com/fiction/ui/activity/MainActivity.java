@@ -109,20 +109,21 @@ public class MainActivity extends BaseActivity<MainPresenterImpl>
         } else {
             if (adapter == null) {
                 adapter = new XRecyclerViewAdapter<>();
+                adapter.initXData(fictionMarkAll)
+                        .setLayoutId(R.layout.item_mark)
+                        .onXBind(this)
+                        .setOnItemClickListener((view, position, info) -> {
+                            markDialog.dismiss();
+                            SearchActivity.getInstance(String.valueOf(info.getFictionName()));
+                        });
+            } else {
+                adapter.removeAll();
+                adapter.addAllData(fictionMarkAll);
             }
             markDialog = new MaterialDialog
                     .Builder(this)
                     .title(R.string.mark_title)
-                    .adapter(
-                            adapter
-                                    .initXData(fictionMarkAll)
-                                    .setLayoutId(R.layout.item_mark)
-                                    .onXBind(this)
-                                    .setOnItemClickListener((view, position, info) -> {
-                                        markDialog.dismiss();
-                                        SearchActivity.getInstance(String.valueOf(info.getFictionName()));
-                                    })
-                            , null)
+                    .adapter(adapter, null)
                     .show();
         }
     }

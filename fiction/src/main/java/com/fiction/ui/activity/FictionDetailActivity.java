@@ -1,6 +1,7 @@
 package com.fiction.ui.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -123,14 +124,14 @@ public class FictionDetailActivity extends BaseActivity<FictionDetailPresenterIm
                 if (!TextUtils.isEmpty(nextUrl)) {
                     startNetWork(nextUrl, type);
                 } else {
-                    UIUtils.toast(UIUtils.getString(R.string.data_empty));
+                    UIUtils.toast(R.string.data_empty);
                 }
                 break;
             case R.id.btn_on:
                 if (!TextUtils.isEmpty(onUrl)) {
                     startNetWork(onUrl, type);
                 } else {
-                    UIUtils.toast(UIUtils.getString(R.string.data_empty));
+                    UIUtils.toast(R.string.data_empty);
                 }
                 break;
         }
@@ -153,6 +154,12 @@ public class FictionDetailActivity extends BaseActivity<FictionDetailPresenterIm
     private void startNetWork(String string, String type) {
         setStatusViewStatus(StatusLayout.SUCCESS);
         tempUrl = string;
-        mPresenter.startDetail(string, type);
+        mPresenter.startDetail(string);
+    }
+
+    @NonNull
+    @Override
+    public String getType() {
+        return type;
     }
 }

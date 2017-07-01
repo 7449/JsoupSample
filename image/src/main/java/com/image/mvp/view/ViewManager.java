@@ -1,5 +1,6 @@
 package com.image.mvp.view;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
 import com.framework.base.mvp.BaseListView;
@@ -16,9 +17,13 @@ import java.util.List;
 public interface ViewManager {
 
     interface ImageDetailView extends BaseView<List<ImageModel>> {
+        @NonNull
+        String getType();
     }
 
     interface ImageListView extends BaseListView<List<ImageModel>> {
+        @NonNull
+        String getType();
     }
 
     interface SearchListView extends BaseListView<List<ImageModel>> {

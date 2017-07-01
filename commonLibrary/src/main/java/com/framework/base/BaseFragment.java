@@ -2,6 +2,7 @@ package com.framework.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -27,7 +28,13 @@ public abstract class BaseFragment<P extends BasePresenterImpl> extends Fragment
     protected String type = null;
     protected Bundle bundle;
     protected P mPresenter;
-    protected StatusLayout mStatusView;
+    private StatusLayout mStatusView;
+
+    /**
+     * snackBar 用 所属 Activity的 coordinatorLayout 否则  在虚拟按键的手机上 snackBar 会和 虚拟按键重叠
+     * 所以 mStatusView 修饰为 private，避免疏忽下 使用了 StatusLayout
+     */
+    protected CoordinatorLayout coordinatorLayout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +47,9 @@ public abstract class BaseFragment<P extends BasePresenterImpl> extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (coordinatorLayout == null) {
+            coordinatorLayout = (CoordinatorLayout) getActivity().findViewById(R.id.activityRootView);
+        }
         if (mStatusView == null) {
             mStatusView = new StatusLayout(container.getContext());
             mStatusView.setSuccessView(getLayoutId(), new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -81,6 +91,10 @@ public abstract class BaseFragment<P extends BasePresenterImpl> extends Fragment
     protected <T extends View> T getView(int id) {
         //noinspection unchecked
         return (T) mStatusView.findViewById(id);
+    }
+
+    protected boolean isStatusViewNoNull() {
+        return mStatusView != null;
     }
 
     private void onVisible() {

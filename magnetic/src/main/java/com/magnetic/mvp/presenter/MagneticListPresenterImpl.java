@@ -3,8 +3,6 @@ package com.magnetic.mvp.presenter;
 import android.support.annotation.NonNull;
 
 import com.framework.base.mvp.BasePresenterImpl;
-import com.framework.utils.UIUtils;
-import com.magnetic.R;
 import com.magnetic.manager.ApiConfig;
 import com.magnetic.manager.CiLiLianJsoupManager;
 import com.magnetic.manager.DSJsoupManager;
@@ -30,17 +28,14 @@ import io.reactivex.jsoup.network.manager.RxJsoupNetWorkListener;
 
 public class MagneticListPresenterImpl extends BasePresenterImpl<List<MagneticModel>, ViewManager.MagneticListView> implements PresenterManager.MagneticListPresenter {
 
-    private int position;
-
     public MagneticListPresenterImpl(ViewManager.MagneticListView view) {
         super(view);
     }
 
     @Override
-    public void netWorkRequest(@NonNull String search, int tabPosition, int page) {
-        this.position = tabPosition;
+    public void netWorkRequest(@NonNull String search, int page) {
         String url = null;
-        switch (tabPosition) {
+        switch (view.getTabPosition()) {
             case 0:
                 url = String.format(ApiConfig.MA_YI_URL, search, page + 1);
                 break;
@@ -85,8 +80,6 @@ public class MagneticListPresenterImpl extends BasePresenterImpl<List<MagneticMo
                                     view.netWorkError();
                                     view.hideProgress();
                                 }
-                                UIUtils.toast(UIUtils.getString(R.string.network_error));
-                                cancelZhiZhuDetailNetWork();
                             }
 
                             @Override
@@ -94,7 +87,6 @@ public class MagneticListPresenterImpl extends BasePresenterImpl<List<MagneticMo
                                 if (view != null) {
                                     view.hideProgress();
                                 }
-                                cancelZhiZhuDetailNetWork();
                             }
 
                             @Override
@@ -119,7 +111,10 @@ public class MagneticListPresenterImpl extends BasePresenterImpl<List<MagneticMo
 
     @Override
     public List<MagneticModel> getT(Document document) {
-        switch (position) {
+        if (view == null) {
+            return new ArrayList<>();
+        }
+        switch (view.getTabPosition()) {
             case 0:
                 return MaYiJsoupManager.get(document).getList();
             case 1:

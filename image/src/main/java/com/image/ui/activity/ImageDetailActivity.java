@@ -1,6 +1,7 @@
 package com.image.ui.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.Toolbar;
@@ -57,7 +58,7 @@ public class ImageDetailActivity extends BaseActivity<ImageDetailPresenterImpl> 
         setSupportActionBar(toolbar);
         setTitles(1, adapter.getCount());
 
-        mPresenter.netWorkRequest(type, extras.getString(URL));
+        mPresenter.netWorkRequest(extras.getString(URL));
 
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -72,14 +73,14 @@ public class ImageDetailActivity extends BaseActivity<ImageDetailPresenterImpl> 
             if (item.getItemId() == R.id.collection) {
                 String imageUrl = adapter.getUrl(viewPager.getCurrentItem());
                 if (TextUtils.isEmpty(imageUrl)) {
-                    UIUtils.snackBar(mStatusView, getString(R.string.collection_loading));
+                    UIUtils.snackBar(mStatusView, R.string.collection_loading);
                 } else {
                     if (DBManager.isEmpty(imageUrl)) {
                         DBManager.insert(imageUrl);
-                        UIUtils.snackBar(mStatusView, getString(R.string.collection_ok));
+                        UIUtils.snackBar(mStatusView, R.string.collection_ok);
                     } else {
                         DBManager.clear(imageUrl);
-                        UIUtils.snackBar(mStatusView, getString(R.string.collection_deleted));
+                        UIUtils.snackBar(mStatusView, R.string.collection_deleted);
                     }
                     invalidateOptionsMenu();
                 }
@@ -129,7 +130,7 @@ public class ImageDetailActivity extends BaseActivity<ImageDetailPresenterImpl> 
     @Override
     public void netWorkError() {
         if (mStatusView != null)
-            UIUtils.snackBar(mStatusView, getString(R.string.network_error));
+            UIUtils.snackBar(mStatusView, R.string.network_error);
     }
 
     @Override
@@ -147,6 +148,12 @@ public class ImageDetailActivity extends BaseActivity<ImageDetailPresenterImpl> 
 
     private void setTitles(int page, int imageSize) {
         toolbar.setTitle(type + "(" + page + "/" + imageSize + ")");
+    }
+
+    @NonNull
+    @Override
+    public String getType() {
+        return type;
     }
 
     private static class ImageDetailAdapter extends BasePagerAdapter<ImageModel> {

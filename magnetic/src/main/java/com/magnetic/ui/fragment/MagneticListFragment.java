@@ -111,7 +111,7 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
     @Override
     public void onRefresh() {
         setStatusViewStatus(StatusLayout.SUCCESS);
-        mPresenter.netWorkRequest(type, tabPosition, page = 0);
+        mPresenter.netWorkRequest(type, page = 0);
     }
 
     @Override
@@ -119,12 +119,12 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
         if (swipeRefreshLayout.isRefreshing()) {
             return;
         }
-        mPresenter.netWorkRequest(type, tabPosition, page);
+        mPresenter.netWorkRequest(type, page);
     }
 
     @Override
     public void netWorkSuccess(List<MagneticModel> data) {
-        if (mStatusView != null) {
+        if (isStatusViewNoNull()) {
             if (page == 0) {
                 mAdapter.removeAll();
             }
@@ -135,9 +135,9 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
 
     @Override
     public void netWorkError() {
-        if (mStatusView != null) {
+        if (isStatusViewNoNull()) {
             if (page != 0) {
-                UIUtils.snackBar(mStatusView, R.string.net_error);
+                UIUtils.snackBar(coordinatorLayout, R.string.net_error);
             } else {
                 mAdapter.removeAll();
                 setStatusViewStatus(StatusLayout.ERROR);
@@ -160,14 +160,19 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
 
     @Override
     public void noMore() {
-        if (mStatusView != null) {
+        if (isStatusViewNoNull()) {
             if (page != 0) {
-                UIUtils.snackBar(mStatusView, R.string.data_empty);
+                UIUtils.snackBar(coordinatorLayout, R.string.data_empty);
             } else {
                 mAdapter.removeAll();
                 setStatusViewStatus(StatusLayout.EMPTY);
             }
         }
+    }
+
+    @Override
+    public int getTabPosition() {
+        return tabPosition;
     }
 
     @Override
@@ -184,7 +189,7 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
 
     private void onStartMagnetic(String url) {
         if (TextUtils.isEmpty(url)) {
-            UIUtils.snackBar(mStatusView, R.string.url_null);
+            UIUtils.snackBar(coordinatorLayout, R.string.url_null);
             return;
         }
         new MaterialDialog
@@ -196,7 +201,7 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
                 .onPositive((dialog, which) -> {
                     Intent xlIntent = ApkUtils.getXLIntent();
                     if (xlIntent == null) {
-                        UIUtils.toast(UIUtils.getString(R.string.xl_null));
+                        UIUtils.toast(R.string.xl_null);
                         return;
                     }
                     UIUtils.copy(url);
@@ -204,7 +209,7 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
                 })
                 .onNegative((dialog, which) -> {
                     UIUtils.copy(url);
-                    UIUtils.snackBar(mStatusView, R.string.copy_success);
+                    UIUtils.snackBar(coordinatorLayout, R.string.copy_success);
                 })
                 .show();
     }

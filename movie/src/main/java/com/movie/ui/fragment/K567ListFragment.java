@@ -117,7 +117,7 @@ public class K567ListFragment extends BaseFragment<K567ListPresenterImpl>
 
     @Override
     public void netWorkSuccess(List<MovieModel> data) {
-        if (mStatusView != null) {
+        if (isStatusViewNoNull()) {
             if (page == 1) {
                 mAdapter.removeAll();
             }
@@ -128,9 +128,9 @@ public class K567ListFragment extends BaseFragment<K567ListPresenterImpl>
 
     @Override
     public void netWorkError() {
-        if (mStatusView != null) {
+        if (isStatusViewNoNull()) {
             if (page != 1) {
-                UIUtils.snackBar(mStatusView, R.string.net_error);
+                UIUtils.snackBar(coordinatorLayout, R.string.net_error);
             } else {
                 mAdapter.removeAll();
                 setStatusViewStatus(StatusLayout.ERROR);
@@ -152,9 +152,9 @@ public class K567ListFragment extends BaseFragment<K567ListPresenterImpl>
 
     @Override
     public void noMore() {
-        if (mStatusView != null) {
+        if (isStatusViewNoNull()) {
             if (page != 1) {
-                UIUtils.snackBar(mStatusView, R.string.data_empty);
+                UIUtils.snackBar(coordinatorLayout, R.string.data_empty);
             } else {
                 mAdapter.removeAll();
                 setStatusViewStatus(StatusLayout.EMPTY);

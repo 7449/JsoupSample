@@ -80,21 +80,23 @@ public class MainActivity extends BaseActivity<MainPresenterImpl> implements Vie
                 } else {
                     if (adapter == null) {
                         adapter = new XRecyclerViewAdapter<>();
+                        adapter
+                                .initXData(fictionMarkAll)
+                                .setLayoutId(R.layout.item_mark)
+                                .onXBind(this)
+                                .setOnItemClickListener((view, position, info) -> {
+                                            markDialog.dismiss();
+                                            mPresenter.startSearch(String.valueOf(info.getSearchContent()));
+                                        }
+                                );
+                    } else {
+                        adapter.removeAll();
+                        adapter.addAllData(fictionMarkAll);
                     }
                     markDialog = new MaterialDialog
                             .Builder(this)
                             .title(R.string.mark_title)
-                            .adapter(
-                                    adapter
-                                            .initXData(fictionMarkAll)
-                                            .setLayoutId(R.layout.item_mark)
-                                            .onXBind(this)
-                                            .setOnItemClickListener((view, position, info) -> {
-                                                        markDialog.dismiss();
-                                                        mPresenter.startSearch(String.valueOf(info.getSearchContent()));
-                                                    }
-                                            )
-                                    , null)
+                            .adapter(adapter, null)
                             .show();
                 }
                 break;

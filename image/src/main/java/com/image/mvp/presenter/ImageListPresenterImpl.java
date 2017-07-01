@@ -22,21 +22,22 @@ import java.util.List;
 
 public class ImageListPresenterImpl extends BasePresenterImpl<List<ImageModel>, ViewManager.ImageListView> implements PresenterManager.ImageListPresenter {
 
-    private String type = ApiConfig.Type.DOU_BAN_MEI_ZI;
 
     public ImageListPresenterImpl(ViewManager.ImageListView view) {
         super(view);
     }
 
     @Override
-    public void netWorkRequest(String type, int id, int page) {
-        this.type = type;
-        netWork(UrlManager.getListUrl(type, id, page));
+    public void netWorkRequest(int id, int page) {
+        netWork(UrlManager.getListUrl(view.getType(), id, page));
     }
 
     @Override
     public List<ImageModel> getT(Document document) {
-        switch (type) {
+        if (view == null) {
+            return new ArrayList<>();
+        }
+        switch (view.getType()) {
             case ApiConfig.Type.DOU_BAN_MEI_ZI:
                 return JsoupDoubanManager.get(document).getImageList();
             case ApiConfig.Type.KK:

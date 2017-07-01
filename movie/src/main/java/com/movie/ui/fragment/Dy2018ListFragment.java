@@ -79,7 +79,7 @@ public class Dy2018ListFragment extends BaseFragment<Dy2018ListPresenterImpl>
                             if (ApkUtils.getXLIntent() != null) {
                                 VideoDetailActivity.startIntent(info.detailUrl);
                             } else {
-                                UIUtils.snackBar(mStatusView, UIUtils.getString(R.string.xl));
+                                UIUtils.snackBar(coordinatorLayout, R.string.xl);
                             }
                         })
         );
@@ -119,7 +119,7 @@ public class Dy2018ListFragment extends BaseFragment<Dy2018ListPresenterImpl>
 
     @Override
     public void netWorkSuccess(List<MovieModel> data) {
-        if (mStatusView != null) {
+        if (isStatusViewNoNull()) {
             if (page == 1) {
                 mAdapte.removeAll();
             }
@@ -130,9 +130,9 @@ public class Dy2018ListFragment extends BaseFragment<Dy2018ListPresenterImpl>
 
     @Override
     public void netWorkError() {
-        if (mStatusView != null) {
+        if (isStatusViewNoNull()) {
             if (page != 1) {
-                UIUtils.snackBar(mStatusView, R.string.net_error);
+                UIUtils.snackBar(coordinatorLayout, R.string.net_error);
             } else {
                 mAdapte.removeAll();
                 setStatusViewStatus(StatusLayout.ERROR);
@@ -154,12 +154,12 @@ public class Dy2018ListFragment extends BaseFragment<Dy2018ListPresenterImpl>
 
     @Override
     public void noMore() {
-        if (mStatusView != null) {
+        if (isStatusViewNoNull()) {
             if (page == 1) {
                 mAdapte.removeAll();
-                mStatusView.setStatus(StatusLayout.EMPTY);
+                setStatusViewStatus(StatusLayout.ERROR);
             } else {
-                UIUtils.snackBar(mStatusView, R.string.data_empty);
+                UIUtils.snackBar(coordinatorLayout, R.string.data_empty);
             }
         }
     }

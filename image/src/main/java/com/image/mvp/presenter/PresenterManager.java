@@ -10,11 +10,11 @@ import android.support.annotation.NonNull;
 public interface PresenterManager {
 
     interface ImageDetailPresenter {
-        void netWorkRequest(String type, String url);
+        void netWorkRequest(String url);
     }
 
     interface ImageListPresenter {
-        void netWorkRequest(String type, int id, int page);
+        void netWorkRequest(int id, int page);
     }
 
     interface MainPresenter {

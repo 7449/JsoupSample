@@ -1,5 +1,6 @@
 package com.fiction.mvp.view;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
 import com.fiction.mvp.model.FictionModel;
@@ -18,6 +19,8 @@ public interface ViewManager {
     }
 
     interface FictionDetailView extends BaseView<FictionModel> {
+        @NonNull
+        String getType();
     }
 
     interface FictionHomeView extends BaseView<List<FictionModel>> {

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.ArrayRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,16 +53,22 @@ public class UIUtils {
     }
 
 
+    @Deprecated
     public static void toast(Object o) {
         Toast.makeText(getContext(), o.toString(), Toast.LENGTH_SHORT).show();
     }
 
-    public static void snackBar(View view, Object object) {
-        Snackbar.make(view.getRootView(), object + "", Snackbar.LENGTH_SHORT).show();
+    public static void toast(@StringRes int o) {
+        Toast.makeText(getContext(), o, Toast.LENGTH_SHORT).show();
     }
 
-    public static void snackBar(View view, int object) {
-        Snackbar.make(view.getRootView(), object, Snackbar.LENGTH_SHORT).show();
+    @Deprecated
+    public static void snackBar(View view, Object object) {
+        Snackbar.make(view, object + "", Snackbar.LENGTH_SHORT).show();
+    }
+
+    public static void snackBar(View view, @StringRes int object) {
+        Snackbar.make(view, object, Snackbar.LENGTH_SHORT).show();
     }
 
     public static void copy(String content) {

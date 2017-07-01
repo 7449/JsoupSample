@@ -111,7 +111,7 @@ public class SearchListActivity extends BaseActivity<SearchListPresenterImpl>
             return;
         }
         if (page == mAdapter.getData().get(0).totalPage) {
-            UIUtils.snackBar(mStatusView, getString(R.string.data_empty));
+            UIUtils.snackBar(mStatusView, R.string.data_empty);
             return;
         }
         mPresenter.netWorkRequest(searchType, content, page);

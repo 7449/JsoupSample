@@ -159,7 +159,7 @@ public class DyttXLMoreActivity extends BaseActivity<DyttXLMorePresenterImpl>
                     if (ApkUtils.getXLIntent() != null) {
                         VideoDetailActivity.startIntent(list.get(position).url);
                     } else {
-                        UIUtils.toast(UIUtils.getString(R.string.xl));
+                        UIUtils.toast(R.string.xl);
                     }
                 });
                 break;

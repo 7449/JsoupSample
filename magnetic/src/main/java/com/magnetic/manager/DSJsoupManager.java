@@ -3,7 +3,6 @@ package com.magnetic.manager;
 import android.support.annotation.NonNull;
 
 import com.magnetic.mvp.model.MagneticModel;
-import com.socks.library.KLog;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -35,7 +34,6 @@ public class DSJsoupManager {
             magneticModel = new MagneticModel();
             magneticModel.title = element.select("div.T1").text();
             magneticModel.url = element.select("div.dInfo").select("a[href]").eq(0).attr("href");
-            KLog.i(magneticModel.url);
             listModels.add(magneticModel);
         }
         return listModels;
