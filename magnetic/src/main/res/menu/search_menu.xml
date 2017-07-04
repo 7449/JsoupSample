@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/collection"
+        android:icon="@drawable/ic_favorite"
+        android:title="@string/collection"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/mark"
         android:icon="@drawable/ic_bookmark"
         android:title="@string/mark_title"
@@ -11,5 +16,4 @@
         android:icon="@drawable/ic_search"
         android:title="@string/search_title"
         app:showAsAction="ifRoom" />
-
 </menu>

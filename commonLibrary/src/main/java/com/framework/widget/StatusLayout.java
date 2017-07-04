@@ -118,10 +118,6 @@ public class StatusLayout extends FrameLayout {
         setErrorView(errorView, getParams());
     }
 
-    public void setErrorView(@LayoutRes int errorViewId) {
-        setErrorView(getViewLayout(errorViewId), getParams());
-    }
-
     public void setErrorView(@LayoutRes int errorViewId, @NonNull LayoutParams params) {
         setErrorView(getViewLayout(errorViewId), params);
     }
@@ -134,10 +130,6 @@ public class StatusLayout extends FrameLayout {
 
     public void setEmptyView(@NonNull View emptyView) {
         setEmptyView(emptyView, getParams());
-    }
-
-    public void setEmptyView(@LayoutRes int emptyViewId) {
-        setEmptyView(getViewLayout(emptyViewId), getParams());
     }
 
     public void setEmptyView(@LayoutRes int emptyViewId, @NonNull LayoutParams params) {
@@ -154,10 +146,6 @@ public class StatusLayout extends FrameLayout {
         setSuccessView(successView, getParams());
     }
 
-    public void setSuccessView(@LayoutRes int successViewId) {
-        setSuccessView(getViewLayout(successViewId), getParams());
-    }
-
     public void setSuccessView(@LayoutRes int successViewId, @NonNull LayoutParams params) {
         setSuccessView(getViewLayout(successViewId), params);
     }
@@ -171,16 +159,25 @@ public class StatusLayout extends FrameLayout {
         return successView;
     }
 
+    public void setSuccessView(@LayoutRes int successViewId) {
+        setSuccessView(getViewLayout(successViewId), getParams());
+    }
 
     public View getErrorView() {
         return errorView;
     }
 
+    public void setErrorView(@LayoutRes int errorViewId) {
+        setErrorView(getViewLayout(errorViewId), getParams());
+    }
 
     public View getEmptyView() {
         return emptyView;
     }
 
+    public void setEmptyView(@LayoutRes int emptyViewId) {
+        setEmptyView(getViewLayout(emptyViewId), getParams());
+    }
 
     private LayoutParams getParams() {
         return new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);

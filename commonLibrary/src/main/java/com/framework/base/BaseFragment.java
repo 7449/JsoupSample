@@ -28,13 +28,12 @@ public abstract class BaseFragment<P extends BasePresenterImpl> extends Fragment
     protected String type = null;
     protected Bundle bundle;
     protected P mPresenter;
-    private StatusLayout mStatusView;
-
     /**
      * snackBar 用 所属 Activity的 coordinatorLayout 否则  在虚拟按键的手机上 snackBar 会和 虚拟按键重叠
      * 所以 mStatusView 修饰为 private，避免疏忽下 使用了 StatusLayout
      */
     protected CoordinatorLayout coordinatorLayout;
+    private StatusLayout mStatusView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

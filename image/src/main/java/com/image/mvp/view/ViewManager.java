@@ -25,7 +25,7 @@ public interface ViewManager {
         int getTabPosition();
     }
 
-    interface  TagImageListView extends BaseListView<List<ImageModel>>{
+    interface TagImageListView extends BaseListView<List<ImageModel>> {
     }
 
     interface ImageListView extends BaseListView<List<ImageModel>> {

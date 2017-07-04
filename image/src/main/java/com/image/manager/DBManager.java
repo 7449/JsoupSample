@@ -14,14 +14,9 @@ import java.util.List;
  */
 
 public class DBManager {
-    private DBManager() {
-    }
-
     private static final String SQL_NAME = "image";
 
-    private static class SessionHolder {
-        private static final DaoSession daoSession = new DaoMaster(
-                new DaoMaster.DevOpenHelper(UIUtils.getContext(), SQL_NAME, null).getWritableDatabase()).newSession();
+    private DBManager() {
     }
 
     public static boolean isEmpty(String key) {
@@ -42,5 +37,10 @@ public class DBManager {
 
     public static void clear() {
         SessionHolder.daoSession.getCollectionModelDao().deleteAll();
+    }
+
+    private static class SessionHolder {
+        private static final DaoSession daoSession = new DaoMaster(
+                new DaoMaster.DevOpenHelper(UIUtils.getContext(), SQL_NAME, null).getWritableDatabase()).newSession();
     }
 }

@@ -1,6 +1,7 @@
 package com.magnetic.manager;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.magnetic.mvp.model.MagneticModel;
 
@@ -31,7 +32,7 @@ public class ZhiZhuJsoupManager {
         MagneticModel magneticModel;
         Elements a = document.select("div.list").select("a[href]:not(.desc):not(.asc)");
         for (Element element : a) {
-            if (!element.text().equals("点击搜索")) {
+            if (!TextUtils.equals("点击搜索", element.text())) {
                 magneticModel = new MagneticModel();
                 magneticModel.title = element.text();
                 magneticModel.url = element.select("a[href]").attr("abs:href");

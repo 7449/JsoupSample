@@ -13,12 +13,15 @@ import com.framework.utils.UIUtils;
 import com.framework.widget.LoadMoreRecyclerView;
 import com.framework.widget.StatusLayout;
 import com.magnetic.R;
+import com.magnetic.manager.DBManager;
 import com.magnetic.mvp.model.MagneticModel;
 import com.magnetic.mvp.presenter.MagneticListPresenterImpl;
 import com.magnetic.mvp.view.ViewManager;
 import com.xadapter.adapter.XRecyclerViewAdapter;
 
 import java.util.List;
+
+import io.reactivex.jsoup.network.bus.RxBus;
 
 /**
  * by y on 2017/6/6.
@@ -83,7 +86,7 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
                                     mPresenter.netWorkZhiZhuMagnetic(info.url);
                                     break;
                                 default:
-                                    onStartMagnetic(info.url);
+                                    onStartMagnetic(info.title, info.url);
                                     break;
                             }
                         })
@@ -177,7 +180,7 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
 
     @Override
     public void zhizhuMagnetic(MagneticModel magneticModel) {
-        onStartMagnetic(magneticModel.url);
+        onStartMagnetic(magneticModel.title, magneticModel.url);
     }
 
     @Override
@@ -187,17 +190,20 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
         super.onDestroyView();
     }
 
-    private void onStartMagnetic(String url) {
+    private void onStartMagnetic(String name, String url) {
         if (TextUtils.isEmpty(url)) {
             UIUtils.snackBar(coordinatorLayout, R.string.url_null);
             return;
         }
+        boolean collectionEmpty = DBManager.isCollectionEmpty(url);
+        int negativeRes = collectionEmpty ? R.string.collection : R.string.collection_no;
         new MaterialDialog
                 .Builder(getActivity())
                 .title(R.string.magnetic_title)
                 .content(url)
                 .positiveText(R.string.xl)
                 .negativeText(R.string.copy)
+                .neutralText(negativeRes)
                 .onPositive((dialog, which) -> {
                     Intent xlIntent = ApkUtils.getXLIntent();
                     if (xlIntent == null) {
@@ -210,6 +216,16 @@ public class MagneticListFragment extends BaseFragment<MagneticListPresenterImpl
                 .onNegative((dialog, which) -> {
                     UIUtils.copy(url);
                     UIUtils.snackBar(coordinatorLayout, R.string.copy_success);
+                })
+                .onNeutral((dialog, which) -> {
+                    if (collectionEmpty) {
+                        DBManager.insertCollection(name, url);
+                        UIUtils.snackBar(coordinatorLayout, R.string.collection_success);
+                    } else {
+                        DBManager.clearCollection(url);
+                        UIUtils.snackBar(coordinatorLayout, R.string.collection_no_success);
+                    }
+                    RxBus.getInstance().post(CollectionFragment.class.getSimpleName(), url);
                 })
                 .show();
     }

@@ -122,7 +122,7 @@ public class ImageDetailActivity extends BaseActivity<ImageDetailPresenterImpl> 
         MenuItem item = menu.findItem(R.id.collection);
         String url = adapter.getUrl(viewPager.getCurrentItem());
         if (!TextUtils.isEmpty(url)) {
-            item.setIcon(DBManager.isEmpty(adapter.getUrl(viewPager.getCurrentItem())) ? R.drawable.ic_favorite_border_24dp : R.drawable.ic_favorite_24dp);
+            item.setIcon(DBManager.isEmpty(adapter.getUrl(viewPager.getCurrentItem())) ? R.drawable.ic_favorite_border : R.drawable.ic_favorite);
         }
         return super.onCreateOptionsMenu(menu);
     }

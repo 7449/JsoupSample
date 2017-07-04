@@ -10,6 +10,8 @@ public interface PresenterManager {
     interface MainPresenter {
         void startSearch(String search);
 
+        void onBackPressed();
+
         void onMainDestroy();
     }
 

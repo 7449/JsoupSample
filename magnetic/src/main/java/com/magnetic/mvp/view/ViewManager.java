@@ -15,6 +15,10 @@ import java.util.List;
 public interface ViewManager {
     interface MainView extends BaseView<MagneticModel> {
         FragmentActivity getMainActivity();
+
+        void onBack();
+
+        void setToolBar();
     }
 
     interface MagneticListView extends BaseListView<List<MagneticModel>> {

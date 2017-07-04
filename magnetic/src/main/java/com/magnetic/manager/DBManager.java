@@ -1,6 +1,8 @@
 package com.magnetic.manager;
 
 import com.framework.utils.UIUtils;
+import com.magnetic.mvp.model.CollectionModel;
+import com.magnetic.mvp.model.CollectionModelDao;
 import com.magnetic.mvp.model.DaoMaster;
 import com.magnetic.mvp.model.DaoSession;
 import com.magnetic.mvp.model.SearchModel;
@@ -13,17 +15,37 @@ import java.util.List;
  */
 
 public class DBManager {
+    private static final String SQL_NAME = "magnetic";
+
     private DBManager() {
     }
 
-    private static final String SQL_NAME = "magnetic";
-
     private static class SessionHolder {
-        private static final DaoSession daoSession = new DaoMaster(
-                new DaoMaster.DevOpenHelper(UIUtils.getContext(), SQL_NAME, null).getWritableDatabase()).newSession();
+        private static final DaoSession daoSession = new DaoMaster(new DaoMaster.DevOpenHelper(UIUtils.getContext(), SQL_NAME, null).getWritableDatabase()).newSession();
     }
 
-    public static boolean isEmpty(String key) {
+    public static boolean isCollectionEmpty(String key) {
+        return SessionHolder.daoSession.getCollectionModelDao().queryBuilder().where(CollectionModelDao.Properties.Url.eq(key)).unique() == null;
+    }
+
+    public static List<CollectionModel> getCollectionContent() {
+        return SessionHolder.daoSession.getCollectionModelDao().loadAll();
+    }
+
+    public static void insertCollection(String markName, String url) {
+        SessionHolder.daoSession.getCollectionModelDao().insert(new CollectionModel(markName, url));
+    }
+
+    public static void clearCollection(String key) {
+        SessionHolder.daoSession.getCollectionModelDao().deleteByKey(key);
+    }
+
+    public static void clearCollection() {
+        SessionHolder.daoSession.getCollectionModelDao().deleteAll();
+    }
+
+
+    public static boolean isSearchEmpty(String key) {
         return SessionHolder.daoSession.getSearchModelDao().queryBuilder().where(SearchModelDao.Properties.SearchContent.eq(key)).unique() == null;
     }
 
@@ -31,15 +53,15 @@ public class DBManager {
         return SessionHolder.daoSession.getSearchModelDao().loadAll();
     }
 
-    public static void insert(String markName) {
+    public static void insertSearch(String markName) {
         SessionHolder.daoSession.getSearchModelDao().insert(new SearchModel(markName));
     }
 
-    public static void clear(String key) {
+    public static void clearSearch(String key) {
         SessionHolder.daoSession.getSearchModelDao().deleteByKey(key);
     }
 
-    public static void clear() {
+    public static void clearSearch() {
         SessionHolder.daoSession.getSearchModelDao().deleteAll();
     }
 }

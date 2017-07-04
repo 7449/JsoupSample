@@ -66,8 +66,8 @@ public class MainActivity extends BaseActivity<MainPresenterImpl> implements Vie
                                 UIUtils.getString(R.string.search_dialog_hint),
                                 null,
                                 ((dialog, input) -> {
-                                    if (DBManager.isEmpty(String.valueOf(input))) {
-                                        DBManager.insert(String.valueOf(input));
+                                    if (DBManager.isSearchEmpty(String.valueOf(input))) {
+                                        DBManager.insertSearch(String.valueOf(input));
                                     }
                                     mPresenter.startSearch(String.valueOf(input));
                                 }))
@@ -99,6 +99,10 @@ public class MainActivity extends BaseActivity<MainPresenterImpl> implements Vie
                             .adapter(adapter, null)
                             .show();
                 }
+                break;
+            case R.id.collection:
+                mPresenter.startSearch(null);
+                mToolbar.setTitle(R.string.collection);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -136,10 +140,25 @@ public class MainActivity extends BaseActivity<MainPresenterImpl> implements Vie
     }
 
     @Override
+    public void onBack() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public void setToolBar() {
+        mToolbar.setTitle(R.string.app_name);
+    }
+
+    @Override
+    public void onBackPressed() {
+        mPresenter.onBackPressed();
+    }
+
+    @Override
     public void onXBind(XViewHolder holder, int position, SearchModel searchModel) {
         holder.setTextView(R.id.tv_name, searchModel.getSearchContent());
         holder.getView(R.id.iv_delete).setOnClickListener(v -> {
-            DBManager.clear(searchModel.getSearchContent());
+            DBManager.clearSearch(searchModel.getSearchContent());
             adapter.remove(position);
             if (DBManager.getSearchContent() == null || DBManager.getSearchContent().isEmpty()) {
                 if (markDialog != null) {

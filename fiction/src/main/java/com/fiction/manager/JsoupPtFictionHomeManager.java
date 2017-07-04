@@ -18,6 +18,11 @@ import java.util.List;
 
 public class JsoupPtFictionHomeManager {
 
+    public static final int TYPE_TITLE = 0;
+    public static final int TYPE_TITLE_MORE = 1;
+    public static final int TYPE_HEADER = 2;
+    public static final int TYPE_HOT = 3;
+    public static final int TYPE_ITEM = 4;
     private static final String TYPE_TITLE_FT = "新书推荐";
     private static final String TYPE_TITLE_HOT = "火爆连载";
     private static final String TYPE_TITLE_NEW = "最近更新";
@@ -29,13 +34,6 @@ public class JsoupPtFictionHomeManager {
     private static final String TYPE_TITLE_ESSAY_DAY = "文章日排行";
     private static final String TYPE_TITLE_COLLECTION = "收藏排行";
     private static final String TYPE_TITLE_VIP = "最新VIP小说";
-
-    public static final int TYPE_TITLE = 0;
-    public static final int TYPE_TITLE_MORE = 1;
-    public static final int TYPE_HEADER = 2;
-    public static final int TYPE_HOT = 3;
-    public static final int TYPE_ITEM = 4;
-
     private Document document;
 
     private JsoupPtFictionHomeManager(Document document) {

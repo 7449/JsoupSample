@@ -5,10 +5,8 @@ package com.framework.widget;
  */
 
 public class Constant {
-    private Constant() {
-    }
-
-
     public static final int TYPE_FINISH = 0;
     public static final int TYPE_NO_FINISH = 1;
+    private Constant() {
+    }
 }
