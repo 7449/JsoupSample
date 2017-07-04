@@ -58,7 +58,7 @@ jsoupSample
 ![](https://github.com/7449/JsoupSample/blob/master/screenshot/image.gif)
 ![](https://github.com/7449/JsoupSample/blob/master/screenshot/image_search.gif)
 
-* magnetic (暂开发...)
+* magnetic
 
     >磁力链接抓取
     
@@ -66,6 +66,8 @@ jsoupSample
     [BT樱桃](http://www.btcherry.info)<br>
     [尼玛搜](https://www.nimasou.info)<br>
     [BT蜘蛛](http://www.zhizhucili.cc)<br>
+    [屌丝搜](http://www.diaosisou.net)<br>
+    [磁力链](http://cililian.me)<br>
     
     
    
