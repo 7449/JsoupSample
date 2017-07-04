@@ -14,5 +14,9 @@
             android:id="@+id/ksw"
             android:icon="@mipmap/ic_launcher"
             android:title="@string/title_ksw" />
+        <item
+            android:id="@+id/piao_tian"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/title_piao_tiam" />
     </group>
 </menu>

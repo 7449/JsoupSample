@@ -1,12 +1,15 @@
 package com.fiction.mvp.presenter;
 
+import com.fiction.manager.ApiConfig;
 import com.fiction.manager.JsoupFictionListManager;
+import com.fiction.manager.JsoupPtFictionListManager;
 import com.fiction.mvp.model.FictionModel;
 import com.fiction.mvp.view.ViewManager;
 import com.framework.base.mvp.BasePresenterImpl;
 
 import org.jsoup.nodes.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,13 +25,21 @@ public class FictionContentsPresenterImpl extends BasePresenterImpl<List<Fiction
     }
 
     @Override
-    public void startContents(String url, String type) {
+    public void startContents(String url) {
         netWork(url);
     }
 
 
     @Override
     public List<FictionModel> getT(Document document) {
-        return JsoupFictionListManager.get(document).getContents();
+        if (view == null) {
+            return new ArrayList<>();
+        }
+        switch (view.getType()) {
+            case ApiConfig.Type.PIAO_TIAN:
+                return JsoupPtFictionListManager.get(document).getContents();
+            default:
+                return JsoupFictionListManager.get(document).getContents();
+        }
     }
 }

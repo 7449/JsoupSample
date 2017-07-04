@@ -25,7 +25,6 @@ public class TabFragment extends BaseFragment implements RxBusCallBack<String> {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private TabAdapter tabAdapter;
 
     public static TabFragment newInstance(String type) {
         TabFragment tabFragment = new TabFragment();
@@ -54,7 +53,7 @@ public class TabFragment extends BaseFragment implements RxBusCallBack<String> {
 
     @Override
     protected void initActivityCreated() {
-        tabAdapter = new TabAdapter(getChildFragmentManager(), type);
+        TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), type);
         viewPager.setAdapter(tabAdapter);
         tabLayout.setupWithViewPager(viewPager);
         RxBus.getInstance().register(ApiConfig.Type.BI_QU_GE, this);
@@ -124,12 +123,20 @@ public class TabFragment extends BaseFragment implements RxBusCallBack<String> {
                 case ApiConfig.Type.KSW:
                     name = UIUtils.getStringArray(R.array.tab_ksw);
                     break;
+                case ApiConfig.Type.PIAO_TIAN:
+                    name = UIUtils.getStringArray(R.array.tab_pt);
+                    break;
             }
         }
 
         @Override
         public Fragment getItem(int position) {
-            return position == 0 ? FictionHomeFragment.newInstance(type) : FictionListFragment.newInstance(type, position);
+            switch (type) {
+                case ApiConfig.Type.PIAO_TIAN:
+                    return position == 0 ? PtFictionHomeFragment.newInstance() : PtFictionListFragment.newInstance(position);
+                default:
+                    return position == 0 ? FictionHomeFragment.newInstance(type) : FictionListFragment.newInstance(type, position);
+            }
         }
 
         @Override

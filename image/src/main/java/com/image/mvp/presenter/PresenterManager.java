@@ -29,4 +29,11 @@ public interface PresenterManager {
         void netWorkRequest(@NonNull String searchType, @NonNull String content, int page);
     }
 
+    interface TagPresenter {
+        void netWorkRequest();
+    }
+
+    interface TagImageListPresenter {
+        void netWorkRequest(@NonNull String url);
+    }
 }

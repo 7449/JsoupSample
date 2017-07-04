@@ -64,4 +64,32 @@
         <item>s_7/</item>
         <item>s_qb/</item>
     </string-array>
+
+    <string-array name="tab_pt">
+        <item>网站首页</item>
+        <item>玄幻魔法</item>
+        <item>武侠修真</item>
+        <item>都市言情</item>
+        <item>历史军事</item>
+        <item>网游竞技</item>
+        <item>科幻小说</item>
+        <item>恐怖灵异</item>
+        <item>同人漫画</item>
+        <item>其他类型</item>
+        <item>全本小说</item>
+        <item>全部文章</item>
+    </string-array>
+    <string-array name="pt_list_url_suffix">
+        <item>booksort1/0/%s.html</item>
+        <item>booksort2/0/%s.html</item>
+        <item>booksort3/0/%s.html</item>
+        <item>booksort4/0/%s.html</item>
+        <item>booksort5/0/%s.html</item>
+        <item>booksort6/0/%s.html</item>
+        <item>booksort7/0/%s.html</item>
+        <item>booksort8/0/%s.html</item>
+        <item>booksort9/0/%s.html</item>
+        <item>quanben/index.html?page=%s</item>
+        <item>booksort/0/%s.html</item>
+    </string-array>
 </resources>

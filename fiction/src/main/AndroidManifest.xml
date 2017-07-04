@@ -21,6 +21,7 @@
         <activity android:name=".ui.activity.FictionContentsActivity" />
         <activity android:name=".ui.activity.FictionDetailActivity" />
         <activity android:name=".ui.activity.SearchActivity" />
+        <activity android:name=".ui.activity.PtFictionMoreActivity" />
     </application>
 
 </manifest>

@@ -25,6 +25,9 @@ public class FictionDetailPresenterImpl extends BasePresenterImpl<FictionModel, 
 
     @Override
     public FictionModel getT(Document document) {
+        if (view == null) {
+            return new FictionModel();
+        }
         return JsoupFictionListManager.get(document).getDetail(view.getType());
     }
 }

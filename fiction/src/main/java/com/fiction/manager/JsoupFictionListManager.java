@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.fiction.mvp.model.FictionModel;
-import com.socks.library.KLog;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -120,9 +119,26 @@ public class JsoupFictionListManager {
 
 
     public FictionModel getDetail(String type) {
+        FictionModel detailModel = new FictionModel();
+        if (TextUtils.equals(type, ApiConfig.Type.PIAO_TIAN)) {
+            Elements select = document.select("div.toplink").select("a");
+            String pageUrl = select.eq(0).attr("href");
+            String nextUrl = select.eq(2).attr("href");
+            if (!TextUtils.equals(pageUrl, "index.html")) {
+                detailModel.onPage = select.eq(0).attr("abs:href");
+            }
+            if (!TextUtils.equals(nextUrl, "index.html")) {
+                detailModel.nextPage = select.eq(2).attr("abs:href");
+            }
+            document.select("div").remove();
+            detailModel.title = document.select("H1").text();
+            document.select("H1").remove();
+            detailModel.message = document.html();
+            return detailModel;
+        }
+
 
         String divClass;
-
         switch (type) {
             case ApiConfig.Type.BI_QU_GE:
                 divClass = "div.bottem";
@@ -131,10 +147,8 @@ public class JsoupFictionListManager {
                 divClass = "div.bottem2";
                 break;
         }
-        FictionModel detailModel = new FictionModel();
         Elements select = document.select(divClass).select("a[href$=.html]");
         if (select.size() == 1) {
-            KLog.i(select);
             if (TextUtils.equals(select.text(), ApiConfig.NEXT_PAGE)) {
                 detailModel.nextPage = select.attr("abs:href");
             } else {

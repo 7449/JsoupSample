@@ -21,6 +21,13 @@ public interface ViewManager {
         String getType();
     }
 
+    interface TagView extends BaseView<List<ImageModel>> {
+        int getTabPosition();
+    }
+
+    interface  TagImageListView extends BaseListView<List<ImageModel>>{
+    }
+
     interface ImageListView extends BaseListView<List<ImageModel>> {
         @NonNull
         String getType();

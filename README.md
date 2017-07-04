@@ -29,6 +29,7 @@ jsoupSample
 	[81中文网](http://www.81zw.com/book/8012/)<br>
 	[笔趣阁](http://www.biqiuge.com/)<br>
 	[零点看书](http://www.00ksw.net/)<br>
+	[飘天文学](http://www.piaotian.com/)<br>
 
 ![](https://github.com/7449/JsoupSample/blob/master/screenshot/fiction_zw.gif)
 ![](https://github.com/7449/JsoupSample/blob/master/screenshot/fiction_search.gif)
@@ -69,7 +70,7 @@ jsoupSample
     
    
 	
-整个框架围绕着`framework`这个`modules`展开。
+整个框架围绕着`commonLibrary`这个`modules`展开。
 
 里面包含了`jsoup`开发的常用控件以及`MVP`的Base类。
 
@@ -87,9 +88,6 @@ jsoupSample
 
 	包括了 自适应高度的`ImageView`,可检测滑动底部的`RecyclerView` 等等 一些控件
 	
-
-为了以后看起来不乱，项目是按照一个网站一个模块来区分的，例如`movie` 每个网站的数据都是一个独立的模块
-
 ## 非常感谢以下开源框架：
 
 > [jsoup](http://www.open-open.com/jsoup/)

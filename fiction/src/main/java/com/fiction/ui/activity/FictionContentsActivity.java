@@ -1,6 +1,7 @@
 package com.fiction.ui.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -80,7 +81,7 @@ public class FictionContentsActivity extends BaseActivity<FictionContentsPresent
 
     private void startNetWork() {
         setStatusViewStatus(StatusLayout.SUCCESS);
-        mPresenter.startContents(extras.getString(URL), type);
+        mPresenter.startContents(extras.getString(URL));
     }
 
     @Override
@@ -155,5 +156,11 @@ public class FictionContentsActivity extends BaseActivity<FictionContentsPresent
             holder.setTextColor(R.id.contents_tv_, R.color.black);
         }
         holder.setTextView(R.id.contents_tv_, fictionModel.title);
+    }
+
+    @NonNull
+    @Override
+    public String getType() {
+        return type;
     }
 }

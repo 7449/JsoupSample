@@ -16,6 +16,8 @@ import java.util.List;
 
 public interface ViewManager {
     interface FictionContentsView extends BaseView<List<FictionModel>> {
+        @NonNull
+        String getType();
     }
 
     interface FictionDetailView extends BaseView<FictionModel> {
@@ -26,7 +28,16 @@ public interface ViewManager {
     interface FictionHomeView extends BaseView<List<FictionModel>> {
     }
 
+    interface PtFictionHomeView extends BaseView<List<FictionModel>> {
+    }
+
     interface FictionListView extends BaseView<List<FictionModel>> {
+    }
+
+    interface PtFictionListView extends BaseListView<List<FictionModel>> {
+    }
+
+    interface PtFictionMoreView extends BaseListView<List<FictionModel>> {
     }
 
     interface SearchListView extends BaseListView<List<FictionModel>> {

@@ -3,25 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="10dp"
     android:background="?android:selectableItemBackground"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:padding="10dp">
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:textColor="@color/colorAccent"
-        tools:text="圣墟" />
-
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/tv_more"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
-        android:text="查看更多"
-        android:textColor="@color/colorAccent"
-        android:visibility="gone" />
+        android:gravity="center"
+        tools:text="圣墟" />
 
 </LinearLayout>

@@ -28,7 +28,9 @@ public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.
     private static final String TYPE_KSW_TAG = "KSW";
     private static final int TYPE_BGQ_FRAGMENT = 2;
     private static final String TYPE_BQG_TAG = "BQG";
-    private Fragment zwFragment, kswFragment, bqgFragment;
+    private static final int TYPE_PT_FRAGMENT = 3;
+    private static final String TYPE_PT_TAG = "PT";
+    private Fragment zwFragment, kswFragment, bqgFragment, ptFragment;
 
 
     public MainPresenterImpl(ViewManager.MainView view) {
@@ -54,6 +56,9 @@ public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.
             case R.id.ksw:
                 setSelectFragment(TYPE_KSW_FRAGMENT);
                 break;
+            case R.id.piao_tian:
+                setSelectFragment(TYPE_PT_FRAGMENT);
+                break;
         }
     }
 
@@ -78,6 +83,9 @@ public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.
         }
         if (null != bqgFragment) {
             bqgFragment = null;
+        }
+        if (null != ptFragment) {
+            ptFragment = null;
         }
     }
 
@@ -116,6 +124,16 @@ public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.
                     transaction.show(bqgFragment);
                 }
                 break;
+            case TYPE_PT_FRAGMENT:
+                ptFragment = manager.findFragmentByTag(TYPE_PT_TAG);
+                hideFragment(transaction);
+                if (null == ptFragment) {
+                    ptFragment = TabFragment.newInstance(ApiConfig.Type.PIAO_TIAN);
+                    transaction.add(R.id.fragment, ptFragment, TYPE_PT_TAG);
+                } else {
+                    transaction.show(ptFragment);
+                }
+                break;
         }
         transaction.commit();
     }
@@ -130,6 +148,9 @@ public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.
         }
         if (null != zwFragment) {
             transaction.hide(zwFragment);
+        }
+        if (null != ptFragment) {
+            transaction.hide(ptFragment);
         }
     }
 

@@ -5,13 +5,14 @@
     <string name="mzitu_title">妹子图</string>
     <string name="mm_title">MM</string>
     <string name="meizitu_title">MeiZiTu</string>
+    <string name="tag_title">tag</string>
+    <string name="kk_title">7kk</string>
     <string name="collection_title">收藏</string>
     <string name="collection_loading">请数据加载成功再收藏</string>
     <string name="collection_ok">收藏成功</string>
     <string name="collection_deleted">取消收藏</string>
     <string name="empty_collection">没有收藏</string>
     <string name="dialog_collection_message">取消收藏？</string>
-    <string name="kk_title">7kk</string>
     <string name="search_title">搜索</string>
     <string name="search_dialog_hint">请输入关键词</string>
 </resources>

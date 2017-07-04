@@ -22,9 +22,13 @@ public interface ApiConfig {
     //零点看书
     String KSW_URL = "http://www.00ksw.net/";
 
+    //飘天文学
+    String PIAO_TIAN_URL = "http://www.piaotian.com/";
+
     interface Type {
         String ZW_81 = "81";
         String BI_QU_GE = "笔趣阁";
         String KSW = "零点看书";
+        String PIAO_TIAN = "飘天文学";
     }
 }
