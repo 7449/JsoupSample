@@ -34,9 +34,7 @@ public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.
     private static final String TYPE_KK_TAG = "KK";
     private static final int TYPE_COLLECTION_FRAGMENT = 5;
     private static final String TYPE_COLLECTION_TAG = "COLLECTION";
-    private static final int TYPE_TAG_FRAGMENT = 6;
-    private static final String TYPE_TAG_TAG = "TAG";
-    private Fragment dbFragment, mztFragment, mmFragment, meizituFragment, kkFragment, tagFragment, collectionFragment;
+    private Fragment dbFragment, mztFragment, mmFragment, meizituFragment, kkFragment, collectionFragment;
 
     public MainPresenterImpl(ViewManager.MainView view) {
         super(view);
@@ -60,9 +58,6 @@ public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.
                 break;
             case R.id.kk:
                 setSelectFragment(TYPE_KK_FRAGMENT);
-                break;
-            case R.id.tag:
-                setSelectFragment(TYPE_TAG_FRAGMENT);
                 break;
             case R.id.collection:
                 setSelectFragment(TYPE_COLLECTION_FRAGMENT);
@@ -99,9 +94,6 @@ public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.
         }
         if (null != kkFragment) {
             kkFragment = null;
-        }
-        if (null != tagFragment) {
-            tagFragment = null;
         }
         if (null != collectionFragment) {
             collectionFragment = null;
@@ -162,16 +154,6 @@ public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.
                     transaction.show(kkFragment);
                 }
                 break;
-            case TYPE_TAG_FRAGMENT:
-                tagFragment = manager.findFragmentByTag(TYPE_TAG_TAG);
-                hideFragment(transaction);
-                if (null == tagFragment) {
-                    tagFragment = TabFragment.newInstance(ApiConfig.Type.TAG);
-                    transaction.add(R.id.fragment, tagFragment, TYPE_TAG_TAG);
-                } else {
-                    transaction.show(tagFragment);
-                }
-                break;
             case TYPE_COLLECTION_FRAGMENT:
                 collectionFragment = manager.findFragmentByTag(TYPE_COLLECTION_TAG);
                 hideFragment(transaction);
@@ -207,9 +189,6 @@ public class MainPresenterImpl extends BasePresenterImpl<BaseModel, ViewManager.
         }
         if (null != collectionFragment) {
             transaction.hide(collectionFragment);
-        }
-        if (null != tagFragment) {
-            transaction.hide(tagFragment);
         }
     }
 

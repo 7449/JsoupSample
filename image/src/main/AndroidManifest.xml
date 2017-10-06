@@ -18,7 +18,6 @@
         </activity>
         <activity android:name=".ui.activity.SearchListActivity" />
         <activity android:name=".ui.activity.ImageDetailActivity" />
-        <activity android:name=".ui.activity.TagImageListActivity" />
     </application>
 
 </manifest>

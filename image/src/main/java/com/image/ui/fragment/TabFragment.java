@@ -86,9 +86,6 @@ public class TabFragment extends BaseFragment {
                 case ApiConfig.Type.KK:
                     name = UIUtils.getStringArray(R.array.kk_array);
                     break;
-                case ApiConfig.Type.TAG:
-                    name = UIUtils.getStringArray(R.array.tag_array);
-                    break;
             }
 
         }
@@ -96,8 +93,6 @@ public class TabFragment extends BaseFragment {
         @Override
         public Fragment getItem(int position) {
             switch (type) {
-                case ApiConfig.Type.TAG:
-                    return TagFragment.newInstance(position);
                 default:
                     return ImageListFragment.newInstance(type, position);
             }

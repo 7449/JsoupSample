@@ -23,10 +23,6 @@
             android:icon="@mipmap/ic_launcher"
             android:title="@string/kk_title" />
         <item
-            android:id="@+id/tag"
-            android:icon="@mipmap/ic_launcher"
-            android:title="@string/tag_title" />
-        <item
             android:id="@+id/collection"
             android:icon="@mipmap/ic_launcher"
             android:title="@string/collection_title" />

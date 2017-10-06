@@ -18,15 +18,12 @@ public interface ApiConfig {
 
     String KK_URL = "http://m.7kk.com/";
 
-    String TAG_421 = "http://www.421mn.com/tag.htm";
-
     interface Type {
         String DOU_BAN_MEI_ZI = "豆瓣美女";
         String M_ZI_TU = "妹子图";
         String MM = "MM";
         String MEIZITU = "MeiZiTu";
         String KK = "7kk";
-        String TAG = "TAG";
     }
 
     interface SearchUrl {
