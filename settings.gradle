@@ -1,1 +1,0 @@
-include ':app', ':commonLibrary', ':movie', ':image', ':fiction', ':magnetic'
